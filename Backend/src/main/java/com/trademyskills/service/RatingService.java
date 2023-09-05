@@ -1,10 +1,6 @@
 package com.trademyskills.service;
 
-\package com.trademyskills.service;
-
-import com.trademyskills.model.Offer;
 import com.trademyskills.model.Rating;
-import com.trademyskills.service.repository.OfferRepository;
 import com.trademyskills.service.repository.RatingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -10,5 +10,5 @@ public enum TypeOfOffer {
     CLEANING,
     PETCARE,
     BABYSITTER,
-    OTHER
+    OTHER,
 }
