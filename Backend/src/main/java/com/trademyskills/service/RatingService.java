@@ -1,19 +1,17 @@
-package com.trademyskills.service;
+\package com.trademyskills.service;
 
 import com.trademyskills.model.Offer;
-import com.trademyskills.model.User;
 import com.trademyskills.service.repository.OfferRepository;
-import com.trademyskills.service.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class OfferService {
+public class RatingService {
 private OfferRepository offerRepository;
 @Autowired
-    public OfferService(OfferRepository offerRepository) {
+    public RatingService(OfferRepository offerRepository) {
         this.offerRepository = offerRepository;
     }
 
