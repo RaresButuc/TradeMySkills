@@ -1,7 +1,11 @@
+package com.trademyskills.service;
+
 \package com.trademyskills.service;
 
 import com.trademyskills.model.Offer;
+import com.trademyskills.model.Rating;
 import com.trademyskills.service.repository.OfferRepository;
+import com.trademyskills.service.repository.RatingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,33 +13,32 @@ import java.util.List;
 
 @Service
 public class RatingService {
-private OfferRepository offerRepository;
+private RatingRepository ratingRepository;
 @Autowired
-    public RatingService(OfferRepository offerRepository) {
-        this.offerRepository = offerRepository;
+    public RatingService(RatingRepository ratingRepository) {
+        this.ratingRepository = ratingRepository;
     }
 
-    public List<Offer> getAllOffers() {
-        return offerRepository.findAll();
+    public List<Rating> getAllRatings() {
+        return ratingRepository.findAll();
     }
 
-    public void addOffer(Offer offer) {
-        offerRepository.save(offer);
+    public void addRating(Rating rating) {
+        ratingRepository.save(rating);
     }
 
-    public Offer getOfferById(Long id) {
-        return offerRepository.getById(id);
+    public Rating getRatingById(Long id) {
+        return ratingRepository.getById(id);
     }
 
-    public void updateOfferById(Long id, Offer offerUpdater) {
-        Offer offerFromDb = offerRepository.getById(id);
-        offerFromDb.setName(offerUpdater.getName());
-        offerFromDb.setDescription(offerUpdater.getDescription());
-        offerFromDb.setPrice(offerUpdater.getPrice());
-        offerRepository.save(offerFromDb);
+    public void updateRatingById(Long id, Rating ratingUpdater) {
+        Rating ratingFromDb = ratingRepository.getById(id);
+        ratingFromDb.setComment(ratingUpdater.getComment());
+        ratingFromDb.setStar(ratingUpdater.getStar());
+        ratingRepository.save(ratingFromDb);
     }
 
-    public void deleteOfferById(Long id) {
-        offerRepository.deleteById(id);
+    public void deleteRatingById(Long id) {
+        ratingRepository.deleteById(id);
     }
 }
