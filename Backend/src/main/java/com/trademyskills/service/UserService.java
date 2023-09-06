@@ -24,14 +24,15 @@ private UserRepository userRepository;
     }
 
     public User getUserById(Long id) {
-        return userRepository.getById(id);
+        return userRepository.findById(id).orElse(null);
     }
 
     public void updateUserById(Long id, User updatedUser) {
-        User userFromDb = userRepository.getById(id);
-        userFromDb.setName(userFromDb.getName());
-        userFromDb.setEmail(userFromDb.getEmail());
-        userFromDb.setPhoneNumber(userFromDb.getPhoneNumber());
+        User userFromDb = userRepository.findById(id).orElse(null);
+        assert userFromDb != null;
+        userFromDb.setName(updatedUser.getName());
+        userFromDb.setEmail(updatedUser.getEmail());
+        userFromDb.setPhoneNumber(updatedUser.getPhoneNumber());
         userRepository.save(userFromDb);
     }
 

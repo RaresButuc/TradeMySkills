@@ -16,10 +16,12 @@ public class Rating {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonIgnore
     private Long id;
 
     private Double star;
 
     private String comment;
+
+    @ManyToOne
+    private User user;
 }
