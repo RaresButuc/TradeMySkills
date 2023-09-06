@@ -24,11 +24,12 @@ private UserRepository userRepository;
     }
 
     public User getUserById(Long id) {
-        return userRepository.findById(id).get();
+        return userRepository.findById(id).orElse(null);
     }
 
     public void updateUserById(Long id, User updatedUser) {
-        User userFromDb = userRepository.findById(id).get();
+        User userFromDb = userRepository.findById(id).orElse(null);
+        assert userFromDb != null;
         userFromDb.setName(updatedUser.getName());
         userFromDb.setEmail(updatedUser.getEmail());
         userFromDb.setPhoneNumber(updatedUser.getPhoneNumber());

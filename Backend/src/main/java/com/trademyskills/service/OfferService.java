@@ -1,5 +1,6 @@
 package com.trademyskills.service;
 
+import com.trademyskills.enums.StatusOfOffer;
 import com.trademyskills.model.Offer;
 import com.trademyskills.model.User;
 import com.trademyskills.service.repository.OfferRepository;
@@ -23,6 +24,7 @@ public class OfferService {
     }
 
     public void addOffer(Offer offer) {
+        offer.setStatusOfOffer(StatusOfOffer.ACTIVE);
         offerRepository.save(offer);
     }
 
@@ -33,6 +35,7 @@ public class OfferService {
     public void updateOfferById(Long id, Offer offerUpdater) {
         Offer offerFromDb = offerRepository.findById(id).get();
         offerFromDb.setName(offerUpdater.getName());
+        offerFromDb.setStatusOfOffer(offerUpdater.getStatusOfOffer());
         offerFromDb.setDescription(offerUpdater.getDescription());
         offerFromDb.setPrice(offerUpdater.getPrice());
         offerRepository.save(offerFromDb);

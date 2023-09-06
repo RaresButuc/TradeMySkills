@@ -18,7 +18,6 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonIgnore
     private Long id;
 
     private TypeOfUser typeOfUser;
@@ -29,12 +28,11 @@ public class User {
 
     private String phoneNumber;
 
-    @OneToMany
-    private List<Offer> activeOffers;
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    private List<Offer> offers;
 
-    @OneToMany
-    private List<Offer> formerOffers;
-
-    @OneToMany
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
     private List<Rating> ratings;
 }
