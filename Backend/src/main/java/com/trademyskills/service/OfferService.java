@@ -29,11 +29,12 @@ public class OfferService {
     }
 
     public Offer getOfferById(Long id) {
-        return offerRepository.findById(id).get();
+        return offerRepository.findById(id).orElse(null);
     }
 
     public void updateOfferById(Long id, Offer offerUpdater) {
-        Offer offerFromDb = offerRepository.findById(id).get();
+        Offer offerFromDb = offerRepository.findById(id).orElse(null);
+        assert offerFromDb != null;
         offerFromDb.setName(offerUpdater.getName());
         offerFromDb.setStatusOfOffer(offerUpdater.getStatusOfOffer());
         offerFromDb.setDescription(offerUpdater.getDescription());
