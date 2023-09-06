@@ -11,8 +11,9 @@ import java.util.List;
 
 @Service
 public class OfferService {
-private OfferRepository offerRepository;
-@Autowired
+    private OfferRepository offerRepository;
+
+    @Autowired
     public OfferService(OfferRepository offerRepository) {
         this.offerRepository = offerRepository;
     }
@@ -26,11 +27,11 @@ private OfferRepository offerRepository;
     }
 
     public Offer getOfferById(Long id) {
-        return offerRepository.getById(id);
+        return offerRepository.findById(id).get();
     }
 
     public void updateOfferById(Long id, Offer offerUpdater) {
-        Offer offerFromDb = offerRepository.getById(id);
+        Offer offerFromDb = offerRepository.findById(id).get();
         offerFromDb.setName(offerUpdater.getName());
         offerFromDb.setDescription(offerUpdater.getDescription());
         offerFromDb.setPrice(offerUpdater.getPrice());

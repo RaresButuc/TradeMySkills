@@ -24,11 +24,11 @@ private RatingRepository ratingRepository;
     }
 
     public Rating getRatingById(Long id) {
-        return ratingRepository.getById(id);
+        return ratingRepository.findById(id).get();
     }
 
     public void updateRatingById(Long id, Rating ratingUpdater) {
-        Rating ratingFromDb = ratingRepository.getById(id);
+        Rating ratingFromDb = ratingRepository.findById(id).get();
         ratingFromDb.setComment(ratingUpdater.getComment());
         ratingFromDb.setStar(ratingUpdater.getStar());
         ratingRepository.save(ratingFromDb);
