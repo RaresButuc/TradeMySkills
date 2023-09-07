@@ -1,6 +1,6 @@
 package com.trademyskills.enums;
 
-public enum StatusOfOffer {
+public enum StatusOfAd {
     ACTIVE,
     ACCEPTED,
     FINALISED

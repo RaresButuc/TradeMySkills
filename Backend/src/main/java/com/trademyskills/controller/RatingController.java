@@ -1,8 +1,6 @@
 package com.trademyskills.controller;
 
-import com.trademyskills.model.Offer;
 import com.trademyskills.model.Rating;
-import com.trademyskills.service.OfferService;
 import com.trademyskills.service.RatingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

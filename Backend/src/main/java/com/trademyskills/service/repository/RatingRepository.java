@@ -1,6 +1,5 @@
 package com.trademyskills.service.repository;
 
-import com.trademyskills.model.Offer;
 import com.trademyskills.model.Rating;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

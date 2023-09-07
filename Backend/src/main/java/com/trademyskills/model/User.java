@@ -30,7 +30,7 @@ public class User {
 
     @JsonIgnore
     @OneToMany(mappedBy = "user")
-    private List<Offer> offers;
+    private List<Ad> ads;
 
     @JsonIgnore
     @OneToMany(mappedBy = "user")

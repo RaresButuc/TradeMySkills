@@ -1,8 +1,7 @@
 package com.trademyskills.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.trademyskills.enums.StatusOfOffer;
-import com.trademyskills.enums.TypeOfOffer;
+import com.trademyskills.enums.StatusOfAd;
+import com.trademyskills.enums.TypeOfAd;
 import lombok.*;
 
 import javax.persistence.*;
@@ -13,19 +12,19 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "offers")
-public class Offer {
+@Table(name = "ads")
+public class Ad {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private StatusOfOffer statusOfOffer;
+    private StatusOfAd statusOfAd;
 
     private String name;
 
     private String description;
 
-    private TypeOfOffer typeOfOffer;
+    private TypeOfAd typeOfAd;
 
     private Double price;
 
