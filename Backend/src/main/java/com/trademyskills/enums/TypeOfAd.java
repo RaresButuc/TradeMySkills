@@ -1,6 +1,6 @@
 package com.trademyskills.enums;
 
-public enum TypeOfOffer {
+public enum TypeOfAd {
     CONSTRUCTIONS,
     CONFECTIONS,
     COOKING,
