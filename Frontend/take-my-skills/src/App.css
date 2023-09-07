@@ -74,6 +74,20 @@ body {
   justify-content: space-between; /* Add this line */
 }
 
+.no-background-button{
+  display: inline-block;
+  padding: 5px 10px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  background: none;
+  color: white;
+}
+
 .post-offer{
   display: inline-block;
   padding: 5px 10px;
@@ -143,6 +157,16 @@ body {
   text-decoration: none;
   color: rgb(254, 250, 250);
   font-weight: bold;
+}
+
+.post-a{
+  text-decoration: none;
+  color: rgb(254, 250, 250);
+  font-weight: bold;
+}
+
+.post-a:hover {
+  color: #127e80 !important; 
 }
 
 /* Add hover effect if needed */

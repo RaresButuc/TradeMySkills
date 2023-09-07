@@ -12,11 +12,11 @@ const NavBar = () => {
           </a>
         </div>
         <ul className="nav-links right-links">
-        <li><button  className="post-offer" > <a href="/post-offer">Post Offer</a> </button></li>
-         <li><a  href="/all-offer">See all Offer</a></li>
+        <li><button  className="post-offer" > <a className="post-a" href="/post-offer">Post Offer</a> </button></li>
+         <li><button className="no-background-button"><a  href="/all-offer">See all Offer</a></button> </li>
           <li><button className="join-us" ><a href="/join-us"> Join us</a></button></li>
-          <li><a href="/login">Login</a></li>
-          <li><a href="/contact">Contact</a></li>
+          <li><button className="no-background-button"><a href="/login">Login</a></button></li>
+          <li><button className="no-background-button"><a href="/contact">Contact</a></button></li>
         </ul>
       </div>
     </nav>
