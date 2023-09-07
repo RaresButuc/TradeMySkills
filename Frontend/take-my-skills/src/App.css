@@ -1,5 +1,12 @@
+
+
+body {
+  background-image: url("/src/photo/constructii_5_large.jpg") ;
+}
+
 .App {
   text-align: center;
+  background-color: #f8f8f8;
 }
 
 .App-logo {
@@ -68,15 +75,42 @@
 }
 
 .post-offer{
-
-  border-radius: 7px;
-  text-decoration: none;
+  display: inline-block;
+  padding: 5px 10px;
+  font-size: 16px;
   font-weight: bold;
-  padding: 2;
+  text-align: center;
+  text-decoration: none;
   border: none;
-  background-color: #ff9900;
-  color: #0099cc;
+  cursor: pointer;
+  border-radius: 5px;
+  background: #127e80;
+  color: white;
 }
+
+.post-offer:hover {
+  background: #fa6900;
+}
+
+.join-us{
+  display: inline-block;
+  padding: 5px 10px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  
+  background: #fa6900;
+  color: white;
+}
+
+.join-us:hover {
+  background: #127e80;
+}
+
 .logo {
   text-decoration: none;
   color: white;
@@ -113,6 +147,6 @@
 
 /* Add hover effect if needed */
 .nav-links a:hover {
-  color: #ff9900;
+  color: #fa6900;
 }
 
