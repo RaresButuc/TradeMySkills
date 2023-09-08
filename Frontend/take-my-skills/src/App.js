@@ -1,18 +1,30 @@
-import UserList from "./pages/UserList";
-import "bootstrap/dist/css/bootstrap.css";
-import "./App.css";
 import NavBar from "./components/NavBar";
-import ListGroup from "./components/ListGroup";
+import MainPage from "./pages/MainPage";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import "./App.css";
 
 function App() {
+  // return (
+  //   <>
+  //   <NavBar/>
+  //   <div className="App">
+  //   <Routes>
+  //         <Route path="/" element={<MainPage />} />
+  //         {/* <Route path="/watchlist" element={<Watchlist />} />
+  //         <Route path="/history" element={<History />} /> */}
+  //       </Routes>
+  //     </div>
+  //   </>
+  // );
   return (
     <div className="App">
       <NavBar />
-      <div className="content-container">
-        <div className="list-group-container">
-          <ListGroup />
-        </div>
-      </div>
+
+      <Router>
+        <Routes>
+          <Route path="/" element={<MainPage />} />
+        </Routes>
+      </Router>
     </div>
   );
 }
