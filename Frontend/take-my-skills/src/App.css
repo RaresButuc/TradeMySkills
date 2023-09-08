@@ -209,17 +209,15 @@
 }
 
 /* Main Page */
+
 video {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -55.5%);
-  min-width: 100%;
-  min-height: 100%;
-  width: auto;
-  height: auto;
-  /* z-index: -1; */
+  position: relative; /* Keep the position relative */
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+  z-index: 0;
 }
+
 
  .slogan {
   position:absolute;
@@ -240,9 +238,10 @@ video {
   padding: 30px 20px;
   font-size: 25px;
   border: none;
-  border-radius: 5px;
+  border-radius: 15px;
   cursor: pointer;
-  transform: translate(0%, 720%); /* Center it both horizontally and vertically */
+
+  transform: translate(0%, -450%); /* Center it both horizontally and vertically */
   transition: background-color 0.5s; /* Smooth hover effect */
 
   /* Remove duplicate border-radius property */
@@ -251,4 +250,45 @@ video {
 .post-offer:hover {
   background: rgba(18, 126, 128, 0.3); /* Dark green background with 70% opacity on hover */
   color: white; /* Text color on hover (you can adjust it if needed) */
+}
+
+.icon {
+  display: block;
+  margin: 0 auto;
+  width: 130px; /* Adjust the width as needed */
+  height: auto;
+  margin-bottom: 10px; /* Add some spacing between the icon and text */
+}
+
+.credits-container {
+  background-color: white;
+  margin-top: 20px; /* Add margin to push it below the video */
+}
+
+.credits {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.credits .credit-group {
+  flex-basis: calc(60% - 10px); /* 50% width with a small gap in between */
+  margin-bottom: 20px;
+}
+
+
+.countriesNumber,
+.workersNumber,
+.customersNumber {
+  font-weight: bold;
+  font-size: 65px;
+  margin-bottom: 5px;
+}
+
+.countriesString,
+.workersString,
+.customersString {
+  font-size: 28px;
+  margin-top: 0; /* Remove the default margin */
+
 }
