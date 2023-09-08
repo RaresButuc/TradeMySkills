@@ -60,13 +60,12 @@ body {
   z-index: 1000; /* Ensure the navbar is above other content */
 }
 
-.container {
+.content-container {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 80px;
+  flex-wrap: wrap;
 }
 .left-nav {
   display: flex;
@@ -172,5 +171,59 @@ body {
 /* Add hover effect if needed */
 .nav-links a:hover {
   color: #fa6900;
+}
+
+.list-group-container {
+  background-color: #fff; /* Adăugați o culoare de fundal pentru container */
+  padding: 10px; /* Spațiu între chenar și ListGroup */
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75); /* Adăugați o umbra pentru chenar */
+  border: 1px solid #ccc; /* Adăugați o bordură pentru chenar */
+  border-radius: 5px;
+}
+
+.list-group-container {
+  position: fixed;
+  top: 80px; /* Reglați poziția superioară pentru a se potrivi cu înălțimea NavBar */
+  left: 20px; /* Reglați distanța stânga pentru a desprinde ListGroup de marginea ecranului */
+  width: 250px; /* Reglați lățimea după nevoie */
+  height: calc(100% - 80px); /* Faceți containerul să aibă înălțimea totală minus înălțimea NavBar */
+  overflow-y: auto; /* Adăugați derulare dacă conținutul depășește înălțimea */
+  z-index: 999; /* Asigurați-vă că este deasupra conținutului */
+}
+.content-container {
+  display: flex;
+  justify-content: flex-start; /* Acesta va alinia ListGroup la stânga */
+  align-items: flex-start;
+  padding-top: 80px;
+  flex-wrap: wrap;
+}
+
+/* Stilizați elementele ListGroup */
+.list-group-item {
+  margin: 10px;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 5px;
+}
+
+.list-group-item:hover{
+  color: #fa6900;
+}
+.list-group-item:active{
+  background-color: blue;
+}
+
+/* Aplicați o poziție fixă pentru ListGroup */
+.list-group {
+  position: fixed;
+  top: 80px; /* Reglați poziția superioară pentru a se potrivi cu înălțimea NavBar */
+  left: 0;
+  width: 250px; /* Reglați lățimea după nevoie */
+  height: 100%; /* Faceți-l să aibă înălțimea totală a ferestrei */
+  background-color: #fff; /* Adăugați o culoare de fundal pentru ListGroup */
+  overflow-y: auto; /* Adăugați derulare dacă conținutul depășește înălțimea */
+  z-index: 999; /* Asigurați-vă că este deasupra conținutului */
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75); /* Adăugați o umbră pentru a evidenția chenarul */
+  border-right: 1px solid #ccc; /* Adăugați o linie verticală pentru a separa ListGroup de conținut */
 }
 
