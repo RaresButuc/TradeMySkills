@@ -214,6 +214,7 @@
 
 /* Main Page */
 
+/* Video,Slogan and Post Button */
 video {
   position: relative; /* Keep the position relative */
   width: 100%;
@@ -265,9 +266,11 @@ video {
   color: white; /* Text color on hover (you can adjust it if needed) */
 }
 
+/* Achievement Section */
+
 .achievementsSoFar {
   text-align: center; /* Center-align the text */
-  font-size: 70px; /* Adjust the font size as needed */
+  font-size: 65px; /* Adjust the font size as needed */
   font-weight: bold; /* Make the text bold */
   margin-bottom: 60px; /* Add margin at the bottom */
   font-family: "Trebuchet MS", sans-serif;
@@ -291,10 +294,6 @@ video {
   }
 }
 
-.credits-container {
-  background-color: white;
-}
-
 .achievements {
   display: flex;
   justify-content: space-between;
@@ -311,20 +310,24 @@ video {
   font-weight: bold;
   font-size: 65px;
   margin-bottom: 5px;
+  font-family: "Trebuchet MS", sans-serif;
 }
 
 .countriesString,
 .workersString,
 .customersString {
+  font-family: "Trebuchet MS", sans-serif;
   font-size: 28px;
 }
 
-.promoting {
+/* Partners and Media Section */
+
+.partnersMedia {
   background-color: #127e80;
   margin-top: 80px;
 }
 
-.promotedByTitle {
+.partnersMediaTitle {
   color: #ffffff;
   text-align: center; /* Center-align the text */
   font-size: 30px; /* Adjust the font size as needed */

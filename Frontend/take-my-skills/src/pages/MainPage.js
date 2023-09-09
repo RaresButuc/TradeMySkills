@@ -35,8 +35,8 @@ export default function MainPage() {
         </div>
       </div>
 
-      <div className="promoting">
-        <h1 className="promotedByTitle">Partners & Media:</h1>
+      <div className="partnersMedia">
+        <h1 className="partnersMediaTitle">Partners & Media:</h1>
       </div>
       
     </div>
