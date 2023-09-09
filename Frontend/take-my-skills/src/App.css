@@ -338,9 +338,14 @@ video {
 }
 
 .logo-partner {
-  width: 100px; /* Adjust the width as needed */
+  width: 110px; /* Adjust the width as needed */
   height: auto; /* Maintain aspect ratio */
   margin: 0 100px 30px; /* Adjust the margin between logos as needed */
   display: inline; /* Display logos inline */
+  transition: transform 0.2s ease; /* Add smooth transition on hover */
+}
+
+.logo-partner:hover {
+  transform: scale(1.1); /* Increase size on hover */
 }
 
