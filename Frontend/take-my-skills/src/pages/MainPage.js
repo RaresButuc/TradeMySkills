@@ -14,25 +14,31 @@ export default function MainPage() {
           POST Your Ads NOW FOR FREE
         </a>{" "}
       </button>
-      <div className="credits">
-        <div className="credit-group">
+      <h1 className="achievementsSoFar">Achievements So Far..</h1>
+      <div className="achievements">
+        <div className="achievement-group">
           <img src={countriesIcon} alt="Countries" className="icon" />
           <h1 className="countriesNumber">3</h1>
           <h1 className="countriesString">Countries</h1>
         </div>
 
-        <div className="credit-group">
-        <img src={professionalsIcon} alt="Professionals" className="icon" />
+        <div className="achievement-group">
+          <img src={professionalsIcon} alt="Professionals" className="icon" />
           <h1 className="workersNumber">+9,000</h1>
           <h1 className="workersString">Professionals and Businesses</h1>
         </div>
 
-        <div className="credit-group">
-        <img src={customersIcon} alt="Customers" className="icon" />
+        <div className="achievement-group">
+          <img src={customersIcon} alt="Customers" className="icon" />
           <h1 className="customersNumber">+80,000</h1>
           <h1 className="customersString">Satisfied Clients</h1>
         </div>
       </div>
+
+      <div className="promoting">
+        <h1 className="promotedByTitle">Partners & Media:</h1>
+      </div>
+      
     </div>
   );
 }
