@@ -1,5 +1,5 @@
 import React from "react";
-import logo_22 from '../photo/Logo_2-DDbiUA2vk-transformed.png';
+import logo_22 from '../photo/logosWebsite/Logo_22.png';
 // import logo_11 from '../photo/Logo_11.png';
 
 const NavBar = () => {
@@ -9,7 +9,7 @@ const NavBar = () => {
       <div className="container">
         <div className="left-nav">
           <a href="/" className="logo">
-            <img src={logo_22} alt="Your logo" className="logo-img"/>
+            <img src={logo_22} alt="ourLogo" className="logo-img"/>
           </a>
         </div>
         <ul className="nav-links right-links">

@@ -324,7 +324,7 @@ video {
 
 .partnersMedia {
   background-color: #127e80;
-  margin-top: 80px;
+  margin-top: 60px;
 }
 
 .partnersMediaTitle {
@@ -332,7 +332,6 @@ video {
   text-align: center; /* Center-align the text */
   font-size: 30px; /* Adjust the font size as needed */
   font-weight: bold; /* Make the text bold */
-  margin-top: 0px; /* Add margin to separate it from the icons */
-  margin-bottom: 60px; /* Add margin at the bottom */
   font-family: "Trebuchet MS", sans-serif;
+  padding-top: 60px;
 }
