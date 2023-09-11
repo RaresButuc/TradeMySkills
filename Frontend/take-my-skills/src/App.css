@@ -1,3 +1,6 @@
+:root{
+  --orange : #fa6900
+}
 .App {
   text-align: center;
   background-color: #f8f8f8;
@@ -108,7 +111,7 @@
   cursor: pointer;
   border-radius: 5px;
 
-  background: #fa6900;
+  background: var(--orange);
   color: white;
 }
 
@@ -192,7 +195,7 @@
 }
 
 .list-group-item:hover {
-  color: #fa6900;
+  color: var(--orange);
 }
 .list-group-item:active {
   background-color: blue;
@@ -241,7 +244,7 @@ video {
 }
 
 .post-offer {
-  background-color: #fa6900;
+  background-color: var(--orange);
   color: white;
   padding: 30px 20px;
   font-size: 25px;
