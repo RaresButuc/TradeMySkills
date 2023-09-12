@@ -21,7 +21,7 @@ const NavBar = () => {
     //   </div>
     // </nav>
 
-    <nav class="navbar navbar-expand-lg navbar-dark shadow-5-strong">
+    <nav class="navbar navbar-custom fixed-top navbar-expand-lg navbar-dark  shadow-5-strong">
   <div class="container-xl">
     <a class="navbar-brand" href="/">
     <img src={logo_11} alt="ourLogo" class="h-auto" style={{ maxWidth: 175}}/>
@@ -32,19 +32,19 @@ const NavBar = () => {
     <div class="collapse navbar-collapse " id="navbarSupportedContent">
       <ul class="navbar-nav ms-auto  mb-2 mb-lg-0">
         <li class="nav-item">
-            <a class="nav-link font-weight-bold active mx-2" aria-current="page" href="/all-offer">View All Ads</a>
+            <a class="nav-link font-weight-bold  mx-2" aria-current="page" href="/all-offer">View All Ads</a>
         </li>
 
         <li class="nav-item">
-            <a class="nav-link font-weight-bold active mx-2   " aria-current="page" href="/join-us">Join us</a>
+            <a class="nav-link font-weight-bold  mx-2   " aria-current="page" href="/join-us">Join us</a>
         </li>
 
         <li class="nav-item">
-            <a class="nav-link font-weight-bold active mx-2"  aria-current="page" href="/login">Login</a>
+            <a class="nav-link font-weight-bold  mx-2"  aria-current="page" href="/login">Login</a>
         </li>
 
         <li class="nav-item">
-            <a class="nav-link font-weight-bold active mx-2" aria-current="page" href="/contact">Contact</a>
+            <a class="nav-link font-weight-bold  mx-2" aria-current="page" href="/contact">Contact</a>
         </li>
       </ul>
 

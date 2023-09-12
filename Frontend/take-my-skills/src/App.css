@@ -1,9 +1,9 @@
-:root{
-  --orange : #fa6900
+.body{
+  font-family: Arial, sans-serif;
 }
+
 .App {
   text-align: center;
-  background-color: #f8f8f8;
 }
 
 .App-logo {
@@ -41,213 +41,20 @@
   }
 }
 
-/* App.css */
-.App {
-  text-align: center;
-  font-family: Arial, sans-serif;
-}
-
-.navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+.navbar-custom{
   background-color: rgba(
     255,
     255,
     255,
     0.25
-  ); /* Transparent black background */
-  padding: 10px 0;
-  z-index: 1000; /* Ensure the navbar is above other content */
-}
-
-/* .container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-} */
-
-.container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-.left-nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between; /* Add this line */
-}
-
-.no-background-button {
-  display: inline-block;
-  padding: 5px 10px;
-  font-size: 16px;
-  font-weight: bold;
-  text-align: center;
-  text-decoration: none;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-  background: none;
-  color: white;
-}
-
-.join-us {
-  display: inline-block;
-  padding: 5px 10px;
-  font-size: 16px;
-  font-weight: bold;
-  text-align: center;
-  text-decoration: none;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-
-  background: var(--orange);
-  color: white;
-}
-
-.join-us:hover {
-  background: #127e80;
-}
-
-.logo {
-  text-decoration: none;
-  color: white;
-  text-align: center;
-  /* margin-right: auto; Remove this line */
-}
-
-.logo-img {
-  max-width: 175px; /* Adjust the maximum width as needed */
-  height: auto; /* Maintain the aspect ratio */
-  text-align: center;
-}
-
-.nav-links {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-}
-
-.nav-links li {
-  margin-right: 20px;
-}
-
-.nav-links li:last-child {
-  margin-right: 0;
-}
-
-.nav-links a {
-  text-decoration: none;
-  color: rgb(254, 250, 250);
-  font-weight: bold;
-}
-
-.post-a {
-  text-decoration: none;
-  color: rgb(254, 250, 250);
-  font-weight: bold;
-}
-
-.list-group-container {
-  background-color: #fff; /* Adăugați o culoare de fundal pentru container */
-  padding: 10px; /* Spațiu între chenar și ListGroup */
-  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75); /* Adăugați o umbra pentru chenar */
-  border: 1px solid #ccc; /* Adăugați o bordură pentru chenar */
-  border-radius: 5px;
-}
-
-.list-group-container {
-  position: fixed;
-  top: 80px; /* Reglați poziția superioară pentru a se potrivi cu înălțimea NavBar */
-  left: 20px; /* Reglați distanța stânga pentru a desprinde ListGroup de marginea ecranului */
-  width: 250px; /* Reglați lățimea după nevoie */
-  height: calc(
-    100% - 80px
-  ); /* Faceți containerul să aibă înălțimea totală minus înălțimea NavBar */
-  overflow-y: auto; /* Adăugați derulare dacă conținutul depășește înălțimea */
-  z-index: 999; /* Asigurați-vă că este deasupra conținutului */
-}
-.content-container {
-  display: flex;
-  justify-content: flex-start; /* Acesta va alinia ListGroup la stânga */
-  align-items: flex-start;
-  padding-top: 80px;
-  flex-wrap: wrap;
-}
-
-/* Stilizați elementele ListGroup */
-.list-group-item {
-  margin: 10px;
-  padding: 10px;
-  background-color: #fff;
-  border-radius: 5px;
-}
-
-.list-group-item:hover {
-  color: var(--orange);
-}
-.list-group-item:active {
-  background-color: blue;
-}
-
-/* Aplicați o poziție fixă pentru ListGroup */
-.list-group {
-  position: fixed;
-  top: 80px; /* Reglați poziția superioară pentru a se potrivi cu înălțimea NavBar */
-  left: 0;
-  width: 250px; /* Reglați lățimea după nevoie */
-  height: 100%; /* Faceți-l să aibă înălțimea totală a ferestrei */
-  background-color: #fff; /* Adăugați o culoare de fundal pentru ListGroup */
-  overflow-y: auto; /* Adăugați derulare dacă conținutul depășește înălțimea */
-  z-index: 999; /* Asigurați-vă că este deasupra conținutului */
-  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75); /* Adăugați o umbră pentru a evidenția chenarul */
-  border-right: 1px solid #ccc; /* Adăugați o linie verticală pentru a separa ListGroup de conținut */
-}
-
-/* Main Page */
-
-/* Video,Slogan and Post Button */
-video {
-  position: relative; /* Keep the position relative */
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 0;
-}
-
-.slogan {
-  position: absolute;
-  top: 45%; /* Position it 50% from the top */
-  left: 50%; /* Position it 50% from the left */
-  transform: translate(
-    -50%,
-    -50%
-  ); /* Center it both horizontally and vertically */
-  z-index: 2; /* Place it above the video (z-index: 1) */
-  color: white; /* Set the text color */
-  font-size: 80px; /* Adjust the font size as needed */
-  text-align: center; /* Center-align the text */
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add a shadow for readability */
-  font-family: Arial, sans-serif; /* Set the font to Arial */
-  font-weight: bold; /* Make the text bold */
+  );
 }
 
 .post-offer {
-  background-color: var(--orange);
+  background-color: #fa6900;
   color: white;
-  padding: 30px 20px;
-  font-size: 25px;
+  padding: 20px 20px;
+  font-size: 20px;
   border: none;
   border-radius: 15px;
   cursor: pointer;
@@ -269,87 +76,4 @@ video {
   color: white; /* Text color on hover (you can adjust it if needed) */
 }
 
-/* Achievement Section */
-
-.achievementsSoFar {
-  text-align: center; /* Center-align the text */
-  font-size: 65px; /* Adjust the font size as needed */
-  font-weight: bold; /* Make the text bold */
-  margin-bottom: 60px; /* Add margin at the bottom */
-  font-family: "Trebuchet MS", sans-serif;
-}
-
-.icon {
-  display: block;
-  margin: auto;
-  width: 130px;
-  height: auto;
-  margin-bottom: 10px;
-  animation: pulse 2s infinite alternate; /* Apply the pulsating animation */
-}
-
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(1.2);
-  }
-}
-
-.achievements {
-  display: flex;
-  justify-content: space-between;
-}
-
-.achievements .achievement-group {
-  flex-basis: calc(60% - 10px); /* 50% width with a small gap in between */
-  margin-bottom: 5px;
-}
-
-.countriesNumber,
-.workersNumber,
-.customersNumber {
-  font-weight: bold;
-  font-size: 65px;
-  margin-bottom: 5px;
-  font-family: "Trebuchet MS", sans-serif;
-}
-
-.countriesString,
-.workersString,
-.customersString {
-  font-family: "Trebuchet MS", sans-serif;
-  font-size: 28px;
-}
-
-/* Partners and Media Section */
-
-.partnersMedia {
-  background-color: #127e80;
-  margin-top: 60px;
-  left:250px;
-}
-
-.partnersMediaTitle {
-  color: #ffffff;
-  text-align: center; /* Center-align the text */
-  font-size: 40px; /* Adjust the font size as needed */
-  font-weight: bold; /* Make the text bold */
-  font-family: "Trebuchet MS", sans-serif;
-  padding-top: 60px;
-  padding-bottom: 30px;
-}
-
-.logo-partner {
-  width: 110px; /* Adjust the width as needed */
-  height: auto; /* Maintain aspect ratio */
-  margin: 0 100px 30px; /* Adjust the margin between logos as needed */
-  display: inline; /* Display logos inline */
-  transition: transform 0.2s ease; /* Add smooth transition on hover */
-}
-
-.logo-partner:hover {
-  transform: scale(1.1); /* Increase size on hover */
-}
 
