@@ -36,7 +36,7 @@ const NavBar = () => {
         </li>
 
         <li class="nav-item">
-            <a class="nav-link font-weight-bold  mx-2   " aria-current="page" href="/join-us">Join us</a>
+            <a class="btn btn-primary font-weight-bold  mx-2   " aria-current="page" href="/join-us">Join us</a>
         </li>
 
         <li class="nav-item">
