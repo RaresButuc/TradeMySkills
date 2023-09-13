@@ -1,7 +1,18 @@
 import React, { useState } from "react";
-import icong_dom from "../photo/icons/icong-dom.jpg"
+
+import construction from "../photo/icons/Construction.png"
+import confections from "../photo/icons/Confections.png"
+import cooking from "../photo/icons/Cooking.png"
+import delivery from "../photo/icons/Transport.png"
+import events from "../photo/icons/Event.png"
+import education from "../photo/icons/Education.png"
+import cleaning from "../photo/icons/Cleaning.png"
+import petcare from "../photo/icons/PetCare.png"
+import babysitter from "../photo/icons/BabySitting.png"
+import other from "../photo/icons/Others.png"
 
 const ListGroup = () => {
+    let photo = [construction,confections,cooking,delivery,events,education,cleaning,petcare,babysitter,other]
     let items = ["Construction",
         "Confections",
         "Cooking",
@@ -32,14 +43,13 @@ const ListGroup = () => {
             {items.map((item,index) => (
                               <div class="col" >
                                 <a href={`/all-offer/${link[index]}`}>
-                              <img src={icong_dom} alt="Countries" className="w-50 rounded-circle scaleHover" />
+                              <img src={photo[index]} alt="item" className="w-50 rounded-circle scaleHover" />
                               </a>
                               <t >{item}</t>
                               </div>
                 ))}
             </div>
 
-<p>asd</p>
         </div>
 
 
