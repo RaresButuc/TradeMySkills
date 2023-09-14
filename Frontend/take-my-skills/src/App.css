@@ -62,10 +62,10 @@ body {
   background-color: #127e80 !important;
 }
 
-.scaleHover{
+.scaleHover {
   transition: transform 0.2s ease;
 }
 
-.scaleHover:hover{
+.scaleHover:hover {
   transform: scale(1.1);
 }
