@@ -1,9 +1,9 @@
-import ListGroup from "../components/ListGroup";
+import Category from "../components/Category";
 
 export default function AllOffer(){
     return(
         <div>
-            <ListGroup/>
+            <Category/>
         </div>
     )
 }

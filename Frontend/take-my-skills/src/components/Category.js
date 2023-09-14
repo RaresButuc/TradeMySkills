@@ -43,7 +43,7 @@ const ListGroup = () => {
             {items.map((item,index) => (
                               <div class="col" >
                                 <a href={`/all-offer/${link[index]}`}>
-                              <img src={photo[index]} alt="item" className="w-50 rounded-circle scaleHover" />
+                              <img src={photo[index]} alt="item" className="w-50 scaleHover rounded-circle scaleHover" />
                               </a>
                               <t >{item}</t>
                               </div>

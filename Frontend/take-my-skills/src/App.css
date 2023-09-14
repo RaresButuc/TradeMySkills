@@ -1,12 +1,10 @@
-body{
-  font-family: Arial, sans-serif;
-} 
+body {
+  font-family: "Trebuchet MS", sans-serif;
+}
 
 .App {
   text-align: center;
 }
-
-
 
 .App-header {
   background-color: #282c34;
@@ -23,18 +21,24 @@ body{
   color: #61dafb;
 }
 
-
-.navbar-custom{
+.navbar-custom {
   background-color: rgba(0, 0, 0, 0.25);
 }
 
-.btn-primary{
-  --bs-btn-bg: #fa6900; 
-  --bs-btn-hover-bg:  #127e80;
-  --bs-btn-hover-border-color:  #127e80;
-  --bs-btn-border-color:#fa6900;
+.btn-primary {
+  --bs-btn-bg: #fa6900;
+  --bs-btn-hover-bg: rgba(18, 126, 128, 0.4);
+  --bs-btn-hover-border-color: #127e80;
+  --bs-btn-border-color: #fa6900;
 }
 
+.card-title {
+  font-family: Arial, sans-serif;
+}
+
+.achievement-number {
+  font-size: 65px;
+}
 
 .pulse {
   display: block;
@@ -42,7 +46,7 @@ body{
   width: 130px;
   height: auto;
   margin-bottom: 10px;
-  animation: pulse 2s infinite alternate; /* Apply the pulsating animation */
+  animation: pulse 1s infinite alternate; /* Apply the pulsating animation */
 }
 
 @keyframes pulse {
@@ -54,9 +58,10 @@ body{
   }
 }
 
-.bg-primary{
-  background-color : #127e80 !important;
+.bg-primary {
+  background-color: #127e80 !important;
 }
+
 .scaleHover{
   transition: transform 0.2s ease;
 }
