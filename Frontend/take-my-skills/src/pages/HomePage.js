@@ -48,26 +48,17 @@ export default function HomePage() {
         <br/>
         <br/>
         <h1 className="mt-2 text-light fw-bold" >Partners & Media:</h1>
-        <img src={logoProTV} alt="Pro-TV" className="m-5"  style={{width : 120}}/>
-        <img src={logoLT} alt="L&T" className="m-5" style={{width : 120}} />
-        <img src={logoObservator} alt="Observator" className="m-5" style={{width : 120}} />
-        <img src={logoHolcim} alt="Holcim" className="m-5" style={{width : 120}} />
-        <img src={logoAdevarul} alt="Adevarul" className="m-5" style={{width : 120}} />
-        <img src={logoSG} alt="Saint-Gobain" className="m-5" style={{width : 120}} />
-        <img src={logoTVR} alt="TVR" className="m-5" style={{width : 120}} />
-        <img src={logoForbes} alt="Forbes" className="m-5" style={{width : 120}} />
-        <img src={logoVisa} alt="Visa" className="m-5" style={{width : 120}} />
-        <img src={logoDigi} alt="Digi-24" className="m-5" style={{width : 120}} />
+        <img src={logoProTV} alt="Pro-TV" className="m-5 scaleHover"  style={{width : 120}}/>
+        <img src={logoLT} alt="L&T" className="m-5 scaleHover" style={{width : 120}} />
+        <img src={logoObservator} alt="Observator" className="m-5 scaleHover" style={{width : 120}} />
+        <img src={logoHolcim} alt="Holcim" className="m-5 scaleHover" style={{width : 120}} />
+        <img src={logoAdevarul} alt="Adevarul" className="m-5 scaleHover" style={{width : 120}} />
+        <img src={logoSG} alt="Saint-Gobain" className="m-5 scaleHover" style={{width : 120}} />
+        <img src={logoTVR} alt="TVR" className="m-5 scaleHover" style={{width : 120}} />
+        <img src={logoForbes} alt="Forbes" className="m-5 scaleHover" style={{width : 120}} />
+        <img src={logoVisa} alt="Visa" className="m-5 scaleHover" style={{width : 120}} />
+        <img src={logoDigi} alt="Digi-24" className="m-5 scaleHover" style={{width : 120}} />
       </div>
 </>
-
-
-
-
-
-
-
-
-
   );
 }

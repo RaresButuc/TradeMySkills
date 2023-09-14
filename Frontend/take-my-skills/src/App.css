@@ -22,7 +22,7 @@ body {
 }
 
 .navbar-custom {
-  background-color: rgba(255, 255, 255, 0.25);
+  background-color: rgba(0, 0, 0, 0.25);
 }
 
 .btn-primary {
@@ -60,4 +60,12 @@ body {
 
 .bg-primary {
   background-color: #127e80 !important;
+}
+
+.scaleHover {
+  transition: transform 0.2s ease;
+}
+
+.scaleHover:hover {
+  transform: scale(1.1);
 }
