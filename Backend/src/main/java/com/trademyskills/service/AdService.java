@@ -30,6 +30,11 @@ public class AdService {
         return adRepository.findById(id).orElse(null);
     }
 
+//    public List<Ad> getAdByCategory(String category) {
+//        return adRepository.findAllBy(category).orElse(null);
+//    }
+
+
     public void updateAdById(Long id, Ad adUpdater) {
         Ad adFromDb = adRepository.findById(id).orElse(null);
         assert adFromDb != null;

@@ -1,7 +1,7 @@
 package com.trademyskills.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.trademyskills.enums.StatusOfAd;
-import com.trademyskills.enums.TypeOfAd;
 import lombok.*;
 
 import javax.persistence.*;
@@ -24,9 +24,12 @@ public class Ad {
 
     private String description;
 
+    @ManyToOne
+    @JoinColumn
     private TypeOfAd typeOfAd;
 
     private Double price;
+    private String location;
 
     @ManyToOne
     private User user;
