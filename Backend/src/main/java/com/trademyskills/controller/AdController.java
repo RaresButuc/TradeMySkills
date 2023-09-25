@@ -20,10 +20,6 @@ private AdService adService;
     public List<Ad> getAllAds(){
         return adService.getAllAds();
     }
-//    @GetMapping("/{category}")
-//    public Ad getAdByCategory(@PathVariable("category") String category){
-//        return adService.getAdById(id);
-//    }
 
     @PostMapping
     public void addAd(@RequestBody Ad ad){

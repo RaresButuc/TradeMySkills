@@ -29,6 +29,7 @@ public class TypeOfAdService {
         typeOfAdRepository.save(typeOfAd);
     }
 
+
     public void deleteTypeOfAdById(Long id) {
         typeOfAdRepository.deleteById(id);
     }

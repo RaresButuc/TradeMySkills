@@ -1,8 +1,6 @@
 package com.trademyskills.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.trademyskills.model.Ad;
 import lombok.*;
 
 import javax.persistence.*;
