@@ -20,7 +20,7 @@ export default function HomePage() {
 <div class=" text-bg-dark position-relative">
 <video className="card-img" src={videoBg} autoPlay loop muted />
   <div class="card-img-overlay m-auto position-absolute top-50 start-0">
-    <h1 class="card-title fw-bold mb-3">Every Service Is NOW More Accesible Than Ever</h1>
+    <h1 class="card-slogan fw-bold mb-3">Every Service Is NOW More Accesible Than Ever</h1>
       <a className="btn btn-primary fw-bold p-3">POST Your Ads NOW FOR FREE</a>
   </div>
 </div>
