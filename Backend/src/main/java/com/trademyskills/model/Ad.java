@@ -1,6 +1,5 @@
 package com.trademyskills.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.trademyskills.enums.StatusOfAd;
 import lombok.*;
 

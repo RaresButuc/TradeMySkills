@@ -1,15 +1,13 @@
-
-
 import { useState, useEffect } from "react";
-import axios from 'axios';
+import axios from "axios";
 
 export default function History() {
-    const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response =await axios.get("http://localhost:8080/users"); 
+        const response = await axios.get("http://localhost:8080/users");
         const data = response.data;
         setUsers(data);
       } catch (err) {
@@ -22,11 +20,12 @@ export default function History() {
   return (
     <>
       <h1>Users</h1>
-      {users&&users.map((user) => (
-        <div className="users">
-          <h1>{user.name}</h1>
+      {users &&
+        users.map((user) => (
+          <div className="users">
+            <h1>{user.name}</h1>
           </div>
-      ))}
+        ))}
     </>
   );
 }

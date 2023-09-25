@@ -22,7 +22,7 @@ public class TypeOfAd {
     private String nameOfCategory;
 
     @JsonIgnore
-    @OneToMany(mappedBy="typeOfAd")
+    @OneToMany(mappedBy = "typeOfAd")
     private List<Ad> listOfAds;
 //    CONSTRUCTIONS,
 //    CONFECTIONS,

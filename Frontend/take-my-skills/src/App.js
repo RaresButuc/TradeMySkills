@@ -11,7 +11,6 @@ import PostOffer from "./pages/PostOffer";
 import AdsPageOnCategory from "./pages/AdsPageOnCategory";
 
 function App() {
-
   return (
     <div className="App">
       <NavBar />

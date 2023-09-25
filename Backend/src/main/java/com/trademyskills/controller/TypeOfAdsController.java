@@ -4,7 +4,6 @@ import com.trademyskills.model.Ad;
 import com.trademyskills.model.TypeOfAd;
 import com.trademyskills.service.TypeOfAdService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,26 +12,29 @@ import java.util.List;
 @RequestMapping("/category")
 public class TypeOfAdsController {
     private final TypeOfAdService typeOfAdService;
+
     @Autowired
     public TypeOfAdsController(TypeOfAdService typeOfAdService) {
         this.typeOfAdService = typeOfAdService;
     }
 
     @GetMapping
-    public List<TypeOfAd> getAllTypesOfAds() {return  typeOfAdService.getAllTypesOfAds();}
+    public List<TypeOfAd> getAllTypesOfAds() {
+        return typeOfAdService.getAllTypesOfAds();
+    }
 
     @PostMapping
-    public void addCategory(@RequestBody TypeOfAd typeOfAd){
+    public void addCategory(@RequestBody TypeOfAd typeOfAd) {
         typeOfAdService.addCategory(typeOfAd);
     }
 
     @GetMapping("/{typeofcategory}")
-    public List<Ad> getTypeOfAdByName(@PathVariable("typeofcategory") String name){
+    public List<Ad> getTypeOfAdByName(@PathVariable("typeofcategory") String name) {
         return typeOfAdService.getAllAdsByCategory(name);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteTypeOfAdById(@PathVariable("id") Long id){
+    public void deleteTypeOfAdById(@PathVariable("id") Long id) {
         typeOfAdService.deleteTypeOfAdById(id);
     }
 }

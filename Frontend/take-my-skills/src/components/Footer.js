@@ -1,6 +1,4 @@
 import React from "react";
-import logo_22 from "../photo/logosWebsite/Logo_22.png";
-// import logo_11 from '../photo/Logo_11.png';
 
 export default function Footer() {
   return (

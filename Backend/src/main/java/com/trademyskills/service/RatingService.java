@@ -9,8 +9,9 @@ import java.util.List;
 
 @Service
 public class RatingService {
-private RatingRepository ratingRepository;
-@Autowired
+    private RatingRepository ratingRepository;
+
+    @Autowired
     public RatingService(RatingRepository ratingRepository) {
         this.ratingRepository = ratingRepository;
     }
@@ -28,7 +29,8 @@ private RatingRepository ratingRepository;
     }
 
     public void updateRatingById(Long id, Rating ratingUpdater) {
-        Rating ratingFromDb = ratingRepository.findById(id).orElse(null);;
+        Rating ratingFromDb = ratingRepository.findById(id).orElse(null);
+        ;
         assert ratingFromDb != null;
         ratingFromDb.setComment(ratingUpdater.getComment());
         ratingFromDb.setStar(ratingUpdater.getStar());
