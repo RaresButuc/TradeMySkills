@@ -49,5 +49,11 @@ public class AdService {
         adRepository.deleteById(id);
     }
 
+    public List<Ad> orderByNameAsc(){
+        return adRepository.findAllByOrderByPriceAsc();
+    }
 
+    public List<Ad> orderByNameDesc(){
+        return adRepository.findAllByOrderByPriceDesc();
+    }
 }

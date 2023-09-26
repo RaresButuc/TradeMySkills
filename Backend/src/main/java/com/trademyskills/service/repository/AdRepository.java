@@ -8,4 +8,7 @@ import java.util.List;
 
 @Repository
 public interface AdRepository extends JpaRepository<Ad, Long> {
+    List<Ad> findAllByOrderByPriceAsc();
+    List<Ad> findAllByOrderByPriceDesc();
+
 }
