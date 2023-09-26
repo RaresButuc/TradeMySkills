@@ -7,10 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class AdService {
-    private AdRepository adRepository;
+    private final AdRepository adRepository;
 
     @Autowired
     public AdService(AdRepository adRepository) {
@@ -30,10 +31,9 @@ public class AdService {
         return adRepository.findById(id).orElse(null);
     }
 
-//    public List<Ad> getAdByCategory(String category) {
-//        return adRepository.findAllBy(category).orElse(null);
-//    }
-
+    public List<Ad> findAdsByTypeOfAd(String name) {
+        return adRepository.findAll().stream().filter(e -> Objects.equals(e.getTypeOfAd().getNameOfCategory(), name)).toList();
+    }
 
     public void updateAdById(Long id, Ad adUpdater) {
         Ad adFromDb = adRepository.findById(id).orElse(null);
@@ -49,7 +49,5 @@ public class AdService {
         adRepository.deleteById(id);
     }
 
-    public List<Ad> findAllByTypeOfAd(String name){
-      return   adRepository.findAllByTypeOfAd(name);
-    }
+
 }

@@ -6,5 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TypeOfAdRepository extends JpaRepository<TypeOfAd, Long> {
-    TypeOfAd findAllByNameOfCategory(String name);
 }

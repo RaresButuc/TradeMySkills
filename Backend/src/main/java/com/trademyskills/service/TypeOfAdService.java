@@ -21,10 +21,6 @@ public class TypeOfAdService {
         return typeOfAdRepository.findAll();
     }
 
-    public List<Ad> getAllAdsByCategory(String nameOfCategory) {
-        return typeOfAdRepository.findAllByNameOfCategory(nameOfCategory).getListOfAds();
-    }
-
     public void addCategory(TypeOfAd typeOfAd) {
         typeOfAdRepository.save(typeOfAd);
     }

@@ -28,11 +28,6 @@ public class TypeOfAdsController {
         typeOfAdService.addCategory(typeOfAd);
     }
 
-    @GetMapping("/{typeofcategory}")
-    public List<Ad> getTypeOfAdByName(@PathVariable("typeofcategory") String name) {
-        return typeOfAdService.getAllAdsByCategory(name);
-    }
-
     @DeleteMapping("/{id}")
     public void deleteTypeOfAdById(@PathVariable("id") Long id) {
         typeOfAdService.deleteTypeOfAdById(id);

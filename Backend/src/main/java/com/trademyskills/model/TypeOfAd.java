@@ -24,14 +24,4 @@ public class TypeOfAd {
     @JsonIgnore
     @OneToMany(mappedBy = "typeOfAd")
     private List<Ad> listOfAds;
-//    CONSTRUCTIONS,
-//    CONFECTIONS,
-//    COOKING,
-//    DELIVERY,
-//    EVENTS,
-//    EDUCATION,
-//    CLEANING,
-//    PETCARE,
-//    BABYSITTER,
-//    OTHER,
 }

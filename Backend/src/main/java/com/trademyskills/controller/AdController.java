@@ -10,7 +10,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/ads")
 public class AdController {
-    private AdService adService;
+    private final AdService adService;
 
     @Autowired
     public AdController(AdService adService) {
@@ -22,9 +22,9 @@ public class AdController {
         return adService.getAllAds();
     }
 
-    @GetMapping("/{typeofcategory}")
+    @GetMapping("/category/{typeofcategory}")
     public List<Ad> getAllAdsByCategory(@PathVariable("typeofcategory") String name){
-      return   adService.findAllByTypeOfAd(name);
+      return adService.findAdsByTypeOfAd(name);
     }
 
     @PostMapping
