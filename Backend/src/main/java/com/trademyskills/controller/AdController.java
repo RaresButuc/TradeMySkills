@@ -27,6 +27,22 @@ public class AdController {
       return adService.findAdsByTypeOfAd(name);
     }
 
+    @GetMapping("category/{typeofcategory}/name-asc")
+    public List<Ad> getAllByCategoryOrderbyNameAsc(@PathVariable("typeofcategory")String name){
+        return adService.getAllByCategoryOrderAscByName(name);
+    }
+    @GetMapping("category/{typeofcategory}/name-desc")
+    public List<Ad> getAllByCategoryOrderbyNameDesc(@PathVariable("typeofcategory")String name){
+        return adService.getAllByCategoryOrderDescByName(name);
+    }
+    @GetMapping("category/{typeofcategory}/price-asc")
+    public List<Ad> getAllByCategoryOrderbyPriceAsc(@PathVariable("typeofcategory")String name){
+        return adService.getAllByCategoryOrderAscByPrice(name);
+    }
+    @GetMapping("category/{typeofcategory}/price-desc")
+    public List<Ad> getAllByCategoryOrderbyPriceDesc(@PathVariable("typeofcategory")String name){
+        return adService.getAllByCategoryOrderDescByPrice(name);
+    }
     @GetMapping("/order/name-asc")
     public List<Ad> orderByNameAsc(){
         return adService.orderByNameAsc();

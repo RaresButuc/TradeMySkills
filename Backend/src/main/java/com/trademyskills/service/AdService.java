@@ -32,7 +32,7 @@ public class AdService {
     }
 
     public List<Ad> findAdsByTypeOfAd(String name) {
-        return adRepository.findAll().stream().filter(e -> Objects.equals(e.getTypeOfAd().getNameOfCategory(), name)).toList();
+        return adRepository.findByTypeOfAdNameOfCategory(name);
     }
 
     public void updateAdById(Long id, Ad adUpdater) {
@@ -63,5 +63,18 @@ public class AdService {
 
     public List<Ad> orderByPriceDesc(){
         return adRepository.findAllByOrderByPriceDesc();
+    }
+
+    public List<Ad> getAllByCategoryOrderAscByName(String name){
+        return adRepository.findByTypeOfAdNameOfCategoryOrderByNameAsc(name);
+    }
+    public List<Ad> getAllByCategoryOrderDescByName(String name){
+        return adRepository.findByTypeOfAdNameOfCategoryOrderByNameDesc(name);
+    }
+    public List<Ad> getAllByCategoryOrderAscByPrice(String name){
+        return adRepository.findByTypeOfAdNameOfCategoryOrderByPriceAsc(name);
+    }
+    public List<Ad> getAllByCategoryOrderDescByPrice(String name){
+        return adRepository.findByTypeOfAdNameOfCategoryOrderByPriceDesc(name);
     }
 }
