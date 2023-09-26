@@ -50,10 +50,10 @@ public class AdService {
     }
 
     public List<Ad> orderByNameAsc(){
-        return adRepository.findAllByOrderByPriceAsc();
+        return adRepository.findAllByOrderByNameAsc();
     }
 
     public List<Ad> orderByNameDesc(){
-        return adRepository.findAllByOrderByPriceDesc();
+        return adRepository.findAllByOrderByNameDesc();
     }
 }
