@@ -26,22 +26,22 @@ export default function Filter() {
         </button>
         <ul className="dropdown-menu">
           <li>
-            <a className="dropdown-item" onClick= {()=>changeLink("/name-asc")} >
+            <a className="dropdown-item" onClick= {()=>changeLink("name-asc")} >
               Name ↑
             </a>
           </li>
           <li>
-            <a className="dropdown-item" onClick= {()=>changeLink("/name-desc")} >
+            <a className="dropdown-item" onClick= {()=>changeLink("name-desc")} >
               Name ↓
             </a>
           </li>
           <li>
-            <a className="dropdown-item"   onClick= {()=>changeLink("/price-asc")} >
+            <a className="dropdown-item"   onClick= {()=>changeLink("price-asc")} >
               Price ↑
             </a>
           </li>
           <li>
-            <a className="dropdown-item"  onClick= {()=>changeLink("/price-desc")}>
+            <a className="dropdown-item"  onClick= {()=>changeLink("price-desc")}>
               Price ↓
             </a>
           </li>

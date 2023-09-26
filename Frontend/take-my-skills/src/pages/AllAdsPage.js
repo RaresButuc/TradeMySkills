@@ -13,8 +13,13 @@ useEffect(() => {
   const fetchAds = async () => {
     try {
       const sortParam = new URLSearchParams(window.location.search).get("sort");
-      const response = await axios.get(`http://localhost:8080/ads/order/${sortParam}`);
+      console.log(`http://localhost:8080/ads?sort=${sortParam}`);
+   
+       const response = await axios.get(`http://localhost:8080/ads?sort=${sortParam}`)
+     
       const data = response.data;
+       console.log(data)
+
       setAds(data);
       setSortMethod(sortParam); // Set the sorting method
     } catch (err) {

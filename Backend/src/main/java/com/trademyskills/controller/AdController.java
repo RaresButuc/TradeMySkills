@@ -17,10 +17,10 @@ public class AdController {
         this.adService = adService;
     }
 
-    @GetMapping
-    public List<Ad> getAllAds() {
-        return adService.getAllAds();
-    }
+//    @GetMapping
+//    public List<Ad> getAllAds() {
+//        return adService.getAllAds();
+//    }
 
     @GetMapping("/category/{typeofcategory}")
     public List<Ad> getAllAdsByCategory(@PathVariable("typeofcategory") String name){
@@ -36,12 +36,12 @@ public class AdController {
 //        return adService.orderAllBy(typeOfSort);
 //    }
 
-    @GetMapping("/order")
+    @GetMapping
     public List<Ad> getAllOrdered(@RequestParam(name = "sort", required = false) String typeOfSort) {
-        if (typeOfSort != null) {
-            return adService.orderAllBy(typeOfSort);
-        } else {
+        if (typeOfSort.equals("null") ) {
             return adService.getAllAds(); // Provide a default behavior when no sort parameter is provided
+        } else {
+            return adService.orderAllBy(typeOfSort);
         }
     }
     @GetMapping("/search/{input}")
