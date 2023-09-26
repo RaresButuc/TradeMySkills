@@ -15,7 +15,7 @@ export default function AdsPageOnCategory(adsLink) {
     const fetchAds = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8080/category/" + params.category
+          "http://localhost:8080/ads/category/" + params.category
         );
         const data = response.data;
         setAds(data);

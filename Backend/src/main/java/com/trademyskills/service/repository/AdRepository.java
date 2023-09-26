@@ -20,4 +20,6 @@ public interface AdRepository extends JpaRepository<Ad, Long> {
     List<Ad> findByTypeOfAdNameOfCategoryOrderByNameDesc(String name);
     List<Ad> findByTypeOfAdNameOfCategoryOrderByPriceAsc(String name);
     List<Ad> findByTypeOfAdNameOfCategoryOrderByPriceDesc(String name);
+
+    List<Ad> findAllByNameContaining(String input);
 }

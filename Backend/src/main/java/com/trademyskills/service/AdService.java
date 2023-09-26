@@ -68,34 +68,7 @@ public class AdService {
             }
         }
     }
-//    public List<Ad> orderByNameAsc(){
-//        return adRepository.findAllByOrderByNameAsc();
-//    }
-//
-//    public List<Ad> orderByNameDesc(){
-//        return adRepository.findAllByOrderByNameDesc();
-//    }
-//
-//    public List<Ad> orderByPriceAsc(){
-//        return adRepository.findAllByOrderByPriceAsc();
-//    }
-//
-//    public List<Ad> orderByPriceDesc(){
-//        return adRepository.findAllByOrderByPriceDesc();
-//    }
 
-//    public List<Ad> getAllByCategoryOrderAscByName(String name){
-//        return adRepository.findByTypeOfAdNameOfCategoryOrderByNameAsc(name);
-//    }
-//    public List<Ad> getAllByCategoryOrderDescByName(String name){
-//        return adRepository.findByTypeOfAdNameOfCategoryOrderByNameDesc(name);
-//    }
-//    public List<Ad> getAllByCategoryOrderAscByPrice(String name){
-//        return adRepository.findByTypeOfAdNameOfCategoryOrderByPriceAsc(name);
-//    }
-//    public List<Ad> getAllByCategoryOrderDescByPrice(String name){
-//        return adRepository.findByTypeOfAdNameOfCategoryOrderByPriceDesc(name);
-//    }
     public List<Ad> getAllByCategoryOrdered(String name, String typeOfSort){
         switch (typeOfSort) {
             case "name-asc" -> {
@@ -115,5 +88,8 @@ public class AdService {
             }
         }
 
+    }
+    public List<Ad> search (String input){
+        return adRepository.findAllByNameContaining(input);
     }
 }

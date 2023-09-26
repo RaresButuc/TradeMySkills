@@ -1,4 +1,18 @@
+import React, { useState } from "react";
+
 export default function Filter() {
+  const [change, setLink] = useState([]);
+
+  const changeLink = (link) => {
+    const currentUrl = new URL(window.location.href);
+
+    // Update the sorting parameter
+    currentUrl.searchParams.set("sort", link);
+
+    // Set the updated URL
+    window.location.href = currentUrl.toString();
+  };
+
   return (
     <div className="container-xl">
       <div className="input-group mb-3 mt-4">
@@ -12,22 +26,22 @@ export default function Filter() {
         </button>
         <ul className="dropdown-menu">
           <li>
-            <a className="dropdown-item" href="#">
+            <a className="dropdown-item" onClick= {()=>changeLink("/name-asc")} >
               Name ↑
             </a>
           </li>
           <li>
-            <a className="dropdown-item" href="#">
+            <a className="dropdown-item" onClick= {()=>changeLink("/name-desc")} >
               Name ↓
             </a>
           </li>
           <li>
-            <a className="dropdown-item" href="#">
+            <a className="dropdown-item"   onClick= {()=>changeLink("/price-asc")} >
               Price ↑
             </a>
           </li>
           <li>
-            <a className="dropdown-item" href="#">
+            <a className="dropdown-item"  onClick= {()=>changeLink("/price-desc")}>
               Price ↓
             </a>
           </li>
