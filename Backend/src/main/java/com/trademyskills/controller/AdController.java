@@ -26,38 +26,47 @@ public class AdController {
     public List<Ad> getAllAdsByCategory(@PathVariable("typeofcategory") String name){
       return adService.findAdsByTypeOfAd(name);
     }
+    @GetMapping("category/{typeofcategory}/{typeofsort}")
+    public List<Ad> getAllByCategoryOrdered(@PathVariable("typeofcategory")String name,@PathVariable("typeofsort")String typeOfSort){
+        return adService.getAllByCategoryOrdered(name,typeOfSort);
+    }
+//    @GetMapping("category/{typeofcategory}/name-asc")
+//    public List<Ad> getAllByCategoryOrderbyNameAsc(@PathVariable("typeofcategory")String name){
+//        return adService.getAllByCategoryOrderAscByName(name);
+//
+//    }
+//    @GetMapping("category/{typeofcategory}/name-desc")
+//    public List<Ad> getAllByCategoryOrderbyNameDesc(@PathVariable("typeofcategory")String name){
+//        return adService.getAllByCategoryOrderDescByName(name);
+//    }
+//    @GetMapping("category/{typeofcategory}/price-asc")
+//    public List<Ad> getAllByCategoryOrderbyPriceAsc(@PathVariable("typeofcategory")String name){
+//        return adService.getAllByCategoryOrderAscByPrice(name);
+//    }
+//    @GetMapping("category/{typeofcategory}/price-desc")
+//    public List<Ad> getAllByCategoryOrderbyPriceDesc(@PathVariable("typeofcategory")String name){
+//        return adService.getAllByCategoryOrderDescByPrice(name);
+//    }
+//    @GetMapping("/order/name-asc")
+//    public List<Ad> orderByNameAsc(){
+//        return adService.orderByNameAsc();
+//    }
+//    @GetMapping("/order/name-desc")
+//    public List<Ad> orderByNameDesc(){
+//        return adService.orderByNameDesc();
+//    }
+//    @GetMapping("/order/price-asc")
+//    public List<Ad> orderByPriceAsc(){
+//        return adService.orderByPriceAsc();
+//    }
+//    @GetMapping("/order/price-desc")
+//    public List<Ad> orderByPriceDesc(){
+//        return adService.orderByPriceDesc();
+//    }
 
-    @GetMapping("category/{typeofcategory}/name-asc")
-    public List<Ad> getAllByCategoryOrderbyNameAsc(@PathVariable("typeofcategory")String name){
-        return adService.getAllByCategoryOrderAscByName(name);
-    }
-    @GetMapping("category/{typeofcategory}/name-desc")
-    public List<Ad> getAllByCategoryOrderbyNameDesc(@PathVariable("typeofcategory")String name){
-        return adService.getAllByCategoryOrderDescByName(name);
-    }
-    @GetMapping("category/{typeofcategory}/price-asc")
-    public List<Ad> getAllByCategoryOrderbyPriceAsc(@PathVariable("typeofcategory")String name){
-        return adService.getAllByCategoryOrderAscByPrice(name);
-    }
-    @GetMapping("category/{typeofcategory}/price-desc")
-    public List<Ad> getAllByCategoryOrderbyPriceDesc(@PathVariable("typeofcategory")String name){
-        return adService.getAllByCategoryOrderDescByPrice(name);
-    }
-    @GetMapping("/order/name-asc")
-    public List<Ad> orderByNameAsc(){
-        return adService.orderByNameAsc();
-    }
-    @GetMapping("/order/name-desc")
-    public List<Ad> orderByNameDesc(){
-        return adService.orderByNameDesc();
-    }
-    @GetMapping("/order/price-asc")
-    public List<Ad> orderByPriceAsc(){
-        return adService.orderByPriceAsc();
-    }
-    @GetMapping("/order/price-desc")
-    public List<Ad> orderByPriceDesc(){
-        return adService.orderByPriceDesc();
+    @GetMapping("/order/{typeofsort}")
+    public List<Ad> getAllOrdered(@PathVariable("typeofsort")String typeOfSort){
+        return adService.orderAllBy(typeOfSort);
     }
     @PostMapping
     public void addAd(@RequestBody Ad ad) {

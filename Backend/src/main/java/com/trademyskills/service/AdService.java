@@ -49,32 +49,71 @@ public class AdService {
         adRepository.deleteById(id);
     }
 
-    public List<Ad> orderByNameAsc(){
-        return adRepository.findAllByOrderByNameAsc();
+    public List<Ad> orderAllBy(String typeOfSort){
+        switch (typeOfSort) {
+            case "name-asc" -> {
+                return adRepository.findAllByOrderByNameAsc();
+            }
+            case "name-desc" -> {
+                return adRepository.findAllByOrderByNameDesc();
+            }
+            case "price-asc" -> {
+                return adRepository.findAllByOrderByPriceAsc();
+            }
+            case "price-desc" -> {
+                return adRepository.findAllByOrderByPriceDesc();
+            }
+            default -> {
+                return null;
+            }
+        }
     }
+//    public List<Ad> orderByNameAsc(){
+//        return adRepository.findAllByOrderByNameAsc();
+//    }
+//
+//    public List<Ad> orderByNameDesc(){
+//        return adRepository.findAllByOrderByNameDesc();
+//    }
+//
+//    public List<Ad> orderByPriceAsc(){
+//        return adRepository.findAllByOrderByPriceAsc();
+//    }
+//
+//    public List<Ad> orderByPriceDesc(){
+//        return adRepository.findAllByOrderByPriceDesc();
+//    }
 
-    public List<Ad> orderByNameDesc(){
-        return adRepository.findAllByOrderByNameDesc();
-    }
+//    public List<Ad> getAllByCategoryOrderAscByName(String name){
+//        return adRepository.findByTypeOfAdNameOfCategoryOrderByNameAsc(name);
+//    }
+//    public List<Ad> getAllByCategoryOrderDescByName(String name){
+//        return adRepository.findByTypeOfAdNameOfCategoryOrderByNameDesc(name);
+//    }
+//    public List<Ad> getAllByCategoryOrderAscByPrice(String name){
+//        return adRepository.findByTypeOfAdNameOfCategoryOrderByPriceAsc(name);
+//    }
+//    public List<Ad> getAllByCategoryOrderDescByPrice(String name){
+//        return adRepository.findByTypeOfAdNameOfCategoryOrderByPriceDesc(name);
+//    }
+    public List<Ad> getAllByCategoryOrdered(String name, String typeOfSort){
+        switch (typeOfSort) {
+            case "name-asc" -> {
+                return adRepository.findByTypeOfAdNameOfCategoryOrderByNameAsc(name);
+            }
+            case "name-desc" -> {
+                return adRepository.findByTypeOfAdNameOfCategoryOrderByNameDesc(name);
+            }
+            case "price-asc" -> {
+                return adRepository.findByTypeOfAdNameOfCategoryOrderByPriceAsc(name);
+            }
+            case "price-desc" -> {
+                return adRepository.findByTypeOfAdNameOfCategoryOrderByPriceDesc(name);
+            }
+            default -> {
+                return null;
+            }
+        }
 
-    public List<Ad> orderByPriceAsc(){
-        return adRepository.findAllByOrderByPriceAsc();
-    }
-
-    public List<Ad> orderByPriceDesc(){
-        return adRepository.findAllByOrderByPriceDesc();
-    }
-
-    public List<Ad> getAllByCategoryOrderAscByName(String name){
-        return adRepository.findByTypeOfAdNameOfCategoryOrderByNameAsc(name);
-    }
-    public List<Ad> getAllByCategoryOrderDescByName(String name){
-        return adRepository.findByTypeOfAdNameOfCategoryOrderByNameDesc(name);
-    }
-    public List<Ad> getAllByCategoryOrderAscByPrice(String name){
-        return adRepository.findByTypeOfAdNameOfCategoryOrderByPriceAsc(name);
-    }
-    public List<Ad> getAllByCategoryOrderDescByPrice(String name){
-        return adRepository.findByTypeOfAdNameOfCategoryOrderByPriceDesc(name);
     }
 }
