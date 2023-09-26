@@ -27,13 +27,21 @@ public class AdController {
       return adService.findAdsByTypeOfAd(name);
     }
 
-    @GetMapping("/order/asc")
+    @GetMapping("/order/name-asc")
     public List<Ad> orderByNameAsc(){
         return adService.orderByNameAsc();
     }
-    @GetMapping("/order/desc")
+    @GetMapping("/order/name-desc")
     public List<Ad> orderByNameDesc(){
         return adService.orderByNameDesc();
+    }
+    @GetMapping("/order/price-asc")
+    public List<Ad> orderByPriceAsc(){
+        return adService.orderByPriceAsc();
+    }
+    @GetMapping("/order/price-desc")
+    public List<Ad> orderByPriceDesc(){
+        return adService.orderByPriceDesc();
     }
     @PostMapping
     public void addAd(@RequestBody Ad ad) {

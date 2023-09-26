@@ -56,4 +56,12 @@ public class AdService {
     public List<Ad> orderByNameDesc(){
         return adRepository.findAllByOrderByNameDesc();
     }
+
+    public List<Ad> orderByPriceAsc(){
+        return adRepository.findAllByOrderByPriceAsc();
+    }
+
+    public List<Ad> orderByPriceDesc(){
+        return adRepository.findAllByOrderByPriceDesc();
+    }
 }

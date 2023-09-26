@@ -11,4 +11,6 @@ public interface AdRepository extends JpaRepository<Ad, Long> {
     List<Ad> findAllByOrderByNameAsc();
     List<Ad> findAllByOrderByNameDesc();
 
+    List<Ad> findAllByOrderByPriceAsc();
+    List<Ad> findAllByOrderByPriceDesc();
 }
