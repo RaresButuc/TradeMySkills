@@ -22,6 +22,11 @@ public class AdController {
         return adService.getAllAds();
     }
 
+    @GetMapping("/{typeofcategory}")
+    public List<Ad> getAllAdsByCategory(@PathVariable("typeofcategory") String name){
+      return   adService.findAllByTypeOfAd(name);
+    }
+
     @PostMapping
     public void addAd(@RequestBody Ad ad) {
         adService.addAd(ad);

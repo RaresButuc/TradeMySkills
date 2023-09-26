@@ -48,4 +48,8 @@ public class AdService {
     public void deleteAdById(Long id) {
         adRepository.deleteById(id);
     }
+
+    public List<Ad> findAllByTypeOfAd(String name){
+      return   adRepository.findAllByTypeOfAd(name);
+    }
 }
