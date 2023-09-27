@@ -14,8 +14,9 @@ export default function AdsPageOnCategory(adsLink) {
   useEffect(() => {
     const fetchAds = async () => {
       try {
+        const sortParam = new URLSearchParams(window.location.search).get("sort");
         const response = await axios.get(
-          "http://localhost:8080/ads/category/" + params.category
+          `http://localhost:8080/ads/category/${params.category}?sort=${sortParam}`
         );
         const data = response.data;
         setAds(data);

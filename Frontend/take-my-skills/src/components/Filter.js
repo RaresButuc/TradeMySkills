@@ -26,22 +26,31 @@ export default function Filter() {
         </button>
         <ul className="dropdown-menu">
           <li>
-            <a className="dropdown-item" onClick= {()=>changeLink("name-asc")} >
+            <a className="dropdown-item" onClick={() => changeLink("name-asc")}>
               Name ↑
             </a>
           </li>
           <li>
-            <a className="dropdown-item" onClick= {()=>changeLink("name-desc")} >
+            <a
+              className="dropdown-item"
+              onClick={() => changeLink("name-desc")}
+            >
               Name ↓
             </a>
           </li>
           <li>
-            <a className="dropdown-item"   onClick= {()=>changeLink("price-asc")} >
+            <a
+              className="dropdown-item"
+              onClick={() => changeLink("price-asc")}
+            >
               Price ↑
             </a>
           </li>
           <li>
-            <a className="dropdown-item"  onClick= {()=>changeLink("price-desc")}>
+            <a
+              className="dropdown-item"
+              onClick={() => changeLink("price-desc")}
+            >
               Price ↓
             </a>
           </li>
@@ -52,7 +61,19 @@ export default function Filter() {
           aria-label="Text input with dropdown button"
           placeholder="What are you looking for?"
         />
+        {/* Nou */}
+        <button type="button" class="btn btn-primary font-weight-bold  mx-2">
+          Search
+        </button>
       </div>
-    </div>
+      {/* Nou */}
+      
+    {/* <div class="input-group container-fluid w-50">
+        <span class="input-group-text">Min. Price</span>
+        <input type="text" aria-label="First name" class="form-control" />
+        <span class="input-group-text">Max. Price</span>
+        <input type="text" aria-label="Last name" class="form-control" />
+      </div> */}
+      </div>
   );
 }
