@@ -1,19 +1,9 @@
 import React, { useState } from "react";
-
+import changeLink from "../shared/utils";
 export default function Filter() {
   const [change, setLink] = useState([]);
   const [inputValue, setInputValue] = useState("");
   console.log(inputValue)
-
-  const changeLink = (suffLink,link) => {
-    const currentUrl = new URL(window.location.href);
-
-    // Update the sorting parameter
-    currentUrl.searchParams.set(suffLink, link);
-
-    // Set the updated URL
-    window.location.href = currentUrl.toString();
-  };
 
   return (
     <div className="container-xl">
@@ -62,7 +52,7 @@ export default function Filter() {
           className="form-control"
           aria-label="Text input with dropdown button"
           placeholder="What are you looking for?"
-          onChange={e => setInputValue(e.target.value)}
+          onChange={e => setInputValue(e.target.value.toLocaleLowerCase())}
         />
         {/* Nou */}
         <button

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
+import changeLink from "../shared/utils";
 
 import construction from "../photo/icons/Construction.png";
 import confections from "../photo/icons/Confections.png";
@@ -28,15 +29,7 @@ const ListGroup = () => {
     other,
   ];
 
-  const changeLink = (suffLink,link) => {
-    const currentUrl = new URL(window.location.href);
 
-    // Update the sorting parameter
-    currentUrl.searchParams.set(suffLink, link);
-
-    // Set the updated URL
-    window.location.href = currentUrl.toString();
-  };
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
