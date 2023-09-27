@@ -17,37 +17,40 @@ public class AdController {
         this.adService = adService;
     }
 
-//    @GetMapping
-//    public List<Ad> getAllAds() {
-//        return adService.getAllAds();
-//    }
-
-    @GetMapping("/category/{typeofcategory}")
-    public List<Ad> getAllAdsByCategory(@PathVariable("typeofcategory") String name){
-      return adService.findAdsByTypeOfAd(name);
+    @GetMapping("category/{typeofcategory}")
+    public List<Ad> getAllByCategoryOrdered(@RequestParam(name = "sort", required = false) String typeOfSort, @PathVariable("typeofcategory") String name) {
+        if (typeOfSort.equals("null")) {
+            return adService.findAdsByTypeOfAd(name); // Provide a default behavior when no sort parameter is provided
+        } else {
+            return adService.getAllByCategoryOrdered(name, typeOfSort);
+        }
     }
-    @GetMapping("category/{typeofcategory}/{typeofsort}")
-    public List<Ad> getAllByCategoryOrdered(@PathVariable("typeofcategory")String name,@PathVariable("typeofsort")String typeOfSort){
-        return adService.getAllByCategoryOrdered(name,typeOfSort);
-    }
-
-//    @GetMapping("/order/{typeofsort}")
-//    public List<Ad> getAllOrdered(@PathVariable("typeofsort")String typeOfSort){
-//        return adService.orderAllBy(typeOfSort);
-//    }
 
     @GetMapping
     public List<Ad> getAllOrdered(@RequestParam(name = "sort", required = false) String typeOfSort) {
-        if (typeOfSort.equals("null") ) {
+        if (typeOfSort.equals("null")) {
             return adService.getAllAds(); // Provide a default behavior when no sort parameter is provided
         } else {
             return adService.orderAllBy(typeOfSort);
         }
     }
-    @GetMapping("/search/{input}")
-    public List<Ad> search(@PathVariable("input") String input){
+
+    @GetMapping("/search")
+    public List<Ad> searchByName(@RequestParam(name = "input", required = false) String input) {
+        if(input.equals("null")) {
+            return adService.getAllAds();
+        }
         return adService.search(input);
     }
+
+    @GetMapping("/search/{typeOfCategory}")
+    public List<Ad> searchByNameAndCategory(@RequestParam(name = "input", required = false) String input, @PathVariable("typeOfCategory") String category) {
+        if(input.equals("null")) {
+            return adService.findAdsByTypeOfAd(category);
+        }
+        return adService.searchByNameAndCategory(category,input);
+    }
+
     @PostMapping
     public void addAd(@RequestBody Ad ad) {
         adService.addAd(ad);

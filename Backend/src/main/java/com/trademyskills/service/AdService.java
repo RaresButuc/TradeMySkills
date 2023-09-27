@@ -49,7 +49,7 @@ public class AdService {
         adRepository.deleteById(id);
     }
 
-    public List<Ad> orderAllBy(String typeOfSort){
+    public List<Ad> orderAllBy(String typeOfSort) {
         switch (typeOfSort) {
             case "name-asc" -> {
                 return adRepository.findAllByOrderByNameAsc();
@@ -69,7 +69,7 @@ public class AdService {
         }
     }
 
-    public List<Ad> getAllByCategoryOrdered(String name, String typeOfSort){
+    public List<Ad> getAllByCategoryOrdered(String name, String typeOfSort) {
         switch (typeOfSort) {
             case "name-asc" -> {
                 return adRepository.findByTypeOfAdNameOfCategoryOrderByNameAsc(name);
@@ -89,7 +89,12 @@ public class AdService {
         }
 
     }
-    public List<Ad> search (String input){
-        return adRepository.findAllByNameContaining(input);
+
+    public List<Ad> search(String input) {
+        return adRepository.findAllByNameContainingIgnoreCase(input);
+    }
+
+    public List<Ad> searchByNameAndCategory(String category, String input) {
+        return adRepository.findAllByTypeOfAdNameOfCategoryAndNameContainingIgnoreCase(category, input);
     }
 }
