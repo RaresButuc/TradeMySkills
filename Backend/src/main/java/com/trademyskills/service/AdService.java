@@ -87,7 +87,46 @@ public class AdService {
                 return null;
             }
         }
+    }
 
+    public List<Ad> getAllByInputOrdered(String input, String typeOfSort) {
+        switch (typeOfSort) {
+            case "name-asc" -> {
+                return adRepository.findAllByNameContainingIgnoreCaseOrderByNameAsc(input);
+            }
+            case "name-desc" -> {
+                return adRepository.findAllByNameContainingIgnoreCaseOrderByNameDesc(input);
+            }
+            case "price-asc" -> {
+                return adRepository.findAllByNameContainingIgnoreCaseOrderByPriceAsc(input);
+            }
+            case "price-desc" -> {
+                return adRepository.findAllByNameContainingIgnoreCaseOrderByPriceDesc(input);
+            }
+            default -> {
+                return null;
+            }
+        }
+    }
+
+    public List<Ad> getAllByInputAndCategoryOrdered(String input, String category, String typeOfSort) {
+        switch (typeOfSort) {
+            case "name-asc" -> {
+                return adRepository.findAllByTypeOfAdNameOfCategoryAndNameContainingIgnoreCaseOrderByNameAsc(category, input);
+            }
+            case "name-desc" -> {
+                return adRepository.findAllByTypeOfAdNameOfCategoryAndNameContainingIgnoreCaseOrderByNameDesc(category, input);
+            }
+            case "price-asc" -> {
+                return adRepository.findAllByTypeOfAdNameOfCategoryAndNameContainingIgnoreCaseOrderByPriceAsc(category, input);
+            }
+            case "price-desc" -> {
+                return adRepository.findAllByTypeOfAdNameOfCategoryAndNameContainingIgnoreCaseOrderByPriceDesc(category, input);
+            }
+            default -> {
+                return null;
+            }
+        }
     }
 
     public List<Ad> search(String input) {
