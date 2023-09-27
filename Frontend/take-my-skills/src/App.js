@@ -20,7 +20,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/all-ads" element={<AdsPage />} />
-          <Route path="/all-ads/:category" element={<AdsPageOnCategory />} />
+          {/* <Route path="/all-ads/:category" element={<AdsPageOnCategory />} /> */}
           <Route path="/join-us" element={<JoinUs />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/post-offer" element={<PostOffer />} />

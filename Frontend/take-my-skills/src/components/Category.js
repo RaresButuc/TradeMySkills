@@ -28,6 +28,15 @@ const ListGroup = () => {
     other,
   ];
 
+  const changeLink = (suffLink,link) => {
+    const currentUrl = new URL(window.location.href);
+
+    // Update the sorting parameter
+    currentUrl.searchParams.set(suffLink, link);
+
+    // Set the updated URL
+    window.location.href = currentUrl.toString();
+  };
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
@@ -57,7 +66,7 @@ const ListGroup = () => {
         {categories &&
           categories.map((category, index) => (
             <div className="col" key={index}>
-              <a href={`/all-ads/${category.nameOfCategory}`}>
+              <a onClick={() => changeLink("category",category.nameOfCategory)}>
                 <img
                   src={photo[index]}
                   alt="item"

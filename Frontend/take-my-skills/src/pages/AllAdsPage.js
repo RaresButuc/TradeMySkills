@@ -12,10 +12,12 @@ export default function AllOffer() {
 useEffect(() => {
   const fetchAds = async () => {
     try {
+      const categoryParam = new URLSearchParams(window.location.search).get("category");
       const sortParam = new URLSearchParams(window.location.search).get("sort");
+      const inputParam = new URLSearchParams(window.location.search).get("input");
       console.log(`http://localhost:8080/ads?sort=${sortParam}`);
    
-       const response = await axios.get(`http://localhost:8080/ads?sort=${sortParam}`)
+       const response = await axios.get(`http://localhost:8080/ads?category=${categoryParam}&sort=${sortParam}&input=${inputParam}`)
      
       const data = response.data;
        console.log(data)
