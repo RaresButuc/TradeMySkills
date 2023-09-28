@@ -1,16 +1,21 @@
 import { useEffect } from "react";
 import axios from "axios";
 import React, { useState } from "react";
+import { useRef } from "react";
+
 export default function FormAddNewAd() {
   const [categories, setCategories] = useState([]);
 
   const [cities, setCities] = useState([]);
 
   const [counties, setCounties] = useState([]);
-
-  const [countyChosen, setCountyChosen] = useState("");
   const [countyAbrev, setCountyAbrev] = useState("");
 
+  const titleOfAd = useRef("");
+  const descriptonOfAd = useRef("");
+  const categoryOfAd = useRef(null);
+  const priceOfAd = useRef(0);
+  const [countyChosen, setCountyChosen] = useState("");
   const [cityChosen, setCity] = useState("");
 
   useEffect(() => {
@@ -57,8 +62,11 @@ export default function FormAddNewAd() {
   }, [countyAbrev]);
 
   const chooseAuto = (countyAbrev) => {
+    setCountyChosen(counties.filter((e) => e.auto == countyAbrev)[0].nume);
     setCountyAbrev(countyAbrev);
   };
+
+  // const postNewAd = ()
 
   return (
     <div className="container-xl" style={{ marginTop: 130 }}>
@@ -68,6 +76,7 @@ export default function FormAddNewAd() {
             Title
           </label>
           <input
+            ref={titleOfAd}
             class="form-control"
             id="Title"
             aria-describedby="Title-Help"
@@ -81,6 +90,7 @@ export default function FormAddNewAd() {
             Description
           </label>
           <input
+            ref={descriptonOfAd}
             class="form-control"
             id="description"
             style={{ height: 150 }}
@@ -90,13 +100,19 @@ export default function FormAddNewAd() {
           </div>
         </div>
         <div class="mb-3">
-          <select class="form-select" aria-label="select category">
+          <select
+            class="form-select"
+            aria-label="select category"
+            ref={categoryOfAd}
+          >
             <option disabled selected>
               Select category{" "}
             </option>
             {categories &&
               categories.map((category, index) => (
-                <option value={index}>{category.nameOfCategory}</option>
+                <option value={category.id} key={index}>
+                  {category.nameOfCategory}
+                </option>
               ))}
           </select>
         </div>
@@ -104,6 +120,7 @@ export default function FormAddNewAd() {
         <div class="input-group mb-3">
           <span class="input-group-text">$</span>
           <input
+            ref={priceOfAd}
             type="text"
             class="form-control"
             aria-label="Amount (to the nearest dollar)"

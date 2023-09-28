@@ -3,7 +3,6 @@ import changeLink from "../shared/utils";
 export default function Filter() {
   const [change, setLink] = useState([]);
   const [inputValue, setInputValue] = useState("");
-  console.log(inputValue)
 
   return (
     <div className="container-xl">
