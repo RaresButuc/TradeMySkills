@@ -14,7 +14,7 @@ useEffect(() => {
     try {
       const categoryParam = new URLSearchParams(window.location.search).get("category");
       const sortParam = new URLSearchParams(window.location.search).get("sort");
-      let inputParam = new URLSearchParams(window.location.search).get("input");
+      const inputParam = new URLSearchParams(window.location.search).get("input");
 
   
    
