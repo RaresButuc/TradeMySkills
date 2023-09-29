@@ -35,20 +35,6 @@ public class AdService {
         return adRepository.findByTypeOfAdNameOfCategory(name);
     }
 
-    public void updateAdById(Long id, Ad adUpdater) {
-        Ad adFromDb = adRepository.findById(id).orElse(null);
-        assert adFromDb != null;
-        adFromDb.setName(adUpdater.getName());
-        adFromDb.setStatusOfAd(adUpdater.getStatusOfAd());
-        adFromDb.setDescription(adUpdater.getDescription());
-        adFromDb.setPrice(adUpdater.getPrice());
-        adRepository.save(adFromDb);
-    }
-
-    public void deleteAdById(Long id) {
-        adRepository.deleteById(id);
-    }
-
     public List<Ad> orderAllBy(String typeOfSort) {
         switch (typeOfSort) {
             case "name-asc" -> {
@@ -135,5 +121,51 @@ public class AdService {
 
     public List<Ad> searchByNameAndCategory(String category, String input) {
         return adRepository.findAllByTypeOfAdNameOfCategoryAndNameContainingIgnoreCase(category, input);
+    }
+
+    public List<Ad> getAllAdsByCategFilterOrInput(String typeofcategory, String typeOfSort, String input) {
+        if (typeofcategory.equals("null")) {
+            if (typeOfSort.equals("null")) {
+                if (input.equals("null")) {
+                    return getAllAds();
+                } else {
+                    return search(input);
+                }
+            } else {
+                if (input.equals("null")) {
+                    return orderAllBy(typeOfSort);
+                } else {
+                    return getAllByInputOrdered(input, typeOfSort);
+                }
+            }
+        } else {
+            if (typeOfSort.equals("null")) {
+                if (input.equals("null")) {
+                    return findAdsByTypeOfAd(typeofcategory);
+                } else {
+                    return searchByNameAndCategory(typeofcategory, input);
+                }
+            } else {
+                if (input.equals("null")) {
+                    return getAllByCategoryOrdered(typeofcategory, typeOfSort);
+                } else {
+                    return getAllByInputAndCategoryOrdered(input, typeofcategory, typeOfSort);
+                }
+            }
+        }
+    }
+
+    public void updateAdById(Long id, Ad adUpdater) {
+        Ad adFromDb = adRepository.findById(id).orElse(null);
+        assert adFromDb != null;
+        adFromDb.setName(adUpdater.getName());
+        adFromDb.setStatusOfAd(adUpdater.getStatusOfAd());
+        adFromDb.setDescription(adUpdater.getDescription());
+        adFromDb.setPrice(adUpdater.getPrice());
+        adRepository.save(adFromDb);
+    }
+
+    public void deleteAdById(Long id) {
+        adRepository.deleteById(id);
     }
 }

@@ -19,35 +19,7 @@ public class AdController {
 
     @GetMapping
     public List<Ad> getAllAds(@RequestParam(name = "category", required = false) String typeofcategory, @RequestParam(name = "sort", required = false) String typeOfSort, @RequestParam(name = "input", required = false) String input) {
-        if (typeofcategory.equals("null")) {
-            if (typeOfSort.equals("null")) {
-                if (input.equals("null")) {
-                    return adService.getAllAds();
-                } else {
-                    return adService.search(input);
-                }
-            } else {
-                if (input.equals("null")) {
-                    return adService.orderAllBy(typeOfSort);
-                } else {
-                    return adService.getAllByInputOrdered(input, typeOfSort);
-                }
-            }
-        } else {
-            if (typeOfSort.equals("null")) {
-                if (input.equals("null")) {
-                    return adService.findAdsByTypeOfAd(typeofcategory);
-                } else {
-                    return adService.searchByNameAndCategory(typeofcategory, input);
-                }
-            } else {
-                if (input.equals("null")) {
-                    return adService.getAllByCategoryOrdered(typeofcategory, typeOfSort);
-                } else {
-                    return adService.getAllByInputAndCategoryOrdered(input, typeofcategory, typeOfSort);
-                }
-            }
-        }
+        return adService.getAllAdsByCategFilterOrInput(typeofcategory, typeOfSort, input);
     }
 
     @PostMapping
