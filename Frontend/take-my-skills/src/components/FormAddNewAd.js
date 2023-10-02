@@ -71,7 +71,7 @@ export default function FormAddNewAd() {
     descriptionAd,
     categoryAd,
     priceAd,
-    // countyAd,
+    countyAd,
     cityAd
   ) => {
     try {
@@ -84,7 +84,7 @@ export default function FormAddNewAd() {
           typeOfAd: { id: categoryAd },
           price: priceAd,
           user: { id: 1 }, // Fixed user object format
-          location: cityAd,
+          location: { nameOfTheCounty: countyAd, nameOfTheCity: cityAd },
         }),
       });
 
@@ -204,6 +204,7 @@ export default function FormAddNewAd() {
               descriptonOfAd.current.value,
               categoryOfAd.current.value,
               priceOfAd.current.value,
+              countyChosen,
               cityChosen
             );
           }}
