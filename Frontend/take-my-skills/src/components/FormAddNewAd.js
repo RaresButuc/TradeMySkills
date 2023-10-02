@@ -13,7 +13,7 @@ export default function FormAddNewAd() {
 
   const titleOfAd = useRef("");
   const descriptonOfAd = useRef("");
-  const categoryOfAd = useRef(null);
+  const categoryOfAd = useRef("");
   const priceOfAd = useRef(0);
   const [countyChosen, setCountyChosen] = useState("");
   const [cityChosen, setCity] = useState("");
@@ -46,7 +46,6 @@ export default function FormAddNewAd() {
             `https://roloca.coldfuse.io/orase/${countyAbrev}`
           );
           const data = response.data;
-          console.log(data);
           if (data) {
             setCities(data);
           }
@@ -62,46 +61,78 @@ export default function FormAddNewAd() {
   }, [countyAbrev]);
 
   const chooseAuto = (countyAbrev) => {
-    setCountyChosen(counties.filter((e) => e.auto == countyAbrev)[0].nume);
+    setCountyChosen(counties.filter((e) => e.auto === countyAbrev)[0].nume);
     setCountyAbrev(countyAbrev);
   };
 
-  // const postNewAd = ()
+  //Pune si user
+  const postNewAd = async (
+    titleAd,
+    descriptionAd,
+    categoryAd,
+    priceAd,
+    // countyAd,
+    cityAd
+  ) => {
+    try {
+      const response = await fetch("http://localhost:8080/ads", {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify({
+          name: titleAd,
+          description: descriptionAd,
+          typeOfAd: { id: categoryAd },
+          price: priceAd,
+          user: { id: 1 }, // Fixed user object format
+          location: cityAd,
+        }),
+      });
+
+      if (response.status === 200) {
+      } else {
+        console.error(`HTTP Error: ${response.status}`);
+        const data = await response.json();
+        console.error(data);
+      }
+    } catch (error) {
+      console.error("Request error:", error);
+    }
+  };
 
   return (
     <div className="container-xl" style={{ marginTop: 130 }}>
       <form>
-        <div class="mb-3">
-          <label for="Title" class="form-label">
+        <div className="mb-3">
+          <label htmlFor="Title" className="form-label">
             Title
           </label>
           <input
             ref={titleOfAd}
-            class="form-control"
+            className="form-control"
             id="Title"
             aria-describedby="Title-Help"
           />
-          <div id="Title-Help" class="form-text">
+          <div id="Title-Help" className="form-text">
             *Choose a short and suggestive title
           </div>
         </div>
-        <div class="mb-3">
-          <label for="description" class="form-label">
+        <div className="mb-3">
+          <label htmlFor="description" className="form-label">
             Description
           </label>
           <input
             ref={descriptonOfAd}
-            class="form-control"
+            className="form-control"
             id="description"
             style={{ height: 150 }}
           />
-          <div id="Title-Help" class="form-text">
+          <div id="Title-Help" className="form-text">
             *Describe your needs in detail
           </div>
         </div>
-        <div class="mb-3">
+        <div className="mb-3">
           <select
-            class="form-select"
+            className="form-select"
             aria-label="select category"
             ref={categoryOfAd}
           >
@@ -117,20 +148,20 @@ export default function FormAddNewAd() {
           </select>
         </div>
 
-        <div class="input-group mb-3">
-          <span class="input-group-text">$</span>
+        <div className="input-group mb-3">
+          <span className="input-group-text">$</span>
           <input
             ref={priceOfAd}
             type="text"
-            class="form-control"
+            className="form-control"
             aria-label="Amount (to the nearest dollar)"
           />
-          <span class="input-group-text">.00</span>
+          <span className="input-group-text">.00</span>
         </div>
 
-        <div class="mb-3">
+        <div className="mb-3">
           <select
-            class="form-select"
+            className="form-select"
             aria-label="select category"
             onChange={(e) => chooseAuto(e.target.value)}
           >
@@ -146,9 +177,9 @@ export default function FormAddNewAd() {
           </select>
         </div>
 
-        <div class="mb-3">
+        <div className="mb-3">
           <select
-            class="form-select"
+            className="form-select"
             aria-label="select category"
             onChange={(e) => setCity(e.target.value)}
           >
@@ -163,7 +194,20 @@ export default function FormAddNewAd() {
               ))}
           </select>
         </div>
-        <button type="submit" class="btn btn-primary">
+        <button
+          type="submit"
+          className="btn btn-primary"
+          onClick={(e) => {
+            e.preventDefault(); // Prevent the default form submission behavior
+            postNewAd(
+              titleOfAd.current.value,
+              descriptonOfAd.current.value,
+              categoryOfAd.current.value,
+              priceOfAd.current.value,
+              cityChosen
+            );
+          }}
+        >
           Submit
         </button>
       </form>
