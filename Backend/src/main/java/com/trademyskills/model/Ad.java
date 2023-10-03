@@ -28,7 +28,8 @@ public class Ad {
     private TypeOfAd typeOfAd;
 
     private Double price;
-    private String location;
+    @Embedded
+    private LocationOfAd location;
 
     @ManyToOne
     private User user;

@@ -32,7 +32,127 @@ public class AdService {
     }
 
     public List<Ad> findAdsByTypeOfAd(String name) {
-        return adRepository.findAll().stream().filter(e -> Objects.equals(e.getTypeOfAd().getNameOfCategory(), name)).toList();
+        return adRepository.findByTypeOfAdNameOfCategory(name);
+    }
+
+    public List<Ad> orderAllBy(String typeOfSort) {
+        switch (typeOfSort) {
+            case "name-asc" -> {
+                return adRepository.findAllByOrderByNameAsc();
+            }
+            case "name-desc" -> {
+                return adRepository.findAllByOrderByNameDesc();
+            }
+            case "price-asc" -> {
+                return adRepository.findAllByOrderByPriceAsc();
+            }
+            case "price-desc" -> {
+                return adRepository.findAllByOrderByPriceDesc();
+            }
+            default -> {
+                return null;
+            }
+        }
+    }
+
+    public List<Ad> getAllByCategoryOrdered(String name, String typeOfSort) {
+        switch (typeOfSort) {
+            case "name-asc" -> {
+                return adRepository.findByTypeOfAdNameOfCategoryOrderByNameAsc(name);
+            }
+            case "name-desc" -> {
+                return adRepository.findByTypeOfAdNameOfCategoryOrderByNameDesc(name);
+            }
+            case "price-asc" -> {
+                return adRepository.findByTypeOfAdNameOfCategoryOrderByPriceAsc(name);
+            }
+            case "price-desc" -> {
+                return adRepository.findByTypeOfAdNameOfCategoryOrderByPriceDesc(name);
+            }
+            default -> {
+                return null;
+            }
+        }
+    }
+
+    public List<Ad> getAllByInputOrdered(String input, String typeOfSort) {
+        switch (typeOfSort) {
+            case "name-asc" -> {
+                return adRepository.findAllByNameContainingIgnoreCaseOrderByNameAsc(input);
+            }
+            case "name-desc" -> {
+                return adRepository.findAllByNameContainingIgnoreCaseOrderByNameDesc(input);
+            }
+            case "price-asc" -> {
+                return adRepository.findAllByNameContainingIgnoreCaseOrderByPriceAsc(input);
+            }
+            case "price-desc" -> {
+                return adRepository.findAllByNameContainingIgnoreCaseOrderByPriceDesc(input);
+            }
+            default -> {
+                return null;
+            }
+        }
+    }
+
+    public List<Ad> getAllByInputAndCategoryOrdered(String input, String category, String typeOfSort) {
+        switch (typeOfSort) {
+            case "name-asc" -> {
+                return adRepository.findAllByTypeOfAdNameOfCategoryAndNameContainingIgnoreCaseOrderByNameAsc(category, input);
+            }
+            case "name-desc" -> {
+                return adRepository.findAllByTypeOfAdNameOfCategoryAndNameContainingIgnoreCaseOrderByNameDesc(category, input);
+            }
+            case "price-asc" -> {
+                return adRepository.findAllByTypeOfAdNameOfCategoryAndNameContainingIgnoreCaseOrderByPriceAsc(category, input);
+            }
+            case "price-desc" -> {
+                return adRepository.findAllByTypeOfAdNameOfCategoryAndNameContainingIgnoreCaseOrderByPriceDesc(category, input);
+            }
+            default -> {
+                return null;
+            }
+        }
+    }
+
+    public List<Ad> search(String input) {
+        return adRepository.findAllByNameContainingIgnoreCase(input);
+    }
+
+    public List<Ad> searchByNameAndCategory(String category, String input) {
+        return adRepository.findAllByTypeOfAdNameOfCategoryAndNameContainingIgnoreCase(category, input);
+    }
+
+    public List<Ad> getAllAdsByCategFilterOrInput(String typeofcategory, String typeOfSort, String input) {
+        if (typeofcategory.equals("null")) {
+            if (typeOfSort.equals("null")) {
+                if (input.equals("null")) {
+                    return getAllAds();
+                } else {
+                    return search(input);
+                }
+            } else {
+                if (input.equals("null")) {
+                    return orderAllBy(typeOfSort);
+                } else {
+                    return getAllByInputOrdered(input, typeOfSort);
+                }
+            }
+        } else {
+            if (typeOfSort.equals("null")) {
+                if (input.equals("null")) {
+                    return findAdsByTypeOfAd(typeofcategory);
+                } else {
+                    return searchByNameAndCategory(typeofcategory, input);
+                }
+            } else {
+                if (input.equals("null")) {
+                    return getAllByCategoryOrdered(typeofcategory, typeOfSort);
+                } else {
+                    return getAllByInputAndCategoryOrdered(input, typeofcategory, typeOfSort);
+                }
+            }
+        }
     }
 
     public void updateAdById(Long id, Ad adUpdater) {
@@ -48,6 +168,4 @@ public class AdService {
     public void deleteAdById(Long id) {
         adRepository.deleteById(id);
     }
-
-
 }

@@ -8,7 +8,7 @@ import AdsPage from "./pages/AllAdsPage";
 import JoinUs from "./pages/JoinUs";
 import Contact from "./pages/Contact";
 import PostOffer from "./pages/PostOffer";
-import AdsPageOnCategory from "./pages/AdsPageOnCategory";
+
 
 function App() {
   return (
@@ -20,10 +20,9 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/all-ads" element={<AdsPage />} />
-          <Route path="/all-ads/:category" element={<AdsPageOnCategory />} />
           <Route path="/join-us" element={<JoinUs />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/post-offer" element={<PostOffer />} />
+          <Route path="/post-ads" element={<PostOffer />} />
         </Routes>
       </Router>
 

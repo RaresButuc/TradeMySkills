@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
+import changeLink from "../shared/utils";
 
 import construction from "../photo/icons/Construction.png";
 import confections from "../photo/icons/Confections.png";
@@ -27,6 +28,7 @@ const ListGroup = () => {
     babysitter,
     other,
   ];
+
 
   const [categories, setCategories] = useState([]);
 
@@ -57,7 +59,7 @@ const ListGroup = () => {
         {categories &&
           categories.map((category, index) => (
             <div className="col" key={index}>
-              <a href={`/all-ads/${category.nameOfCategory}`}>
+              <a onClick={() => changeLink("category",category.nameOfCategory)}>
                 <img
                   src={photo[index]}
                   alt="item"

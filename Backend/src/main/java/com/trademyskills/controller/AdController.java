@@ -18,13 +18,8 @@ public class AdController {
     }
 
     @GetMapping
-    public List<Ad> getAllAds() {
-        return adService.getAllAds();
-    }
-
-    @GetMapping("/category/{typeofcategory}")
-    public List<Ad> getAllAdsByCategory(@PathVariable("typeofcategory") String name){
-      return adService.findAdsByTypeOfAd(name);
+    public List<Ad> getAllAds(@RequestParam(name = "category", required = false) String typeofcategory, @RequestParam(name = "sort", required = false) String typeOfSort, @RequestParam(name = "input", required = false) String input) {
+        return adService.getAllAdsByCategFilterOrInput(typeofcategory, typeOfSort, input);
     }
 
     @PostMapping
