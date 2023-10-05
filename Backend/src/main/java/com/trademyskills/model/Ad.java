@@ -1,9 +1,8 @@
 package com.trademyskills.model;
 
 import com.trademyskills.enums.StatusOfAd;
+import jakarta.persistence.*;
 import lombok.*;
-
-import javax.persistence.*;
 
 @Getter
 @Setter
@@ -17,6 +16,7 @@ public class Ad {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Enumerated
     private StatusOfAd statusOfAd;
 
     private String name;
