@@ -1,6 +1,6 @@
 package com.trademyskills.security;
 
-import com.trademyskills.enums.TypeOfUser;
+import com.trademyskills.enums.Role;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -20,10 +20,10 @@ public class SecurityConfig {
     SecurityFilterChain mainSecurityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(requests ->
-                        (requests
+                        requests
 
                                 .requestMatchers("/", "/join-us", "/login", "/contact", "/all-ads").permitAll()
-                                .anyRequest())
+                                .anyRequest()
                                 .authenticated()
                 )
                 .formLogin(form -> form.defaultSuccessUrl("/"));
@@ -37,7 +37,7 @@ public class SecurityConfig {
 
         UserDetails userAdmin = User.withUsername("admin-1")
                 .password(encoder.encode("passwordadmin1"))
-                .roles(TypeOfUser.ADMIN.getRoleName())
+//                .roles(Role.ADMIN)
                 .build();
 
         return new InMemoryUserDetailsManager(userAdmin);
