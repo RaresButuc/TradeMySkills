@@ -34,7 +34,7 @@ public class AdService {
     public List<Ad> findAdsByTypeOfAd(String name) {
         return adRepository.findByTypeOfAdNameOfCategory(name);
     }
-
+//Testing for New Repository
     public List<Ad> orderAllBy(String typeOfSort) {
         switch (typeOfSort) {
             case "name-asc" -> {
