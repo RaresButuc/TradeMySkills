@@ -3,7 +3,11 @@ import logo_22 from "../photo/logosWebsite/Logo_22.png";
 // import logo_11 from '../photo/logosWebsite/Logo_11.png';
 import { Outlet } from "react-router-dom";
 
+
+
 const NavBar = () => {
+
+
   return (
     <div>
       <nav className="navbar navbar-custom fixed-top navbar-expand-md navbar-dark  shadow-5-strong">

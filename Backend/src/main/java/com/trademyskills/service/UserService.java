@@ -20,9 +20,6 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public void addUser(User user) {
-        userRepository.save(user);
-    }
 
     public User getUserById(Long id) {
         return userRepository.findById(id).orElse(null);
