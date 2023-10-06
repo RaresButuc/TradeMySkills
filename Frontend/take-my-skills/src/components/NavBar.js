@@ -2,12 +2,12 @@ import React from "react";
 import logo_22 from "../photo/logosWebsite/Logo_22.png";
 // import logo_11 from '../photo/logosWebsite/Logo_11.png';
 import { Outlet } from "react-router-dom";
-
-
+import {useIsAuthenticated} from 'react-auth-kit';
+import { useSignOut } from 'react-auth-kit'
 
 const NavBar = () => {
-
-
+  const isAuthenticated = useIsAuthenticated()
+  const signOut = useSignOut()
   return (
     <div>
       <nav className="navbar navbar-custom fixed-top navbar-expand-md navbar-dark  shadow-5-strong">
@@ -55,16 +55,21 @@ const NavBar = () => {
                   Join us
                 </a>
               </li>
-
-              <li className="nav-item">
-                <a
-                  className="nav-link font-weight-bold  mx-2"
-                  aria-current="page"
-                  href="/login"
-                >
-                  Login
-                </a>
-              </li>
+              {isAuthenticated() ? (
+            // If user is authenticated, show logout button
+            <li className="nav-item">
+              <button className="btn btn-link nav-link" onClick={()=> signOut()}>
+                Logout
+              </button>
+            </li>
+          ) : (
+            // If user is not authenticated, show login link
+            <li className="nav-item">
+              <a className="nav-link font-weight-bold mx-2" href="/login">
+                Login
+              </a>
+            </li>
+          )}
 
               <li className="nav-item">
                 <a
