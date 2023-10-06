@@ -1,5 +1,6 @@
 package com.trademyskills.auth;
 
+import com.trademyskills.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,8 +12,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RegisterRequest {
 
-    private String firstname;
-    private String lastname;
+    private String name;
+    private String phoneNumber;
+    private Role role;
     private String email;
     private String password;
 }
