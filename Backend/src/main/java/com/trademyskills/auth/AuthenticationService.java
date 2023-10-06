@@ -21,10 +21,11 @@ public class AuthenticationService {
 
     public AuthenticationResponse register(RegisterRequest request) {
         var user = User.builder()
-                .name(request.getFirstname())
+                .name(request.getName())
                 .email(request.getEmail())
+                .phoneNumber(request.getPhoneNumber())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(Role.CUSTOMER)
+                .role(request.getRole())
                 .build();
         repository.save(user);
         var jwtToken = jwtService.generateToken(user);
