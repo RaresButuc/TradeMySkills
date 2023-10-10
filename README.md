@@ -75,3 +75,53 @@ Our future plans for Trade-My-Skills platform include:
       ```
 
     - Click on the link provided in the terminal to open the page and experience TradeMySkills!
+  
+
+
+## How to Use 
+- Main Page
+  
+![Screenshot 2023-10-09 132822](https://github.com/CodecoolGlobal/el-proyecte-grande-sprint-1-java-RaresButuc/assets/115742553/61fafe02-52da-46a7-a0f1-5b3e4ddc58e3)
+
+1. Click the `View all Ads` button to acces page listing all the ads.
+- All Ads Page
+![Screenshot 2023-10-09 142029](https://github.com/CodecoolGlobal/el-proyecte-grande-sprint-1-java-RaresButuc/assets/115742553/96d1a71d-cb47-4eb4-9497-991b75b58522)
+
+a. Every ad can be sorted by a category mentioned above:
+  
+![Screenshot 2023-10-09 140942](https://github.com/CodecoolGlobal/el-proyecte-grande-sprint-1-java-RaresButuc/assets/115742553/e995e010-e752-43f7-a586-f1c4c6ef107b)
+
+
+b. Ads can be sorte by name/price in ascendint/descending order:
+    
+![Screenshot 2023-10-09 141234-sort](https://github.com/CodecoolGlobal/el-proyecte-grande-sprint-1-java-RaresButuc/assets/115742553/d42a37d1-d0d0-48a2-a619-ba9c82a9355f)
+
+c. Ads can be find by the keyword mentions in the input:
+
+![Screenshot 2023-10-09 141234-search](https://github.com/CodecoolGlobal/el-proyecte-grande-sprint-1-java-RaresButuc/assets/115742553/2614fa2b-598c-4ffa-af27-4c56bd9c8451)
+
+d. All Ads available:
+
+![Screenshot 2023-10-09 142029](https://github.com/CodecoolGlobal/el-proyecte-grande-sprint-1-java-RaresButuc/assets/115742553/eaecf115-9831-4a6a-aac4-5a0c752dacb3)
+
+
+2. Click the `POST Your Ads NOW FOR FREE` button to access page to post your own ad depending on your requirement.
+
+![Screenshot 2023-10-09 144801-post](https://github.com/CodecoolGlobal/el-proyecte-grande-sprint-1-java-RaresButuc/assets/115742553/833528c8-3220-4c44-9a43-7b5b644db609)
+
+
+3. Click the `Login` button to access page to login your account.
+
+![Screenshot 2023-10-09 145135-log-in](https://github.com/CodecoolGlobal/el-proyecte-grande-sprint-1-java-RaresButuc/assets/115742553/cda5a74e-eb2e-4cfe-9b23-b00263e3b63c)
+
+4.Click the `Join Us` button to access page to create  an  account.
+    TO DO 
+    
+5. Click the `Contact` button to access page to contact us.
+    TO DO
+ 
+
+## Code contributors
+
+- David Iulian Badarau : [GitHub Profile](https://github.com/BadarauDavid)
+- Rares Butuc : [GitHub Profile](https://github.com/RaresButuc)
