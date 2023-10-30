@@ -40,7 +40,8 @@ export default function Ads({ ads }) {
                             className="mb-1 ms-2"
                             style={{ width: 45 }}
                           />
-                          {ad.location}
+                          {ad.location.nameOfTheCounty},
+                          <th></th>{ad.location.nameOfTheCity}
                         </h5>
                       </div>
                       <div className="col-sm">

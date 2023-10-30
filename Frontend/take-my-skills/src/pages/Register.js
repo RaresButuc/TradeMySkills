@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 function Register() {
   const navigate = useNavigate();
   const [error, setError] = useState("");
-  //   const signIn = useSignIn();
+  const [acceptTerms, setAcceptTerms] = useState("");
 
   const onSubmit = async (values) => {
     console.log("Values: ", values);
@@ -34,11 +34,16 @@ function Register() {
       password: formData.get("password"),
       role: formData.get("role"),
     };
-    onSubmit(registerData);
+    if (formData.get("checkbox")) {
+      onSubmit(registerData);
+    } else {
+      setAcceptTerms("Please Accept the Terms and Conditions");
+    }
   };
 
   return (
     <div className="row" style={{ marginTop: 130 }}>
+      <h1>Sign Up</h1>
       <form onSubmit={onSave}>
         <div className="mb-3">
           <label htmlFor="username" className="form-label">
@@ -89,7 +94,7 @@ function Register() {
             Role
           </label>
           <select
-            class="form-select"
+            className="form-select"
             name="role"
             aria-label="Default select example"
           >
@@ -105,11 +110,13 @@ function Register() {
             type="checkbox"
             className="form-check-input"
             id="exampleCheck1"
+            name="checkbox"
           />
           <label className="form-check-label" htmlFor="exampleCheck1">
             I accept terms and conditions.
           </label>
         </div>
+        <div className="acceptTerms">{acceptTerms}</div>
         <button type="submit" className="btn btn-primary">
           Sign up
         </button>
