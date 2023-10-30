@@ -60,8 +60,6 @@ export default function FormAddNewAd() {
     };
     const fetchCurrentUser = async () => {
       try {
-        console.log(auth())
-        console.log(auth().email)
         const response = await axios.get(
           `http://localhost:8080/users/email/${auth().email}`
         );

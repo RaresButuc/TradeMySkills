@@ -27,7 +27,6 @@ export default function AllOffer() {
         );
 
         const data = response.data;
-        console.log(data);
 
         setAds(data);
         setSortMethod(sortParam);
