@@ -8,6 +8,7 @@ import AdsPage from "./pages/AllAdsPage";
 import JoinUs from "./pages/JoinUs";
 import Contact from "./pages/Contact";
 import PostOffer from "./pages/PostOffer";
+import Register from "./pages/Register";
 import { RequireAuth } from "react-auth-kit";
 
 
@@ -23,6 +24,7 @@ function App() {
           <Route path="/all-ads" element={<AdsPage />} />
           <Route path="/join-us" element={<JoinUs />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/register" element={<Register />} />
           <Route path="post-ads" element={<RequireAuth loginPath="/login">
           <PostOffer />
           </RequireAuth>}></Route>

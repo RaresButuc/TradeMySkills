@@ -16,10 +16,10 @@ import logoVisa from "../photo/logosPartners/visa.png";
 export default function HomePage() {
   return (
     <>
-      <div class=" text-bg-dark position-relative">
+      <div className=" text-bg-dark position-relative">
         <video className="card-img" src={videoBg} autoPlay loop muted />
-        <div class="card-img-overlay m-auto position-absolute top-50 start-0">
-          <h1 class="card-slogan fw-bold mb-3">
+        <div className="card-img-overlay m-auto position-absolute top-50 start-0">
+          <h1 className="card-slogan fw-bold mb-3">
             Every Service Is NOW More Accesible Than Ever
           </h1>
           <a className="btn btn-primary fw-bold p-3"
@@ -31,14 +31,14 @@ export default function HomePage() {
       <h1 className="achievements-title mb-5 mt-5 fw-bold">
         Achievements So Far..
       </h1>
-      <div class="container text-center mb-5">
-        <div class="row">
-          <div class="col">
+      <div className="container text-center mb-5">
+        <div className="row">
+          <div className="col">
             <img src={countriesIcon} alt="Countries" className="w-50 pulse" />
             <h1 className="achievement-number fw-bold">3</h1>
             <h2>Countries</h2>
           </div>
-          <div class="col">
+          <div className="col">
             <img
               src={professionalsIcon}
               alt="Professionals"
@@ -47,7 +47,7 @@ export default function HomePage() {
             <h1 className="achievement-number fw-bold">+9,000</h1>
             <h2>Professionals and Businesses</h2>
           </div>
-          <div class="col">
+          <div className="col">
             <img src={customersIcon} alt="Customers" className="w-50 pulse" />
             <h1 className="achievement-number fw-bold">+80,000</h1>
             <h2>Satisfied Clients</h2>
