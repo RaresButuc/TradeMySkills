@@ -2,8 +2,12 @@ import { useEffect } from "react";
 import axios from "axios";
 import React, { useState } from "react";
 import { useRef } from "react";
+import { useAuthUser } from "react-auth-kit";
 
 export default function FormAddNewAd() {
+  const auth = useAuthUser();
+  const [currentUser, setCurrentUser] = useState(null);
+
   const [categories, setCategories] = useState([]);
 
   const [cities, setCities] = useState([]);
@@ -54,10 +58,24 @@ export default function FormAddNewAd() {
         }
       }
     };
+    const fetchCurrentUser = async () => {
+      try {
+        console.log(auth())
+        console.log(auth().email)
+        const response = await axios.get(
+          `http://localhost:8080/users/email/${auth().email}`
+        );
+        const data = response.data;
+        setCurrentUser(data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
 
     fetchCategories();
     fetchCounties();
     fetchCities();
+    fetchCurrentUser();
   }, [countyAbrev]);
 
   const chooseAuto = (countyAbrev) => {
@@ -75,6 +93,9 @@ export default function FormAddNewAd() {
     cityAd
   ) => {
     try {
+      // console.log(auth())
+      console.log(currentUser)
+
       const response = await fetch("http://localhost:8080/ads", {
         method: "POST",
         headers: { "Content-type": "application/json" },
@@ -83,7 +104,7 @@ export default function FormAddNewAd() {
           description: descriptionAd,
           typeOfAd: { id: categoryAd },
           price: priceAd,
-          user: { id: 1 }, // Fixed user object format
+          user: { id: currentUser.id }, // Fixed user object format
           location: { nameOfTheCounty: countyAd, nameOfTheCity: cityAd },
         }),
       });
@@ -198,7 +219,7 @@ export default function FormAddNewAd() {
           type="submit"
           className="btn btn-primary"
           onClick={(e) => {
-            e.preventDefault(); // Prevent the default form submission behavior
+            e.preventDefault();
             postNewAd(
               titleOfAd.current.value,
               descriptonOfAd.current.value,

@@ -34,6 +34,10 @@ public class UserService {
         userRepository.save(userFromDb);
     }
 
+    public User getUserByEmail(String email) {
+        return userRepository.findByEmail(email).orElse(null);
+    }
+
     public void deleteUserById(Long id) {
         userRepository.deleteById(id);
     }

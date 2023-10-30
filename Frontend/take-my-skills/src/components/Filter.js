@@ -56,7 +56,7 @@ export default function Filter() {
         {/* Nou */}
         <button
           type="button"
-          class="btn btn-primary font-weight-bold  mx-2"
+          className="btn btn-primary font-weight-bold  mx-2"
           onClick={() => changeLink("input",inputValue)}
         >
           Search
