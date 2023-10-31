@@ -1,6 +1,5 @@
 import React from "react";
 import logo_22 from "../photo/logosWebsite/Logo_22.png";
-// import logo_11 from '../photo/logosWebsite/Logo_11.png';
 import { Outlet } from "react-router-dom";
 import {useIsAuthenticated} from 'react-auth-kit';
 import { useSignOut } from 'react-auth-kit'

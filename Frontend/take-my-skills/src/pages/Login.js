@@ -23,7 +23,7 @@ function Login() {
         tokenType: "Bearer",
         authState: { email: values.email, role: response.data.role },
       });
-      navigate("/login");
+      navigate("/");
     } catch (err) {
       if (err instanceof AxiosError) setError(err.response?.data.message);
       else if (err instanceof Error) setError(err.message);
@@ -41,40 +41,50 @@ function Login() {
   };
 
   return (
-    <div className="row" style={{ marginTop: 130 }}>
-      <h1>Login</h1>
-      <form onSubmit={onSave}>
-        <div className="mb-3">
-          <label htmlFor="email" className="form-label">
-            Email address
-          </label>
-          <input
-            type="email"
-            className="form-control"
-            id="email"
-            name="email"
-            aria-describedby="emailHelp"
-          />
+    <form onSubmit={onSave} style={{ marginTop: 175 }}>
+      <div class="container py-3 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+            <div class="card shadow-2-strong">
+              <div class="card-body p-5 text-center">
+                <h1 class="mb-3">Login</h1>
+
+                <div class="form-outline mb-4">
+                  <input
+                    type="email"
+                    className="form-control"
+                    id="email"
+                    name="email"
+                  />
+                  <label class="form-label" htmlFor="email">
+                    Email
+                  </label>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <input
+                    type="password"
+                    id="password"
+                    class="form-control"
+                    name="password"
+                  />
+                  <label class="form-label" htmlFor="password">
+                    Password
+                  </label>
+                </div>
+
+                <button class="btn btn-primary btn-lg btn-block" type="submit">
+                  Login
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="mb-3">
-          <label htmlFor="password" className="form-label">
-            Password
-          </label>
-          <input
-            type="password"
-            className="form-control"
-            id="password"
-            name="password"
-          />
-        </div>
-        <button type="submit" className="btn btn-primary">
-          Log In
-        </button>
-        <p>
-          Not a member yet? <a href="/register">Register NOW</a>
-        </p>
-      </form>
-    </div>
+      </div>
+      <p>
+        Not a member yet? <a href="/register">Register NOW</a>
+      </p>
+    </form>
   );
 }
 
