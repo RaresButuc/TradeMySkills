@@ -17,7 +17,7 @@ function Register() {
         "http://localhost:8080/users/register",
         values
       );
-      navigate("/");
+      navigate("/login");
     } catch (err) {
       if (err instanceof AxiosError) setError(err.response?.data.message);
       else if (err instanceof Error) setError(err.message);
@@ -37,91 +37,111 @@ function Register() {
     if (formData.get("checkbox")) {
       onSubmit(registerData);
     } else {
-      setAcceptTerms("Please Accept the Terms and Conditions");
+      setAcceptTerms("*Please Accept the Terms and Conditions");
     }
   };
 
   return (
-    <div className="row" style={{ marginTop: 130 }}>
-      <h1>Sign Up</h1>
-      <form onSubmit={onSave}>
-        <div className="mb-3">
-          <label htmlFor="username" className="form-label">
-            Username
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="username"
-            name="username"
-          />
+    <form onSubmit={onSave} style={{ marginTop: 85 }}>
+      <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+            <div class="card shadow-2-strong">
+              <div class="card-body p-5 text-center">
+                <h1 class="mb-5">Register</h1>
+
+                <div className="form-outline">
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="username"
+                    name="username"
+                  />
+                  <label htmlFor="username" className="form-label mb-4">
+                    Username
+                  </label>
+
+                  <div class="form-outline">
+                    <input
+                      type="text"
+                      inputMode="numeric"
+                      pattern="[0-9]*"
+                      className="form-control"
+                      id="phoneNumber"
+                      name="phoneNumber"
+                    />
+                    <label class="form-label mb-4" htmlFor="email">
+                      Phone Number
+                    </label>
+                  </div>
+
+                  <div class="form-outline">
+                    <input
+                      type="email"
+                      className="form-control"
+                      id="email"
+                      name="email"
+                    />
+                    <label class="form-label mb-4" htmlFor="email">
+                      Email
+                    </label>
+                  </div>
+
+                  <div class="form-outline mb-4">
+                    <input
+                      type="password"
+                      id="password"
+                      class="form-control"
+                      name="password"
+                    />
+                    <label class="form-label" htmlFor="password">
+                      Password
+                    </label>
+                  </div>
+
+                  <div className="mb-5">
+                    <select
+                      className="form-select"
+                      name="role"
+                      aria-label="Default select example"
+                    >
+                      <option selected disabled>
+                        Choose A Role
+                      </option>
+                      <option value="CUSTOMER">Customer</option>
+                      <option value="WORKER">Worker</option>
+                    </select>
+                  </div>
+
+                  <div className="mb-3 form-check">
+                    <input
+                      type="checkbox"
+                      className="form-check-input"
+                      id="exampleCheck1"
+                      name="checkbox"
+                    />
+                    <div className="acceptTerms">{acceptTerms}</div>
+                    <label className="form-check-label" htmlFor="exampleCheck1">
+                      I accept Terms and Conditions.
+                    </label>
+                  </div>
+
+                  <button
+                    class="btn btn-primary btn-lg btn-block"
+                    type="submit"
+                  >
+                    Register
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="mb-3">
-          <label htmlFor="password" className="form-label">
-            Password
-          </label>
-          <input
-            type="password"
-            className="form-control"
-            id="password"
-            name="password"
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="phoneNumber" className="form-label">
-            Phone Number
-          </label>
-          <input
-            type="number"
-            className="form-control"
-            id="phoneNumber"
-            name="phoneNumber"
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="email" className="form-label">
-            Email
-          </label>
-          <input
-            type="email"
-            className="form-control"
-            id="email"
-            name="email"
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="role" className="form-label">
-            Role
-          </label>
-          <select
-            className="form-select"
-            name="role"
-            aria-label="Default select example"
-          >
-            <option selected disabled>
-              Choose A Role
-            </option>
-            <option value="CUSTOMER">Customer</option>
-            <option value="WORKER">Worker</option>
-          </select>
-        </div>
-        <div className="mb-3 form-check">
-          <input
-            type="checkbox"
-            className="form-check-input"
-            id="exampleCheck1"
-            name="checkbox"
-          />
-          <label className="form-check-label" htmlFor="exampleCheck1">
-            I accept terms and conditions.
-          </label>
-        </div>
-        <div className="acceptTerms">{acceptTerms}</div>
-        <button type="submit" className="btn btn-primary">
-          Sign up
-        </button>
-      </form>
-    </div>
+        <p>
+          Already a member? <a href="/login">Login NOW</a>
+        </p>
+      </div>
+    </form>
   );
 }
 
