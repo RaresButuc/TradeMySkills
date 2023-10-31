@@ -64,7 +64,7 @@ export default function TermsAndConditions() {
           </h3>
           <p>
             Your use of Take My Skills is also governed by our{" "}
-            <a href="/privacy" className="text-primary">
+            <a href="/privacy-and-policy" className="text-primary">
               Privacy Policy
             </a>
             . Please review our Privacy Policy to understand how we collect,
