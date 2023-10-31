@@ -1,3 +1,5 @@
+import Ads from "../components/Ads";
+
 export default function ProfilePage(){
     return (
         <section >
@@ -61,7 +63,7 @@ export default function ProfilePage(){
                 <div className="row">
         
                
-
+                <Ads/>
                  
               
                 </div>

@@ -43,25 +43,24 @@ function Register() {
 
   return (
     <form onSubmit={onSave} style={{ marginTop: 85 }}>
-      <div class="container py-5 h-100">
+      <div class="container py-5 h-100mb-4 ">
         <div class="row d-flex justify-content-center align-items-center h-100">
           <div class="col-12 col-md-8 col-lg-6 col-xl-5">
             <div class="card shadow-2-strong">
               <div class="card-body p-5 text-center">
                 <h1 class="mb-5">Register</h1>
 
-                <div className="form-outline">
+                <div className="form-outline ">
                   <input
                     type="text"
-                    className="form-control"
+                    className="form-control mb-4"
                     id="username"
                     name="username"
+                    placeholder="Username"
                   />
-                  <label htmlFor="username" className="form-label mb-4">
-                    Username
-                  </label>
+    
 
-                  <div class="form-outline">
+                  <div class="form-outline mb-4">
                     <input
                       type="text"
                       inputMode="numeric"
@@ -69,22 +68,20 @@ function Register() {
                       className="form-control"
                       id="phoneNumber"
                       name="phoneNumber"
+                      placeholder="Phone Number"
                     />
-                    <label class="form-label mb-4" htmlFor="email">
-                      Phone Number
-                    </label>
+
                   </div>
 
-                  <div class="form-outline">
+                  <div class="form-outline mb-4">
                     <input
                       type="email"
                       className="form-control"
                       id="email"
                       name="email"
+                      placeholder="Email"
                     />
-                    <label class="form-label mb-4" htmlFor="email">
-                      Email
-                    </label>
+  
                   </div>
 
                   <div class="form-outline mb-4">
@@ -93,10 +90,9 @@ function Register() {
                       id="password"
                       class="form-control"
                       name="password"
+                      placeholder="Password"
                     />
-                    <label class="form-label" htmlFor="password">
-                      Password
-                    </label>
+
                   </div>
 
                   <div className="mb-5">

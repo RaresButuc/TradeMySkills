@@ -55,10 +55,8 @@ function Login() {
                     className="form-control"
                     id="email"
                     name="email"
+                    placeholder="Email"
                   />
-                  <label class="form-label" htmlFor="email">
-                    Email
-                  </label>
                 </div>
 
                 <div class="form-outline mb-4">
@@ -67,10 +65,8 @@ function Login() {
                     id="password"
                     class="form-control"
                     name="password"
+                    placeholder="Password"
                   />
-                  <label class="form-label" htmlFor="password">
-                    Password
-                  </label>
                 </div>
 
                 <button class="btn btn-primary btn-lg btn-block" type="submit">

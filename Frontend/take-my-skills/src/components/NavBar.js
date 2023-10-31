@@ -65,7 +65,7 @@ const NavBar = () => {
   <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
 </svg>
   </button>
-  <ul class="dropdown-menu "> 
+  <ul class="dropdown-menu dropdown-menu-end"> 
     <li><a class="dropdown-item" href="/profile">Profile</a></li>
     <li><a class="dropdown-item" href="/post-ads">Post new Add</a></li>
     <li><hr class="dropdown-divider"/></li>
@@ -84,15 +84,7 @@ const NavBar = () => {
             
           )}
 
-              <li className="nav-item">
-                <a
-                  className="nav-link font-weight-bold  mx-2"
-                  aria-current="page"
-                  href="/contact"
-                >
-                  Contact
-                </a>
-              </li>
+
             </ul>
           </div>
         </div>
