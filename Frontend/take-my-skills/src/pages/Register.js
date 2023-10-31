@@ -58,7 +58,6 @@ function Register() {
                     name="username"
                     placeholder="Username"
                   />
-    
 
                   <div class="form-outline mb-4">
                     <input
@@ -70,7 +69,6 @@ function Register() {
                       name="phoneNumber"
                       placeholder="Phone Number"
                     />
-
                   </div>
 
                   <div class="form-outline mb-4">
@@ -81,7 +79,6 @@ function Register() {
                       name="email"
                       placeholder="Email"
                     />
-  
                   </div>
 
                   <div class="form-outline mb-4">
@@ -92,7 +89,6 @@ function Register() {
                       name="password"
                       placeholder="Password"
                     />
-
                   </div>
 
                   <div className="mb-5">
@@ -118,7 +114,8 @@ function Register() {
                     />
                     <div className="acceptTerms">{acceptTerms}</div>
                     <label className="form-check-label" htmlFor="exampleCheck1">
-                      I accept Terms and Conditions.
+                      I accept the{" "}
+                      <a href="/terms-and-conditions">Terms and Conditions</a>.
                     </label>
                   </div>
 
