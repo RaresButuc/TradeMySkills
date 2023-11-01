@@ -14,7 +14,7 @@ export default function ProfilePage(){
         const response = await axios.get(`http://localhost:8080/users/email/${auth().email}`);
         const data = response.data;
         setCurrentUser(data);
-    
+      
 
       } catch (err) {
         console.log(err);
@@ -23,7 +23,7 @@ export default function ProfilePage(){
   
     fetchCurrentUser();
     
-  }, []);
+  }, [auth().email]);
   console.log(currentUser);
     return (
         <section >
@@ -37,8 +37,9 @@ export default function ProfilePage(){
   <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
   <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
 </svg>
-                    <h5 className="my-3">{currentUser.name}</h5>
-                    <p className="text-muted mb-1">{currentUser.role}</p>
+
+                    <h5 className="my-3">{currentUser?.name}</h5>
+                    <p className="text-muted mb-1">{currentUser?.role}</p>
                     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
 
 <span class="fa fa-star checked"></span>
@@ -61,7 +62,7 @@ export default function ProfilePage(){
                         <p className="mb-0">UserName</p>
                       </div>
                       <div className="col-sm-9">
-                        <p className="text-muted mb-0">{currentUser.name}</p>
+                        <p className="text-muted mb-0">{currentUser?.name}</p>
                       </div>
                     </div>
                     <hr />
@@ -70,7 +71,7 @@ export default function ProfilePage(){
                         <p className="mb-0">Email</p>
                       </div>
                       <div className="col-sm-9">
-                        <p className="text-muted mb-0">{currentUser.email}</p>
+                        <p className="text-muted mb-0">{currentUser?.email}</p>
                       </div>
                     </div>
                     <hr />
@@ -79,7 +80,7 @@ export default function ProfilePage(){
                         <p className="mb-0">Phone</p>
                       </div>
                       <div className="col-sm-9">
-                        <p className="text-muted mb-0">{currentUser.phoneNumber}</p>
+                        <p className="text-muted mb-0">{currentUser?.phoneNumber}</p>
                       </div>
                     </div>
                     </div>

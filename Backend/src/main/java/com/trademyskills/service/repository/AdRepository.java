@@ -1,9 +1,10 @@
 package com.trademyskills.service.repository;
 
+import com.trademyskills.enums.StatusOfAd;
 import com.trademyskills.model.Ad;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
+import com.trademyskills.model.User;
 import java.util.List;
 
 @Repository
@@ -45,4 +46,6 @@ public interface AdRepository extends JpaRepository<Ad, Long> {
     List<Ad> findAllByTypeOfAdNameOfCategoryAndNameContainingIgnoreCaseOrderByPriceAsc(String category, String input);
 
     List<Ad> findAllByTypeOfAdNameOfCategoryAndNameContainingIgnoreCaseOrderByPriceDesc(String category, String input);
+
+    List<Ad> findAllByUserAndStatusOfAd(User user, StatusOfAd statusOfAd);
 }

@@ -2,20 +2,23 @@ package com.trademyskills.service;
 
 import com.trademyskills.enums.StatusOfAd;
 import com.trademyskills.model.Ad;
+import com.trademyskills.model.User;
 import com.trademyskills.service.repository.AdRepository;
+import com.trademyskills.service.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 
 @Service
 public class AdService {
     private final AdRepository adRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public AdService(AdRepository adRepository) {
+    public AdService(AdRepository adRepository, UserRepository userRepository) {
         this.adRepository = adRepository;
+        this.userRepository = userRepository;
     }
 
     public List<Ad> getAllAds() {
@@ -155,6 +158,15 @@ public class AdService {
         }
     }
 
+    public void setStatusOfAd(Long id, String stringStatusOfAd){
+        Ad adFormDb = adRepository.findById(id).orElse(null);
+        assert adFormDb != null;
+      adFormDb.setStatusOfAd(StatusOfAd.getByName(stringStatusOfAd));
+
+        adRepository.save(adFormDb);
+    }
+
+
     public void updateAdById(Long id, Ad adUpdater) {
         Ad adFromDb = adRepository.findById(id).orElse(null);
         assert adFromDb != null;
@@ -168,4 +180,14 @@ public class AdService {
     public void deleteAdById(Long id) {
         adRepository.deleteById(id);
     }
+
+    public List<Ad> searchAllAdsByUserAndStatus(Long id, String stringStatusOfAd){
+        User user = userRepository.findById(id).orElse(null);
+        StatusOfAd statusOfAd = StatusOfAd.getByName(stringStatusOfAd);
+
+        return adRepository.findAllByUserAndStatusOfAd(user,statusOfAd);
+
+    }
+
+
 }
