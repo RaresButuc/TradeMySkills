@@ -11,6 +11,7 @@ import Contact from "./pages/Contact";
 import PostOffer from "./pages/PostOffer";
 import Register from "./pages/Register";
 import ProfilePage from "./pages/ProfilePage";
+import AdDetail from "./pages/AdDetails";
 import TermsAndConditions from "./pages/TermsAndConditions";
 import PrivacyPolicy from "./pages/PrivacyAndPolicy";
 
@@ -27,6 +28,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/ad/:id" element={<AdDetail />} />
           <Route
             path="/terms-and-conditions"
             element={<TermsAndConditions />}

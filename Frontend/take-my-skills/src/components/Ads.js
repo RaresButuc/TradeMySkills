@@ -25,7 +25,7 @@ export default function Ads({ ads }) {
                 <div className="card-body">
                   <a
                     className="h5 card-title mb-4 text-decoration-none"
-                    href="***"
+                    href={`/ad/${ad.id}`}
                   >
                     {ad.name}
                   </a>
@@ -40,8 +40,8 @@ export default function Ads({ ads }) {
                             className="mb-1 ms-2"
                             style={{ width: 45 }}
                           />
-                          {ad.location.nameOfTheCounty},
-                          <th></th>{ad.location.nameOfTheCity}
+                          {ad.location.nameOfTheCounty},<th></th>
+                          {ad.location.nameOfTheCity}
                         </h5>
                       </div>
                       <div className="col-sm">
