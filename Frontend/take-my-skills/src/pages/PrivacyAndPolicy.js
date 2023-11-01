@@ -3,10 +3,8 @@ export default function PrivacyPolicy() {
     <div className="container">
       <div className="row justify-content-center" style={{ marginTop: 100 }}>
         <div className="col-md-8">
-          <h1 className="mb-5">
-            <ins>Privacy Policy</ins>
-          </h1>
-
+          <h1 className="mb-3">Privacy Policy</h1>
+          <hr />
           <h3>
             <strong>1. Information We Collect</strong>
           </h3>

@@ -3,10 +3,8 @@ export default function TermsAndConditions() {
     <div className="container">
       <div className="row justify-content-center" style={{ marginTop: 100 }}>
         <div className="col-md-8">
-          <h1 className="mb-5">
-            <ins>Terms and Conditions</ins>
-          </h1>
-
+          <h1 className="mb-3">Terms and Conditions</h1>
+          <hr />
           <h3>
             <strong>1. Introduction</strong>
           </h3>
