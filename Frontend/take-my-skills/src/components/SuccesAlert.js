@@ -1,5 +1,7 @@
-export default function Alert({type}, {message}){
-return(<div class={`alert alert-${type} `} role="alert">
-{message}
-</div>)
+export default function Alert({ type, message }) {
+  return (
+    <div className={`alert alert-${type} fixed-bottom`} role="alert">
+      {message}
+    </div>
+  );
 }

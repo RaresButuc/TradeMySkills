@@ -22,8 +22,7 @@ export default function HomePage() {
           <h1 className="card-slogan fw-bold mb-3">
             Every Service Is NOW More Accesible Than Ever
           </h1>
-          <a className="btn btn-primary fw-bold p-3"
-          href="/post-ads">
+          <a className="btn btn-primary fw-bold p-3" href="/post-ads">
             POST Your Ads NOW FOR FREE
           </a>
         </div>

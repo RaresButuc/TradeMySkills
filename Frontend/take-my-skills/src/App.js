@@ -19,8 +19,8 @@ function App() {
   return (
     <div className="App">
       <NavBar />
-
-      <Router>
+<div style={{minHeight:'70vh' }}>
+      <Router >
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<Login />} />
@@ -45,8 +45,9 @@ function App() {
           ></Route>
         </Routes>
       </Router>
-
+      </div>
       <Footer />
+    
     </div>
   );
 }
