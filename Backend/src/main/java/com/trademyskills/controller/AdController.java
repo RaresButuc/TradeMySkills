@@ -32,14 +32,28 @@ public class AdController {
         return adService.getAdById(id);
     }
 
+    @GetMapping("/profile/{id}/{status}")
+    public List<Ad> getAllAdsOfUserByStatus(@PathVariable("id") Long id, @PathVariable("status") String status){
+        return adService.searchAllAdsByUserAndStatus(id,status);
+    }
+
+
     @PutMapping("/{id}")
     public void updateAdById(@PathVariable("id") Long id, @RequestBody Ad updatedAd) {
         adService.updateAdById(id, updatedAd);
     }
 
+    @PutMapping("/{setStatus}/{id}")
+    public void updateAdAs(@PathVariable("id") Long id, @PathVariable("setStatus") String status){
+        adService.setStatusOfAd(id,status);
+    }
+
+
     @DeleteMapping("/{id}")
     public void deleteAdById(@PathVariable("id") Long id) {
         adService.deleteAdById(id);
     }
+
+
 
 }

@@ -42,38 +42,37 @@ function Login() {
 
   return (
     <form onSubmit={onSave} style={{ marginTop: 175 }}>
-      <div class="container py-3 h-100">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-          <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-            <div class="card shadow-2-strong">
-              <div class="card-body p-5 text-center">
-                <h1 class="mb-3">Login</h1>
+      <div className="container py-3 h-100">
+        <div className="row d-flex justify-content-center align-items-center h-100">
+          <div className="col-12 col-md-8 col-lg-6 col-xl-5">
+            <div className="card shadow-2-strong">
+              <div className="card-body p-5 text-center">
+                <h1 className="mb-3">Login</h1>
 
-                <div class="form-outline mb-4">
+                <div className="form-outline mb-4">
                   <input
                     type="email"
                     className="form-control"
                     id="email"
                     name="email"
+                    placeholder="Email"
                   />
-                  <label class="form-label" htmlFor="email">
-                    Email
-                  </label>
                 </div>
 
-                <div class="form-outline mb-4">
+                <div className="form-outline mb-4">
                   <input
                     type="password"
                     id="password"
-                    class="form-control"
+                    className="form-control"
                     name="password"
+                    placeholder="Password"
                   />
-                  <label class="form-label" htmlFor="password">
-                    Password
-                  </label>
                 </div>
 
-                <button class="btn btn-primary btn-lg btn-block" type="submit">
+                <button
+                  className="btn btn-primary btn-lg btn-block"
+                  type="submit"
+                >
                   Login
                 </button>
               </div>

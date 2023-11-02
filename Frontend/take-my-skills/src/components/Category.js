@@ -29,7 +29,6 @@ const ListGroup = () => {
     other,
   ];
 
-
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
@@ -59,7 +58,9 @@ const ListGroup = () => {
         {categories &&
           categories.map((category, index) => (
             <div className="col" key={index}>
-              <a onClick={() => changeLink("category",category.nameOfCategory)}>
+              <a
+                onClick={() => changeLink("category", category.nameOfCategory)}
+              >
                 <img
                   src={photo[index]}
                   alt="item"

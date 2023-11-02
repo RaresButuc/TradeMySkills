@@ -17,14 +17,17 @@ export default function Filter() {
         </button>
         <ul className="dropdown-menu">
           <li>
-            <a className="dropdown-item" onClick={() => changeLink("sort","name-asc")}>
+            <a
+              className="dropdown-item"
+              onClick={() => changeLink("sort", "name-asc")}
+            >
               Name ↑
             </a>
           </li>
           <li>
             <a
               className="dropdown-item"
-              onClick={() => changeLink("sort","name-desc")}
+              onClick={() => changeLink("sort", "name-desc")}
             >
               Name ↓
             </a>
@@ -32,7 +35,7 @@ export default function Filter() {
           <li>
             <a
               className="dropdown-item"
-              onClick={() => changeLink("sort","price-asc")}
+              onClick={() => changeLink("sort", "price-asc")}
             >
               Price ↑
             </a>
@@ -40,7 +43,7 @@ export default function Filter() {
           <li>
             <a
               className="dropdown-item"
-              onClick={() => changeLink("sort","price-desc")}
+              onClick={() => changeLink("sort", "price-desc")}
             >
               Price ↓
             </a>
@@ -51,25 +54,17 @@ export default function Filter() {
           className="form-control"
           aria-label="Text input with dropdown button"
           placeholder="What are you looking for?"
-          onChange={e => setInputValue(e.target.value.toLocaleLowerCase())}
+          onChange={(e) => setInputValue(e.target.value.toLocaleLowerCase())}
         />
         {/* Nou */}
         <button
           type="button"
           className="btn btn-primary font-weight-bold  mx-2"
-          onClick={() => changeLink("input",inputValue)}
+          onClick={() => changeLink("input", inputValue)}
         >
           Search
         </button>
       </div>
-      {/* Nou */}
-
-      {/* <div class="input-group container-fluid w-50">
-        <span class="input-group-text">Min. Price</span>
-        <input type="text" aria-label="First name" class="form-control" />
-        <span class="input-group-text">Max. Price</span>
-        <input type="text" aria-label="Last name" class="form-control" />
-      </div> */}
     </div>
   );
 }
