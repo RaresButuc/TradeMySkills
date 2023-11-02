@@ -3,8 +3,10 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useRef } from "react";
 import { useAuthUser } from "react-auth-kit";
+import { useNavigate } from "react-router-dom";
 
 export default function FormAddNewAd() {
+  const navigate = useNavigate();
   const auth = useAuthUser();
   const [currentUser, setCurrentUser] = useState(null);
 
@@ -108,6 +110,7 @@ export default function FormAddNewAd() {
       });
 
       if (response.status === 200) {
+        navigate("/all-ads");
       } else {
         console.error(`HTTP Error: ${response.status}`);
         const data = await response.json();

@@ -2,11 +2,13 @@ import { useSignIn } from "react-auth-kit";
 import axios, { AxiosError } from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import SuccesAlert from "../components/SuccesAlert"
 
 function Register() {
   const navigate = useNavigate();
   const [error, setError] = useState("");
   const [acceptTerms, setAcceptTerms] = useState("");
+  const [showAlert, setShowAlert] = useState(false);
 
   const onSubmit = async (values) => {
     console.log("Values: ", values);
@@ -17,7 +19,13 @@ function Register() {
         "http://localhost:8080/users/register",
         values
       );
-      navigate("/login");
+
+      setShowAlert(true);
+      setTimeout(() => {
+        navigate("/login");
+      }, 3000);
+      
+    
     } catch (err) {
       if (err instanceof AxiosError) setError(err.response?.data.message);
       else if (err instanceof Error) setError(err.message);
@@ -42,6 +50,8 @@ function Register() {
   };
 
   return (
+    <div>
+    {showAlert && <SuccesAlert type = "success" message = "you have succesful register"/>}
     <form onSubmit={onSave} style={{ marginTop: 85 }}>
       <div class="container py-5 h-100mb-4 ">
         <div class="row d-flex justify-content-center align-items-center h-100">
@@ -135,6 +145,7 @@ function Register() {
         </p>
       </div>
     </form>
+    </div>
   );
 }
 
