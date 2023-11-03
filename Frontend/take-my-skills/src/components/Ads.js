@@ -11,12 +11,12 @@ export default function Ads({ ads }) {
   return (
     <div>
       <div className="container-xl ">
-        <div className="row" >
+        <div className="row " >
           {ads &&
             ads.map((ad, index) => (
               <div
-                className="card mt-4 col-md-3 mx-auto"
-                style={{ width: "18rem"}}
+                className="card mt-4 col-xl-4 col-md-6 mx-auto"
+                 style={{ width: "19rem" }}
                 key={index}
               >
                 <div className="card-header fw-bold">
@@ -29,33 +29,36 @@ export default function Ads({ ads }) {
                   >
                     {ad.name}
                   </a>
+                  <hr/>
                   {/* Interior Elements */}
                   <div className="container">
                     <div className="row">
-                      <div className="col-sm d-flex align-items-end">
-                        <h5 className="card-title text-start fw-bold">
+                      <div className="">
+                        <h5 className="card-title  fw-bold">
                           <img
                             src={logoMap}
                             alt="Location"
                             className="mb-1 ms-2"
-                            style={{ width: 45 }}
+                            style={{ width: 35 }}
                           />
-                          {ad.location.nameOfTheCounty},<th></th>
+                          <br></br>
+                          {ad.location.nameOfTheCounty},
                           {ad.location.nameOfTheCity}
                         </h5>
-                      </div>
-                      <div className="col-sm d-flex align-items-end  justify-content-center">
-                        <h5 className="card-title text-end  fw-bold">
+                        <div className="mt-4">
+                        <h5 className="card-title   fw-bold">
                           <img
                             src={logoMoney}
                             alt="Price"
                             className="mb-1"
                             style={{ width: 45 }}
                           />
-                          <br></br>
+                           <br></br>
                           {ad.price}
                         </h5>
                       </div>
+                      </div>
+                     
                     </div>
                   </div>
                 </div>
