@@ -52,12 +52,12 @@ const ListGroup = () => {
   };
 
   return (
-    <div className="container-xl">
-      <div className="row" style={{ marginTop: 130 }}>
+    <div className="container-xl ">
+      <div className="row d-flex justify-content-center" style={{ marginTop: 130 }}>
         <h1 className="fw-bold mb-5">Categories</h1>
         {categories &&
           categories.map((category, index) => (
-            <div className="col" key={index}>
+            <div className="col-xl-1 col-md-2  col-sm-3 " key={index}>
               <a
                 onClick={() => changeLink("category", category.nameOfCategory)}
               >
