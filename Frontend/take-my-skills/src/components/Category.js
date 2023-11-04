@@ -52,7 +52,7 @@ const ListGroup = () => {
   };
 
   return (
-    <div className="container-xl ">
+    <div className="container-xl">
       <div className="row d-flex justify-content-center" style={{ marginTop: 130 }}>
         <h1 className="fw-bold mb-5">Categories</h1>
         {categories &&

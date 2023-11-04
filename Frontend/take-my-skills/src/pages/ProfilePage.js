@@ -101,7 +101,7 @@ export default function ProfilePage() {
                 <a
                   className="btn btn-primary font-weight-bold  mx-2  "
                   aria-current="page"
-                  href="/id/pending"
+                  href={`/${currentUser?.id}/pending`}
                 >
                   Pending Offer
                 </a>
@@ -109,7 +109,7 @@ export default function ProfilePage() {
                 <a
                   className="btn btn-secondary font-weight-bold  mx-2  "
                   aria-current="page"
-                  href="/id/completed"
+                  href={`/${currentUser?.id}/completed`}
                 >
                   Completed Offer
                 </a>

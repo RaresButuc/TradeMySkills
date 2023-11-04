@@ -89,7 +89,7 @@ const NavBar = () => {
                       </li>
                       <li>
                         <a className="dropdown-item" href="/post-ads">
-                          Post new Add
+                          Post New Add
                         </a>
                       </li>
                       <li>
