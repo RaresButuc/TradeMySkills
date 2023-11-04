@@ -53,7 +53,10 @@ const ListGroup = () => {
 
   return (
     <div className="container-xl">
-      <div className="row d-flex justify-content-center" style={{ marginTop: 130 }}>
+      <div
+        className="row d-flex justify-content-center"
+        style={{ marginTop: 100 }}
+      >
         <h1 className="fw-bold mb-5">Categories</h1>
         {categories &&
           categories.map((category, index) => (
