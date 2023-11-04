@@ -158,10 +158,10 @@ public class AdService {
         }
     }
 
-    public void setStatusOfAd(Long id, String stringStatusOfAd){
+    public void setStatusOfAd(Long id, String stringStatusOfAd) {
         Ad adFormDb = adRepository.findById(id).orElse(null);
         assert adFormDb != null;
-      adFormDb.setStatusOfAd(StatusOfAd.getByName(stringStatusOfAd));
+        adFormDb.setStatusOfAd(StatusOfAd.getByName(stringStatusOfAd));
 
         adRepository.save(adFormDb);
     }
@@ -171,7 +171,8 @@ public class AdService {
         Ad adFromDb = adRepository.findById(id).orElse(null);
         assert adFromDb != null;
         adFromDb.setName(adUpdater.getName());
-        adFromDb.setStatusOfAd(adUpdater.getStatusOfAd());
+//        adFromDb.setStatusOfAd(adUpdater.getStatusOfAd());
+        adFromDb.setStatusOfAd(adFromDb.getStatusOfAd());
         adFromDb.setDescription(adUpdater.getDescription());
         adFromDb.setPrice(adUpdater.getPrice());
         adRepository.save(adFromDb);
@@ -181,12 +182,12 @@ public class AdService {
         adRepository.deleteById(id);
     }
 
-    public List<Ad> searchAllAdsByUserAndStatus(Long id, String stringStatusOfAd){
+    public List<Ad> searchAllAdsByUserAndStatus(Long id, String stringStatusOfAd) {
         User user = userRepository.findById(id).orElse(null);
         StatusOfAd statusOfAd = StatusOfAd.getByName(stringStatusOfAd);
 
-        return adRepository.findAllByUserAndStatusOfAd(user,statusOfAd);
-
+        assert user != null;
+        return user.getAds().stream().filter(e -> e.getStatusOfAd() == statusOfAd).toList();
     }
 
 
