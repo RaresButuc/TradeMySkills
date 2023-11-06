@@ -20,7 +20,7 @@ public class Ad {
     private StatusOfAd statusOfAd;
 
     private String name;
-
+    
     private String description;
 
     @ManyToOne

@@ -161,7 +161,7 @@ export default function FormAddNewAd() {
                     <label htmlFor="description" className="form-label">
                       Description
                     </label>
-                    <input
+                    <textarea
                       ref={descriptonOfAd}
                       className="form-control"
                       id="description"

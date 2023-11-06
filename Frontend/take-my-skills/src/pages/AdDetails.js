@@ -32,18 +32,43 @@ export default function AdDetail() {
   };
 
   return (
-    <>
-      <div
-        className="row container-xl position-absolute top-0 start-50 translate-middle"
-        style={{ marginTop: 250 }}
-      >
+    <div className="container-xl">
+      <div className="row container-xl" style={{ marginTop: 130 }}>
         {/* Titlu */}
-        <div class="card container-xl col-8 h-50">
-          <div class="card-header">{adInfos?.typeOfAd.nameOfCategory}</div>
+        <div class="card container-xl col-8">
           <div class="card-body">
             <h1>
               <h1>{adInfos?.name}</h1>
             </h1>
+            <hr />
+            <div class="mt-4 container-xl text-start">
+              <h5>{adInfos?.description}</h5>
+            </div>
+            {/* Div for Price and Status */}
+            <div className="row mt-5">
+              {/* Price */}
+              <div
+                class="card text-white bg-success container-xl col-3"
+                style={{ height: 90 }}
+              >
+                <div className="card-header">Price</div>
+                <div class="card-body">
+                  <h5 class="card-title">{adInfos?.price}</h5>
+                </div>
+              </div>
+              {/* Status */}
+              <div
+                className={`card text-white bg-${colorDependingOnStatus(
+                  adInfos?.statusOfAd
+                )} container-xl col-3`}
+                style={{ height: 90 }}
+              >
+                <div class="card-header">Status</div>
+                <div class="card-body">
+                  <h5 class="card-title">{adInfos?.statusOfAd}</h5>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -82,31 +107,7 @@ export default function AdDetail() {
             </div>
           </div>
         </div>
-        {/* Price */}
-        <div
-          class="card text-white bg-success container-xl col-3"
-          style={{ height: 90 }}
-        >
-          <div className="card-header">Price</div>
-          <div class="card-body">
-            <h5 class="card-title">{adInfos?.price}</h5>
-          </div>
-        </div>
-        <div
-          className={`card text-white bg-${colorDependingOnStatus(
-            adInfos?.statusOfAd
-          )} container-xl col-3`}
-          style={{ height: 90 }}
-        >
-          <div class="card-header">Status</div>
-          <div class="card-body">
-            <h5 class="card-title">{adInfos?.statusOfAd}</h5>
-          </div>
-        </div>
       </div>
-
-      {/* <h1>{adInfos?.name}</h1>
-      <h1>{adInfos?.user.name}</h1> */}
-    </>
+    </div>
   );
 }
