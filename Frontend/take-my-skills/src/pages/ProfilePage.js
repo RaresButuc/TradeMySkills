@@ -98,20 +98,30 @@ export default function ProfilePage() {
             <div className="row">
               <div className="d-grid gap-1 ">
                 {/* buton cu verde pentru oferte active */}
-                <a
-                  className="btn btn-primary font-weight-bold  mx-2  "
-                  aria-current="page"
-                  href={`/${currentUser?.id}/pending`}
-                >
-                  Pending Offer
-                </a>
+                {currentUser?.role === "WORKER" ? (
+                  <a
+                    className="btn btn-primary font-weight-bold  mx-2  "
+                    aria-current="page"
+                    href={`/${currentUser?.id}/pending`}
+                  >
+                    Pending Ads
+                  </a>
+                ) : (
+                  <a
+                    className="btn btn-primary font-weight-bold  mx-2  "
+                    aria-current="page"
+                    href={`/${currentUser?.id}/active`}
+                  >
+                    Active Ads
+                  </a>
+                )}
 
                 <a
                   className="btn btn-secondary font-weight-bold  mx-2  "
                   aria-current="page"
-                  href={`/${currentUser?.id}/completed`}
+                  href={`/${currentUser?.id}/finalised`}
                 >
-                  Completed Offer
+                  Completed Ads
                 </a>
               </div>
             </div>

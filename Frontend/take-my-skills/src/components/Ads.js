@@ -10,7 +10,7 @@ export default function Ads({ ads }) {
 
   return (
     <div>
-      <div className="container-xl ">
+      <div className="container-xl">
         <div className="row " >
           {ads &&
             ads.map((ad, index) => (
@@ -51,7 +51,7 @@ export default function Ads({ ads }) {
                             src={logoMoney}
                             alt="Price"
                             className="mb-1"
-                            style={{ width: 45 }}
+                            style={{ width: 35 }}
                           />
                            <br></br>
                           {ad.price}
