@@ -34,7 +34,6 @@ public class AdController {
 
     @GetMapping("/profile/{id}/{status}")
     public List<Ad> getAllAdsOfUserByStatus(@PathVariable("id") Long id, @PathVariable("status") String status){
-        System.out.println(adService.searchAllAdsByUserAndStatus(id,status));
         return adService.searchAllAdsByUserAndStatus(id,status);
     }
 
