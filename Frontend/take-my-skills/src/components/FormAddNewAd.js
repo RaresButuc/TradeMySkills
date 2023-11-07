@@ -96,8 +96,7 @@ export default function FormAddNewAd() {
     cityAd
   ) => {
     try {
-      // console.log(auth())
-      console.log(currentUser);
+
 
       const response = await fetch("http://localhost:8080/ads", {
         method: "POST",

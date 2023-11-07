@@ -9,7 +9,6 @@ function Login() {
   const signIn = useSignIn();
 
   const onSubmit = async (values) => {
-    console.log("Values: ", values);
     setError("");
 
     try {

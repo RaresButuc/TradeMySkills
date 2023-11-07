@@ -12,7 +12,6 @@ export default function AdDetail() {
       try {
         const response = await axios.get(`http://localhost:8080/ads/${id}`);
         const data = response.data;
-        console.log(data);
         setAdInfos(data);
       } catch (err) {
         console.log(err);
@@ -24,9 +23,7 @@ export default function AdDetail() {
         const response = await axios.get(
           `http://dev.virtualearth.net/REST/v1/Locations?countryRegion=RO&adminDistrict=${adLoc.location.nameOfTheCounty}&locality=${adLoc.location.nameOfTheCity}&maxResults=20&key=AtF5j2AdfXHCqsoqmusG2zXRg7bFR63MIkoMe2EsRAgYfeslufM4-NNWkrfPmywu`
         );
-        console.log(adLoc.nameOfTheCounty);
         const data = response.data.resourceSets[0].resources[0].point;
-        console.log(data);
         setAdLocation(data);
       } catch (err) {
         console.log(err);
@@ -51,25 +48,28 @@ export default function AdDetail() {
     <div className="container-xl">
       <div className="row container-xl" style={{ marginTop: 130 }}>
         {/* Titlu */}
-        <div class="card container-xl col-8">
-          <div class="card-body">
+        <div className="card container-xl col-8">
+          <div className="card-body">
             <h1>
               <h1>{adInfos?.name}</h1>
             </h1>
             <hr />
-            <div class="mt-4 container-xl text-start" style={{ minHeight: '35vh' }}>
+            <div
+              className="mt-4 container-xl text-start"
+              style={{ minHeight: "35vh" }}
+            >
               <h5>{adInfos?.description}</h5>
             </div>
             {/* Div for Price and Status */}
             <div className="row mt-5">
               {/* Price */}
               <div
-                class="card text-white bg-success container-xl col-3"
+                className="card text-white bg-success container-xl col-3"
                 style={{ height: 90 }}
               >
                 <div className="card-header">Price</div>
-                <div class="card-body">
-                  <h5 class="card-title">{adInfos?.price}</h5>
+                <div className="card-body">
+                  <h5 className="card-title">{adInfos?.price}</h5>
                 </div>
               </div>
               {/* Status */}
@@ -79,9 +79,9 @@ export default function AdDetail() {
                 )} container-xl col-3`}
                 style={{ height: 90 }}
               >
-                <div class="card-header">Status</div>
-                <div class="card-body">
-                  <h5 class="card-title">{adInfos?.statusOfAd}</h5>
+                <div className="card-header">Status</div>
+                <div className="card-body">
+                  <h5 className="card-title">{adInfos?.statusOfAd}</h5>
                 </div>
               </div>
             </div>

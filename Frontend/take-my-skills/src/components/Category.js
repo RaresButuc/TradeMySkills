@@ -36,7 +36,6 @@ const ListGroup = () => {
       try {
         const response = await axios.get("http://localhost:8080/category");
         const data = response.data;
-        console.log(data);
         setCategories(data);
       } catch (err) {
         console.log(err);

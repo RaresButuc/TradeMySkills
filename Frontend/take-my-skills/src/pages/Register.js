@@ -9,7 +9,6 @@ function Register() {
   const [showAlert, setShowAlert] = useState(false);
 
   const onSubmit = async (values) => {
-    console.log("Values: ", values);
     setError("");
 
     try {

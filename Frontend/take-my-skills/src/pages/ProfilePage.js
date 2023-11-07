@@ -22,7 +22,6 @@ export default function ProfilePage() {
 
     fetchCurrentUser();
   }, [auth().email]);
-  console.log(currentUser);
   return (
     <section>
       <div className="container py-5 mt-5">
