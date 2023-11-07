@@ -185,7 +185,6 @@ public class AdService {
     public List<Ad> searchAllAdsByUserAndStatus(Long id, String stringStatusOfAd) {
         User user = userRepository.findById(id).orElse(null);
         StatusOfAd statusOfAd = StatusOfAd.getByName(stringStatusOfAd);
-        System.out.println(statusOfAd);
         assert user != null;
         return user.getAds().stream().filter(e -> e.getStatusOfAd() == statusOfAd).toList();
     }

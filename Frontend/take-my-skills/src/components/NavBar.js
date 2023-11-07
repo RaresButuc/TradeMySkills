@@ -83,7 +83,7 @@ const NavBar = () => {
                     </button>
                     <ul className="dropdown-menu dropdown-menu-end">
                       <li>
-                        <a className="dropdown-item" href="/profile">
+                        <a className="dropdown-item" href="/myprofile">
                           Profile
                         </a>
                       </li>
