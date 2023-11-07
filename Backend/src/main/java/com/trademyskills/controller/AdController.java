@@ -37,7 +37,6 @@ public class AdController {
         return adService.searchAllAdsByUserAndStatus(id,status);
     }
 
-
     @PutMapping("/{id}")
     public void updateAdById(@PathVariable("id") Long id, @RequestBody Ad updatedAd) {
         adService.updateAdById(id, updatedAd);

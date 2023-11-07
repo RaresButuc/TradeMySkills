@@ -57,7 +57,7 @@ export default function AdDetail() {
               <h1>{adInfos?.name}</h1>
             </h1>
             <hr />
-            <div class="mt-4 container-xl text-start">
+            <div class="mt-4 container-xl text-start" style={{ minHeight: '35vh' }}>
               <h5>{adInfos?.description}</h5>
             </div>
             {/* Div for Price and Status */}
@@ -123,12 +123,16 @@ export default function AdDetail() {
             </div>
           </div>
           <iframe
-            className="container-xl"
+            className="mt-4"
             width="400"
             height="300"
             src={`https://www.bing.com/maps/embed/viewer.aspx?v=3&cp=${adLocation?.coordinates[0]}~${adLocation?.coordinates[1]}&lvl=12&w=400&h=300&credentials=AtF5j2AdfXHCqsoqmusG2zXRg7bFR63MIkoMe2EsRAgYfeslufM4-NNWkrfPmywu&form=BMEMJS`}
             frameborder="0"
           ></iframe>
+          <h3>
+            {adInfos?.location.nameOfTheCounty},
+            {adInfos?.location.nameOfTheCity}
+          </h3>
         </div>
       </div>
     </div>
