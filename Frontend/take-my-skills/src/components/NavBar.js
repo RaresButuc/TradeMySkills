@@ -96,6 +96,11 @@ const NavBar = () => {
                         <hr className="dropdown-divider" />
                       </li>
                       <li>
+                        <a className="dropdown-item" href="/changepassowrd">
+                          Change Password
+                        </a>
+                      </li>
+                      <li>
                         <a className="dropdown-item" onClick={() => signOut()}>
                           Logout
                         </a>
