@@ -5,6 +5,7 @@ import axios from "axios";
 export default function AdDetail() {
   const { id } = useParams();
   const [adInfos, setAdInfos] = useState(null);
+  const [adLocation, setAdLocation] = useState(null);
 
   useEffect(() => {
     const getAdById = async () => {
@@ -17,8 +18,23 @@ export default function AdDetail() {
         console.log(err);
       }
     };
+
+    const getLocationsOfAd = async (adLoc) => {
+      try {
+        const response = await axios.get(
+          `http://dev.virtualearth.net/REST/v1/Locations?countryRegion=RO&adminDistrict=${adLoc.location.nameOfTheCounty}&locality=${adLoc.location.nameOfTheCity}&maxResults=20&key=AtF5j2AdfXHCqsoqmusG2zXRg7bFR63MIkoMe2EsRAgYfeslufM4-NNWkrfPmywu`
+        );
+        console.log(adLoc.nameOfTheCounty);
+        const data = response.data.resourceSets[0].resources[0].point;
+        console.log(data);
+        setAdLocation(data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
     getAdById();
-  }, []);
+    getLocationsOfAd(adInfos);
+  }, [adInfos]);
 
   const colorDependingOnStatus = (status) => {
     switch (status) {
@@ -106,6 +122,13 @@ export default function AdDetail() {
               <div className="d-flex justify-content-center"></div>
             </div>
           </div>
+          <iframe
+            className="container-xl"
+            width="400"
+            height="300"
+            src={`https://www.bing.com/maps/embed/viewer.aspx?v=3&cp=${adLocation?.coordinates[0]}~${adLocation?.coordinates[1]}&lvl=12&w=400&h=300&credentials=AtF5j2AdfXHCqsoqmusG2zXRg7bFR63MIkoMe2EsRAgYfeslufM4-NNWkrfPmywu&form=BMEMJS`}
+            frameborder="0"
+          ></iframe>
         </div>
       </div>
     </div>
