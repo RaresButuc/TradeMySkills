@@ -25,6 +25,8 @@ export default function FormAddNewAd() {
   const [countyChosen, setCountyChosen] = useState("");
   const [cityChosen, setCity] = useState("");
 
+  const [charactersTextArea, setCharactersTextArea] = useState(0);
+
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -125,6 +127,10 @@ export default function FormAddNewAd() {
     }
   };
 
+  const countingCharactersDescription = (e) => {
+    setCharactersTextArea(e.target.value.length);
+  };
+
   return (
     <div>
       {showAlert && (
@@ -161,18 +167,20 @@ export default function FormAddNewAd() {
                     <label htmlFor="description" className="form-label">
                       Description
                     </label>
-                    <input
+                    <textarea
                       ref={descriptonOfAd}
                       className="form-control"
                       id="description"
+                      maxLength={1000}
                       style={{ height: 150 }}
+                      onChange={countingCharactersDescription}
                     />
                     <div
                       id="Title-Help"
                       className="form-text"
                       style={{ color: "#fa6900" }}
                     >
-                      *Describe your needs in detail
+                      {charactersTextArea}/1000
                     </div>
                   </div>
 

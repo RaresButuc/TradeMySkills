@@ -5,6 +5,7 @@ import axios from "axios";
 export default function AdDetail() {
   const { id } = useParams();
   const [adInfos, setAdInfos] = useState(null);
+  const [adLocation, setAdLocation] = useState(null);
 
   useEffect(() => {
     const getAdById = async () => {
@@ -17,8 +18,23 @@ export default function AdDetail() {
         console.log(err);
       }
     };
+
+    const getLocationsOfAd = async (adLoc) => {
+      try {
+        const response = await axios.get(
+          `http://dev.virtualearth.net/REST/v1/Locations?countryRegion=RO&adminDistrict=${adLoc.location.nameOfTheCounty}&locality=${adLoc.location.nameOfTheCity}&maxResults=20&key=AtF5j2AdfXHCqsoqmusG2zXRg7bFR63MIkoMe2EsRAgYfeslufM4-NNWkrfPmywu`
+        );
+        console.log(adLoc.nameOfTheCounty);
+        const data = response.data.resourceSets[0].resources[0].point;
+        console.log(data);
+        setAdLocation(data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
     getAdById();
-  }, []);
+    getLocationsOfAd(adInfos);
+  }, [adInfos]);
 
   const colorDependingOnStatus = (status) => {
     switch (status) {
@@ -32,18 +48,43 @@ export default function AdDetail() {
   };
 
   return (
-    <>
-      <div
-        className="row container-xl position-absolute top-0 start-50 translate-middle"
-        style={{ marginTop: 250 }}
-      >
+    <div className="container-xl">
+      <div className="row container-xl" style={{ marginTop: 130 }}>
         {/* Titlu */}
-        <div class="card container-xl col-8 h-50">
-          <div class="card-header">{adInfos?.typeOfAd.nameOfCategory}</div>
+        <div class="card container-xl col-8">
           <div class="card-body">
             <h1>
               <h1>{adInfos?.name}</h1>
             </h1>
+            <hr />
+            <div class="mt-4 container-xl text-start" style={{ minHeight: '35vh' }}>
+              <h5>{adInfos?.description}</h5>
+            </div>
+            {/* Div for Price and Status */}
+            <div className="row mt-5">
+              {/* Price */}
+              <div
+                class="card text-white bg-success container-xl col-3"
+                style={{ height: 90 }}
+              >
+                <div className="card-header">Price</div>
+                <div class="card-body">
+                  <h5 class="card-title">{adInfos?.price}</h5>
+                </div>
+              </div>
+              {/* Status */}
+              <div
+                className={`card text-white bg-${colorDependingOnStatus(
+                  adInfos?.statusOfAd
+                )} container-xl col-3`}
+                style={{ height: 90 }}
+              >
+                <div class="card-header">Status</div>
+                <div class="card-body">
+                  <h5 class="card-title">{adInfos?.statusOfAd}</h5>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -81,32 +122,19 @@ export default function AdDetail() {
               <div className="d-flex justify-content-center"></div>
             </div>
           </div>
-        </div>
-        {/* Price */}
-        <div
-          class="card text-white bg-success container-xl col-3"
-          style={{ height: 90 }}
-        >
-          <div className="card-header">Price</div>
-          <div class="card-body">
-            <h5 class="card-title">{adInfos?.price}</h5>
-          </div>
-        </div>
-        <div
-          className={`card text-white bg-${colorDependingOnStatus(
-            adInfos?.statusOfAd
-          )} container-xl col-3`}
-          style={{ height: 90 }}
-        >
-          <div class="card-header">Status</div>
-          <div class="card-body">
-            <h5 class="card-title">{adInfos?.statusOfAd}</h5>
-          </div>
+          <iframe
+            className="mt-4"
+            width="400"
+            height="300"
+            src={`https://www.bing.com/maps/embed/viewer.aspx?v=3&cp=${adLocation?.coordinates[0]}~${adLocation?.coordinates[1]}&lvl=12&w=400&h=300&credentials=AtF5j2AdfXHCqsoqmusG2zXRg7bFR63MIkoMe2EsRAgYfeslufM4-NNWkrfPmywu&form=BMEMJS`}
+            frameborder="0"
+          ></iframe>
+          <h3>
+            {adInfos?.location.nameOfTheCounty},
+            {adInfos?.location.nameOfTheCity}
+          </h3>
         </div>
       </div>
-
-      {/* <h1>{adInfos?.name}</h1>
-      <h1>{adInfos?.user.name}</h1> */}
-    </>
+    </div>
   );
 }

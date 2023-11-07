@@ -60,7 +60,7 @@ const ListGroup = () => {
         <h1 className="fw-bold mb-5">Categories</h1>
         {categories &&
           categories.map((category, index) => (
-            <div className="col-xl-1 col-md-2  col-sm-3 " key={index}>
+            <div className="col-xl-1 col-md-2 col-sm-3 col-6" key={index}>
               <a
                 onClick={() => changeLink("category", category.nameOfCategory)}
               >

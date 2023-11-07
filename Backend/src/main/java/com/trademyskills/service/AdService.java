@@ -130,29 +130,29 @@ public class AdService {
         if (typeofcategory.equals("null")) {
             if (typeOfSort.equals("null")) {
                 if (input.equals("null")) {
-                    return getAllAds();
+                    return getActiveAds(getAllAds());
                 } else {
-                    return search(input);
+                    return getActiveAds(search(input));
                 }
             } else {
                 if (input.equals("null")) {
-                    return orderAllBy(typeOfSort);
+                    return getActiveAds(orderAllBy(typeOfSort));
                 } else {
-                    return getAllByInputOrdered(input, typeOfSort);
+                    return getActiveAds(getAllByInputOrdered(input, typeOfSort));
                 }
             }
         } else {
             if (typeOfSort.equals("null")) {
                 if (input.equals("null")) {
-                    return findAdsByTypeOfAd(typeofcategory);
+                    return getActiveAds(findAdsByTypeOfAd(typeofcategory));
                 } else {
-                    return searchByNameAndCategory(typeofcategory, input);
+                    return getActiveAds(searchByNameAndCategory(typeofcategory, input));
                 }
             } else {
                 if (input.equals("null")) {
-                    return getAllByCategoryOrdered(typeofcategory, typeOfSort);
+                    return getActiveAds(getAllByCategoryOrdered(typeofcategory, typeOfSort));
                 } else {
-                    return getAllByInputAndCategoryOrdered(input, typeofcategory, typeOfSort);
+                    return getActiveAds(getAllByInputAndCategoryOrdered(input, typeofcategory, typeOfSort));
                 }
             }
         }
@@ -190,5 +190,8 @@ public class AdService {
         return user.getAds().stream().filter(e -> e.getStatusOfAd() == statusOfAd).toList();
     }
 
+    public List<Ad> getActiveAds(List<Ad> adsList) {
+        return adsList.stream().filter(e -> e.getStatusOfAd() == StatusOfAd.ACTIVE).toList();
+    }
 
 }
