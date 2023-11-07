@@ -19,9 +19,6 @@ export default function ProfilePage() {
       phoneNumber: userPhoneNumberRef.current.value,
       email: userEmailRef.current.value,
     };
-  console.log(userNameRef.current.value.value)
-  console.log(userPhoneNumberRef.current.value)
-  console.log(userEmailRef.current.value)
       try {
          await axios.put(
           `http://localhost:8080/users/${currentUser.id}`,editData
