@@ -24,6 +24,14 @@ function Register() {
         }, 3000);
         setShowAlert(true);
         setAlertInfos(["success","You have succesfully Registered!"]);
+        console.log(values.email);
+         await axios.post(
+          `http://localhost:8080/mail/send/${values.email}`,
+          {
+            "subject" : "Registration",
+            "message" : `Congratulation ${values.name} ! You are now ${values.role} on TradeMySkills.com.`
+          }
+        );
       }else{
         setShowAlert(true);
         setAlertInfos(["danger","Email or UserName  already Registered!"]);
