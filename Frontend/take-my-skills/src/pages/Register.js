@@ -26,7 +26,7 @@ function Register() {
         setAlertInfos(["success","You have succesfully Registered!"]);
       }else{
         setShowAlert(true);
-        setAlertInfos(["danger","This Email is already Registered! Try a new one"]);
+        setAlertInfos(["danger","Email or UserName  already Registered!"]);
       }
     } catch (err) {
       if (err instanceof AxiosError) setError(err.response?.data.message);
