@@ -1,2 +1,11 @@
-package com.trademyskills.model;public class MailStructure {
+package com.trademyskills.model;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class MailStructure {
+    private String subject;
+    private String message;
 }
