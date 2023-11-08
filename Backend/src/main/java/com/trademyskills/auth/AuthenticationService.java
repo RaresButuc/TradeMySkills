@@ -1,6 +1,5 @@
 package com.trademyskills.auth;
 
-import com.trademyskills.enums.Role;
 import com.trademyskills.model.User;
 import com.trademyskills.security.JwtService;
 import com.trademyskills.service.repository.UserRepository;
@@ -20,7 +19,7 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponse register(RegisterRequest request) {
-        if (repository.findByEmailIgnoreCase(request.getEmail()) == null) {
+        if (repository.findByEmailIgnoreCase(request.getEmail()) == null && repository.findByNameIgnoreCase(request.getName()) == null) {
             var user = User.builder()
                     .name(request.getName())
                     .email(request.getEmail())

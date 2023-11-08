@@ -7,6 +7,8 @@ import com.trademyskills.auth.RegisterRequest;
 import com.trademyskills.model.User;
 import com.trademyskills.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/users")
 public class UserController {
-    private UserService userService;
+    private final UserService userService;
     private final AuthenticationService service;
 
     @Autowired
@@ -63,4 +65,14 @@ public class UserController {
         userService.deleteUserById(id);
     }
 
+
+    @PutMapping("/forget-password")
+    public ResponseEntity<String> forgotPassword(@RequestParam String email){
+        return new ResponseEntity<>(userService.forgotPassword(email), HttpStatus.OK);
+    }
+
+    @PutMapping("/set-password")
+    public ResponseEntity<String> setPassword(@RequestParam String email, @RequestHeader String newPassword){
+return new ResponseEntity<>(userService.setPassword(email, newPassword),HttpStatus.OK);
+    }
 }

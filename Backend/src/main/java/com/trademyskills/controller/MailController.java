@@ -1,2 +1,19 @@
-package com.trademyskills.controller;public class MailController {
+package com.trademyskills.controller;
+
+import com.trademyskills.model.MailStructure;
+import com.trademyskills.service.MailService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/mail")
+public class MailController {
+
+    @Autowired
+    private MailService mailService;
+    @PostMapping("/send/{mail}")
+    public String sendMail(@PathVariable String mail, @RequestBody MailStructure mailStructure){
+        mailService.sendMail(mail,mailStructure);
+        return "Successfully sent the mail!";
+    }
 }
