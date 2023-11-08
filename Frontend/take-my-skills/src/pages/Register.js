@@ -1,12 +1,13 @@
 import axios, { AxiosError } from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import SuccesAlert from "../components/SuccesAlert";
+import Alert from "../components/Alert";
 
 function Register() {
   const navigate = useNavigate();
   const [error, setError] = useState("");
   const [showAlert, setShowAlert] = useState(false);
+  const [alertInfos, setAlertInfos] = useState(["", ""]);
 
   const onSubmit = async (values) => {
     setError("");
@@ -17,10 +18,16 @@ function Register() {
         values
       );
 
-      setShowAlert(true);
-      setTimeout(() => {
-        navigate("/login");
-      }, 3000);
+      if (response.data !== '') {
+        setTimeout(() => {
+          navigate("/login");
+        }, 3000);
+        setShowAlert(true);
+        setAlertInfos(["success","You have succesfully Registered!"]);
+      }else{
+        setShowAlert(true);
+        setAlertInfos(["danger","This Email is already Registered! Try a new one"]);
+      }
     } catch (err) {
       if (err instanceof AxiosError) setError(err.response?.data.message);
       else if (err instanceof Error) setError(err.message);
@@ -43,9 +50,7 @@ function Register() {
 
   return (
     <div>
-      {showAlert && (
-        <SuccesAlert type="success" message="You have succesful registered" />
-      )}
+      {showAlert && <Alert type={alertInfos[0]} message={alertInfos[1]} />}
       <form onSubmit={onSave} style={{ marginTop: 85 }}>
         <div className="container py-5 h-100mb-4 ">
           <div className="row d-flex justify-content-center align-items-center h-100">

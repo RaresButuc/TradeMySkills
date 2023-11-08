@@ -5,7 +5,8 @@ import { useRef } from "react";
 import { useAuthUser } from "react-auth-kit";
 import { useNavigate } from "react-router-dom";
 
-import SuccesAlert from "../components/SuccesAlert";
+import Alert from "../components/Alert";
+
 export default function FormAddNewAd() {
   const navigate = useNavigate();
   const auth = useAuthUser();
@@ -96,8 +97,6 @@ export default function FormAddNewAd() {
     cityAd
   ) => {
     try {
-
-
       const response = await fetch("http://localhost:8080/ads", {
         method: "POST",
         headers: { "Content-type": "application/json" },
@@ -133,7 +132,7 @@ export default function FormAddNewAd() {
   return (
     <div>
       {showAlert && (
-        <SuccesAlert type="success" message="Your ad was successfully posted" />
+        <Alert type="success" message="Your ad was successfully posted" />
       )}
       <form style={{ marginTop: 95 }}>
         <div className="container-xl">

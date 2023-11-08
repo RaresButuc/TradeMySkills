@@ -1,42 +1,41 @@
+import React, { useState, useRef, useEffect } from "react";
 import { useAuthUser } from "react-auth-kit";
-import { useEffect } from "react";
 import axios from "axios";
-import React, { useState, useRef } from "react";
 
-
-export default function ProfilePage() {
+export default function Profile({ id }) {
   const auth = useAuthUser();
+
   const [currentUser, setCurrentUser] = useState(null);
+  const [showEditButtonOrNot, setShowEditButtonOrNot] = useState(false);
   const [editOrSave, setEditOrSave] = useState(0);
   const [buttonValue, setButtonValue] = useState("Edit Profile");
-  const userNameRef = useRef("")
-  const userPhoneNumberRef = useRef("")
-  const userEmailRef = useRef("")
 
-  
-  const  onSave = async() => {
+  const userNameRef = useRef("");
+  const userPhoneNumberRef = useRef("");
+  const userEmailRef = useRef("");
+
+  const onSave = async () => {
     const editData = {
       name: userNameRef.current.value,
       phoneNumber: userPhoneNumberRef.current.value,
       email: userEmailRef.current.value,
     };
-      try {
-         await axios.put(
-          `http://localhost:8080/users/${currentUser.id}`,editData
-        );
-
-      } catch (err) {
-        console.log(err);
-      }
+    try {
+      await axios.put(
+        `http://localhost:8080/users/${currentUser.id}`,
+        editData
+      );
+    } catch (err) {
+      console.log(err);
+    }
   };
-
 
   const changeEdit = () => {
     if (editOrSave === 0) {
       setEditOrSave(1);
       setButtonValue("Save");
     } else {
-      onSave()
+      onSave();
       setEditOrSave(0);
       setButtonValue("Edit Profile");
       window.location.reload(false);
@@ -44,20 +43,22 @@ export default function ProfilePage() {
   };
 
   useEffect(() => {
-    const fetchCurrentUser = async () => {
-      try {
-        const response = await axios.get(
-          `http://localhost:8080/users/email/${auth().email}`
-        );
-        const data = response.data;
-        setCurrentUser(data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
+    if (id) {
+      ///Facem verificarea
+      const fetchCurrentUser = async () => {
+        try {
+          const response = await axios.get(`http://localhost:8080/users/${id}`);
+          const data = response.data;
+          setCurrentUser(data);
+          setShowEditButtonOrNot(data.email === auth().email);
+        } catch (err) {
+          console.log(err);
+        }
+      };
 
-    fetchCurrentUser();
-  }, [auth().email]);
+      fetchCurrentUser();
+    } ///
+  }, [auth().email, id]); //Punem ca dependinta
   return (
     <section>
       <div className="container py-5 mt-5">
@@ -93,15 +94,17 @@ export default function ProfilePage() {
                 <span className="fa fa-star"></span>
                 <span className="fa fa-star"></span>
                 <div className="d-flex justify-content-center mb-4"></div>
-                <button
-                  onClick={changeEdit}
-                  style={{
-                    backgroundColor: "rgba(18, 126, 128, 1)",
-                    color: "white",
-                  }}
-                >
-                  {buttonValue}
-                </button>
+                {showEditButtonOrNot ? (
+                  <button
+                    onClick={changeEdit}
+                    style={{
+                      backgroundColor: "rgba(18, 126, 128, 1)",
+                      color: "white",
+                    }}
+                  >
+                    {buttonValue}
+                  </button>
+                ) : null}
               </div>
             </div>
           </div>
@@ -117,7 +120,11 @@ export default function ProfilePage() {
                     {editOrSave === 0 ? (
                       <p className="text-muted mb-0">{currentUser?.name}</p>
                     ) : (
-                      <input name="username" ref={userNameRef} defaultValue={currentUser?.name}></input>
+                      <input
+                        name="username"
+                        ref={userNameRef}
+                        defaultValue={currentUser?.name}
+                      ></input>
                     )}
                   </div>
                 </div>
@@ -130,7 +137,12 @@ export default function ProfilePage() {
                     {editOrSave === 0 ? (
                       <p className="text-muted mb-0">{currentUser?.email}</p>
                     ) : (
-                      <input type="email" ref={userEmailRef} name="email" defaultValue={currentUser?.email}></input>
+                      <input
+                        type="email"
+                        ref={userEmailRef}
+                        name="email"
+                        defaultValue={currentUser?.email}
+                      ></input>
                     )}
                   </div>
                 </div>
@@ -146,29 +158,20 @@ export default function ProfilePage() {
                         {currentUser?.phoneNumber}
                       </p>
                     ) : (
-                      <input type="number" ref={userPhoneNumberRef} name="phoneNumber" defaultValue={currentUser?.phoneNumber}></input>
+                      <input
+                        inputMode="numeric"
+                        pattern="[0-9]*"
+                        type="text"
+                        ref={userPhoneNumberRef}
+                        name="phoneNumber"
+                        defaultValue={currentUser?.phoneNumber}
+                      ></input>
                     )}
                   </div>
                 </div>
               </div>
-              {/* {editOrSave === 1 ? (
-                    <>
-                  <hr />
-                <div className="row">
-                  <div className="col-sm-3">
-                    <p className="mb-0">Email</p>
-                  </div>
-                  <div className="col-sm-9">
-                    
-                 
-                      <input defaultValue={currentUser?.email}></input>
-                   
-                  </div>
-                </div>
-                </>
-                ) : (null)} */}
             </div>
-           
+
             <div className="row">
               <div className="d-grid gap-1 ">
                 {/* buton cu verde pentru oferte active */}

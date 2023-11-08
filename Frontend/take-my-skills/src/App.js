@@ -10,11 +10,13 @@ import AdsPage from "./pages/AllAdsPage";
 import Contact from "./pages/Contact";
 import PostOffer from "./pages/PostOffer";
 import Register from "./pages/Register";
-import ProfilePage from "./pages/ProfilePage";
+import ProfilePage from "./components/Profile";
 import AdDetail from "./pages/AdDetails";
 import TermsAndConditions from "./pages/TermsAndConditions";
 import PrivacyPolicy from "./pages/PrivacyAndPolicy";
 import AdsByStatusPage from "./pages/AdsByStatusPage";
+import MyProfile from "./pages/MyProfilePage";
+import OtherUserProfile from "./pages/OtherUserProfile";
 
 function App() {
   return (
@@ -28,14 +30,15 @@ function App() {
             <Route path="/all-ads" element={<AdsPage />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/profile/:id" element={<OtherUserProfile />} />
+            <Route path="/myprofile" element={<MyProfile />} />
             <Route path="/ad/:id" element={<AdDetail />} />
             <Route
               path="/terms-and-conditions"
               element={<TermsAndConditions />}
             />
             <Route path="/privacy-and-policy" element={<PrivacyPolicy />} />
-            <Route path="/:id/:status" element={<AdsByStatusPage />}/>
+            <Route path="/:id/:status" element={<AdsByStatusPage />} />
             <Route
               path="post-ads"
               element={
