@@ -1,11 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { useAuthUser } from "react-auth-kit";
 import axios from "axios";
 
 export default function Profile({ id }) {
   const auth = useAuthUser();
-  const navigate = useNavigate();
 
   const [currentUser, setCurrentUser] = useState(null);
   const [showEditButtonOrNot, setShowEditButtonOrNot] = useState(false);
@@ -51,9 +49,6 @@ export default function Profile({ id }) {
         try {
           const response = await axios.get(`http://localhost:8080/users/${id}`);
           const data = response.data;
-          if (data.email === auth().email) { // navigate ul
-            navigate("/myprofile");
-          }
           setCurrentUser(data);
           setShowEditButtonOrNot(data.email === auth().email);
         } catch (err) {
