@@ -33,8 +33,8 @@ public class AdController {
     }
 
     @GetMapping("/profile/{id}/{status}")
-    public List<Ad> getAllAdsOfUserByStatus(@PathVariable("id") Long id, @PathVariable("status") String status){
-        return adService.searchAllAdsByUserAndStatus(id,status);
+    public List<Ad> getAllAdsOfUserByStatus(@PathVariable("id") Long id, @PathVariable("status") String status) {
+        return adService.searchAllAdsByUserAndStatus(id, status);
     }
 
     @PutMapping("/{id}")
@@ -42,9 +42,13 @@ public class AdController {
         adService.updateAdById(id, updatedAd);
     }
 
-    @PutMapping("/{setStatus}/{id}")
-    public void updateAdAs(@PathVariable("id") Long id, @PathVariable("setStatus") String status){
-        adService.setStatusOfAd(id,status);
+    //    @PutMapping("/{setStatus}/{id}")
+//    public void updateAdAs(@PathVariable("id") Long id, @PathVariable("setStatus") String status){
+//        adService.setStatusOfAd(id,status);
+//    }
+    @PutMapping("/add/{id}/{nameOfWorker}")
+    public void addWorkerToAd(@PathVariable("id") Long id, @PathVariable("nameOfWorker") String nameOfWorker) {
+        adService.addWorkerToAd(nameOfWorker, id);
     }
 
 
@@ -52,7 +56,5 @@ public class AdController {
     public void deleteAdById(@PathVariable("id") Long id) {
         adService.deleteAdById(id);
     }
-
-
 
 }

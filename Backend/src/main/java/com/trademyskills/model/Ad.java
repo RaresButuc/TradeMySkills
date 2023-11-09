@@ -19,7 +19,7 @@ public class Ad {
     @Enumerated
     private StatusOfAd statusOfAd;
 
-    private String name;
+    private String title;
 
     @Column(length = 1000)
     private String description;

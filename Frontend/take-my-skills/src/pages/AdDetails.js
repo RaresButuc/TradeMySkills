@@ -1,11 +1,51 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
 export default function AdDetail() {
   const { id } = useParams();
+
   const [adInfos, setAdInfos] = useState(null);
   const [adLocation, setAdLocation] = useState(null);
+  const [editOrSave, setEditOrSave] = useState(0);
+  const [buttonValue, setButtonValue] = useState("Edit Ad");
+
+  const adTitleRef = useRef("");
+  const adDescriptionRef = useRef("");
+  const adTypeOfAdRef = useRef("");
+  const adPriceRef = useRef("");
+  const adCountyRef = useRef("");
+  const adCityRef = useRef("");
+
+  const onSave = async () => {
+    const editData = {
+      title: adTitleRef.current.value,
+      description: adDescriptionRef.current.value,
+      typeOfAd: adTypeOfAdRef.current.value,
+      price: adPriceRef,
+      location: {
+        nameOfTheCounty: adCountyRef.current.value,
+        nameOfTheCity: adCityRef.current.value,
+      },
+    };
+    try {
+      await axios.put(`http://localhost:8080/ads/${id}`, editData);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const changeEdit = () => {
+    if (editOrSave === 0) {
+      setEditOrSave(1);
+      setButtonValue("Save");
+    } else {
+      onSave();
+      setEditOrSave(0);
+      setButtonValue("Edit Profile");
+      window.location.reload(false);
+    }
+  };
 
   useEffect(() => {
     const getAdById = async () => {
@@ -51,7 +91,7 @@ export default function AdDetail() {
         <div className="card container-xl col-8">
           <div className="card-body">
             <h1>
-              <h1>{adInfos?.name}</h1>
+              <h1>{adInfos?.title}</h1>
             </h1>
             <hr />
             <div

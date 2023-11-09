@@ -27,7 +27,7 @@ export default function Ads({ ads }) {
                     className="h5 card-title mb-4 text-decoration-none col-12"
                     href={`/ad/${ad.id}`}
                   >
-                    {ad.name}
+                    {ad.title}
                   </a>
                   <hr/>
                   {/* Interior Elements */}

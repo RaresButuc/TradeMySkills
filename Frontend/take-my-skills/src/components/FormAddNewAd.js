@@ -101,7 +101,7 @@ export default function FormAddNewAd() {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify({
-          name: titleAd,
+          title: titleAd,
           description: descriptionAd,
           typeOfAd: { id: categoryAd },
           price: priceAd,

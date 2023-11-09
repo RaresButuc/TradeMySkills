@@ -49,16 +49,15 @@ public class UserService {
     }
 
 
-
     public String forgotPassword(String email) {
-     User user =  userRepository.findByEmail(email)
-                .orElseThrow(()->new RuntimeException("User not found with this email: " + email));
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found with this email: " + email));
         try {
             mailService.sendSetPasswordEmail(email);
         } catch (MessagingException e) {
             throw new RuntimeException("Unable to send set password email. Please try again");
         }
-return "Please check your email to set your password";
+        return "Please check your email to set your password";
     }
 
     public String setPassword(String email, String newPassword) {

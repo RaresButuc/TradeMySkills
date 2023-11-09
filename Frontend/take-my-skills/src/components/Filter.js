@@ -19,17 +19,17 @@ export default function Filter() {
           <li>
             <a
               className="dropdown-item"
-              onClick={() => changeLink("sort", "name-asc")}
+              onClick={() => changeLink("sort", "title-asc")}
             >
-              Name ↑
+              Title ↑
             </a>
           </li>
           <li>
             <a
               className="dropdown-item"
-              onClick={() => changeLink("sort", "name-desc")}
+              onClick={() => changeLink("sort", "title-desc")}
             >
-              Name ↓
+              Title ↓
             </a>
           </li>
           <li>

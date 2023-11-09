@@ -8,6 +8,7 @@ import com.trademyskills.service.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -30,21 +31,36 @@ public class AdService {
         adRepository.save(ad);
     }
 
+//    public void addWorkerToAd(String name, Long idOfAd) {
+//        User workerUser = userRepository.findByName(name).orElse(null);
+//        Ad adToBeAdded = adRepository.findById(idOfAd).orElse(null);
+//
+//        assert workerUser != null;
+//        assert adToBeAdded != null;
+//
+//        List<Ad> currentAdsOfWorker = new ArrayList<>(workerUser.getAds());
+//        currentAdsOfWorker.add(adToBeAdded);
+//
+//        workerUser.setAds(currentAdsOfWorker);
+//        userRepository.save(workerUser);
+//        System.out.println(userRepository.findById(workerUser.getId()).orElse(null).getAds().size());
+//    }
+
     public Ad getAdById(Long id) {
         return adRepository.findById(id).orElse(null);
     }
 
-    public List<Ad> findAdsByTypeOfAd(String name) {
-        return adRepository.findByTypeOfAdNameOfCategory(name);
+    public List<Ad> findAdsByTypeOfAd(String title) {
+        return adRepository.findByTypeOfAdNameOfCategory(title);
     }
 
     public List<Ad> orderAllBy(String typeOfSort) {
         switch (typeOfSort) {
-            case "name-asc" -> {
-                return adRepository.findAllByOrderByNameAsc();
+            case "title-asc" -> {
+                return adRepository.findAllByOrderByTitleAsc();
             }
-            case "name-desc" -> {
-                return adRepository.findAllByOrderByNameDesc();
+            case "title-desc" -> {
+                return adRepository.findAllByOrderByTitleDesc();
             }
             case "price-asc" -> {
                 return adRepository.findAllByOrderByPriceAsc();
@@ -58,19 +74,19 @@ public class AdService {
         }
     }
 
-    public List<Ad> getAllByCategoryOrdered(String name, String typeOfSort) {
+    public List<Ad> getAllByCategoryOrdered(String title, String typeOfSort) {
         switch (typeOfSort) {
-            case "name-asc" -> {
-                return adRepository.findByTypeOfAdNameOfCategoryOrderByNameAsc(name);
+            case "title-asc" -> {
+                return adRepository.findByTypeOfAdNameOfCategoryOrderByTitleAsc(title);
             }
-            case "name-desc" -> {
-                return adRepository.findByTypeOfAdNameOfCategoryOrderByNameDesc(name);
+            case "title-desc" -> {
+                return adRepository.findByTypeOfAdNameOfCategoryOrderByTitleDesc(title);
             }
             case "price-asc" -> {
-                return adRepository.findByTypeOfAdNameOfCategoryOrderByPriceAsc(name);
+                return adRepository.findByTypeOfAdNameOfCategoryOrderByPriceAsc(title);
             }
             case "price-desc" -> {
-                return adRepository.findByTypeOfAdNameOfCategoryOrderByPriceDesc(name);
+                return adRepository.findByTypeOfAdNameOfCategoryOrderByPriceDesc(title);
             }
             default -> {
                 return null;
@@ -80,17 +96,17 @@ public class AdService {
 
     public List<Ad> getAllByInputOrdered(String input, String typeOfSort) {
         switch (typeOfSort) {
-            case "name-asc" -> {
-                return adRepository.findAllByNameContainingIgnoreCaseOrderByNameAsc(input);
+            case "title-asc" -> {
+                return adRepository.findAllByTitleContainingIgnoreCaseOrderByTitleAsc(input);
             }
-            case "name-desc" -> {
-                return adRepository.findAllByNameContainingIgnoreCaseOrderByNameDesc(input);
+            case "title-desc" -> {
+                return adRepository.findAllByTitleContainingIgnoreCaseOrderByTitleDesc(input);
             }
             case "price-asc" -> {
-                return adRepository.findAllByNameContainingIgnoreCaseOrderByPriceAsc(input);
+                return adRepository.findAllByTitleContainingIgnoreCaseOrderByPriceAsc(input);
             }
             case "price-desc" -> {
-                return adRepository.findAllByNameContainingIgnoreCaseOrderByPriceDesc(input);
+                return adRepository.findAllByTitleContainingIgnoreCaseOrderByPriceDesc(input);
             }
             default -> {
                 return null;
@@ -100,17 +116,17 @@ public class AdService {
 
     public List<Ad> getAllByInputAndCategoryOrdered(String input, String category, String typeOfSort) {
         switch (typeOfSort) {
-            case "name-asc" -> {
-                return adRepository.findAllByTypeOfAdNameOfCategoryAndNameContainingIgnoreCaseOrderByNameAsc(category, input);
+            case "title-asc" -> {
+                return adRepository.findAllByTypeOfAdNameOfCategoryAndTitleContainingIgnoreCaseOrderByTitleAsc(category, input);
             }
-            case "name-desc" -> {
-                return adRepository.findAllByTypeOfAdNameOfCategoryAndNameContainingIgnoreCaseOrderByNameDesc(category, input);
+            case "title-desc" -> {
+                return adRepository.findAllByTypeOfAdNameOfCategoryAndTitleContainingIgnoreCaseOrderByTitleDesc(category, input);
             }
             case "price-asc" -> {
-                return adRepository.findAllByTypeOfAdNameOfCategoryAndNameContainingIgnoreCaseOrderByPriceAsc(category, input);
+                return adRepository.findAllByTypeOfAdNameOfCategoryAndTitleContainingIgnoreCaseOrderByPriceAsc(category, input);
             }
             case "price-desc" -> {
-                return adRepository.findAllByTypeOfAdNameOfCategoryAndNameContainingIgnoreCaseOrderByPriceDesc(category, input);
+                return adRepository.findAllByTypeOfAdNameOfCategoryAndTitleContainingIgnoreCaseOrderByPriceDesc(category, input);
             }
             default -> {
                 return null;
@@ -119,11 +135,11 @@ public class AdService {
     }
 
     public List<Ad> search(String input) {
-        return adRepository.findAllByNameContainingIgnoreCase(input);
+        return adRepository.findAllByTitleContainingIgnoreCase(input);
     }
 
-    public List<Ad> searchByNameAndCategory(String category, String input) {
-        return adRepository.findAllByTypeOfAdNameOfCategoryAndNameContainingIgnoreCase(category, input);
+    public List<Ad> searchByTitleAndCategory(String category, String input) {
+        return adRepository.findAllByTypeOfAdNameOfCategoryAndTitleContainingIgnoreCase(category, input);
     }
 
     public List<Ad> getAllAdsByCategFilterOrInput(String typeofcategory, String typeOfSort, String input) {
@@ -146,7 +162,7 @@ public class AdService {
                 if (input.equals("null")) {
                     return getActiveAds(findAdsByTypeOfAd(typeofcategory));
                 } else {
-                    return getActiveAds(searchByNameAndCategory(typeofcategory, input));
+                    return getActiveAds(searchByTitleAndCategory(typeofcategory, input));
                 }
             } else {
                 if (input.equals("null")) {
@@ -158,21 +174,20 @@ public class AdService {
         }
     }
 
-    public void setStatusOfAd(Long id, String stringStatusOfAd) {
-        Ad adFormDb = adRepository.findById(id).orElse(null);
-        assert adFormDb != null;
-        adFormDb.setStatusOfAd(StatusOfAd.getByName(stringStatusOfAd));
-
-        adRepository.save(adFormDb);
-    }
+//    public void setStatusOfAd(Long id, String stringStatusOfAd) {
+//        Ad adFormDb = adRepository.findById(id).orElse(null);
+//        assert adFormDb != null;
+//        adFormDb.setStatusOfAd(StatusOfAd.getByTitle(stringStatusOfAd));
+//
+//        adRepository.save(adFormDb);
+//    }
 
 
     public void updateAdById(Long id, Ad adUpdater) {
         Ad adFromDb = adRepository.findById(id).orElse(null);
         assert adFromDb != null;
-        adFromDb.setName(adUpdater.getName());
-//        adFromDb.setStatusOfAd(adUpdater.getStatusOfAd());
-        adFromDb.setStatusOfAd(adFromDb.getStatusOfAd());
+        adFromDb.setTitle(adUpdater.getTitle());
+        adFromDb.setStatusOfAd(adUpdater.getStatusOfAd());
         adFromDb.setDescription(adUpdater.getDescription());
         adFromDb.setPrice(adUpdater.getPrice());
         adRepository.save(adFromDb);
