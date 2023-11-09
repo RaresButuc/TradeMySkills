@@ -13,7 +13,7 @@ export default function ForgetPassword() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const email = new FormData(e.target).get("email");
-   
+
     try {
       const response = await axios.put(
         `http://localhost:8080/users/forget-password?email=${email}`
