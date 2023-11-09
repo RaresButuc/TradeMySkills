@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import changeLink from "../shared/utils";
 export default function Filter() {
-  const [change, setLink] = useState([]);
   const [inputValue, setInputValue] = useState("");
 
   return (

@@ -74,6 +74,11 @@ function Login() {
                 >
                   Login
                 </button>
+
+                <p className="mt-4">
+                  Did you forget the password?{" "}
+                  <a href="/forget-password">Change it NOW</a>
+                </p>
               </div>
             </div>
           </div>

@@ -17,6 +17,8 @@ import PrivacyPolicy from "./pages/PrivacyAndPolicy";
 import AdsByStatusPage from "./pages/AdsByStatusPage";
 import MyProfile from "./pages/MyProfilePage";
 import OtherUserProfile from "./pages/OtherUserProfile";
+import ForgetPassword from "./pages/ForgetPassword";
+import ChangePasswordForget from "./pages/ChangePasswordForget";
 
 function App() {
   return (
@@ -27,6 +29,8 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/forget-password" element={<ForgetPassword />} />
+            <Route path="/change-forget-password/:email" element={<ChangePasswordForget />} />
             <Route path="/all-ads" element={<AdsPage />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/register" element={<Register />} />

@@ -18,23 +18,20 @@ function Register() {
         values
       );
 
-      if (response.data !== '') {
+      if (response.data !== "") {
         setTimeout(() => {
           navigate("/login");
         }, 3000);
         setShowAlert(true);
-        setAlertInfos(["success","You have succesfully Registered!"]);
+        setAlertInfos(["success", "You have succesfully Registered!"]);
         console.log(values.email);
-         await axios.post(
-          `http://localhost:8080/mail/send/${values.email}`,
-          {
-            "subject" : "Registration",
-            "message" : `Congratulation ${values.name} ! You are now ${values.role} on TradeMySkills.com.`
-          }
-        );
-      }else{
+        await axios.post(`http://localhost:8080/mail/send/${values.email}`, {
+          subject: "Registration",
+          message: `Congratulation ${values.name} ! You are now ${values.role} on TradeMySkills.com.`,
+        });
+      } else {
         setShowAlert(true);
-        setAlertInfos(["danger","Email or UserName  already Registered!"]);
+        setAlertInfos(["danger", "Email or UserName  already Registered!"]);
       }
     } catch (err) {
       if (err instanceof AxiosError) setError(err.response?.data.message);
