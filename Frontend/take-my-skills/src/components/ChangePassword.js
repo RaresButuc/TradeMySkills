@@ -94,13 +94,23 @@ export default function ChangePassword() {
                       Save
                     </button>
                   ) : (
+                    <div>
+                        <div
+                      id="Title-Help"
+                      className="form-text"
+                      style={{ color: "#fa6900" }}
+                    >
+                      *Passwords do not match
+                    </div>
+                
                     <button
-                      className="btn btn-primary btn-lg btn-block"
+                      className="btn btn-primary btn-lg btn-block mt-3"
                       type="submit"
                       disabled
                     >
                       Save
                     </button>
+                    </div>
                   )}
                 </div>
               </div>
