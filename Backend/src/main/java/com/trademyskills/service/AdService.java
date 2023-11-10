@@ -177,7 +177,7 @@ public class AdService {
     public void setStatusOfAd(Long id, String stringStatusOfAd) {
         Ad adFormDb = adRepository.findById(id).orElse(null);
         assert adFormDb != null;
-        adFormDb.setStatusOfAd(StatusOfAd.getByTitle(stringStatusOfAd));
+        adFormDb.setStatusOfAd(StatusOfAd.getByName(stringStatusOfAd));
 
         adRepository.save(adFormDb);
     }
