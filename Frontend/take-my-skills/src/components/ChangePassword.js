@@ -2,6 +2,8 @@ import axios, { AxiosError } from "axios";
 import { useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Alert from "../components/Alert";
+import { useIsAuthenticated } from "react-auth-kit";
+
 export default function ChangePassword() {
   const [error, setError] = useState("");
   const [showAlert, setShowAlert] = useState(false);
@@ -11,6 +13,8 @@ export default function ChangePassword() {
   const newPassword = useRef();
   const confirmNewPassword = useRef();
   const [active, setActive] = useState(false);
+  const isAuthenticated = useIsAuthenticated();
+  const actualPassword = useRef();
 
   const unlockSaveButton = () => {
     if (
@@ -63,7 +67,19 @@ export default function ChangePassword() {
               <div className="card shadow-2-strong">
                 <div className="card-body p-5 text-center">
                   <h1 className="mb-3">Change Password</h1>
-
+                  {isAuthenticated() ? (
+                    <div className="form-outline mb-4">
+                      <input
+                        // onChange={() => unlockSaveButton()}
+                        type="password"
+                        className="form-control"
+                        id="actualPassword"
+                        name="actualPassword"
+                        ref={actualPassword}
+                        placeholder="Actual Password"
+                      />
+                    </div>
+                  ) : null}
                   <div className="form-outline mb-4">
                     <input
                       onChange={() => unlockSaveButton()}
@@ -83,7 +99,7 @@ export default function ChangePassword() {
                       id="confirm-password"
                       name="confirm-password"
                       ref={confirmNewPassword}
-                      placeholder="Confirm New Passowrd"
+                      placeholder="Confirm New Passoword"
                     />
                   </div>
                   {active === true ? (
@@ -95,21 +111,21 @@ export default function ChangePassword() {
                     </button>
                   ) : (
                     <div>
-                        <div
-                      id="Title-Help"
-                      className="form-text"
-                      style={{ color: "#fa6900" }}
-                    >
-                      *Passwords do not match
-                    </div>
-                
-                    <button
-                      className="btn btn-primary btn-lg btn-block mt-3"
-                      type="submit"
-                      disabled
-                    >
-                      Save
-                    </button>
+                      <div
+                        id="Title-Help"
+                        className="form-text"
+                        style={{ color: "#fa6900" }}
+                      >
+                        *Passwords do not match
+                      </div>
+
+                      <button
+                        className="btn btn-primary btn-lg btn-block mt-3"
+                        type="submit"
+                        disabled
+                      >
+                        Save
+                      </button>
                     </div>
                   )}
                 </div>

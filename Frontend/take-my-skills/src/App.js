@@ -10,7 +10,6 @@ import AdsPage from "./pages/AllAdsPage";
 import Contact from "./pages/Contact";
 import PostOffer from "./pages/PostOffer";
 import Register from "./pages/Register";
-import ProfilePage from "./components/Profile";
 import AdDetail from "./pages/AdDetails";
 import TermsAndConditions from "./pages/TermsAndConditions";
 import PrivacyPolicy from "./pages/PrivacyAndPolicy";
@@ -18,7 +17,7 @@ import AdsByStatusPage from "./pages/AdsByStatusPage";
 import MyProfile from "./pages/MyProfilePage";
 import OtherUserProfile from "./pages/OtherUserProfile";
 import ForgetPassword from "./pages/ForgetPassword";
-import ChangePasswordForget from "./pages/ChangePasswordForget";
+import ChangePasswordForm from "./pages/ChangePasswordForm";
 
 function App() {
   return (
@@ -30,7 +29,10 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/forget-password" element={<ForgetPassword />} />
-            <Route path="/change-forget-password/:email" element={<ChangePasswordForget />} />
+            <Route
+              path="/change-forget-password/:email"
+              element={<ChangePasswordForm />}
+            />
             <Route path="/all-ads" element={<AdsPage />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/register" element={<Register />} />
@@ -43,6 +45,10 @@ function App() {
             />
             <Route path="/privacy-and-policy" element={<PrivacyPolicy />} />
             <Route path="/:id/:status" element={<AdsByStatusPage />} />
+            <Route
+              path="/changepassowrd"
+              element={<ChangePasswordForm />}
+            />
             <Route
               path="post-ads"
               element={
