@@ -96,7 +96,7 @@ const NavBar = () => {
                         <hr className="dropdown-divider" />
                       </li>
                       <li>
-                        <a className="dropdown-item" href="/changepassowrd">
+                        <a className="dropdown-item" href="/changepassoword">
                           Change Password
                         </a>
                       </li>

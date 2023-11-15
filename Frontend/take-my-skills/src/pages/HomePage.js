@@ -17,7 +17,7 @@ export default function HomePage() {
   return (
     <>
       <div className=" text-bg-dark position-relative">
-        <video className="card-img" src={videoBg} autoPlay loop muted />
+      <video className="card-img" src={videoBg} autoPlay loop muted />
         <div className="card-img-overlay m-auto position-absolute top-50 start-0">
           <h1 className="card-slogan fw-bold mb-3">
             Every Service Is NOW More Accesible Than Ever

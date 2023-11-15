@@ -4,6 +4,7 @@ import com.trademyskills.auth.AuthenticationRequest;
 import com.trademyskills.auth.AuthenticationResponse;
 import com.trademyskills.auth.AuthenticationService;
 import com.trademyskills.auth.RegisterRequest;
+import com.trademyskills.model.ChangePasswordRequest;
 import com.trademyskills.model.User;
 import com.trademyskills.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,12 +67,20 @@ public class UserController {
 
 
     @PutMapping("/forget-password")
-    public ResponseEntity<String> forgotPassword(@RequestParam String email){
+    public ResponseEntity<String> forgotPassword(@RequestParam String email) {
         return new ResponseEntity<>(userService.forgotPassword(email), HttpStatus.OK);
     }
 
     @PutMapping("/set-password")
-    public ResponseEntity<String> setPassword(@RequestParam String email, @RequestHeader String newPassword){
-return new ResponseEntity<>(userService.setPassword(email, newPassword),HttpStatus.OK);
+    public ResponseEntity<String> setPassword(@RequestParam String email, @RequestHeader String newPassword) {
+        return new ResponseEntity<>(userService.setPassword(email, newPassword), HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}/change-password")
+    public ResponseEntity<String> setPassword(@PathVariable("id") Long id, @RequestBody ChangePasswordRequest changePasswordRequest) {
+        if (userService.changePasswordAndVerifyOldPassword(id, changePasswordRequest.getNewPassword(), changePasswordRequest.getActualPassword())) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 }

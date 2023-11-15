@@ -17,7 +17,8 @@ import AdsByStatusPage from "./pages/AdsByStatusPage";
 import MyProfile from "./pages/MyProfilePage";
 import OtherUserProfile from "./pages/OtherUserProfile";
 import ForgetPassword from "./pages/ForgetPassword";
-import ChangePasswordForm from "./pages/ChangePasswordForm";
+import ChangePasswordPageAuth from "./pages/ChangePasswordPageAuth";
+import ChangePasswordPageNoAuth from "./pages/ChangePasswordPageNoAuth";
 
 function App() {
   return (
@@ -31,7 +32,7 @@ function App() {
             <Route path="/forget-password" element={<ForgetPassword />} />
             <Route
               path="/change-forget-password/:email"
-              element={<ChangePasswordForm />}
+              element={<ChangePasswordPageNoAuth />}
             />
             <Route path="/all-ads" element={<AdsPage />} />
             <Route path="/contact" element={<Contact />} />
@@ -45,10 +46,7 @@ function App() {
             />
             <Route path="/privacy-and-policy" element={<PrivacyPolicy />} />
             <Route path="/:id/:status" element={<AdsByStatusPage />} />
-            <Route
-              path="/changepassowrd"
-              element={<ChangePasswordForm />}
-            />
+            <Route path="/changepassoword" element={<ChangePasswordPageAuth />} />
             <Route
               path="post-ads"
               element={

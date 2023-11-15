@@ -44,7 +44,6 @@ export default function Profile({ id }) {
 
   useEffect(() => {
     if (id) {
-      ///Facem verificarea
       const fetchCurrentUser = async () => {
         try {
           const response = await axios.get(`http://localhost:8080/users/${id}`);
@@ -58,7 +57,7 @@ export default function Profile({ id }) {
 
       fetchCurrentUser();
     } ///
-  }, [auth().email, id]); //Punem ca dependinta
+  }, [auth().email, id]); 
   return (
     <section>
       <div className="container py-5 mt-5">
