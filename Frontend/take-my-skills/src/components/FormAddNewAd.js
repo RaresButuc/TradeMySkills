@@ -105,7 +105,7 @@ export default function FormAddNewAd() {
           description: descriptionAd,
           typeOfAd: { id: categoryAd },
           price: priceAd,
-          user: { id: currentUser.id }, // Fixed user object format
+          users: [{ id: currentUser.id }], 
           location: { nameOfTheCounty: countyAd, nameOfTheCity: cityAd },
         }),
       });

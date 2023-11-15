@@ -133,7 +133,7 @@ export default function AdDetail() {
           <div className="card">
             <div className="card-body text-center">
               <a
-                href={`/profile/${adInfos?.user.id}`}
+                href={`/profile/${adInfos?.users[0].id}`}
                 style={{ textDecoration: "none", color: "inherit" }}
               >
                 <svg
@@ -150,9 +150,9 @@ export default function AdDetail() {
                     d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
                   />
                 </svg>
-                <h5 className="my-3">{adInfos?.user.name}</h5>
+                <h5 className="my-3">{adInfos?.users[0].name}</h5>
               </a>
-              <p className="text-muted mb-1">{adInfos?.user.role}</p>
+              <p className="text-muted mb-1">{adInfos?.users[0].role}</p>
               <link
                 rel="stylesheet"
                 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"

@@ -31,20 +31,20 @@ public class AdService {
         adRepository.save(ad);
     }
 
-//    public void addWorkerToAd(String name, Long idOfAd) {
-//        User workerUser = userRepository.findByName(name).orElse(null);
-//        Ad adToBeAdded = adRepository.findById(idOfAd).orElse(null);
-//
-//        assert workerUser != null;
-//        assert adToBeAdded != null;
-//
-//        List<Ad> currentAdsOfWorker = new ArrayList<>(workerUser.getAds());
-//        currentAdsOfWorker.add(adToBeAdded);
+    public void addWorkerToAd(String name, Long idOfAd) {
+        User workerUser = userRepository.findByName(name).orElse(null);
+        Ad adToBeAdded = adRepository.findById(idOfAd).orElse(null);
+
+        assert workerUser != null;
+        assert adToBeAdded != null;
+
+        List<Ad> currentAdsOfWorker = new ArrayList<>(workerUser.getAds());
+        currentAdsOfWorker.add(adToBeAdded);
 //
 //        workerUser.setAds(currentAdsOfWorker);
 //        userRepository.save(workerUser);
-//        System.out.println(userRepository.findById(workerUser.getId()).orElse(null).getAds().size());
-//    }
+
+    }
 
     public Ad getAdById(Long id) {
         return adRepository.findById(id).orElse(null);
