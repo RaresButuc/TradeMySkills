@@ -33,16 +33,16 @@ public class AdService {
 
     public void addWorkerToAd(String name, Long idOfAd) {
         User workerUser = userRepository.findByName(name).orElse(null);
-        Ad adToBeAdded = adRepository.findById(idOfAd).orElse(null);
+        Ad currentAd = adRepository.findById(idOfAd).orElse(null);
 
         assert workerUser != null;
-        assert adToBeAdded != null;
+        assert currentAd != null;
 
-        List<Ad> currentAdsOfWorker = new ArrayList<>(workerUser.getAds());
-        currentAdsOfWorker.add(adToBeAdded);
-//
-//        workerUser.setAds(currentAdsOfWorker);
-//        userRepository.save(workerUser);
+        List<User> currentUsersOfAd = new ArrayList<>(currentAd.getUsers());
+        currentUsersOfAd.add(workerUser);
+
+        currentAd.setUsers(currentUsersOfAd);
+        adRepository.save(currentAd);
 
     }
 

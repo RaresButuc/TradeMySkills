@@ -86,7 +86,7 @@ export default function AdDetail() {
 
   return (
     <div className="container-xl">
-      <div className="row container-xl" style={{ marginTop: 130 }}>
+      <div className="row container-xl" style={{ marginTop: 110 }}>
         {/* Titlu */}
         <div className="card container-xl col-8">
           <div className="card-body">
@@ -96,12 +96,12 @@ export default function AdDetail() {
             <hr />
             <div
               className="mt-4 container-xl text-start"
-              style={{ minHeight: "35vh" }}
+              style={{ minHeight: "52vh" }}
             >
               <h5>{adInfos?.description}</h5>
             </div>
             {/* Div for Price and Status */}
-            <div className="row mt-5">
+            <div className="row">
               {/* Price */}
               <div
                 className="card text-white bg-success container-xl col-3"
