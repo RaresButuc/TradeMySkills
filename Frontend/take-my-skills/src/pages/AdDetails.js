@@ -1,13 +1,18 @@
 import { useEffect, useState, useRef } from "react";
+import ProfilePhoto from "../shared/ProfilePhoto";
+import { useAuthUser } from "react-auth-kit";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
 export default function AdDetail() {
+  const auth = useAuthUser();
+
   const { id } = useParams();
 
   const [adInfos, setAdInfos] = useState(null);
   const [adLocation, setAdLocation] = useState(null);
   const [editOrSave, setEditOrSave] = useState(0);
+  const [showEditButtonOrNot, setShowEditButtonOrNot] = useState(false);
   const [buttonValue, setButtonValue] = useState("Edit Ad");
 
   const adTitleRef = useRef("");
@@ -53,6 +58,7 @@ export default function AdDetail() {
         const response = await axios.get(`http://localhost:8080/ads/${id}`);
         const data = response.data;
         setAdInfos(data);
+        setShowEditButtonOrNot(auth().email === data.users[0].email);
       } catch (err) {
         console.log(err);
       }
@@ -112,6 +118,21 @@ export default function AdDetail() {
                   <h5 className="card-title">{adInfos?.price}</h5>
                 </div>
               </div>
+
+              {showEditButtonOrNot ? (
+                <button
+                  className="container-xl col-2 mt-3"
+                  onClick={changeEdit}
+                  style={{
+                    backgroundColor: "#fa6900",
+                    color: "white",
+                    height: 60,
+                  }}
+                >
+                  {buttonValue}
+                </button>
+              ) : null}
+
               {/* Status */}
               <div
                 className={`card text-white bg-${colorDependingOnStatus(
@@ -136,20 +157,7 @@ export default function AdDetail() {
                 href={`/profile/${adInfos?.users[0].id}`}
                 style={{ textDecoration: "none", color: "inherit" }}
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="75"
-                  height="75"
-                  fill="currentColor"
-                  className="bi bi-person-circle"
-                  viewBox="0 0 16 16"
-                >
-                  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-                  <path
-                    fillRule="evenodd"
-                    d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
-                  />
-                </svg>
+                <ProfilePhoto width={"75"} height={"75"} />
                 <h5 className="my-3">{adInfos?.users[0].name}</h5>
               </a>
               <p className="text-muted mb-1">{adInfos?.users[0].role}</p>
@@ -167,17 +175,46 @@ export default function AdDetail() {
             </div>
           </div>
 
-          <iframe
-            className="mt-4"
-            width="400"
-            height="300"
-            src={`https://www.bing.com/maps/embed/viewer.aspx?v=3&cp=${adLocation?.coordinates[0]}~${adLocation?.coordinates[1]}&lvl=12&w=400&h=300&credentials=AtF5j2AdfXHCqsoqmusG2zXRg7bFR63MIkoMe2EsRAgYfeslufM4-NNWkrfPmywu&form=BMEMJS`}
-            frameborder="0"
-          ></iframe>
-          <h3>
+          <h4 className="mt-2">
             {adInfos?.location.nameOfTheCounty},
             {adInfos?.location.nameOfTheCity}
-          </h3>
+          </h4>
+          <iframe
+            className="mb-4"
+            width="400"
+            height="200"
+            src={`https://www.bing.com/maps/embed/viewer.aspx?v=3&cp=${adLocation?.coordinates[0]}~${adLocation?.coordinates[1]}&lvl=12&w=400&h=200&credentials=AtF5j2AdfXHCqsoqmusG2zXRg7bFR63MIkoMe2EsRAgYfeslufM4-NNWkrfPmywu&form=BMEMJS`}
+            frameborder="0"
+          ></iframe>
+
+          {/* Card Worker */}
+          <div class="card" style={{ height: 100 }}>
+            {adInfos?.users[1] ? (
+              <a
+                href={`/profile/${id}`}
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                <div className="row text-center">
+                  <div className="container-xl col-4" style={{ marginTop: 11 }}>
+                    <ProfilePhoto width={"75"} height={"75"} />
+                  </div>
+                  <div className="container-xl col-4" style={{ marginTop: 20 }}>
+                    <h4>{adInfos?.users[1].name}</h4>
+                    <p className="mb-1">{adInfos?.users[1].role}</p>
+                  </div>
+                  <div className="container-xl col-4" style={{ marginTop: 40 }}>
+                    <span className="fa fa-star checked"></span>
+                    <span className="fa fa-star checked"></span>
+                    <span className="fa fa-star checked"></span>
+                    <span className="fa fa-star"></span>
+                    <span className="fa fa-star"></span>
+                  </div>
+                </div>
+              </a>
+            ) : (
+              <h3>No worker has been selected for this project yet!</h3>
+            )}
+          </div>
         </div>
       </div>
     </div>
