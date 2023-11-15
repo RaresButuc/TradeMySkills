@@ -42,14 +42,14 @@ public class AdController {
         adService.updateAdById(id, updatedAd);
     }
 
-    //    @PutMapping("/{setStatus}/{id}")
-//    public void updateAdAs(@PathVariable("id") Long id, @PathVariable("setStatus") String status){
-//        adService.setStatusOfAd(id,status);
-//    }
-    @PutMapping("/add/{id}/{nameOfWorker}")
-    public void addWorkerToAd(@PathVariable("id") Long id, @PathVariable("nameOfWorker") String nameOfWorker) {
-        adService.addWorkerToAd(nameOfWorker, id);
+        @PutMapping("/{setStatus}/{id}")
+    public void updateAdAs(@PathVariable("id") Long id, @PathVariable("setStatus") String status){
+        adService.setStatusOfAd(id,status);
     }
+//    @PutMapping("/add/{id}/{nameOfWorker}")
+//    public void addWorkerToAd(@PathVariable("id") Long id, @PathVariable("nameOfWorker") String nameOfWorker) {
+//        adService.addWorkerToAd(nameOfWorker, id);
+//    }
 
 
     @DeleteMapping("/{id}")

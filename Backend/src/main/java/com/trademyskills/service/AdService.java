@@ -174,13 +174,13 @@ public class AdService {
         }
     }
 
-//    public void setStatusOfAd(Long id, String stringStatusOfAd) {
-//        Ad adFormDb = adRepository.findById(id).orElse(null);
-//        assert adFormDb != null;
-//        adFormDb.setStatusOfAd(StatusOfAd.getByTitle(stringStatusOfAd));
-//
-//        adRepository.save(adFormDb);
-//    }
+    public void setStatusOfAd(Long id, String stringStatusOfAd) {
+        Ad adFormDb = adRepository.findById(id).orElse(null);
+        assert adFormDb != null;
+        adFormDb.setStatusOfAd(StatusOfAd.getByName(stringStatusOfAd));
+
+        adRepository.save(adFormDb);
+    }
 
 
     public void updateAdById(Long id, Ad adUpdater) {

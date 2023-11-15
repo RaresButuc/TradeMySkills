@@ -9,7 +9,7 @@ export default function TermsAndConditions() {
             <strong>1. Introduction</strong>
           </h3>
           <p>
-            Welcome to Take My Skills. These terms and conditions govern your
+            Welcome to Trade My Skills. These terms and conditions govern your
             use of our platform. By accessing and using our platform, you agree
             to comply with and be bound by these terms. Please read these terms
             carefully.
@@ -41,7 +41,7 @@ export default function TermsAndConditions() {
           <p>
             Workers may respond to ads by offering their services. Users should
             review worker profiles and qualifications before making a selection.
-            Take My Skills does not endorse or guarantee the quality of services
+            Trade My Skills does not endorse or guarantee the quality of services
             provided by workers. Any agreements made between users and workers
             are their responsibility.
           </p>
@@ -52,7 +52,7 @@ export default function TermsAndConditions() {
           <p>
             Payments for services may be facilitated through our platform. Users
             and workers should agree on payment terms and ensure that payments
-            are processed securely. Take My Skills is not responsible for
+            are processed securely. Trade My Skills is not responsible for
             disputes related to payments. Users are encouraged to use secure
             payment methods.
           </p>
@@ -61,7 +61,7 @@ export default function TermsAndConditions() {
             <strong>6. Privacy</strong>
           </h3>
           <p>
-            Your use of Take My Skills is also governed by our{" "}
+            Your use of Trade My Skills is also governed by our{" "}
             <a href="/privacy-and-policy" className="text-primary">
               Privacy Policy
             </a>
@@ -75,7 +75,7 @@ export default function TermsAndConditions() {
             <strong>7. Termination</strong>
           </h3>
           <p>
-            Take My Skills reserves the right to terminate or suspend user
+            Trade My Skills reserves the right to terminate or suspend user
             accounts that violate our terms and conditions or policies. Users
             may also terminate their accounts at any time. We respect your
             choice, and account termination can be requested through our

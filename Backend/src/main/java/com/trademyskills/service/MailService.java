@@ -34,7 +34,7 @@ public class MailService {
         mimeMessageHelper.setSubject("Set Password");
         mimeMessageHelper.setText("""
                 <div>
-                <a href="http://localhost:8080/users/set-password?email=%s" target="_blank">  Click link to set password </a>
+                <a href="http://localhost:3000/change-forget-password/%s" target="_blank">  Click link to set password </a>
                 </div>
                 """.formatted(email),true);
         mailSender.send(mimeMessage);
