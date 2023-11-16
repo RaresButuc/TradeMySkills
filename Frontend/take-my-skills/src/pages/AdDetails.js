@@ -14,10 +14,15 @@ export default function AdDetail() {
   const [editOrSave, setEditOrSave] = useState(false);
   const [showEditButtonOrNot, setShowEditButtonOrNot] = useState(false);
   const [buttonValue, setButtonValue] = useState("Edit Ad");
-  // const [possibleStatuses, setossibleStatuses] = useState([
-  //   "PENDING",
-  //   "FINALISED",
-  // ]);
+  const [possibleStatuses, setPossibleStatuses] = useState([]);
+
+  const [cities, setCities] = useState([]);
+  const [counties, setCounties] = useState([]);
+
+  const [countyAbrev, setCountyAbrev] = useState("");
+
+  const [countyChosen, setCountyChosen] = useState("");
+  const [cityChosen, setCity] = useState("");
 
   const adTitleRef = useRef("");
   const adDescriptionRef = useRef("");
@@ -25,6 +30,7 @@ export default function AdDetail() {
   const adPriceRef = useRef("");
   const adCountyRef = useRef("");
   const adCityRef = useRef("");
+  const adStatusRef = useRef("");
 
   const onSave = async () => {
     const editData = {
@@ -63,9 +69,11 @@ export default function AdDetail() {
         const data = response.data;
         setAdInfos(data);
         setShowEditButtonOrNot(auth().email === data.users[0].email);
-        // if (data.users.length < 2) {
-
-        // }
+        if (data.users.length < 2) {
+          setPossibleStatuses(["ACTIVE", "PENDING", "FINALISED"]);
+        } else {
+          setPossibleStatuses(["PENDING", "FINALISED"]);
+        }
       } catch (err) {
         console.log(err);
       }
@@ -82,9 +90,43 @@ export default function AdDetail() {
         console.log(err);
       }
     };
-    getAdById();
+
+    const fetchCounties = async () => {
+      try {
+        const response = await axios.get("https://roloca.coldfuse.io/judete");
+        const data = response.data;
+        setCounties(data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    const fetchCities = async () => {
+      if (countyAbrev) {
+        try {
+          const response = await axios.get(
+            `https://roloca.coldfuse.io/orase/${countyAbrev}`
+          );
+          const data = response.data;
+          if (data) {
+            setCities(data);
+          }
+        } catch (err) {
+          console.log(err);
+        }
+      }
+    };
+
     getLocationsOfAd(adInfos);
+    fetchCounties();
+    fetchCities();
+    getAdById();
   }, [adInfos]);
+
+  const chooseAuto = (countyAbrev) => {
+    setCountyChosen(counties.filter((e) => e.auto === countyAbrev)[0].nume);
+    setCountyAbrev(countyAbrev);
+  };
 
   const colorDependingOnStatus = (status) => {
     switch (status) {
@@ -207,20 +249,16 @@ export default function AdDetail() {
               {/* Status */}
               {editOrSave ? (
                 <div>
-                  <select
-                    className="form-select"
-                    aria-label="select category"
-                    onChange={(e) => setCity(e.target.value)}
-                  >
-                    <option disabled selected>
-                      Select city
-                    </option>
-                    {cities &&
-                      cities.map((city, index) => (
-                        <option value={city.nume} key={index}>
-                          {city.nume}
-                        </option>
-                      ))}
+                  <select className="form-select" ref={adStatusRef}>
+                    <option selected>{adInfos?.statusOfAd}</option>
+                    {possibleStatuses &&
+                      possibleStatuses
+                        .filter((e) => e !== adInfos?.statusOfAd)
+                        .map((status, index) => (
+                          <option value={status} key={index}>
+                            {status}
+                          </option>
+                        ))}
                   </select>
                 </div>
               ) : (
@@ -266,17 +304,63 @@ export default function AdDetail() {
             </div>
           </div>
 
-          <h4 className="mt-3">
-            {adInfos?.location.nameOfTheCounty},
-            {adInfos?.location.nameOfTheCity}
-          </h4>
-          <iframe
-            className="mb-3"
-            width="400"
-            height="200"
-            src={`https://www.bing.com/maps/embed/viewer.aspx?v=3&cp=${adLocation?.coordinates[0]}~${adLocation?.coordinates[1]}&lvl=12&w=400&h=200&credentials=AtF5j2AdfXHCqsoqmusG2zXRg7bFR63MIkoMe2EsRAgYfeslufM4-NNWkrfPmywu&form=BMEMJS`}
-            frameborder="0"
-          ></iframe>
+          {editOrSave ? (
+            <>
+              <div className="mb-4 mt-4">
+                <label htmlFor="Location" className="form-label">
+                  Location
+                </label>
+                <select
+                  id="Location"
+                  className="form-select"
+                  aria-label="select category"
+                  onChange={(e) => chooseAuto(e.target.value)}
+                >
+                  <option disabled selected>
+                    Select county
+                  </option>
+                  {counties &&
+                    counties.map((county, index) => (
+                      <option value={county.auto} key={index}>
+                        {county.nume}
+                      </option>
+                    ))}
+                </select>
+              </div>
+
+              <div className="mb-4">
+                <select
+                  className="form-select"
+                  aria-label="select category"
+                  onChange={(e) => setCity(e.target.value)}
+                >
+                  <option disabled selected>
+                    Select city
+                  </option>
+                  {cities &&
+                    cities.map((city, index) => (
+                      <option value={city.nume} key={index}>
+                        {city.nume}
+                      </option>
+                    ))}
+                </select>
+              </div>
+            </>
+          ) : (
+            <>
+              <h4 className="mt-3">
+                {adInfos?.location.nameOfTheCounty},
+                {adInfos?.location.nameOfTheCity}
+              </h4>
+              <iframe
+                className="mb-3"
+                width="400"
+                height="200"
+                src={`https://www.bing.com/maps/embed/viewer.aspx?v=3&cp=${adLocation?.coordinates[0]}~${adLocation?.coordinates[1]}&lvl=12&w=400&h=200&credentials=AtF5j2AdfXHCqsoqmusG2zXRg7bFR63MIkoMe2EsRAgYfeslufM4-NNWkrfPmywu&form=BMEMJS`}
+                frameborder="0"
+              ></iframe>
+            </>
+          )}
 
           {/* Card Worker */}
           <div class="card" style={{ height: 100 }}>

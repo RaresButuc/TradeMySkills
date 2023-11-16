@@ -41,6 +41,7 @@ public class AdService {
         List<User> currentUsersOfAd = new ArrayList<>(currentAd.getUsers());
         currentUsersOfAd.add(workerUser);
 
+        currentAd.setStatusOfAd(StatusOfAd.PENDING);
         currentAd.setUsers(currentUsersOfAd);
         adRepository.save(currentAd);
 
