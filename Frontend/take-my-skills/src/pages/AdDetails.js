@@ -1,8 +1,14 @@
-import { useEffect, useState, useRef } from "react";
-import ProfilePhoto from "../shared/ProfilePhoto";
-import { useAuthUser } from "react-auth-kit";
-import { useParams } from "react-router-dom";
 import axios from "axios";
+import ProfilePhoto from "../shared/ProfilePhoto";
+import { useParams } from "react-router-dom";
+import { useAuthUser } from "react-auth-kit";
+import { useEffect, useState, useRef } from "react";
+
+import TitleInput from "../components/postAdFormComponents/TitleInput";
+import DescriptionInput from "../components/postAdFormComponents/DescriptionInput";
+import PriceInput from "../components/postAdFormComponents/PriceInput";
+import CategorySelect from "../components/postAdFormComponents/CategorySelect";
+import LocationSelects from "../components/postAdFormComponents/LocationSelects";
 
 export default function AdDetail() {
   const auth = useAuthUser();
@@ -15,14 +21,8 @@ export default function AdDetail() {
   const [showEditButtonOrNot, setShowEditButtonOrNot] = useState(false);
   const [buttonValue, setButtonValue] = useState("Edit Ad");
   const [possibleStatuses, setPossibleStatuses] = useState([]);
-
-  const [cities, setCities] = useState([]);
-  const [counties, setCounties] = useState([]);
-
-  const [countyAbrev, setCountyAbrev] = useState("");
-
-  const [countyChosen, setCountyChosen] = useState("");
-  const [cityChosen, setCity] = useState("");
+  const [charactersTextArea, setCharactersTextArea] = useState(0);
+  const [countyChosenFullName, setCountyChosenFullName] = useState("");
 
   const adTitleRef = useRef("");
   const adDescriptionRef = useRef("");
@@ -37,12 +37,14 @@ export default function AdDetail() {
       title: adTitleRef.current.value,
       description: adDescriptionRef.current.value,
       typeOfAd: adTypeOfAdRef.current.value,
-      price: adPriceRef,
+      price: adPriceRef.current.value,
       location: {
-        nameOfTheCounty: adCountyRef.current.value,
+        nameOfTheCounty: countyChosenFullName,
         nameOfTheCity: adCityRef.current.value,
       },
+      statusOfAd: adStatusRef.current.value,
     };
+    console.log(editData);
     try {
       await axios.put(`http://localhost:8080/ads/${id}`, editData);
     } catch (err) {
@@ -54,11 +56,11 @@ export default function AdDetail() {
     if (editOrSave === false) {
       setEditOrSave(true);
       setButtonValue("Save");
+      setCharactersTextArea(adInfos.description.length);
     } else {
       onSave();
       setEditOrSave(false);
       setButtonValue("Edit Profile");
-      window.location.reload(false);
     }
   };
 
@@ -79,54 +81,21 @@ export default function AdDetail() {
       }
     };
 
-    const getLocationsOfAd = async (adLoc) => {
-      try {
-        const response = await axios.get(
-          `http://dev.virtualearth.net/REST/v1/Locations?countryRegion=RO&adminDistrict=${adLoc.location.nameOfTheCounty}&locality=${adLoc.location.nameOfTheCity}&maxResults=20&key=AtF5j2AdfXHCqsoqmusG2zXRg7bFR63MIkoMe2EsRAgYfeslufM4-NNWkrfPmywu`
-        );
-        const data = response.data.resourceSets[0].resources[0].point;
-        setAdLocation(data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
+    // const getLocationsOfAd = async (adLoc) => {
+    //   try {
+    //     const response = await axios.get(
+    //       `http://dev.virtualearth.net/REST/v1/Locations?countryRegion=RO&adminDistrict=${adLoc.location.nameOfTheCounty}&locality=${adLoc.location.nameOfTheCity}&maxResults=20&key=AtF5j2AdfXHCqsoqmusG2zXRg7bFR63MIkoMe2EsRAgYfeslufM4-NNWkrfPmywu`
+    //     );
+    //     const data = response.data.resourceSets[0].resources[0].point;
+    //     setAdLocation(data);
+    //   } catch (err) {
+    //     console.log(err);
+    //   }
+    // };
 
-    const fetchCounties = async () => {
-      try {
-        const response = await axios.get("https://roloca.coldfuse.io/judete");
-        const data = response.data;
-        setCounties(data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    const fetchCities = async () => {
-      if (countyAbrev) {
-        try {
-          const response = await axios.get(
-            `https://roloca.coldfuse.io/orase/${countyAbrev}`
-          );
-          const data = response.data;
-          if (data) {
-            setCities(data);
-          }
-        } catch (err) {
-          console.log(err);
-        }
-      }
-    };
-
-    getLocationsOfAd(adInfos);
-    fetchCounties();
-    fetchCities();
+    // getLocationsOfAd(adInfos);
     getAdById();
   }, [adInfos]);
-
-  const chooseAuto = (countyAbrev) => {
-    setCountyChosen(counties.filter((e) => e.auto === countyAbrev)[0].nume);
-    setCountyAbrev(countyAbrev);
-  };
 
   const colorDependingOnStatus = (status) => {
     switch (status) {
@@ -139,6 +108,10 @@ export default function AdDetail() {
     }
   };
 
+  const countingCharactersDescription = (e) => {
+    setCharactersTextArea(e.target.value.length);
+  };
+
   return (
     <div className="container-xl">
       <div className="row container-xl" style={{ marginTop: 110 }}>
@@ -147,23 +120,11 @@ export default function AdDetail() {
           <div className="card-body">
             {editOrSave ? (
               <>
-                <label htmlFor="Title" className="form-label">
-                  Title
-                </label>
-                <br></br>
-                <input
-                  name="title"
+                <TitleInput
+                  message={"Choose a short and suggestive title"}
+                  ad={adInfos}
                   ref={adTitleRef}
-                  defaultValue={adInfos?.title}
-                  style={{ maxWidth: 300, height: 50 }}
-                ></input>
-                <div
-                  id="Title-Help"
-                  className="form-text"
-                  style={{ color: "#fa6900" }}
-                >
-                  *Choose a new short and suggestive title
-                </div>
+                />
               </>
             ) : (
               <h1>
@@ -177,25 +138,14 @@ export default function AdDetail() {
             >
               {editOrSave ? (
                 <>
-                  <label htmlFor="Description" className="form-label">
-                    Description
-                  </label>
-                  <br></br>
-                  <textarea
-                    className="container-xl"
-                    name="description"
+                  <DescriptionInput
+                    ad={adInfos}
+                    countingCharactersDescription={
+                      countingCharactersDescription
+                    }
+                    message={charactersTextArea + "/ 1000"}
                     ref={adDescriptionRef}
-                    defaultValue={adInfos?.description}
-                    style={{ width: "100%", maxWidth: "500px" }} // Adjust the maximum width as needed
-                  ></textarea>
-                  <div
-                    id="Title-Help"
-                    className="form-text"
-                    style={{ color: "#fa6900" }}
-                  >
-                    *Describe your expectations in detail in no more than 1000
-                    characters
-                  </div>
+                  />
                 </>
               ) : (
                 <h5>{adInfos?.description}</h5>
@@ -209,16 +159,7 @@ export default function AdDetail() {
                   className="input-group mb-4"
                   style={{ height: 50, width: 300 }}
                 >
-                  <span className="input-group-text">$</span>
-                  <input
-                    ref={adPriceRef}
-                    type="text"
-                    className="form-control"
-                    aria-label="Amount (to the nearest dollar)"
-                    name="title"
-                    defaultValue={adInfos?.price}
-                  />
-                  <span className="input-group-text">.00</span>
+                  <PriceInput ad={adInfos} ref={adPriceRef} />
                 </div>
               ) : (
                 <div
@@ -248,7 +189,10 @@ export default function AdDetail() {
 
               {/* Status */}
               {editOrSave ? (
-                <div>
+                <div
+                  className="input-group mb-4"
+                  style={{ height: 50, width: 300 }}
+                >
                   <select className="form-select" ref={adStatusRef}>
                     <option selected>{adInfos?.statusOfAd}</option>
                     {possibleStatuses &&
@@ -306,45 +250,15 @@ export default function AdDetail() {
 
           {editOrSave ? (
             <>
-              <div className="mb-4 mt-4">
-                <label htmlFor="Location" className="form-label">
-                  Location
-                </label>
-                <select
-                  id="Location"
-                  className="form-select"
-                  aria-label="select category"
-                  onChange={(e) => chooseAuto(e.target.value)}
-                >
-                  <option disabled selected>
-                    Select county
-                  </option>
-                  {counties &&
-                    counties.map((county, index) => (
-                      <option value={county.auto} key={index}>
-                        {county.nume}
-                      </option>
-                    ))}
-                </select>
-              </div>
-
-              <div className="mb-4">
-                <select
-                  className="form-select"
-                  aria-label="select category"
-                  onChange={(e) => setCity(e.target.value)}
-                >
-                  <option disabled selected>
-                    Select city
-                  </option>
-                  {cities &&
-                    cities.map((city, index) => (
-                      <option value={city.nume} key={index}>
-                        {city.nume}
-                      </option>
-                    ))}
-                </select>
-              </div>
+              <LocationSelects
+                ad={adInfos}
+                refCity={adCityRef}
+                refCounty={adCountyRef}
+                ref={null}
+                countyFullName={(countyName) => {
+                  setCountyChosenFullName(countyName);
+                }}
+              />
             </>
           ) : (
             <>
@@ -352,13 +266,13 @@ export default function AdDetail() {
                 {adInfos?.location.nameOfTheCounty},
                 {adInfos?.location.nameOfTheCity}
               </h4>
-              <iframe
+              {/* <iframe
                 className="mb-3"
                 width="400"
                 height="200"
                 src={`https://www.bing.com/maps/embed/viewer.aspx?v=3&cp=${adLocation?.coordinates[0]}~${adLocation?.coordinates[1]}&lvl=12&w=400&h=200&credentials=AtF5j2AdfXHCqsoqmusG2zXRg7bFR63MIkoMe2EsRAgYfeslufM4-NNWkrfPmywu&form=BMEMJS`}
                 frameborder="0"
-              ></iframe>
+              /> */}
             </>
           )}
 

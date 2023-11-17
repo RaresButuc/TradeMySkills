@@ -191,6 +191,7 @@ public class AdService {
         adFromDb.setStatusOfAd(adUpdater.getStatusOfAd());
         adFromDb.setDescription(adUpdater.getDescription());
         adFromDb.setPrice(adUpdater.getPrice());
+        adFromDb.setLocation(adUpdater.getLocation());
         adRepository.save(adFromDb);
     }
 

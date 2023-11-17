@@ -6,9 +6,6 @@ import { useIsAuthenticated } from "react-auth-kit";
 
 export default function ChangePassword({ email }) {
   const isAuthenticated = useIsAuthenticated();
-  // const auth = useAuthUser();
-
-  // const { email } = useParams();
 
   const [error, setError] = useState("");
   const [showAlert, setShowAlert] = useState(false);
