@@ -16,7 +16,6 @@ export default function AdDetail() {
   const { id } = useParams();
 
   const [adInfos, setAdInfos] = useState(null);
-  const [adLocation, setAdLocation] = useState(null);
   const [editOrSave, setEditOrSave] = useState(false);
   const [showEditButtonOrNot, setShowEditButtonOrNot] = useState(false);
   const [buttonValue, setButtonValue] = useState("Edit Ad");
@@ -33,22 +32,31 @@ export default function AdDetail() {
   const adStatusRef = useRef("");
 
   const onSave = async () => {
-    const editData = {
-      title: adTitleRef.current.value,
-      description: adDescriptionRef.current.value,
-      typeOfAd: adTypeOfAdRef.current.value,
-      price: adPriceRef.current.value,
-      location: {
-        nameOfTheCounty: countyChosenFullName,
-        nameOfTheCity: adCityRef.current.value,
-      },
-      statusOfAd: adStatusRef.current.value,
-    };
-    console.log(editData);
-    try {
-      await axios.put(`http://localhost:8080/ads/${id}`, editData);
-    } catch (err) {
-      console.log(err);
+    if (
+      titleAd !== "" &&
+      descriptionAd !== "" &&
+      categoryAd !== "" &&
+      priceAd !== "" &&
+      countyAd !== "" &&
+      cityAd !== ""
+    ) {
+      const editData = {
+        title: adTitleRef.current.value,
+        description: adDescriptionRef.current.value,
+        typeOfAd: adTypeOfAdRef.current.value,
+        price: adPriceRef.current.value,
+        location: {
+          nameOfTheCounty: countyChosenFullName,
+          nameOfTheCity: adCityRef.current.value,
+        },
+        statusOfAd: adStatusRef.current.value,
+      };
+      try {
+        await axios.put(`http://localhost:8080/ads/${id}`, editData);
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
     }
   };
 

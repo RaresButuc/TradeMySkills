@@ -6,15 +6,16 @@ const LocationSelects = forwardRef(
     const [cities, setCities] = useState([]);
     const [counties, setCounties] = useState([]);
     const [countyAbrev, setCountyAbrev] = useState("");
+    const [mainCity, setMainCity] = useState(ad.location.nameOfTheCity);
 
     useEffect(() => {
       const fetchCounties = async () => {
         try {
           const response = await axios.get("https://roloca.coldfuse.io/judete");
           const data = response.data;
-          if (ad) {
-            setCounties(
-              data.filter((e) => e.nume !== ad.location.nameOfTheCounty)
+          if (ad && countyAbrev === "") {
+            setCountyAbrev(
+              data.filter((e) => e.nume === ad.location.nameOfTheCounty)[0].auto
             );
           } else {
             setCounties(data);
@@ -34,11 +35,11 @@ const LocationSelects = forwardRef(
             if (data) {
               setCities(data);
             }
-            if (ad) {
-              setCities(
-                data.filter((e) => e.nume !== ad.location.nameOfTheCity)
-              );
-            }
+            // if (ad) {
+            //   setCities(
+            //     data.filter((e) => e.nume !== ad.location.nameOfTheCity)
+            //   );
+            // }
           } catch (err) {
             console.log(err);
           }
@@ -50,12 +51,13 @@ const LocationSelects = forwardRef(
     }, [countyAbrev]);
 
     const chooseAuto = (e) => {
+      setMainCity("Select City");
       countyFullName(
         counties.filter((e) => e.auto === refCounty.current.value)[0].nume
       );
       setCountyAbrev(e.target.value);
     };
-////////////////Make the choosing cty work
+
     return (
       <>
         <div className="mb-4">
@@ -65,8 +67,12 @@ const LocationSelects = forwardRef(
             ref={refCounty}
             onChange={chooseAuto}
           >
-            <option disabled selected value={ad ? ad.location.nameOfTheCity : ""}>
-              {ad ? ad.location.nameOfTheCounty : "Select county"}
+            <option
+              disabled
+              selected
+              value={ad ? ad.location.nameOfTheCounty : ""}
+            >
+              {ad ? ad.location.nameOfTheCounty : "Select County"}
             </option>
             {counties &&
               counties.map((county, index) => (
@@ -83,8 +89,12 @@ const LocationSelects = forwardRef(
             aria-label="select category"
             ref={refCity}
           >
-            <option disabled selected value={ad ? ad.location.nameOfTheCity : ""}>
-              Select city
+            <option
+              disabled
+              selected
+              value={mainCity === "Select City" ? "" : mainCity}
+            >
+              {mainCity}
             </option>
             {cities &&
               cities.map((city, index) => (
