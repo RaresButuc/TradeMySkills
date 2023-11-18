@@ -32,14 +32,14 @@ export default function AdDetail() {
   const adStatusRef = useRef("");
 
   const onSave = async () => {
-    if (
-      titleAd !== "" &&
-      descriptionAd !== "" &&
-      categoryAd !== "" &&
-      priceAd !== "" &&
-      countyAd !== "" &&
-      cityAd !== ""
-    ) {
+    // if (
+    //   adTitleRef !== "" &&
+    //   adDescriptionRef !== "" &&
+    //   adPriceRef !== "" &&
+    //   adCountyRef !== "" &&
+    //   adCityRef !== ""
+    // )
+    //  {
       const editData = {
         title: adTitleRef.current.value,
         description: adDescriptionRef.current.value,
@@ -55,9 +55,8 @@ export default function AdDetail() {
         await axios.put(`http://localhost:8080/ads/${id}`, editData);
       } catch (err) {
         console.log(err);
-      }
-    } else {
-    }
+      
+    } 
   };
 
   const changeEdit = () => {

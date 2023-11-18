@@ -6,19 +6,21 @@ const LocationSelects = forwardRef(
     const [cities, setCities] = useState([]);
     const [counties, setCounties] = useState([]);
     const [countyAbrev, setCountyAbrev] = useState("");
-    const [mainCity, setMainCity] = useState(ad.location.nameOfTheCity);
+    const [mainCity, setMainCity] = useState(
+      ad ? ad.location.nameOfTheCity : "Select City"
+    );
 
     useEffect(() => {
       const fetchCounties = async () => {
         try {
           const response = await axios.get("https://roloca.coldfuse.io/judete");
           const data = response.data;
+          setCounties(data);
           if (ad && countyAbrev === "") {
             setCountyAbrev(
               data.filter((e) => e.nume === ad.location.nameOfTheCounty)[0].auto
             );
-          } else {
-            setCounties(data);
+            countyFullName(ad?.location?.nameOfTheCounty);
           }
         } catch (err) {
           console.log(err);
@@ -35,11 +37,6 @@ const LocationSelects = forwardRef(
             if (data) {
               setCities(data);
             }
-            // if (ad) {
-            //   setCities(
-            //     data.filter((e) => e.nume !== ad.location.nameOfTheCity)
-            //   );
-            // }
           } catch (err) {
             console.log(err);
           }
@@ -48,7 +45,7 @@ const LocationSelects = forwardRef(
 
       fetchCounties();
       fetchCities();
-    }, [countyAbrev]);
+    }, [countyAbrev, ad]);
 
     const chooseAuto = (e) => {
       setMainCity("Select City");
@@ -70,9 +67,9 @@ const LocationSelects = forwardRef(
             <option
               disabled
               selected
-              value={ad ? ad.location.nameOfTheCounty : ""}
+              value={ad ? ad?.location?.nameOfTheCounty : ""}
             >
-              {ad ? ad.location.nameOfTheCounty : "Select County"}
+              {ad ? ad.location?.nameOfTheCounty : "Select County"}
             </option>
             {counties &&
               counties.map((county, index) => (

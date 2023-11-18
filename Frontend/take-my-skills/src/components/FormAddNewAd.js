@@ -71,7 +71,8 @@ export default function FormAddNewAd() {
         priceAd !== "" &&
         countyAd !== "" &&
         cityAd !== ""
-      ) {
+      ) 
+      {
         const response = await axios.post("http://localhost:8080/ads", {
           title: titleAd,
           description: descriptionAd,
