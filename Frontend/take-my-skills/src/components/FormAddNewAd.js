@@ -120,11 +120,7 @@ export default function FormAddNewAd() {
                     ref={descriptonOfAd}
                   />
 
-                  <CategorySelect
-                    ref={categoryOfAd}
-                    newOrEdit={true}
-                    ad={null}
-                  />
+                  <CategorySelect ref={categoryOfAd} ad={null} />
 
                   <PriceInput ad={null} ref={priceOfAd} />
 

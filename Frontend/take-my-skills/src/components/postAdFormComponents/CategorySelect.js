@@ -1,7 +1,7 @@
 import { forwardRef, useEffect, useState } from "react";
 import axios from "axios";
 
-const CategorySelect = forwardRef(({ newOrEdit, allCategories, ad }, ref) => {
+const CategorySelect = forwardRef(({ ad }, ref) => {
   const [categories, setCategories] = useState([]);
   useEffect(() => {
     const fetchCategories = async () => {
@@ -23,7 +23,7 @@ const CategorySelect = forwardRef(({ newOrEdit, allCategories, ad }, ref) => {
             Select category
           </option>
         ) : (
-          <option selected disabled>{ad.typeOfAd.nameOfCategory}</option>
+          <option selected disabled value={ad.typeOfAd.id}>{ad.typeOfAd.nameOfCategory}</option>
         )}
         {categories &&
           categories.map((category, index) => (

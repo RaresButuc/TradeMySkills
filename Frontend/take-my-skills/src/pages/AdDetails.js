@@ -23,14 +23,13 @@ export default function AdDetail() {
   const [charactersTextArea, setCharactersTextArea] = useState(0);
   const [countyChosenFullName, setCountyChosenFullName] = useState("");
 
-  const adTitleRef = useRef("");
-  const adDescriptionRef = useRef("");
-  const adTypeOfAdRef = useRef("");
-  const adPriceRef = useRef("");
-  const adCountyRef = useRef("");
-  const adCityRef = useRef("");
-  const adStatusRef = useRef("");
-  const adCategoryRef = useRef("");
+  const adTitleRef = useRef(null);
+  const adDescriptionRef = useRef(null);
+  const adTypeOfAdRef = useRef(null);
+  const adPriceRef = useRef(null);
+  const adCountyRef = useRef(null);
+  const adCityRef = useRef(null);
+  const adStatusRef = useRef(null);
 
   const onSave = async () => {
     // if (
@@ -42,17 +41,17 @@ export default function AdDetail() {
     // )
     //  {
     const editData = {
+      statusOfAd: adStatusRef.current.value,
       title: adTitleRef.current.value,
       description: adDescriptionRef.current.value,
-      typeOfAd: adTypeOfAdRef.current.value,
+      typeOfAd: { id: adTypeOfAdRef.current.value },
       price: adPriceRef.current.value,
       location: {
         nameOfTheCounty: countyChosenFullName,
         nameOfTheCity: adCityRef.current.value,
       },
-      statusOfAd: adStatusRef.current.value,
-      typeOfAd: adCategoryRef.current.value,
     };
+    console.log(adStatusRef.current.value);
     try {
       await axios.put(`http://localhost:8080/ads/${id}`, editData);
     } catch (err) {
@@ -268,19 +267,15 @@ export default function AdDetail() {
               <label className="form-label fw-bold text-decoration-underline mt-4">
                 Category
               </label>
-              <CategorySelect
-                ref={adCategoryRef}
-                newOrEdit={false}
-                ad={adInfos}
-              />
+              <CategorySelect ref={adTypeOfAdRef} ad={adInfos} />
             </>
           ) : null}
 
           {editOrSave ? (
             <>
-            <label className="form-label fw-bold text-decoration-underline mt-4">
-                    Location
-                  </label>
+              <label className="form-label fw-bold text-decoration-underline mt-4">
+                Location
+              </label>
               <LocationSelects
                 ad={adInfos}
                 refCity={adCityRef}

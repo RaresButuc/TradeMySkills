@@ -187,13 +187,12 @@ public class AdService {
     public void updateAdById(Long id, Ad adUpdater) {
         Ad adFromDb = adRepository.findById(id).orElse(null);
         assert adFromDb != null;
-        adFromDb.setTitle(adUpdater.getTitle());
         adFromDb.setStatusOfAd(adUpdater.getStatusOfAd());
+        adFromDb.setTitle(adUpdater.getTitle());
         adFromDb.setDescription(adUpdater.getDescription());
         adFromDb.setPrice(adUpdater.getPrice());
         adFromDb.setLocation(adUpdater.getLocation());
         adFromDb.setTypeOfAd(adUpdater.getTypeOfAd());
-        adFromDb.setStatusOfAd(adUpdater.getStatusOfAd());
         adRepository.save(adFromDb);
     }
 
