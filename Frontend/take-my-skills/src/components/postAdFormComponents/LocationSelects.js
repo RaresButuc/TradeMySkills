@@ -45,7 +45,7 @@ const LocationSelects = forwardRef(
 
       fetchCounties();
       fetchCities();
-    }, [countyAbrev, ad]);
+    }, [countyAbrev]);
 
     const chooseAuto = (e) => {
       setMainCity("Select City");
