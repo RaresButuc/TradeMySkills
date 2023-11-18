@@ -19,7 +19,6 @@ export default function FormAddNewAd() {
   const [alertInfos, setAlertInfos] = useState(["", ""]);
   const [currentUser, setCurrentUser] = useState(null);
   const [showAlert, setShowAlert] = useState(false);
-  const [categories, setCategories] = useState([]);
 
   const titleOfAd = useRef("");
   const descriptonOfAd = useRef("");
@@ -29,16 +28,6 @@ export default function FormAddNewAd() {
   const countyChosenAbrev = useRef("");
 
   useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const response = await axios.get("http://localhost:8080/category");
-        const data = response.data;
-        setCategories(data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
     const fetchCurrentUser = async () => {
       try {
         const response = await axios.get(
@@ -51,7 +40,6 @@ export default function FormAddNewAd() {
       }
     };
 
-    fetchCategories();
     fetchCurrentUser();
   }, []);
 
@@ -71,8 +59,7 @@ export default function FormAddNewAd() {
         priceAd !== "" &&
         countyAd !== "" &&
         cityAd !== ""
-      ) 
-      {
+      ) {
         const response = await axios.post("http://localhost:8080/ads", {
           title: titleAd,
           description: descriptionAd,
@@ -95,10 +82,7 @@ export default function FormAddNewAd() {
         }
       } else {
         setShowAlert(true);
-        setAlertInfos([
-          "danger",
-          "All Fields Must be Completed!",
-        ]);
+        setAlertInfos(["danger", "All Fields Must be Completed!"]);
       }
     } catch (error) {
       console.error("Request error:", error);
@@ -139,7 +123,6 @@ export default function FormAddNewAd() {
                   <CategorySelect
                     ref={categoryOfAd}
                     newOrEdit={true}
-                    allCategories={categories}
                     ad={null}
                   />
 

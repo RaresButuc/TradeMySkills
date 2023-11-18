@@ -1,10 +1,13 @@
 import { forwardRef } from "react";
 import MessageUnderInputs from "./MessageUnderInputs";
 
-const TitleInput = forwardRef(({ message,ad }, ref) => {
+const TitleInput = forwardRef(({ message, ad }, ref) => {
   return (
     <div className="mb-3">
-      <label htmlFor="Title" className="form-label">
+      <label
+        htmlFor="Title"
+        className="form-label fw-bold text-decoration-underline"
+      >
         Title
       </label>
       <input
@@ -13,7 +16,7 @@ const TitleInput = forwardRef(({ message,ad }, ref) => {
         id="Title"
         aria-describedby="Title-Help"
         defaultValue={ad ? ad.title : ""}
-        />
+      />
       <MessageUnderInputs message={message} />
     </div>
   );

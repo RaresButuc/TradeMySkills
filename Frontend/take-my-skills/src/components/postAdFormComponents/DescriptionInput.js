@@ -5,7 +5,10 @@ const DescriptionInput = forwardRef(
   ({ ad, countingCharactersDescription, message }, ref) => {
     return (
       <div className="mb-3">
-        <label htmlFor="description" className="form-label">
+        <label
+          htmlFor="description"
+          className="form-label fw-bold text-decoration-underline"
+        >
           Description
         </label>
         <textarea

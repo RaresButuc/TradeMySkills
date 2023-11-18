@@ -30,6 +30,7 @@ export default function AdDetail() {
   const adCountyRef = useRef("");
   const adCityRef = useRef("");
   const adStatusRef = useRef("");
+  const adCategoryRef = useRef("");
 
   const onSave = async () => {
     // if (
@@ -40,23 +41,23 @@ export default function AdDetail() {
     //   adCityRef !== ""
     // )
     //  {
-      const editData = {
-        title: adTitleRef.current.value,
-        description: adDescriptionRef.current.value,
-        typeOfAd: adTypeOfAdRef.current.value,
-        price: adPriceRef.current.value,
-        location: {
-          nameOfTheCounty: countyChosenFullName,
-          nameOfTheCity: adCityRef.current.value,
-        },
-        statusOfAd: adStatusRef.current.value,
-      };
-      try {
-        await axios.put(`http://localhost:8080/ads/${id}`, editData);
-      } catch (err) {
-        console.log(err);
-      
-    } 
+    const editData = {
+      title: adTitleRef.current.value,
+      description: adDescriptionRef.current.value,
+      typeOfAd: adTypeOfAdRef.current.value,
+      price: adPriceRef.current.value,
+      location: {
+        nameOfTheCounty: countyChosenFullName,
+        nameOfTheCity: adCityRef.current.value,
+      },
+      statusOfAd: adStatusRef.current.value,
+      typeOfAd: adCategoryRef.current.value,
+    };
+    try {
+      await axios.put(`http://localhost:8080/ads/${id}`, editData);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const changeEdit = () => {
@@ -162,10 +163,10 @@ export default function AdDetail() {
             <div className="row">
               {/* Price */}
               {editOrSave ? (
-                <div
-                  className="input-group mb-4"
-                  style={{ height: 50, width: 300 }}
-                >
+                <div className="mb-4" style={{ height: 50, width: 300 }}>
+                  <label className="form-label fw-bold text-decoration-underline">
+                    Price
+                  </label>
                   <PriceInput ad={adInfos} ref={adPriceRef} />
                 </div>
               ) : (
@@ -196,11 +197,18 @@ export default function AdDetail() {
 
               {/* Status */}
               {editOrSave ? (
-                <div
-                  className="input-group mb-4"
-                  style={{ height: 50, width: 300 }}
-                >
-                  <select className="form-select" ref={adStatusRef}>
+                <div className="mb-4" style={{ height: 50, width: 300 }}>
+                  <label
+                    htmlFor="status"
+                    className="form-label fw-bold text-decoration-underline"
+                  >
+                    Status
+                  </label>
+                  <select
+                    className="form-select"
+                    name="status"
+                    ref={adStatusRef}
+                  >
                     <option selected>{adInfos?.statusOfAd}</option>
                     {possibleStatuses &&
                       possibleStatuses
@@ -257,6 +265,22 @@ export default function AdDetail() {
 
           {editOrSave ? (
             <>
+              <label className="form-label fw-bold text-decoration-underline mt-4">
+                Category
+              </label>
+              <CategorySelect
+                ref={adCategoryRef}
+                newOrEdit={false}
+                ad={adInfos}
+              />
+            </>
+          ) : null}
+
+          {editOrSave ? (
+            <>
+            <label className="form-label fw-bold text-decoration-underline mt-4">
+                    Location
+                  </label>
               <LocationSelects
                 ad={adInfos}
                 refCity={adCityRef}
