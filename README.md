@@ -104,7 +104,7 @@ c. Ads can be find by the keyword mentions in the input:
 
 d. All Ads available dependng on the sorting,filtering or keywords criterias:
 
-<img src="https://cdn.discordapp.com/attachments/1080812341693784124/1176195499066400839/image.png?ex=656dfc6b&is=655b876b&hm=c58f7b905f90f7b818d1ac858078af55ed17932a1d3c1d4718625cc6fecff50a&" />
+<img src="https://cdn.discordapp.com/attachments/1080812341693784124/1176195498483396648/allads.png?ex=656dfc6b&is=655b876b&hm=dd655f40c9e61bf1eb97283403c97d66914d2434802a7694f59851a4ab0a06fb&" />
 
 
 - Click the `Join us` navbar-button to register into the webisite(all fields must be completed).
