@@ -146,8 +146,6 @@ b. `Edit` button lets you easily edit your contact informations;
 
  <img src="https://cdn.discordapp.com/attachments/1080812341693784124/1176192723968077844/image.png?ex=656df9d5&is=655b84d5&hm=8aa8fa7888c7820a1fe131857f96d58a4db9c7e0d8441c40765c15bc05fd60b4&" />
 
-![Screenshot 2023-10-09 145135-log-in](https://github.com/CodecoolGlobal/el-proyecte-grande-sprint-1-java-RaresButuc/assets/115742553/cda5a74e-eb2e-4cfe-9b23-b00263e3b63c)
-
     
 5. Click the `Contact` button to access page to contact us.
     TO DO
