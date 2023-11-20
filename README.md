@@ -50,6 +50,10 @@ Our future plans for Trade-My-Skills platform include:
 1. **Prerequisites:**
     - Ensure you have the latest LTS (Long Term Support) version of Java Development Kit (JDK) installed on your system.
     - If needed, reload Maven dependencies by right-clicking the `pom.xml` file and selecting "Maven -> Reload Project."
+    - Create an SQL Database called "trademyskills" and inside "resources -> application.properties" enter your spring datasource password
+
+<img src="https://cdn.discordapp.com/attachments/1080812341693784124/1176136576250679296/image.png?ex=656dc58b&is=655b508b&hm=dc554401302057544664f4c6c82fd3ea828aee47a0fc29a187229a2412dfccff&" />
+
 
 2. **Run the Server:**
     - Start the backend server by running the `MainApplication` class.
@@ -79,43 +83,71 @@ Our future plans for Trade-My-Skills platform include:
 
 
 ## How to Use 
-- Main Page
   
-![Screenshot 2023-10-09 132822](https://github.com/CodecoolGlobal/el-proyecte-grande-sprint-1-java-RaresButuc/assets/115742553/61fafe02-52da-46a7-a0f1-5b3e4ddc58e3)
-
-1. Click the `View all Ads` button to acces page listing all the ads.
 - All Ads Page
-![Screenshot 2023-10-09 142029](https://github.com/CodecoolGlobal/el-proyecte-grande-sprint-1-java-RaresButuc/assets/115742553/96d1a71d-cb47-4eb4-9497-991b75b58522)
+
+Click the `View all Ads` navbar-button to acces page listing all the ads.
+
+<img src="https://cdn.discordapp.com/attachments/1080812341693784124/1176155844463841430/image.png?ex=656dd77d&is=655b627d&hm=72ed60b6506bd9f1197805c62cbb7c84b1878d489c11a968af6a29ef3c9fbcc6&" />
 
 a. Every ad can be sorted by a category mentioned above:
   
-![Screenshot 2023-10-09 140942](https://github.com/CodecoolGlobal/el-proyecte-grande-sprint-1-java-RaresButuc/assets/115742553/e995e010-e752-43f7-a586-f1c4c6ef107b)
+<img src="https://cdn.discordapp.com/attachments/1080812341693784124/1176195498022019213/All_Ads_to_be_edted.png?ex=656dfc6b&is=655b876b&hm=d3ea197736cb281e8306407bfae6c28ff3de81a49de45ec42c29301787138e40&" />
 
-
-b. Ads can be sorte by name/price in ascendint/descending order:
+b. Ads can be sorted by name/price in ascending/descending order:
     
-![Screenshot 2023-10-09 141234-sort](https://github.com/CodecoolGlobal/el-proyecte-grande-sprint-1-java-RaresButuc/assets/115742553/d42a37d1-d0d0-48a2-a619-ba9c82a9355f)
+<img src="https://cdn.discordapp.com/attachments/1080812341693784124/1176195499699744778/sort.png?ex=656dfc6b&is=655b876b&hm=3a64461211f53ee1138e31ba1f2bb3f365615baad970545b94b598b5b1e9bbea&" />
 
 c. Ads can be find by the keyword mentions in the input:
 
-![Screenshot 2023-10-09 141234-search](https://github.com/CodecoolGlobal/el-proyecte-grande-sprint-1-java-RaresButuc/assets/115742553/2614fa2b-598c-4ffa-af27-4c56bd9c8451)
+<img src="https://cdn.discordapp.com/attachments/1080812341693784124/1176195499066400839/image.png?ex=656dfc6b&is=655b876b&hm=c58f7b905f90f7b818d1ac858078af55ed17932a1d3c1d4718625cc6fecff50a&" />
 
-d. All Ads available:
+d. All Ads available dependng on the sorting,filtering or keywords criterias:
 
-![Screenshot 2023-10-09 142029](https://github.com/CodecoolGlobal/el-proyecte-grande-sprint-1-java-RaresButuc/assets/115742553/eaecf115-9831-4a6a-aac4-5a0c752dacb3)
-
-
-2. Click the `POST Your Ads NOW FOR FREE` button to access page to post your own ad depending on your requirement.
-
-![Screenshot 2023-10-09 144801-post](https://github.com/CodecoolGlobal/el-proyecte-grande-sprint-1-java-RaresButuc/assets/115742553/833528c8-3220-4c44-9a43-7b5b644db609)
+<img src="https://cdn.discordapp.com/attachments/1080812341693784124/1176195499066400839/image.png?ex=656dfc6b&is=655b876b&hm=c58f7b905f90f7b818d1ac858078af55ed17932a1d3c1d4718625cc6fecff50a&" />
 
 
-3. Click the `Login` button to access page to login your account.
+- Click the `Join us` navbar-button to register into the webisite(all fields must be completed).
+
+<img src="https://cdn.discordapp.com/attachments/1080812341693784124/1176159487162339411/image.png?ex=656ddae1&is=655b65e1&hm=5385ab628fd09457e00e0a91581b302d8cf9e8153f64010007a0e3fa54910661&" />
+
+a. When the registration process finishes well,you will receive a welcoming email from us;
+
+<img src="https://cdn.discordapp.com/attachments/1080812341693784124/1176170545209950249/image.png?ex=656de52e&is=655b702e&hm=679e4c36bd30ac71a56f5167e8ed1489f4a61008aee43a59a5266040246056e5&" />
+
+- Click the `Log In` navbar-button to log into the webisite.
+
+<img src="https://cdn.discordapp.com/attachments/1080812341693784124/1176159962741878804/image.png?ex=656ddb53&is=655b6653&hm=4aed79e6945013212af9e134a40d915fc65869789d382ae4d2e60159f42b4a56&" />
+
+a. In case you forgot your account's password,you should press the "Change it Now". Here you will have to write your account's email and open the confirmation email we sent to you.
+
+<img src="https://cdn.discordapp.com/attachments/1080812341693784124/1176171551549308949/image.png?ex=656de61e&is=655b711e&hm=4fa954a2b57ee6116316acad8060ac743f158558483f8ca6e823d42ef4acfc30&" />
+<img src="https://cdn.discordapp.com/attachments/1080812341693784124/1176171935068065802/image.png?ex=656de679&is=655b7179&hm=b0a98187d5b04ca9c00416ee146efb44c600f29446e73fadc4baaa1fa5d17696&" />
+
+
+Once logged into the website,as a user,you have acces to the following buttons:
+
+<img src="https://cdn.discordapp.com/attachments/1080812341693784124/1176175923310100610/image.png?ex=656dea30&is=655b7530&hm=9b3dd51f0d346c46e44db6f177a507d08db17d44aef22841725320bdb4b20492&" />
+
+- `My Profile` Page,where everyone can see your contact informations,and you can edit these stats anytime.
+
+a.  As a CUSTOMER you can see all your ads on any Status,but as a WORKER,only as PENDING and FINALISED,becuase "Active" ads are the ones that didnt find a WORKER yet and WORKERS don't have acces to post these,only to apply to them;
+
+
+
+b. `Edit` button lets you easily edit your contact informations;
+
+- `Post New Ad` Page, where you can post any ad ONLY AS A CUSTOMER, NOT A WORKER,mentioning every detail of it,from title,to location;
+
+  <img src="https://cdn.discordapp.com/attachments/1080812341693784124/1176151883337961543/image.png?ex=656dd3cc&is=655b5ecc&hm=13ea14bcc73088d4f330e218bdc2902d179a821c429ab20aa7906b8595b0b1af&" />
+
+
+- `Change Password` Page will let you change your password,by writing your actual one,and then typing twice your new one
+
+ <img src="https://cdn.discordapp.com/attachments/1080812341693784124/1176192723968077844/image.png?ex=656df9d5&is=655b84d5&hm=8aa8fa7888c7820a1fe131857f96d58a4db9c7e0d8441c40765c15bc05fd60b4&" />
 
 ![Screenshot 2023-10-09 145135-log-in](https://github.com/CodecoolGlobal/el-proyecte-grande-sprint-1-java-RaresButuc/assets/115742553/cda5a74e-eb2e-4cfe-9b23-b00263e3b63c)
 
-4.Click the `Join Us` button to access page to create  an  account.
-    TO DO 
     
 5. Click the `Contact` button to access page to contact us.
     TO DO
