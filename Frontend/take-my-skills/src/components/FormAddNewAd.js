@@ -1,69 +1,33 @@
 import { useEffect } from "react";
-import axios from "axios";
-import React, { useState } from "react";
-import { useRef } from "react";
+import { useState, useRef } from "react";
 import { useAuthUser } from "react-auth-kit";
 import { useNavigate } from "react-router-dom";
-
+import axios from "axios";
+import TitleInput from "./postAdFormComponents/TitleInput";
+import DescriptionInput from "./postAdFormComponents/DescriptionInput";
+import PriceInput from "./postAdFormComponents/PriceInput";
+import CategorySelect from "./postAdFormComponents/CategorySelect";
+import LocationSelects from "./postAdFormComponents/LocationSelects";
 import Alert from "../components/Alert";
 
 export default function FormAddNewAd() {
   const navigate = useNavigate();
   const auth = useAuthUser();
+
+  const [countyChosenFullName, setCountyChosenFullName] = useState("");
+  const [charactersTextArea, setCharactersTextArea] = useState(0);
+  const [alertInfos, setAlertInfos] = useState(["", ""]);
   const [currentUser, setCurrentUser] = useState(null);
   const [showAlert, setShowAlert] = useState(false);
-  const [categories, setCategories] = useState([]);
-
-  const [cities, setCities] = useState([]);
-
-  const [counties, setCounties] = useState([]);
-  const [countyAbrev, setCountyAbrev] = useState("");
 
   const titleOfAd = useRef("");
   const descriptonOfAd = useRef("");
   const categoryOfAd = useRef("");
   const priceOfAd = useRef(0);
-  const [countyChosen, setCountyChosen] = useState("");
-  const [cityChosen, setCity] = useState("");
-
-  const [charactersTextArea, setCharactersTextArea] = useState(0);
+  const cityChosen = useRef("");
+  const countyChosenAbrev = useRef("");
 
   useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const response = await axios.get("http://localhost:8080/category");
-        const data = response.data;
-        setCategories(data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    const fetchCounties = async () => {
-      try {
-        const response = await axios.get("https://roloca.coldfuse.io/judete");
-        const data = response.data;
-        setCounties(data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    const fetchCities = async () => {
-      if (countyAbrev) {
-        try {
-          const response = await axios.get(
-            `https://roloca.coldfuse.io/orase/${countyAbrev}`
-          );
-          const data = response.data;
-          if (data) {
-            setCities(data);
-          }
-        } catch (err) {
-          console.log(err);
-        }
-      }
-    };
     const fetchCurrentUser = async () => {
       try {
         const response = await axios.get(
@@ -76,18 +40,9 @@ export default function FormAddNewAd() {
       }
     };
 
-    fetchCategories();
-    fetchCounties();
-    fetchCities();
     fetchCurrentUser();
-  }, [countyAbrev]);
+  }, []);
 
-  const chooseAuto = (countyAbrev) => {
-    setCountyChosen(counties.filter((e) => e.auto === countyAbrev)[0].nume);
-    setCountyAbrev(countyAbrev);
-  };
-
-  //Pune si user
   const postNewAd = async (
     titleAd,
     descriptionAd,
@@ -97,28 +52,37 @@ export default function FormAddNewAd() {
     cityAd
   ) => {
     try {
-      const response = await fetch("http://localhost:8080/ads", {
-        method: "POST",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify({
+      if (
+        titleAd !== "" &&
+        descriptionAd !== "" &&
+        categoryAd !== "" &&
+        priceAd !== "" &&
+        countyAd !== "" &&
+        cityAd !== ""
+      ) {
+        const response = await axios.post("http://localhost:8080/ads", {
           title: titleAd,
           description: descriptionAd,
           typeOfAd: { id: categoryAd },
           price: priceAd,
-          user: { id: currentUser.id }, // Fixed user object format
+          users: [{ id: currentUser.id }],
           location: { nameOfTheCounty: countyAd, nameOfTheCity: cityAd },
-        }),
-      });
+        });
 
-      if (response.status === 200) {
-        setShowAlert(true);
-        setTimeout(() => {
-          navigate("/all-ads");
-        }, 3000);
+        if (response.status === 200) {
+          setShowAlert(true);
+          setAlertInfos(["success", "Your Ad was Succesfully Posted!"]);
+          setTimeout(() => {
+            navigate("/all-ads");
+          }, 3000);
+        } else {
+          console.error(`HTTP Error: ${response.status}`);
+          const data = await response.json();
+          console.error(data);
+        }
       } else {
-        console.error(`HTTP Error: ${response.status}`);
-        const data = await response.json();
-        console.error(data);
+        setShowAlert(true);
+        setAlertInfos(["danger", "All Fields Must be Completed!"]);
       }
     } catch (error) {
       console.error("Request error:", error);
@@ -131,9 +95,7 @@ export default function FormAddNewAd() {
 
   return (
     <div>
-      {showAlert && (
-        <Alert type="success" message="Your ad was successfully posted" />
-      )}
+      {showAlert && <Alert type={alertInfos[0]} message={alertInfos[1]} />}
       <form style={{ marginTop: 95 }}>
         <div className="container-xl">
           <div className="row d-flex justify-content-center align-items-center">
@@ -142,110 +104,34 @@ export default function FormAddNewAd() {
                 <div className="card-body p-5 text-center">
                   <h1 className="mb-3">Post A New Ad</h1>
                   <hr />
-                  <div className="mb-4">
-                    <label htmlFor="Title" className="form-label">
-                      Title
-                    </label>
-                    <input
-                      ref={titleOfAd}
-                      className="form-control"
-                      id="Title"
-                      aria-describedby="Title-Help"
-                    />
-                    <div
-                      id="Title-Help"
-                      className="form-text"
-                      style={{ color: "#fa6900" }}
-                    >
-                      *Choose a short and suggestive title
-                    </div>
-                  </div>
 
-                  <div className="mb-4">
-                    <label htmlFor="description" className="form-label">
-                      Description
-                    </label>
-                    <textarea
-                      ref={descriptonOfAd}
-                      className="form-control"
-                      id="description"
-                      maxLength={1000}
-                      style={{ height: 150 }}
-                      onChange={countingCharactersDescription}
-                    />
-                    <div
-                      id="Title-Help"
-                      className="form-text"
-                      style={{ color: "#fa6900" }}
-                    >
-                      {charactersTextArea}/1000
-                    </div>
-                  </div>
+                  <TitleInput
+                    message={"Choose a short and suggestive title"}
+                    ad={null}
+                    ref={titleOfAd}
+                  />
 
-                  <div className="mb-4">
-                    <select
-                      className="form-select"
-                      aria-label="select category"
-                      ref={categoryOfAd}
-                    >
-                      <option disabled selected>
-                        Select category
-                      </option>
-                      {categories &&
-                        categories.map((category, index) => (
-                          <option value={category.id} key={index}>
-                            {category.nameOfCategory}
-                          </option>
-                        ))}
-                    </select>
-                  </div>
+                  <DescriptionInput
+                    ad={null}
+                    countingCharactersDescription={
+                      countingCharactersDescription
+                    }
+                    message={charactersTextArea + "/ 1000"}
+                    ref={descriptonOfAd}
+                  />
 
-                  <div className="input-group mb-4">
-                    <span className="input-group-text">$</span>
-                    <input
-                      ref={priceOfAd}
-                      type="text"
-                      className="form-control"
-                      aria-label="Amount (to the nearest dollar)"
-                    />
-                    <span className="input-group-text">.00</span>
-                  </div>
+                  <CategorySelect ref={categoryOfAd} ad={null} />
 
-                  <div className="mb-4">
-                    <select
-                      className="form-select"
-                      aria-label="select category"
-                      onChange={(e) => chooseAuto(e.target.value)}
-                    >
-                      <option disabled selected>
-                        Select county
-                      </option>
-                      {counties &&
-                        counties.map((county, index) => (
-                          <option value={county.auto} key={index}>
-                            {county.nume}
-                          </option>
-                        ))}
-                    </select>
-                  </div>
+                  <PriceInput ad={null} ref={priceOfAd} />
 
-                  <div className="mb-4">
-                    <select
-                      className="form-select"
-                      aria-label="select category"
-                      onChange={(e) => setCity(e.target.value)}
-                    >
-                      <option disabled selected>
-                        Select city
-                      </option>
-                      {cities &&
-                        cities.map((city, index) => (
-                          <option value={city.nume} key={index}>
-                            {city.nume}
-                          </option>
-                        ))}
-                    </select>
-                  </div>
+                  <LocationSelects
+                    refCity={cityChosen}
+                    refCounty={countyChosenAbrev}
+                    ref={null}
+                    countyFullName={(countyName) => {
+                      setCountyChosenFullName(countyName);
+                    }}
+                  />
 
                   <button
                     type="submit"
@@ -257,8 +143,8 @@ export default function FormAddNewAd() {
                         descriptonOfAd.current.value,
                         categoryOfAd.current.value,
                         priceOfAd.current.value,
-                        countyChosen,
-                        cityChosen
+                        countyChosenFullName,
+                        cityChosen.current.value
                       );
                     }}
                   >

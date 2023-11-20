@@ -4,6 +4,8 @@ import com.trademyskills.enums.StatusOfAd;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.*;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -32,7 +34,6 @@ public class Ad {
     @Embedded
     private LocationOfAd location;
 
-    @ManyToOne
-    private User user;
-
+    @ManyToMany
+    private List<User> users;
 }

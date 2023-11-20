@@ -31,20 +31,21 @@ public class AdService {
         adRepository.save(ad);
     }
 
-//    public void addWorkerToAd(String name, Long idOfAd) {
-//        User workerUser = userRepository.findByName(name).orElse(null);
-//        Ad adToBeAdded = adRepository.findById(idOfAd).orElse(null);
-//
-//        assert workerUser != null;
-//        assert adToBeAdded != null;
-//
-//        List<Ad> currentAdsOfWorker = new ArrayList<>(workerUser.getAds());
-//        currentAdsOfWorker.add(adToBeAdded);
-//
-//        workerUser.setAds(currentAdsOfWorker);
-//        userRepository.save(workerUser);
-//        System.out.println(userRepository.findById(workerUser.getId()).orElse(null).getAds().size());
-//    }
+    public void addWorkerToAd(String name, Long idOfAd) {
+        User workerUser = userRepository.findByName(name).orElse(null);
+        Ad currentAd = adRepository.findById(idOfAd).orElse(null);
+
+        assert workerUser != null;
+        assert currentAd != null;
+
+        List<User> currentUsersOfAd = new ArrayList<>(currentAd.getUsers());
+        currentUsersOfAd.add(workerUser);
+
+        currentAd.setStatusOfAd(StatusOfAd.PENDING);
+        currentAd.setUsers(currentUsersOfAd);
+        adRepository.save(currentAd);
+
+    }
 
     public Ad getAdById(Long id) {
         return adRepository.findById(id).orElse(null);
@@ -186,10 +187,12 @@ public class AdService {
     public void updateAdById(Long id, Ad adUpdater) {
         Ad adFromDb = adRepository.findById(id).orElse(null);
         assert adFromDb != null;
-        adFromDb.setTitle(adUpdater.getTitle());
         adFromDb.setStatusOfAd(adUpdater.getStatusOfAd());
+        adFromDb.setTitle(adUpdater.getTitle());
         adFromDb.setDescription(adUpdater.getDescription());
         adFromDb.setPrice(adUpdater.getPrice());
+        adFromDb.setLocation(adUpdater.getLocation());
+        adFromDb.setTypeOfAd(adUpdater.getTypeOfAd());
         adRepository.save(adFromDb);
     }
 

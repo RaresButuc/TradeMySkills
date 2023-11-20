@@ -37,7 +37,7 @@ public class User implements UserDetails {
     private String phoneNumber;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "user")
+    @ManyToMany(mappedBy = "users")
     private List<Ad> ads;
 
     @JsonIgnore
