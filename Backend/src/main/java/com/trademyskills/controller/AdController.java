@@ -46,11 +46,15 @@ public class AdController {
     public void updateAdAs(@PathVariable("id") Long id, @PathVariable("setStatus") String status){
         adService.setStatusOfAd(id,status);
     }
-    @PutMapping("/add/{id}/{nameOfWorker}")
-    public void addWorkerToAd(@PathVariable("id") Long id, @PathVariable("nameOfWorker") String nameOfWorker) {
-        adService.addWorkerToAd(nameOfWorker, id);
-    }
+//    @PutMapping("/add/{id}/{nameOfWorker}")
+//    public void addWorkerToAd(@PathVariable("id") Long id, @PathVariable("nameOfWorker") String nameOfWorker) {
+//        adService.addWorkerToAd(nameOfWorker, id);
+//    }
 
+    @PutMapping("/{typeOfAction}/{id}/{nameOfWorker}")
+    public void deleteOrAddWorker(@PathVariable("typeOfAction") String typeOfAction,@PathVariable("id") Long id, @PathVariable("nameOfWorker") String nameOfWorker) {
+        adService.addOrDeleteWorker(nameOfWorker, id, typeOfAction);
+    }
     @DeleteMapping("/{id}")
     public void deleteAdById(@PathVariable("id") Long id) {
         adService.deleteAdById(id);

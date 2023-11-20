@@ -31,7 +31,8 @@ public class AdService {
         adRepository.save(ad);
     }
 
-    public void addWorkerToAd(String name, Long idOfAd) {
+
+    public void addOrDeleteWorker(String name, Long idOfAd, String typeOfAction){
         User workerUser = userRepository.findByName(name).orElse(null);
         Ad currentAd = adRepository.findById(idOfAd).orElse(null);
 
@@ -39,13 +40,50 @@ public class AdService {
         assert currentAd != null;
 
         List<User> currentUsersOfAd = new ArrayList<>(currentAd.getUsers());
-        currentUsersOfAd.add(workerUser);
 
-        currentAd.setStatusOfAd(StatusOfAd.PENDING);
+        switch (typeOfAction){
+            case "add" -> {currentUsersOfAd.add(workerUser);
+                currentAd.setStatusOfAd(StatusOfAd.PENDING);
+            }
+            case "delete" ->{
+                currentUsersOfAd.remove(workerUser);
+                currentAd.setStatusOfAd(StatusOfAd.ACTIVE);
+            }
+        }
         currentAd.setUsers(currentUsersOfAd);
         adRepository.save(currentAd);
 
     }
+//    public void addWorkerToAd(String name, Long idOfAd) {
+//        User workerUser = userRepository.findByName(name).orElse(null);
+//        Ad currentAd = adRepository.findById(idOfAd).orElse(null);
+//
+//        assert workerUser != null;
+//        assert currentAd != null;
+//
+//        List<User> currentUsersOfAd = new ArrayList<>(currentAd.getUsers());
+//        currentUsersOfAd.add(workerUser);
+//
+//        currentAd.setStatusOfAd(StatusOfAd.PENDING);
+//        currentAd.setUsers(currentUsersOfAd);
+//        adRepository.save(currentAd);
+//
+//    }
+//
+//    public void deleteWorkerFromAd(String name, Long idOfAd){
+//        User workerUser = userRepository.findByName(name).orElse(null);
+//        Ad currentAd = adRepository.findById(idOfAd).orElse(null);
+//
+//        assert workerUser != null;
+//        assert currentAd != null;
+//
+//        List<User> currentUsersOfAd = new ArrayList<>(currentAd.getUsers());
+//        currentUsersOfAd.remove(workerUser);
+//
+//        currentAd.setStatusOfAd(StatusOfAd.ACTIVE);
+//        currentAd.setUsers(currentUsersOfAd);
+//        adRepository.save(currentAd);
+//    }
 
     public Ad getAdById(Long id) {
         return adRepository.findById(id).orElse(null);
