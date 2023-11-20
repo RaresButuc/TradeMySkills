@@ -23,39 +23,46 @@ export default function AdDetail() {
   const [charactersTextArea, setCharactersTextArea] = useState(0);
   const [countyChosenFullName, setCountyChosenFullName] = useState("");
 
-  const adTitleRef = useRef(null);
-  const adDescriptionRef = useRef(null);
-  const adTypeOfAdRef = useRef(null);
-  const adPriceRef = useRef(null);
-  const adCountyRef = useRef(null);
-  const adCityRef = useRef(null);
-  const adStatusRef = useRef(null);
+  const adTitleRef = useRef("");
+  const adDescriptionRef = useRef("");
+  const adTypeOfAdRef = useRef("");
+  const adPriceRef = useRef("");
+  const adCountyRef = useRef("");
+  const adCityRef = useRef("");
+  const adStatusRef = useRef("");
 
-  const onSave = async () => {
-    // if (
-    //   adTitleRef !== "" &&
-    //   adDescriptionRef !== "" &&
-    //   adPriceRef !== "" &&
-    //   adCountyRef !== "" &&
-    //   adCityRef !== ""
-    // )
-    //  {
-    const editData = {
-      statusOfAd: adStatusRef.current.value,
-      title: adTitleRef.current.value,
-      description: adDescriptionRef.current.value,
-      typeOfAd: { id: adTypeOfAdRef.current.value },
-      price: adPriceRef.current.value,
-      location: {
-        nameOfTheCounty: countyChosenFullName,
-        nameOfTheCity: adCityRef.current.value,
-      },
-    };
-    console.log(adStatusRef.current.value);
+  const deleteWorkerButton = async() => {
     try {
-      await axios.put(`http://localhost:8080/ads/${id}`, editData);
+      await axios.put(`http://localhost:8080/ads/delete/${id}/${adInfos?.users[1].name}`);
     } catch (err) {
       console.log(err);
+    }
+  };
+
+  const onSave = async () => {
+    if (
+      adTitleRef.current.value !== "" &&
+      adDescriptionRef.current.value !== "" &&
+      adPriceRef.current.value !== "" &&
+      adCountyRef.current.value !== "" &&
+      adCityRef.current.value !== ""
+    ) {
+      const editData = {
+        statusOfAd: adStatusRef.current.value,
+        title: adTitleRef.current.value,
+        description: adDescriptionRef.current.value,
+        typeOfAd: { id: adTypeOfAdRef.current.value },
+        price: adPriceRef.current.value,
+        location: {
+          nameOfTheCounty: countyChosenFullName,
+          nameOfTheCity: adCityRef.current.value,
+        },
+      };
+      try {
+        await axios.put(`http://localhost:8080/ads/${id}`, editData);
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 
@@ -305,27 +312,93 @@ export default function AdDetail() {
           {/* Card Worker */}
           <div class="card" style={{ height: 100 }}>
             {adInfos?.users[1] ? (
-              <a
-                href={`/profile/${id}`}
-                style={{ textDecoration: "none", color: "inherit" }}
-              >
-                <div className="container-xl row text-center">
-                  <div className="container-xl col-4" style={{ marginTop: 11 }}>
-                    <ProfilePhoto width={"75"} height={"75"} />
+              <>
+                <a
+                  href={`/profile/${id}`}
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  <div className="container-xl row text-center">
+                    <div
+                      className="container-xl col-4"
+                      style={{ marginTop: 11 }}
+                    >
+                      <ProfilePhoto width={"75"} height={"75"} />
+                    </div>
+                    <div
+                      className="container-xl col-4"
+                      style={{ marginTop: 20 }}
+                    >
+                      <h4>{adInfos?.users[1].name}</h4>
+                      <p className="mb-1">{adInfos?.users[1].role}</p>
+                    </div>
+                    <div
+                      className="container-xl col-4"
+                      style={{ marginTop: 40 }}
+                    >
+                      <span className="fa fa-star checked"></span>
+                      <span className="fa fa-star checked"></span>
+                      <span className="fa fa-star checked"></span>
+                      <span className="fa fa-star"></span>
+                      <span className="fa fa-star"></span>
+                    </div>
                   </div>
-                  <div className="container-xl col-4" style={{ marginTop: 20 }}>
-                    <h4>{adInfos?.users[1].name}</h4>
-                    <p className="mb-1">{adInfos?.users[1].role}</p>
-                  </div>
-                  <div className="container-xl col-4" style={{ marginTop: 40 }}>
-                    <span className="fa fa-star checked"></span>
-                    <span className="fa fa-star checked"></span>
-                    <span className="fa fa-star checked"></span>
-                    <span className="fa fa-star"></span>
-                    <span className="fa fa-star"></span>
-                  </div>
-                </div>
-              </a>
+                </a>
+                {showEditButtonOrNot ? (
+                  <>
+                    <button
+                      type="button"
+                      style={{
+                        backgroundColor: "#fa6900",
+                        color: "white",
+                      }}
+                      className="mt-2 "
+                      data-bs-toggle="modal"
+                      data-bs-target="#exampleModal"
+                    >
+                      Delete Worker
+                    </button>
+
+                    <div
+                      class="modal fade"
+                      id="exampleModal"
+                      tabindex="-1"
+                      aria-labelledby="exampleModalLabel"
+                      aria-hidden="true"
+                    >
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">
+                              Important!
+                            </h5>
+                            <button
+                              type="button"
+                              class="btn-close"
+                              data-bs-dismiss="modal"
+                              aria-label="Close"
+                            ></button>
+                          </div>
+                          <div class="modal-body">
+                            Are you sure you want to delete this worker?
+                          </div>
+                          <div class="modal-footer">
+                            <button
+                              type="button"
+                              class="btn btn-secondary"
+                              data-bs-dismiss="modal"
+                            >
+                              Close
+                            </button>
+                            <button type="button" class="btn btn-primary" onClick={deleteWorkerButton} data-bs-dismiss="modal">
+                              Delete
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                ) : null}
+              </>
             ) : (
               <h4 className="container-xl position-relative top-50 start-50 translate-middle">
                 No worker has been selected for this project yet!
