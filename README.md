@@ -4,7 +4,7 @@
 ## Project Description 
 The "Trade My Skills" project is an newly resourceful web platform designed to bridge the gap between individuals seeking specific services and skilled professionals ready to offer their expertise. This dynamic website serves as a centralized hub where people can post their service requests and skilled workers can propose their services, creating a harmonious marketplace for service seekers and providers.
 
-<img src="https://media.discordapp.net/attachments/1080812341693784124/1176126324969066576/1.png?ex=656dbbff&is=655b46ff&hm=776813af8e3e1ecd2eed6fe14f2a628cb9c948d63aacbc488980900c0f9e1f94&=&width=1440&height=668" />
+<img src="https://cdn.discordapp.com/attachments/1080812341693784124/1176126324969066576/1.png?ex=656dbbff&is=655b46ff&hm=776813af8e3e1ecd2eed6fe14f2a628cb9c948d63aacbc488980900c0f9e1f94&" />
 
 
 ### Technologies Used
