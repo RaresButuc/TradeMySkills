@@ -8,6 +8,41 @@ export default function Ads({ ads }) {
     );
   };
 
+  const colorAdDependingOnCategory = (ad) => {
+    switch (ad.typeOfAd.nameOfCategory) {
+      case "constructions": {
+        return "#008081";
+      }
+      case "confections": {
+        return "#ff7f50";
+      }
+      case "cooking": {
+        return "#ffdf01";
+      }
+      case "deliveries": {
+        return "#708090";
+      }
+      case "events": {
+        return "#dfc5fe";
+      }
+      case "education": {
+        return "#eb9d76";
+      }
+      case "cleaning": {
+        return "#61c29e";
+      }
+      case "pretcare": {
+        return "#ffa22e";
+      }
+      case "babysitting": {
+        return "#9c9cce";
+      }
+      case "other": {
+        return "#ffb3c6";
+      }
+    }
+  };
+
   return (
     <div>
       <div className="container-xl">
@@ -19,12 +54,18 @@ export default function Ads({ ads }) {
                 style={{ width: "19rem" }}
                 key={index}
               >
-                <div className="card-header fw-bold">
+                <div
+                  className="card-header fw-bold"
+                  style={{
+                    backgroundColor: colorAdDependingOnCategory(ad),
+                    color: "white",
+                  }}
+                >
                   {writeAWordWithoutFullUppercase(ad.typeOfAd.nameOfCategory)}
                 </div>
                 <div className="card-body ">
                   <a
-                    className="h5 card-title mb-4 text-decoration-none col-12"
+                    className="h5 card-title text-decoration-none col-12"
                     href={`/ad/${ad.id}`}
                   >
                     {ad.title}
@@ -33,8 +74,8 @@ export default function Ads({ ads }) {
                   {/* Interior Elements */}
                   <div className="container">
                     <div className="row">
-                      <div className="">
-                        <h5 className="card-title  fw-bold">
+                      <div>
+                        <h5 className="card-title fw-bold">
                           <img
                             src={logoMap}
                             alt="Location"
@@ -46,7 +87,7 @@ export default function Ads({ ads }) {
                           {ad.location.nameOfTheCity}
                         </h5>
                         <div className="mt-4">
-                          <h5 className="card-title   fw-bold">
+                          <h5 className="card-title fw-bold">
                             <img
                               src={logoMoney}
                               alt="Price"

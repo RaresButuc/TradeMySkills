@@ -112,7 +112,7 @@ const NavBar = () => {
                 // If user is not authenticated, show login link
                 <li className="nav-item">
                   <a className="nav-link font-weight-bold mx-2" href="/login">
-                    Login
+                    Log In
                   </a>
                 </li>
               )}
