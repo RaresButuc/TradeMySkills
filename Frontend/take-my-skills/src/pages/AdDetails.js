@@ -22,6 +22,9 @@ export default function AdDetail() {
   const [possibleStatuses, setPossibleStatuses] = useState([]);
   const [charactersTextArea, setCharactersTextArea] = useState(0);
   const [countyChosenFullName, setCountyChosenFullName] = useState("");
+  const [apply, setApply] = useState(false);
+  const [applyButtonContent, setAppluButtonContent] = useState("Apply");
+  const [loggedUser, setLoggedUser] = useState(null);
 
   const adTitleRef = useRef("");
   const adDescriptionRef = useRef("");
@@ -30,6 +33,27 @@ export default function AdDetail() {
   const adCountyRef = useRef("");
   const adCityRef = useRef("");
   const adStatusRef = useRef("");
+
+  const handleApply = async () =>{
+    if(!apply){
+      setApply(true);
+      setAppluButtonContent("Cancel Apply");
+      try {
+        await axios.put(`http://localhost:8080/ads/add/${id}/${loggedUser?.name}`);
+      } catch (err) {
+        console.log(err);
+      }
+
+    }else{
+      setApply(false);
+      setAppluButtonContent("Apply");
+      try {
+        await axios.put(`http://localhost:8080/ads/delete/${id}/${loggedUser?.name}`);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  }
 
   const deleteWorkerButton = async() => {
     try {
@@ -95,6 +119,17 @@ export default function AdDetail() {
       }
     };
 
+    const getUserByEmail = async () =>{
+      try {
+        const response = await axios.get(`http://localhost:8080/users/email/${auth().email}`);
+        const data = response.data;
+        setLoggedUser(data);
+
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
     // const getLocationsOfAd = async (adLoc) => {
     //   try {
     //     const response = await axios.get(
@@ -109,6 +144,7 @@ export default function AdDetail() {
 
     // getLocationsOfAd(adInfos);
     getAdById();
+    getUserByEmail();
   }, [adInfos]);
 
   const colorDependingOnStatus = (status) => {
@@ -199,7 +235,17 @@ export default function AdDetail() {
                 >
                   {buttonValue}
                 </button>
-              ) : null}
+              ) :        <button
+              className="container-xl col-2 mt-3"
+              onClick={handleApply}
+              style={{
+                backgroundColor: "#fa6900",
+                color: "white",
+                height: 60,
+              }}
+            >
+              {applyButtonContent}
+            </button>}
 
               {/* Status */}
               {editOrSave ? (
