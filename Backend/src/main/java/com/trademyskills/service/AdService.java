@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -242,7 +243,14 @@ public class AdService {
         User user = userRepository.findById(id).orElse(null);
         StatusOfAd statusOfAd = StatusOfAd.getByName(stringStatusOfAd);
         assert user != null;
-        return user.getAds().stream().filter(e -> e.getStatusOfAd() == statusOfAd).toList();
+//        List<User> users1 = new ArrayList<>();
+//        users1.add(user);
+//        Collection<List<User>> users = new ArrayList<List<User>>();
+//        users.add(users1);
+//        return adRepository.findAllByUsersInAndStatusOfAdEquals(users,statusOfAd);
+        return user.getAds().stream().filter(e -> e.getStatusOfAd() == statusOfAd).distinct().toList();
+
+
     }
 
     public List<Ad> getActiveAds(List<Ad> adsList) {

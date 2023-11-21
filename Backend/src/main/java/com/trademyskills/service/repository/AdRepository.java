@@ -5,6 +5,9 @@ import com.trademyskills.model.Ad;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import com.trademyskills.model.User;
+
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Repository
@@ -47,4 +50,5 @@ public interface AdRepository extends JpaRepository<Ad, Long> {
 
     List<Ad> findAllByTypeOfAdNameOfCategoryAndTitleContainingIgnoreCaseOrderByPriceDesc(String category, String input);
 
+    List<Ad> findAllByUsersInAndStatusOfAdEquals(Collection<List<User>> users , StatusOfAd statusOfAd);
 }
