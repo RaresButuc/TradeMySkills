@@ -58,7 +58,7 @@ export default function Profile({ id }) {
 
       fetchCurrentUser();
     }
-  }, [auth().email, id]); 
+  }, [auth().email, id]);
   return (
     <section>
       <div className="container py-5 mt-5">
@@ -66,7 +66,7 @@ export default function Profile({ id }) {
           <div className="col-lg-4">
             <div className="card mb-4">
               <div className="card-body text-center">
-                <ProfilePhoto width={"110"} height={"110"}/>
+                <ProfilePhoto width={"110"} height={"110"} />
 
                 <h5 className="my-3">{currentUser?.name}</h5>
                 <p className="text-muted mb-1">{currentUser?.role}</p>
@@ -164,24 +164,34 @@ export default function Profile({ id }) {
                 {/* buton cu verde pentru oferte active */}
                 {currentUser?.role === "WORKER" ? (
                   <a
-                    className="btn btn-primary font-weight-bold  mx-2  "
+                    className="btn btn-warning font-weight-bold  mx-1  "
                     aria-current="page"
                     href={`/${currentUser?.id}/pending`}
                   >
                     Pending Ads
                   </a>
                 ) : (
-                  <a
-                    className="btn btn-primary font-weight-bold  mx-2  "
-                    aria-current="page"
-                    href={`/${currentUser?.id}/active`}
-                  >
-                    Active Ads
-                  </a>
+                  <div className="row">
+                    <a
+                      className="btn btn-primary font-weight-bold  mx-3  col"
+                      aria-current="page"
+                      href={`/${currentUser?.id}/active`}
+                    >
+                      Active Ads
+                    </a>
+
+                    <a
+                      className="btn btn-warning font-weight-bold  mx-3 col "
+                      aria-current="page"
+                      href={`/${currentUser?.id}/pending`}
+                    >
+                      Pending Ads
+                    </a>
+                  </div>
                 )}
 
                 <a
-                  className="btn btn-secondary font-weight-bold  mx-2  "
+                  className="btn btn-secondary font-weight-bold  mx-1  "
                   aria-current="page"
                   href={`/${currentUser?.id}/finalised`}
                 >

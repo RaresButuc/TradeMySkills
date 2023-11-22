@@ -22,8 +22,8 @@ export default function AdDetail() {
   const [possibleStatuses, setPossibleStatuses] = useState([]);
   const [charactersTextArea, setCharactersTextArea] = useState(0);
   const [countyChosenFullName, setCountyChosenFullName] = useState("");
-  const [apply, setApply] = useState(adInfos?.worker===null?false:true);
-  const [applyButtonContent, setAppluButtonContent] = useState(adInfos?.worker===null?"Apply":"Cancel Apply");
+  const [apply, setApply] = useState(false);
+  const [applyButtonContent, setAppluButtonContent] = useState("Apply");
   const [loggedUser, setLoggedUser] = useState(null);
 
   const adTitleRef = useRef("");
@@ -33,7 +33,7 @@ export default function AdDetail() {
   const adCountyRef = useRef("");
   const adCityRef = useRef("");
   const adStatusRef = useRef("");
-
+  
 
   const handleApply = async () => {
     
@@ -111,6 +111,10 @@ export default function AdDetail() {
   };
 
   useEffect(() => {
+    setApply(adInfos?.worker===null ? false:true);
+    setAppluButtonContent(adInfos?.worker===null ? "Apply":"Cancel Apply");
+
+    
     const getAdById = async () => {
       try {
         const response = await axios.get(`http://localhost:8080/ads/${id}`);
@@ -244,7 +248,8 @@ export default function AdDetail() {
                 >
                   {buttonValue}
                 </button>
-              ) : (
+              ) : loggedUser?.role==="WORKER"?
+               (
                 <button
                   className="container-xl col-2 mt-3"
                   onClick={handleApply}
@@ -256,7 +261,7 @@ export default function AdDetail() {
                 >
                   {applyButtonContent}
                 </button>
-              )}
+              ):null}
 
               {/* Status */}
               {editOrSave ? (
