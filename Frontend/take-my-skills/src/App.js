@@ -5,6 +5,7 @@ import "./App.css";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import HomePage from "./pages/HomePage";
+import ErrorPage from "./pages/ErrorPage";
 import Login from "./pages/Login";
 import AdsPage from "./pages/AllAdsPage";
 import Contact from "./pages/Contact";
@@ -26,10 +27,11 @@ function App() {
   return (
     <div className="App">
       <NavBar />
-      <div style={{ minHeight: "70vh" }}>
+      <div style={{ minHeight: "81vh" }}>
         <Router>
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="*" element={<ErrorPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/forget-password" element={<ForgetPassword />} />
             <Route
