@@ -22,8 +22,8 @@ export default function AdDetail() {
   const [possibleStatuses, setPossibleStatuses] = useState([]);
   const [charactersTextArea, setCharactersTextArea] = useState(0);
   const [countyChosenFullName, setCountyChosenFullName] = useState("");
-  const [apply, setApply] = useState(false);
-  const [applyButtonContent, setAppluButtonContent] = useState("Apply");
+  const [apply, setApply] = useState(adInfos?.worker===null?false:true);
+  const [applyButtonContent, setAppluButtonContent] = useState(adInfos?.worker===null?"Apply":"Cancel Apply");
   const [loggedUser, setLoggedUser] = useState(null);
 
   const adTitleRef = useRef("");
@@ -34,30 +34,38 @@ export default function AdDetail() {
   const adCityRef = useRef("");
   const adStatusRef = useRef("");
 
-  const handleApply = async () =>{
-    if(!apply){
+
+  const handleApply = async () => {
+    
+
+    if (!apply) {
       setApply(true);
       setAppluButtonContent("Cancel Apply");
       try {
-        await axios.put(`http://localhost:8080/ads/add/${id}/${loggedUser?.name}`);
+        await axios.put(
+          `http://localhost:8080/ads/add/${id}/${loggedUser?.name}`
+        );
       } catch (err) {
         console.log(err);
       }
-
-    }else{
+    } else {
       setApply(false);
       setAppluButtonContent("Apply");
       try {
-        await axios.put(`http://localhost:8080/ads/delete/${id}/${loggedUser?.name}`);
+        await axios.put(
+          `http://localhost:8080/ads/delete/${id}/${loggedUser?.name}`
+        );
       } catch (err) {
         console.log(err);
       }
     }
-  }
+  };
 
-  const deleteWorkerButton = async() => {
+  const deleteWorkerButton = async () => {
     try {
-      await axios.put(`http://localhost:8080/ads/delete/${id}/${adInfos?.users[1].name}`);
+      await axios.put(
+        `http://localhost:8080/ads/delete/${id}/${adInfos?.worker.name}`
+      );
     } catch (err) {
       console.log(err);
     }
@@ -108,8 +116,8 @@ export default function AdDetail() {
         const response = await axios.get(`http://localhost:8080/ads/${id}`);
         const data = response.data;
         setAdInfos(data);
-        setShowEditButtonOrNot(auth().email === data.users[0].email);
-        if (data.users.length < 2) {
+        setShowEditButtonOrNot(auth().email === data.owner.email);
+        if (data.owner === null) {
           setPossibleStatuses(["ACTIVE", "PENDING", "FINALISED"]);
         } else {
           setPossibleStatuses(["PENDING", "FINALISED"]);
@@ -119,16 +127,17 @@ export default function AdDetail() {
       }
     };
 
-    const getUserByEmail = async () =>{
+    const getUserByEmail = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/users/email/${auth().email}`);
+        const response = await axios.get(
+          `http://localhost:8080/users/email/${auth().email}`
+        );
         const data = response.data;
         setLoggedUser(data);
-
       } catch (err) {
         console.log(err);
       }
-    }
+    };
 
     // const getLocationsOfAd = async (adLoc) => {
     //   try {
@@ -235,17 +244,19 @@ export default function AdDetail() {
                 >
                   {buttonValue}
                 </button>
-              ) :        <button
-              className="container-xl col-2 mt-3"
-              onClick={handleApply}
-              style={{
-                backgroundColor: "#fa6900",
-                color: "white",
-                height: 60,
-              }}
-            >
-              {applyButtonContent}
-            </button>}
+              ) : (
+                <button
+                  className="container-xl col-2 mt-3"
+                  onClick={handleApply}
+                  style={{
+                    backgroundColor: "#fa6900",
+                    color: "white",
+                    height: 60,
+                  }}
+                >
+                  {applyButtonContent}
+                </button>
+              )}
 
               {/* Status */}
               {editOrSave ? (
@@ -294,13 +305,13 @@ export default function AdDetail() {
           <div className="card">
             <div className="card-body text-center">
               <a
-                href={`/profile/${adInfos?.users[0].id}`}
+                href={`/profile/${adInfos?.owner.id}`}
                 style={{ textDecoration: "none", color: "inherit" }}
               >
                 <ProfilePhoto width={"75"} height={"75"} />
-                <h5 className="my-3">{adInfos?.users[0].name}</h5>
+                <h5 className="my-3">{adInfos?.owner.name}</h5>
               </a>
-              <p className="text-muted mb-1">{adInfos?.users[0].role}</p>
+              <p className="text-muted mb-1">{adInfos?.owner.role}</p>
               <link
                 rel="stylesheet"
                 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -357,7 +368,7 @@ export default function AdDetail() {
 
           {/* Card Worker */}
           <div class="card" style={{ height: 100 }}>
-            {adInfos?.users[1] ? (
+            {adInfos?.worker ? (
               <>
                 <a
                   href={`/profile/${id}`}
@@ -374,8 +385,8 @@ export default function AdDetail() {
                       className="container-xl col-4"
                       style={{ marginTop: 20 }}
                     >
-                      <h4>{adInfos?.users[1].name}</h4>
-                      <p className="mb-1">{adInfos?.users[1].role}</p>
+                      <h4>{adInfos?.worker.name}</h4>
+                      <p className="mb-1">{adInfos?.worker.role}</p>
                     </div>
                     <div
                       className="container-xl col-4"
@@ -435,7 +446,12 @@ export default function AdDetail() {
                             >
                               Close
                             </button>
-                            <button type="button" class="btn btn-primary" onClick={deleteWorkerButton} data-bs-dismiss="modal">
+                            <button
+                              type="button"
+                              class="btn btn-primary"
+                              onClick={deleteWorkerButton}
+                              data-bs-dismiss="modal"
+                            >
                               Delete
                             </button>
                           </div>

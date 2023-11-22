@@ -65,7 +65,7 @@ export default function FormAddNewAd() {
           description: descriptionAd,
           typeOfAd: { id: categoryAd },
           price: priceAd,
-          users: [{ id: currentUser.id }],
+          owner: { id: currentUser.id },
           location: { nameOfTheCounty: countyAd, nameOfTheCity: cityAd },
         });
 
