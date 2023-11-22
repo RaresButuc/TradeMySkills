@@ -121,7 +121,7 @@ export default function AdDetail() {
         const data = response.data;
         setAdInfos(data);
         setShowEditButtonOrNot(auth().email === data.owner.email);
-        if (data.owner === null) {
+        if (data.worker === null) {
           setPossibleStatuses(["ACTIVE", "PENDING", "FINALISED"]);
         } else {
           setPossibleStatuses(["PENDING", "FINALISED"]);

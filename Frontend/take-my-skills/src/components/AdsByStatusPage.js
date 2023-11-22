@@ -1,14 +1,13 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import Ads from "../components/Ads";
+import Ads from "./Ads";
 import axios from "axios";
 
-export default function AdsByStatusPage() {
+export default function AdsByStatusPage({status}) {
   const [adsByStatus, setAdsByStatus] = useState(null);
   const [nameOfUser, setNameOfUser] = useState(null);
 
   const { id } = useParams();
-  const { status } = useParams();
 
   useEffect(() => {
     const fetchAdsByStatus = async () => {

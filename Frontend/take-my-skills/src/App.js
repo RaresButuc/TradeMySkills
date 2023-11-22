@@ -13,12 +13,14 @@ import Register from "./pages/Register";
 import AdDetail from "./pages/AdDetails";
 import TermsAndConditions from "./pages/TermsAndConditions";
 import PrivacyPolicy from "./pages/PrivacyAndPolicy";
-import AdsByStatusPage from "./pages/AdsByStatusPage";
 import MyProfile from "./pages/MyProfilePage";
 import OtherUserProfile from "./pages/OtherUserProfile";
 import ForgetPassword from "./pages/ForgetPassword";
 import ChangePasswordPageAuth from "./pages/ChangePasswordPageAuth";
 import ChangePasswordPageNoAuth from "./pages/ChangePasswordPageNoAuth";
+import ActiveAds from "./pages/Ads By Status/ActiveAds";
+import PendingAds from "./pages/Ads By Status/PendingAds";
+import FinalisedAds from "./pages/Ads By Status/FinalisedAds";
 
 function App() {
   return (
@@ -45,8 +47,14 @@ function App() {
               element={<TermsAndConditions />}
             />
             <Route path="/privacy-and-policy" element={<PrivacyPolicy />} />
-            <Route path="/:id/:status" element={<AdsByStatusPage />} />
-            <Route path="/changepassoword" element={<ChangePasswordPageAuth />} />
+            <Route path="/:id/active" element={<ActiveAds />} />
+            <Route path="/:id/pending" element={<PendingAds />} />
+            <Route path="/:id/finalised" element={<FinalisedAds />} />
+
+            <Route
+              path="/changepassoword"
+              element={<ChangePasswordPageAuth />}
+            />
             <Route
               path="post-ads"
               element={

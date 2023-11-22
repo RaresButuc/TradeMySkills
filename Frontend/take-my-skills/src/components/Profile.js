@@ -195,7 +195,7 @@ export default function Profile({ id }) {
                   aria-current="page"
                   href={`/${currentUser?.id}/finalised`}
                 >
-                  Completed Ads
+                  Finalised Ads
                 </a>
               </div>
             </div>
