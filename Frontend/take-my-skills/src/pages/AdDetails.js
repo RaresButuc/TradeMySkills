@@ -16,6 +16,7 @@ export default function AdDetail() {
   const { id } = useParams();
 
   const [adInfos, setAdInfos] = useState(null);
+  const [adLocation, setAdLocation] = useState([]);
   const [editOrSave, setEditOrSave] = useState(false);
   const [showEditButtonOrNot, setShowEditButtonOrNot] = useState(false);
   const [buttonValue, setButtonValue] = useState("Edit Ad");
@@ -33,11 +34,8 @@ export default function AdDetail() {
   const adCountyRef = useRef("");
   const adCityRef = useRef("");
   const adStatusRef = useRef("");
-  
 
   const handleApply = async () => {
-    
-
     if (!apply) {
       setApply(true);
       setAppluButtonContent("Cancel Apply");
@@ -111,10 +109,9 @@ export default function AdDetail() {
   };
 
   useEffect(() => {
-    setApply(adInfos?.worker===null ? false:true);
-    setAppluButtonContent(adInfos?.worker===null ? "Apply":"Cancel Apply");
+    setApply(adInfos?.worker === null ? false : true);
+    setAppluButtonContent(adInfos?.worker === null ? "Apply" : "Cancel Apply");
 
-    
     const getAdById = async () => {
       try {
         const response = await axios.get(`http://localhost:8080/ads/${id}`);
@@ -143,22 +140,24 @@ export default function AdDetail() {
       }
     };
 
-    // const getLocationsOfAd = async (adLoc) => {
-    //   try {
-    //     const response = await axios.get(
-    //       `http://dev.virtualearth.net/REST/v1/Locations?countryRegion=RO&adminDistrict=${adLoc.location.nameOfTheCounty}&locality=${adLoc.location.nameOfTheCity}&maxResults=20&key=AtF5j2AdfXHCqsoqmusG2zXRg7bFR63MIkoMe2EsRAgYfeslufM4-NNWkrfPmywu`
-    //     );
-    //     const data = response.data.resourceSets[0].resources[0].point;
-    //     setAdLocation(data);
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // };
-
-    // getLocationsOfAd(adInfos);
+    const getLocationsOfAd = async (adLoc) => {
+      try {
+        //     const response = await axios.get(
+        //       `http://dev.virtualearth.net/REST/v1/Locations?countryRegion=RO&adminDistrict=${adLoc.location.nameOfTheCounty}&locality=${adLoc.location.nameOfTheCity}&maxResults=20&key=AtF5j2AdfXHCqsoqmusG2zXRg7bFR63MIkoMe2EsRAgYfeslufM4-NNWkrfPmywu`
+        //     );
+        const response = await axios.get(
+          `https://geocode.maps.co/search?city=${adLoc?.location.nameOfTheCity}&county=${adLoc?.location.nameOfTheCounty}&country=Romania`
+        );
+        const data = response.data[0];
+        setAdLocation([data.lat, data.lon]);
+      } catch (err) {
+        console.log(err);
+      }
+    };
     getAdById();
+    getLocationsOfAd(adInfos);
     getUserByEmail();
-  }, [adInfos]);
+  }, [adInfos]); //Problema la locatie e randarea prea multa
 
   const colorDependingOnStatus = (status) => {
     switch (status) {
@@ -248,8 +247,7 @@ export default function AdDetail() {
                 >
                   {buttonValue}
                 </button>
-              ) : loggedUser?.role==="WORKER"?
-               (
+              ) : loggedUser?.role === "WORKER" ? (
                 <button
                   className="container-xl col-2 mt-3"
                   onClick={handleApply}
@@ -261,7 +259,7 @@ export default function AdDetail() {
                 >
                   {applyButtonContent}
                 </button>
-              ):null}
+              ) : null}
 
               {/* Status */}
               {editOrSave ? (
@@ -361,13 +359,13 @@ export default function AdDetail() {
                 {adInfos?.location.nameOfTheCounty},
                 {adInfos?.location.nameOfTheCity}
               </h4>
-              {/* <iframe
+              <iframe
                 className="mb-3"
                 width="400"
                 height="200"
-                src={`https://www.bing.com/maps/embed/viewer.aspx?v=3&cp=${adLocation?.coordinates[0]}~${adLocation?.coordinates[1]}&lvl=12&w=400&h=200&credentials=AtF5j2AdfXHCqsoqmusG2zXRg7bFR63MIkoMe2EsRAgYfeslufM4-NNWkrfPmywu&form=BMEMJS`}
+                src={`https://www.bing.com/maps/embed/viewer.aspx?v=3&cp=${adLocation[0]}~${adLocation[1]}&lvl=12&w=400&h=200&credentials=AtF5j2AdfXHCqsoqmusG2zXRg7bFR63MIkoMe2EsRAgYfeslufM4-NNWkrfPmywu&form=BMEMJS`}
                 frameborder="0"
-              /> */}
+              />
             </>
           )}
 
