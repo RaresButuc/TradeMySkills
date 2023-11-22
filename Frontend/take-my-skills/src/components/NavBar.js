@@ -7,6 +7,11 @@ import { useSignOut } from "react-auth-kit";
 const NavBar = () => {
   const isAuthenticated = useIsAuthenticated();
   const signOut = useSignOut();
+
+  const handleLogOut = () => {
+    signOut();
+    window.location.href = "/";
+  }
   return (
     <div>
       <nav className="navbar navbar-custom fixed-top navbar-expand-md navbar-dark  shadow-5-strong">
@@ -101,7 +106,7 @@ const NavBar = () => {
                         </a>
                       </li>
                       <li>
-                        <a className="dropdown-item" onClick={() => signOut()}>
+                        <a className="dropdown-item" onClick={handleLogOut}>
                           Logout
                         </a>
                       </li>
