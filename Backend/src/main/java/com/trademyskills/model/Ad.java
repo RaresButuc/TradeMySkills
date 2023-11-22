@@ -34,6 +34,9 @@ public class Ad {
     @Embedded
     private LocationOfAd location;
 
-    @ManyToMany
-    private List<User> users;
+    @ManyToOne
+    private User owner;
+
+    @ManyToOne
+    private User worker;
 }

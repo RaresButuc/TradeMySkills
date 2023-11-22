@@ -50,5 +50,5 @@ public interface AdRepository extends JpaRepository<Ad, Long> {
 
     List<Ad> findAllByTypeOfAdNameOfCategoryAndTitleContainingIgnoreCaseOrderByPriceDesc(String category, String input);
 
-    List<Ad> findAllByUsersInAndStatusOfAdEquals(Collection<List<User>> users , StatusOfAd statusOfAd);
+
 }

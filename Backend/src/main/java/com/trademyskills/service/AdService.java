@@ -1,5 +1,6 @@
 package com.trademyskills.service;
 
+import com.trademyskills.enums.Role;
 import com.trademyskills.enums.StatusOfAd;
 import com.trademyskills.model.Ad;
 import com.trademyskills.model.User;
@@ -9,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -33,58 +33,30 @@ public class AdService {
     }
 
 
-    public void addOrDeleteWorker(String name, Long idOfAd, String typeOfAction){
+    public void addOrDeleteWorker(String name, Long idOfAd, String typeOfAction) {
         User workerUser = userRepository.findByName(name).orElse(null);
         Ad currentAd = adRepository.findById(idOfAd).orElse(null);
 
         assert workerUser != null;
         assert currentAd != null;
 
-        List<User> currentUsersOfAd = new ArrayList<>(currentAd.getUsers());
+    if(workerUser.getRole() == Role.WORKER){
 
-        switch (typeOfAction){
-            case "add" -> {currentUsersOfAd.add(workerUser);
+
+        switch (typeOfAction) {
+            case "add" -> {
+                currentAd.setWorker(workerUser);
                 currentAd.setStatusOfAd(StatusOfAd.PENDING);
             }
-            case "delete" ->{
-                currentUsersOfAd.remove(workerUser);
+            case "delete" -> {
+                currentAd.setWorker(null);
                 currentAd.setStatusOfAd(StatusOfAd.ACTIVE);
             }
         }
-        currentAd.setUsers(currentUsersOfAd);
         adRepository.save(currentAd);
+    }
 
     }
-//    public void addWorkerToAd(String name, Long idOfAd) {
-//        User workerUser = userRepository.findByName(name).orElse(null);
-//        Ad currentAd = adRepository.findById(idOfAd).orElse(null);
-//
-//        assert workerUser != null;
-//        assert currentAd != null;
-//
-//        List<User> currentUsersOfAd = new ArrayList<>(currentAd.getUsers());
-//        currentUsersOfAd.add(workerUser);
-//
-//        currentAd.setStatusOfAd(StatusOfAd.PENDING);
-//        currentAd.setUsers(currentUsersOfAd);
-//        adRepository.save(currentAd);
-//
-//    }
-//
-//    public void deleteWorkerFromAd(String name, Long idOfAd){
-//        User workerUser = userRepository.findByName(name).orElse(null);
-//        Ad currentAd = adRepository.findById(idOfAd).orElse(null);
-//
-//        assert workerUser != null;
-//        assert currentAd != null;
-//
-//        List<User> currentUsersOfAd = new ArrayList<>(currentAd.getUsers());
-//        currentUsersOfAd.remove(workerUser);
-//
-//        currentAd.setStatusOfAd(StatusOfAd.ACTIVE);
-//        currentAd.setUsers(currentUsersOfAd);
-//        adRepository.save(currentAd);
-//    }
 
     public Ad getAdById(Long id) {
         return adRepository.findById(id).orElse(null);
@@ -243,14 +215,13 @@ public class AdService {
         User user = userRepository.findById(id).orElse(null);
         StatusOfAd statusOfAd = StatusOfAd.getByName(stringStatusOfAd);
         assert user != null;
-//        List<User> users1 = new ArrayList<>();
-//        users1.add(user);
-//        Collection<List<User>> users = new ArrayList<List<User>>();
-//        users.add(users1);
-//        return adRepository.findAllByUsersInAndStatusOfAdEquals(users,statusOfAd);
-        return user.getAds().stream().filter(e -> e.getStatusOfAd() == statusOfAd).distinct().toList();
 
-
+        if(user.getRole() == Role.CUSTOMER){
+            return user.getAdsOwned().stream().filter(e -> e.getStatusOfAd() == statusOfAd).distinct().toList();
+        }else if(user.getRole() == Role.WORKER){
+            return user.getAdsAttends().stream().filter(e -> e.getStatusOfAd() == statusOfAd).distinct().toList();
+        }
+            return null;
     }
 
     public List<Ad> getActiveAds(List<Ad> adsList) {
