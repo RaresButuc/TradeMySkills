@@ -1,5 +1,6 @@
 import axios from "axios";
 import ProfilePhoto from "../shared/ProfilePhoto";
+import Map from "../components/Map";
 import { useParams } from "react-router-dom";
 import { useAuthUser } from "react-auth-kit";
 import { useEffect, useState, useRef } from "react";
@@ -16,7 +17,6 @@ export default function AdDetail() {
   const { id } = useParams();
 
   const [adInfos, setAdInfos] = useState(null);
-  const [adLocation, setAdLocation] = useState([]);
   const [editOrSave, setEditOrSave] = useState(false);
   const [showEditButtonOrNot, setShowEditButtonOrNot] = useState(false);
   const [buttonValue, setButtonValue] = useState("Edit Ad");
@@ -140,24 +140,9 @@ export default function AdDetail() {
       }
     };
 
-    const getLocationsOfAd = async (adLoc) => {
-      try {
-        //     const response = await axios.get(
-        //       `http://dev.virtualearth.net/REST/v1/Locations?countryRegion=RO&adminDistrict=${adLoc.location.nameOfTheCounty}&locality=${adLoc.location.nameOfTheCity}&maxResults=20&key=AtF5j2AdfXHCqsoqmusG2zXRg7bFR63MIkoMe2EsRAgYfeslufM4-NNWkrfPmywu`
-        //     );
-        const response = await axios.get(
-          `https://geocode.maps.co/search?city=${adLoc?.location.nameOfTheCity}&county=${adLoc?.location.nameOfTheCounty}&country=Romania`
-        );
-        const data = response.data[0];
-        setAdLocation([data.lat, data.lon]);
-      } catch (err) {
-        console.log(err);
-      }
-    };
     getAdById();
-    getLocationsOfAd(adInfos);
     getUserByEmail();
-  }, [adInfos]); //Problema la locatie e randarea prea multa
+  }, [adInfos]);
 
   const colorDependingOnStatus = (status) => {
     switch (status) {
@@ -189,9 +174,7 @@ export default function AdDetail() {
                 />
               </>
             ) : (
-              <h1>
-                <h1>{adInfos?.title}</h1>
-              </h1>
+              <h1>{adInfos?.title}</h1>
             )}
             <hr />
             <div
@@ -359,18 +342,16 @@ export default function AdDetail() {
                 {adInfos?.location.nameOfTheCounty},
                 {adInfos?.location.nameOfTheCity}
               </h4>
-              <iframe
-                className="mb-3"
-                width="400"
-                height="200"
-                src={`https://www.bing.com/maps/embed/viewer.aspx?v=3&cp=${adLocation[0]}~${adLocation[1]}&lvl=12&w=400&h=200&credentials=AtF5j2AdfXHCqsoqmusG2zXRg7bFR63MIkoMe2EsRAgYfeslufM4-NNWkrfPmywu&form=BMEMJS`}
-                frameborder="0"
+
+              <Map
+                city={adInfos?.location.nameOfTheCity}
+                county={adInfos?.location.nameOfTheCounty}
               />
             </>
           )}
 
           {/* Card Worker */}
-          <div class="card" style={{ height: 100 }}>
+          <div className="card" style={{ height: 100 }}>
             {adInfos?.worker ? (
               <>
                 <a
@@ -419,39 +400,39 @@ export default function AdDetail() {
                     </button>
 
                     <div
-                      class="modal fade"
+                      className="modal fade"
                       id="exampleModal"
                       tabindex="-1"
                       aria-labelledby="exampleModalLabel"
                       aria-hidden="true"
                     >
-                      <div class="modal-dialog">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">
+                      <div className="modal-dialog">
+                        <div className="modal-content">
+                          <div className="modal-header">
+                            <h5 className="modal-title" id="exampleModalLabel">
                               Important!
                             </h5>
                             <button
                               type="button"
-                              class="btn-close"
+                              className="btn-close"
                               data-bs-dismiss="modal"
                               aria-label="Close"
                             ></button>
                           </div>
-                          <div class="modal-body">
+                          <div className="modal-body">
                             Are you sure you want to delete this worker?
                           </div>
-                          <div class="modal-footer">
+                          <div className="modal-footer">
                             <button
                               type="button"
-                              class="btn btn-secondary"
+                              className="btn btn-secondary"
                               data-bs-dismiss="modal"
                             >
                               Close
                             </button>
                             <button
                               type="button"
-                              class="btn btn-primary"
+                              className="btn btn-primary"
                               onClick={deleteWorkerButton}
                               data-bs-dismiss="modal"
                             >
