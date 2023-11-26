@@ -8,6 +8,7 @@ import DescriptionInput from "./postAdFormComponents/DescriptionInput";
 import PriceInput from "./postAdFormComponents/PriceInput";
 import CategorySelect from "./postAdFormComponents/CategorySelect";
 import LocationSelects from "./postAdFormComponents/LocationSelects";
+import DefaultURL from "../GlobalVariables";
 import Alert from "../components/Alert";
 
 export default function FormAddNewAd() {
@@ -31,7 +32,7 @@ export default function FormAddNewAd() {
     const fetchCurrentUser = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8080/users/email/${auth().email}`
+          `${DefaultURL}/users/email/${auth().email}`
         );
         const data = response.data;
         setCurrentUser(data);
@@ -60,7 +61,7 @@ export default function FormAddNewAd() {
         countyAd !== "" &&
         cityAd !== ""
       ) {
-        const response = await axios.post("http://localhost:8080/ads", {
+        const response = await axios.post(`${DefaultURL}/ads`, {
           title: titleAd,
           description: descriptionAd,
           typeOfAd: { id: categoryAd },

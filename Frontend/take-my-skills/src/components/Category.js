@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
 import changeLink from "../shared/utils";
+import DefaultURL from "../GlobalVariables";
 
 import construction from "../photo/icons/Construction.png";
 import confections from "../photo/icons/Confections.png";
@@ -34,7 +35,7 @@ const ListGroup = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/category");
+        const response = await axios.get(`${DefaultURL}/category`);
         const data = response.data;
         setCategories(data);
       } catch (err) {

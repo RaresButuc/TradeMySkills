@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useAuthUser } from "react-auth-kit";
 import ProfilePhoto from "../shared/ProfilePhoto";
+import DefaultURL from "../GlobalVariables";
 import axios from "axios";
 
 export default function Profile({ id }) {
@@ -23,7 +24,7 @@ export default function Profile({ id }) {
     };
     try {
       await axios.put(
-        `http://localhost:8080/users/${currentUser.id}`,
+        `${DefaultURL}/users/${currentUser.id}`,
         editData
       );
     } catch (err) {
@@ -47,7 +48,7 @@ export default function Profile({ id }) {
     if (id) {
       const fetchCurrentUser = async () => {
         try {
-          const response = await axios.get(`http://localhost:8080/users/${id}`);
+          const response = await axios.get(`${DefaultURL}/users/${id}`);
           const data = response.data;
           setCurrentUser(data);
           setShowEditButtonOrNot(data.email === auth().email);

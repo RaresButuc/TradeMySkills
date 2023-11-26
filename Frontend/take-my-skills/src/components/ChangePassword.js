@@ -3,6 +3,7 @@ import { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Alert from "../components/Alert";
 import { useIsAuthenticated } from "react-auth-kit";
+import DefaultURL from "../GlobalVariables";
 
 export default function ChangePassword({ email }) {
   const isAuthenticated = useIsAuthenticated();
@@ -24,7 +25,7 @@ export default function ChangePassword({ email }) {
       try {
         if (isAuthenticated) {
           const response = await axios.get(
-            `http://localhost:8080/users/email/${email}`
+            `${DefaultURL}/users/email/${email}`
           );
           const data = response.data;
           setUserInfos(data);

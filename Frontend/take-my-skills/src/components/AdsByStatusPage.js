@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import DefaultURL from "../GlobalVariables";
 import Ads from "./Ads";
 import axios from "axios";
 
-export default function AdsByStatusPage({status}) {
+export default function AdsByStatusPage({ status }) {
   const [adsByStatus, setAdsByStatus] = useState(null);
   const [nameOfUser, setNameOfUser] = useState(null);
 
@@ -12,9 +13,9 @@ export default function AdsByStatusPage({status}) {
   useEffect(() => {
     const fetchAdsByStatus = async () => {
       const responseAds = await axios.get(
-        `http://localhost:8080/ads/profile/${id}/${status}`
+        `${DefaultURL}/ads/profile/${id}/${status}`
       );
-      const responseUser = await axios.get(`http://localhost:8080/users/${id}`);
+      const responseUser = await axios.get(`${DefaultURL}/users/${id}`);
       const dataAds = responseAds.data;
       setAdsByStatus(dataAds);
       const dataUser = responseUser.data;

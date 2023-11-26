@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import DefaultURL from "../GlobalVariables";
 
 export default function History() {
   const [users, setUsers] = useState([]);
@@ -7,7 +8,7 @@ export default function History() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/users");
+        const response = await axios.get(`${DefaultURL}/users`);
         const data = response.data;
         setUsers(data);
       } catch (err) {

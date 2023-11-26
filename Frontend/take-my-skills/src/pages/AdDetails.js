@@ -1,6 +1,7 @@
 import axios from "axios";
 import ProfilePhoto from "../shared/ProfilePhoto";
 import Map from "../components/Map";
+import DefaultURL from "../GlobalVariables";
 import { useParams } from "react-router-dom";
 import { useAuthUser } from "react-auth-kit";
 import { useEffect, useState, useRef } from "react";
@@ -41,7 +42,7 @@ export default function AdDetail() {
       setAppluButtonContent("Cancel Apply");
       try {
         await axios.put(
-          `http://localhost:8080/ads/add/${id}/${loggedUser?.name}`
+          `${DefaultURL}/ads/add/${id}/${loggedUser?.name}`
         );
       } catch (err) {
         console.log(err);
@@ -51,7 +52,7 @@ export default function AdDetail() {
       setAppluButtonContent("Apply");
       try {
         await axios.put(
-          `http://localhost:8080/ads/delete/${id}/${loggedUser?.name}`
+          `${DefaultURL}/ads/delete/${id}/${loggedUser?.name}`
         );
       } catch (err) {
         console.log(err);
@@ -62,7 +63,7 @@ export default function AdDetail() {
   const deleteWorkerButton = async () => {
     try {
       await axios.put(
-        `http://localhost:8080/ads/delete/${id}/${adInfos?.worker.name}`
+        `${DefaultURL}/ads/delete/${id}/${adInfos?.worker.name}`
       );
     } catch (err) {
       console.log(err);
@@ -89,7 +90,7 @@ export default function AdDetail() {
         },
       };
       try {
-        await axios.put(`http://localhost:8080/ads/${id}`, editData);
+        await axios.put(`${DefaultURL}/ads/${id}`, editData);
       } catch (err) {
         console.log(err);
       }
@@ -114,7 +115,7 @@ export default function AdDetail() {
 
     const getAdById = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/ads/${id}`);
+        const response = await axios.get(`${DefaultURL}/ads/${id}`);
         const data = response.data;
         setAdInfos(data);
         setShowEditButtonOrNot(auth().email === data.owner.email);
@@ -131,7 +132,7 @@ export default function AdDetail() {
     const getUserByEmail = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8080/users/email/${auth().email}`
+          `${DefaultURL}/users/email/${auth().email}`
         );
         const data = response.data;
         setLoggedUser(data);

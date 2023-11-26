@@ -1,4 +1,5 @@
 import { forwardRef, useEffect, useState } from "react";
+import DefaultURL from "../../GlobalVariables";
 import axios from "axios";
 
 const CategorySelect = forwardRef(({ ad }, ref) => {
@@ -6,7 +7,7 @@ const CategorySelect = forwardRef(({ ad }, ref) => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/category");
+        const response = await axios.get(`${DefaultURL}/category`);
         const data = response.data;
         setCategories(data);
       } catch (err) {
@@ -23,7 +24,9 @@ const CategorySelect = forwardRef(({ ad }, ref) => {
             Select category
           </option>
         ) : (
-          <option selected disabled value={ad.typeOfAd.id}>{ad.typeOfAd.nameOfCategory}</option>
+          <option selected disabled value={ad.typeOfAd.id}>
+            {ad.typeOfAd.nameOfCategory}
+          </option>
         )}
         {categories &&
           categories.map((category, index) => (

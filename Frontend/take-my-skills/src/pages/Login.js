@@ -2,6 +2,7 @@ import { useSignIn } from "react-auth-kit";
 import axios, { AxiosError } from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import DefaultURL from "../GlobalVariables";
 
 function Login() {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ function Login() {
 
     try {
       const response = await axios.post(
-        "http://localhost:8080/users/authenticate",
+        `${DefaultURL}/users/authenticate`,
         values
       );
       signIn({

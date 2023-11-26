@@ -2,6 +2,7 @@ import axios, { AxiosError } from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Alert from "../components/Alert";
+import DefaultURL from "../GlobalVariables";
 
 export default function ForgetPassword() {
   const [error, setError] = useState("");
@@ -15,7 +16,7 @@ export default function ForgetPassword() {
 
     try {
       const response = await axios.put(
-        `http://localhost:8080/users/forget-password?email=${email}`
+        `${DefaultURL}/users/forget-password?email=${email}`
       );
       console.log(response.status);
       setTimeout(() => {

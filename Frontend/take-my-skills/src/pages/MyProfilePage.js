@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useAuthUser } from "react-auth-kit";
 import axios from "axios";
 import Profile from "../components/Profile.js";
+import DefaultURL from "../GlobalVariables.js";
 
 export default function MyProfile() {
   const auth = useAuthUser();
@@ -12,7 +13,7 @@ export default function MyProfile() {
     const fetchCurrentUser = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8080/users/email/${auth().email}`
+          `${DefaultURL}/users/email/${auth().email}`
         );
         const data = await response.data;
         setCurrentUser(data);

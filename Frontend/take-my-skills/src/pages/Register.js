@@ -2,6 +2,7 @@ import axios, { AxiosError } from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Alert from "../components/Alert";
+import DefaultURL from "../GlobalVariables";
 
 function Register() {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ function Register() {
 
     try {
       const response = await axios.post(
-        "http://localhost:8080/users/register",
+        `${DefaultURL}/users/register`,
         values
       );
 
@@ -25,7 +26,7 @@ function Register() {
         setShowAlert(true);
         setAlertInfos(["success", "You have succesfully Registered!"]);
         console.log(values.email);
-        await axios.post(`http://localhost:8080/mail/send/${values.email}`, {
+        await axios.post(`${DefaultURL}/mail/send/${values.email}`, {
           subject: "Registration",
           message: `Congratulation ${values.name} ! You are now ${values.role} on TradeMySkills.com.`,
         });
