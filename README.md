@@ -24,7 +24,7 @@ In the development of Trade-My-Skills, we harnessed an array of technologies, ea
 - Bootstrap: For creating impressive and responsive styling, ensuring a visually appealing and user-friendly design.
 
 
-### Chalanges
+### Challenges
 
 During development, we encountered a few challenges that managed to teach us important lessons, including:
 
