@@ -27,6 +27,7 @@ export default function AdDetail() {
   const [apply, setApply] = useState(false);
   const [applyButtonContent, setAppluButtonContent] = useState("Apply");
   const [loggedUser, setLoggedUser] = useState(null);
+  const [isWorkerRefused, setIsWorkerRefused] = useState(false);
 
   const adTitleRef = useRef("");
   const adDescriptionRef = useRef("");
@@ -41,9 +42,7 @@ export default function AdDetail() {
       setApply(true);
       setAppluButtonContent("Cancel Apply");
       try {
-        await axios.put(
-          `${DefaultURL}/ads/add/${id}/${loggedUser?.name}`
-        );
+        await axios.put(`${DefaultURL}/ads/add/${id}/${loggedUser?.name}`);
       } catch (err) {
         console.log(err);
       }
@@ -51,9 +50,7 @@ export default function AdDetail() {
       setApply(false);
       setAppluButtonContent("Apply");
       try {
-        await axios.put(
-          `${DefaultURL}/ads/delete/${id}/${loggedUser?.name}`
-        );
+        await axios.put(`${DefaultURL}/ads/delete/${id}/${loggedUser?.name}`);
       } catch (err) {
         console.log(err);
       }
@@ -62,9 +59,7 @@ export default function AdDetail() {
 
   const deleteWorkerButton = async () => {
     try {
-      await axios.put(
-        `${DefaultURL}/ads/delete/${id}/${adInfos?.worker.name}`
-      );
+      await axios.put(`${DefaultURL}/ads/delete/${id}/${adInfos?.worker.name}`);
     } catch (err) {
       console.log(err);
     }
@@ -109,6 +104,65 @@ export default function AdDetail() {
     }
   };
 
+  const isAdInfosEqualToData = (adInfo, data) => {
+    if (adInfo === null) {
+      console.log("E null");
+      return false;
+    }
+    // if (adInfo.title !== data.title) {
+    //   console.log("Titlu");
+    //   return false;
+    // }
+    // if (adInfo.statusOfAd !== data.statusOfAd) {
+    //   console.log("Status");
+    //   return false;
+    // }
+    // if (adInfo.description !== data.description) {
+    //   console.log("description");
+    //   return false;
+    // }
+    // if (adInfo.typeOfAd.name !== data.typeOfAd.name) {
+    //   console.log("typeOfAd");
+    //   return false;
+    // }
+    // if (adInfo.price !== data.price) {
+    //   console.log("price");
+    //   return false;
+    // }
+    // if (
+    //   adInfo.location.nameOfTheCounty !== data.location.nameOfTheCounty ||
+    //   adInfo.location.nameOfTheCity !== data.location.nameOfTheCity
+    // ) {
+    //   console.log("location");
+    //   return false;
+    // }
+    // if (adInfo.owner.id !== data.owner.id) {
+    //   console.log("owner.id");
+    //   return false;
+    // }
+    // if (adInfo.worker.id !== data.worker.id) {
+    //   console.log("worker.id");
+    //   return false;
+    // }
+    // if (adInfo.rejectedWorkers.length !== data.rejectedWorkers.length) {
+    //   console.log("rejected Workers");
+    //   return false;
+    // }
+    // for (const adProperty in adInfo) {
+    //   if (Object.hasOwnProperty.call(adInfo, adProperty)) {
+    //     const element = adInfo.adProperty;
+    //     console.log(adProperty + " = " + element);
+    //     if (data.adProperty !== adInfo.adProperty) {
+    //       console.log(adProperty + " is different");
+    //       return false;
+    //     }
+    //   }
+    // }
+    
+    // return true;
+    return JSON.stringify(adInfo) === JSON.stringify(data)
+  };
+
   useEffect(() => {
     setApply(adInfos?.worker === null ? false : true);
     setAppluButtonContent(adInfos?.worker === null ? "Apply" : "Cancel Apply");
@@ -117,7 +171,12 @@ export default function AdDetail() {
       try {
         const response = await axios.get(`${DefaultURL}/ads/${id}`);
         const data = response.data;
-        setAdInfos(data);
+        console.log("data: " + data);
+        console.log("adInfos: " + adInfos);
+        console.log("boolean" + isAdInfosEqualToData(adInfos, data));
+        if (!isAdInfosEqualToData(adInfos, data)) {
+          setAdInfos(data);
+        }
         setShowEditButtonOrNot(auth().email === data.owner.email);
         if (data.worker === null) {
           setPossibleStatuses(["ACTIVE", "PENDING", "FINALISED"]);
@@ -141,9 +200,21 @@ export default function AdDetail() {
       }
     };
 
+    const isWorkerRefused = async () => {
+      try {
+        const response = await axios.get(
+          `${DefaultURL}/ads/rejected/${id}/${loggedUser?.name}`
+        );
+        setIsWorkerRefused(response.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
     getAdById();
     getUserByEmail();
-  }, [adInfos]);
+    isWorkerRefused();
+  }, [adInfos, editOrSave, apply]);
 
   const colorDependingOnStatus = (status) => {
     switch (status) {
@@ -232,17 +303,21 @@ export default function AdDetail() {
                   {buttonValue}
                 </button>
               ) : loggedUser?.role === "WORKER" ? (
-                <button
-                  className="container-xl col-2 mt-3"
-                  onClick={handleApply}
-                  style={{
-                    backgroundColor: "#fa6900",
-                    color: "white",
-                    height: 60,
-                  }}
-                >
-                  {applyButtonContent}
-                </button>
+                <>
+                  {isWorkerRefused ? null : (
+                    <button
+                      className="container-xl col-2 mt-3"
+                      onClick={handleApply}
+                      style={{
+                        backgroundColor: "#fa6900",
+                        color: "white",
+                        height: 60,
+                      }}
+                    >
+                      {applyButtonContent}
+                    </button>
+                  )}
+                </>
               ) : null}
 
               {/* Status */}
@@ -447,9 +522,21 @@ export default function AdDetail() {
                 ) : null}
               </>
             ) : (
-              <h4 className="container-xl position-relative top-50 start-50 translate-middle">
-                No worker has been selected for this project yet!
-              </h4>
+              <>
+                {isWorkerRefused ? (
+                  <h5
+                    className="container-xl position-relative top-50 start-50 translate-middle"
+                    style={{ color: "red" }}
+                  >
+                    You have been kicked from this project! <br />
+                    For more informations contact the owner of the ad!
+                  </h5>
+                ) : (
+                  <h4 className="container-xl position-relative top-50 start-50 translate-middle">
+                    No worker has been selected for this project yet!
+                  </h4>
+                )}
+              </>
             )}
           </div>
         </div>
