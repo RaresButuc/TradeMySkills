@@ -39,4 +39,7 @@ public class Ad {
 
     @ManyToOne
     private User worker;
+
+    @ManyToMany
+    private List<User> rejectedWorkers;
 }

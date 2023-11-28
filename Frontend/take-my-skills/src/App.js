@@ -42,7 +42,14 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/register" element={<Register />} />
             <Route path="/profile/:id" element={<OtherUserProfile />} />
-            <Route path="/myprofile" element={<MyProfile />} />
+            <Route
+              path="/myprofile"
+              element={
+                <RequireAuth loginPath="/login">
+                  <MyProfile />
+                </RequireAuth>
+              }
+            />
             <Route path="/ad/:id" element={<AdDetail />} />
             <Route
               path="/terms-and-conditions"

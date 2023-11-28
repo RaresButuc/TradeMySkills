@@ -13,7 +13,7 @@ export default function MyProfile() {
     const fetchCurrentUser = async () => {
       try {
         const response = await axios.get(
-          `${DefaultURL}/users/email/${auth().email}`
+          `${DefaultURL}/users/email/${auth()?.email}`
         );
         const data = await response.data;
         setCurrentUser(data);
@@ -23,7 +23,7 @@ export default function MyProfile() {
     };
 
     fetchCurrentUser();
-  }, [auth().email]);
+  }, [auth()?.email]);
 
   return (
     <>

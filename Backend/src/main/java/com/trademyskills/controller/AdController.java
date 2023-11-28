@@ -42,9 +42,9 @@ public class AdController {
         adService.updateAdById(id, updatedAd);
     }
 
-        @PutMapping("/{setStatus}/{id}")
-    public void updateAdAs(@PathVariable("id") Long id, @PathVariable("setStatus") String status){
-        adService.setStatusOfAd(id,status);
+    @PutMapping("/{setStatus}/{id}")
+    public void updateAdAs(@PathVariable("id") Long id, @PathVariable("setStatus") String status) {
+        adService.setStatusOfAd(id, status);
     }
 //    @PutMapping("/add/{id}/{nameOfWorker}")
 //    public void addWorkerToAd(@PathVariable("id") Long id, @PathVariable("nameOfWorker") String nameOfWorker) {
@@ -52,9 +52,20 @@ public class AdController {
 //    }
 
     @PutMapping("/{typeOfAction}/{id}/{nameOfWorker}")
-    public void deleteOrAddWorker(@PathVariable("typeOfAction") String typeOfAction,@PathVariable("id") Long id, @PathVariable("nameOfWorker") String nameOfWorker) {
+    public void deleteOrAddWorker(@PathVariable("typeOfAction") String typeOfAction, @PathVariable("id") Long id, @PathVariable("nameOfWorker") String nameOfWorker) {
         adService.addOrDeleteWorker(nameOfWorker, id, typeOfAction);
     }
+
+    @PutMapping("/rejected/remove/{id}/{nameOfWorker}")
+    public void deleteOrAddWorker(@PathVariable("id") Long id, @PathVariable("nameOfWorker") String nameOfWorker) {
+        adService.deleteWorkerFromRejected(nameOfWorker, id);
+    }
+
+    @GetMapping("/rejected/{id}/{nameOfWorker}")
+    public boolean isWorkerRejected(@PathVariable("id") Long id, @PathVariable("nameOfWorker") String nameOfWorker) {
+        return adService.isThereAWorkerInsideRejectAd(nameOfWorker, id);
+    }
+
     @DeleteMapping("/{id}")
     public void deleteAdById(@PathVariable("id") Long id) {
         adService.deleteAdById(id);

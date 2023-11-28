@@ -45,6 +45,10 @@ public class User implements UserDetails {
     private List<Ad> adsOwned;
 
     @JsonIgnore
+    @ManyToMany(mappedBy = "rejectedWorkers")
+    private List<Ad> adsRejected;
+
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<Rating> ratings;
 

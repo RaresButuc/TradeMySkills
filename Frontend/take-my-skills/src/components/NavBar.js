@@ -1,17 +1,40 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import logo_22 from "../photo/logosWebsite/Logo_22.png";
 import { Outlet } from "react-router-dom";
 import { useIsAuthenticated } from "react-auth-kit";
 import { useSignOut } from "react-auth-kit";
+import { useAuthUser } from "react-auth-kit";
+import DefaultURL from "../GlobalVariables";
+import axios from "axios";
 
 const NavBar = () => {
   const isAuthenticated = useIsAuthenticated();
   const signOut = useSignOut();
+  const auth = useAuthUser();
+  const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(() => {
+    const getUserByEmail = async () => {
+      try {
+        const response = await axios.get(
+          `${DefaultURL}/users/email/${auth().email}`
+        );
+        const data = response.data;
+        setCurrentUser(data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getUserByEmail();
+  }, [auth()?.email]);
 
   const handleLogOut = () => {
-    signOut();
     window.location.href = "/";
-  }
+    setTimeout(() => {
+      signOut();
+    }, 10);
+  };
+
   return (
     <div>
       <nav className="navbar navbar-custom fixed-top navbar-expand-md navbar-dark  shadow-5-strong">
@@ -92,11 +115,13 @@ const NavBar = () => {
                           Profile
                         </a>
                       </li>
-                      <li>
-                        <a className="dropdown-item" href="/post-ads">
-                          Post New Add
-                        </a>
-                      </li>
+                      {currentUser?.role === "CUSTOMER" ? (
+                        <li>
+                          <a className="dropdown-item" href="/post-ads">
+                            Post New Add
+                          </a>
+                        </li>
+                      ) : null}
                       <li>
                         <hr className="dropdown-divider" />
                       </li>

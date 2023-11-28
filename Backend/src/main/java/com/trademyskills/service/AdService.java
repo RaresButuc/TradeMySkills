@@ -40,22 +40,44 @@ public class AdService {
         assert workerUser != null;
         assert currentAd != null;
 
-    if(workerUser.getRole() == Role.WORKER){
+        if (workerUser.getRole() == Role.WORKER) {
 
 
-        switch (typeOfAction) {
-            case "add" -> {
-                currentAd.setWorker(workerUser);
-                currentAd.setStatusOfAd(StatusOfAd.PENDING);
+            switch (typeOfAction) {
+                case "add" -> {
+                    currentAd.setWorker(workerUser);
+                    currentAd.setStatusOfAd(StatusOfAd.PENDING);
+                }
+                case "delete" -> {
+                    currentAd.setWorker(null);
+                    currentAd.setStatusOfAd(StatusOfAd.ACTIVE);
+                    if (!isThereAWorkerInsideRejectAd(name, idOfAd)) {
+                        currentAd.getRejectedWorkers().add(workerUser);
+                    }
+                }
             }
-            case "delete" -> {
-                currentAd.setWorker(null);
-                currentAd.setStatusOfAd(StatusOfAd.ACTIVE);
-            }
+            adRepository.save(currentAd);
         }
-        adRepository.save(currentAd);
     }
 
+    public boolean isThereAWorkerInsideRejectAd(String name, Long idOfAd) {
+        User workerUser = userRepository.findByName(name).orElse(null);
+        Ad currentAd = adRepository.findById(idOfAd).orElse(null);
+
+        assert workerUser != null;
+        assert currentAd != null;
+
+        return currentAd.getRejectedWorkers().contains(workerUser);
+    }
+
+
+    public void deleteWorkerFromRejected(String name, Long idOfAd) {
+        User workerUser = userRepository.findByName(name).orElse(null);
+        Ad currentAd = adRepository.findById(idOfAd).orElse(null);
+
+        assert currentAd != null;
+        currentAd.getRejectedWorkers().remove(workerUser);
+        adRepository.save(currentAd);
     }
 
     public Ad getAdById(Long id) {
@@ -216,12 +238,12 @@ public class AdService {
         StatusOfAd statusOfAd = StatusOfAd.getByName(stringStatusOfAd);
         assert user != null;
 
-        if(user.getRole() == Role.CUSTOMER){
+        if (user.getRole() == Role.CUSTOMER) {
             return user.getAdsOwned().stream().filter(e -> e.getStatusOfAd() == statusOfAd).distinct().toList();
-        }else if(user.getRole() == Role.WORKER){
+        } else if (user.getRole() == Role.WORKER) {
             return user.getAdsAttends().stream().filter(e -> e.getStatusOfAd() == statusOfAd).distinct().toList();
         }
-            return null;
+        return null;
     }
 
     public List<Ad> getActiveAds(List<Ad> adsList) {

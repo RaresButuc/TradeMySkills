@@ -24,7 +24,7 @@ export default function Profile({ id }) {
     };
     try {
       await axios.put(
-        `${DefaultURL}/users/${currentUser.id}`,
+        `${DefaultURL}/users/${currentUser?.id}`,
         editData
       );
     } catch (err) {
@@ -51,7 +51,7 @@ export default function Profile({ id }) {
           const response = await axios.get(`${DefaultURL}/users/${id}`);
           const data = response.data;
           setCurrentUser(data);
-          setShowEditButtonOrNot(data.email === auth().email);
+          setShowEditButtonOrNot(data.email === auth()?.email);
         } catch (err) {
           console.log(err);
         }
@@ -59,7 +59,7 @@ export default function Profile({ id }) {
 
       fetchCurrentUser();
     }
-  }, [auth().email, id]);
+  }, [auth()?.email, id]);
   return (
     <section>
       <div className="container py-5 mt-5">
