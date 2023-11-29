@@ -9,6 +9,7 @@ export default function RejectedWorkersPage() {
 
   const [rejectedWorkers, setRejectedWorkers] = useState(null);
   const [deletedWorkerName, setDeletedWorkerName] = useState(null);
+  const [currentAdTitle, setCurrentAdTitle] = useState(null);
 
   useEffect(() => {
     const getRejectedWorkers = async () => {
@@ -22,6 +23,17 @@ export default function RejectedWorkersPage() {
         console.log(err);
       }
     };
+
+    const getAdById = async () => {
+      try {
+        const response = await axios.get(`${DefaultURL}/ads/${id}`);
+        setCurrentAdTitle(response.data.title);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    getAdById();
     getRejectedWorkers();
   }, [deletedWorkerName]);
 
@@ -39,23 +51,25 @@ export default function RejectedWorkersPage() {
 
   return (
     <div className="container-fluid" style={{ marginTop: 110 }}>
-      <h1 className="mb-5">Ad #{id} Rejected Workers</h1>
+      <h1 className="fw-bold mb-5">
+        Ad #{id} ("{currentAdTitle}") Rejected Workers
+      </h1>
       <div className="row">
         {rejectedWorkers?.map((worker, index) => (
           <div
-            className="card col-xl-4 col-md-6 col-12 my-5 mx-auto"
+            className="card col-xl-4 col-md-6 col-12 mt-4 mx-auto"
             style={{ height: 100, width: 450 }}
             key={index}
           >
-            <a
-              href={`/profile/${id}`}
-              style={{ textDecoration: "none", color: "inherit" }}
-            >
-              <div className="container-xl row text-center">
-                <div className="container-xl col-3" style={{ marginTop: 11 }}>
-                  <ProfilePhoto width={"75"} height={"75"} />
-                </div>
-                <div className="container-xl col-4" style={{ marginTop: 20 }}>
+            <div className="container-xl row text-center">
+              <div className="container-xl col-3" style={{ marginTop: 11 }}>
+                <ProfilePhoto width={"75"} height={"75"} />
+              </div>
+              <div className="container-xl col-4" style={{ marginTop: 20 }}>
+                <a
+                  href={`/profile/${id}`}
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
                   <h4>{worker.name}</h4>
                   <link
                     rel="stylesheet"
@@ -66,27 +80,29 @@ export default function RejectedWorkersPage() {
                   <span className="fa fa-star checked"></span>
                   <span className="fa fa-star"></span>
                   <span className="fa fa-star"></span>
-                </div>
+                </a>
               </div>
-            </a>
-            <>
-              <button
-                style={{
-                  backgroundColor: "#fa6900",
-                  color: "white",
-                }}
-                className="mt-2"
-                data-bs-toggle="modal"
-                data-bs-target="#exampleModal"
-              >
-                Remove Rejection
-              </button>
+              <div className="col-4">
+                <button
+                  style={{
+                    backgroundColor: "#fa6900",
+                    color: "white",
+                    marginTop: 25,
+                  }}
+                  data-bs-toggle="modal"
+                  data-bs-target={`#exampleModal${index}`}
+                >
+                  Remove Rejection
+                </button>
+              </div>
+            </div>
 
+            <>
               <div
                 className="modal fade"
-                id="exampleModal"
-                tabindex="-1"
-                aria-labelledby="exampleModalLabel"
+                id={`exampleModal${index}`}
+                tabIndex="-1"
+                aria-labelledby={`exampleModalLabel${index}`}
                 aria-hidden="true"
               >
                 <div className="modal-dialog">
