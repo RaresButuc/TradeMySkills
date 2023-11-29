@@ -1,7 +1,7 @@
 export default function TermsAndConditions() {
   return (
     <div className="container">
-      <div className="row justify-content-center" style={{ marginTop: 100 }}>
+      <div className="row justify-content-center" style={{ marginTop: 110 }}>
         <div className="col-md-8">
           <h1 className="mb-3">Terms and Conditions</h1>
           <hr />

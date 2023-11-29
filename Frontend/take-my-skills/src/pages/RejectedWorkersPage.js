@@ -38,13 +38,13 @@ export default function RejectedWorkersPage() {
   };
 
   return (
-    <div style={{ marginTop: 110 }}>
+    <div className="container-fluid" style={{ marginTop: 110 }}>
       <h1 className="mb-5">Ad #{id} Rejected Workers</h1>
-      <div>
+      <div className="row">
         {rejectedWorkers?.map((worker, index) => (
           <div
-            className="card col-xl-4 col-md-6 mx-auto my-5 w-25"
-            style={{ height: 100 }}
+            className="card col-xl-4 col-md-6 col-12 my-5 mx-auto"
+            style={{ height: 100, width: 450 }}
             key={index}
           >
             <a
@@ -61,24 +61,21 @@ export default function RejectedWorkersPage() {
                     rel="stylesheet"
                     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
                   />
-                  <div className="container-xl">
-                    <span className="fa fa-star checked"></span>
-                    <span className="fa fa-star checked"></span>
-                    <span className="fa fa-star checked"></span>
-                    <span className="fa fa-star"></span>
-                    <span className="fa fa-star"></span>
-                  </div>
+                  <span className="fa fa-star checked"></span>
+                  <span className="fa fa-star checked"></span>
+                  <span className="fa fa-star checked"></span>
+                  <span className="fa fa-star"></span>
+                  <span className="fa fa-star"></span>
                 </div>
               </div>
             </a>
             <>
               <button
-                type="button"
                 style={{
                   backgroundColor: "#fa6900",
                   color: "white",
                 }}
-                className="mt-2 "
+                className="mt-2"
                 data-bs-toggle="modal"
                 data-bs-target="#exampleModal"
               >
