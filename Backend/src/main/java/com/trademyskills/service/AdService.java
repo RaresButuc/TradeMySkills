@@ -250,4 +250,7 @@ public class AdService {
         return adsList.stream().filter(e -> e.getStatusOfAd() == StatusOfAd.ACTIVE).toList();
     }
 
+    public List<User> getRejectedWorkers(Long id) {
+        return getAdById(id).getRejectedWorkers();
+    }
 }

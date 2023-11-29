@@ -22,6 +22,7 @@ import ChangePasswordPageNoAuth from "./pages/ChangePasswordPageNoAuth";
 import ActiveAds from "./pages/Ads By Status/ActiveAds";
 import PendingAds from "./pages/Ads By Status/PendingAds";
 import FinalisedAds from "./pages/Ads By Status/FinalisedAds";
+import RejectedWorkersPage from "./pages/RejectedWorkersPage";
 
 function App() {
   return (
@@ -59,7 +60,10 @@ function App() {
             <Route path="/:id/active" element={<ActiveAds />} />
             <Route path="/:id/pending" element={<PendingAds />} />
             <Route path="/:id/finalised" element={<FinalisedAds />} />
-
+            <Route
+              path="/ad/:id/rejectedworkers"
+              element={<RejectedWorkersPage />}
+            />
             <Route
               path="/changepassoword"
               element={<ChangePasswordPageAuth />}

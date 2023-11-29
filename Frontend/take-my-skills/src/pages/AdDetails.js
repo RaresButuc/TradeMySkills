@@ -410,6 +410,7 @@ export default function AdDetail() {
                     </div>
                   </div>
                 </a>
+
                 {showEditButtonOrNot ? (
                   <>
                     <button
@@ -489,6 +490,14 @@ export default function AdDetail() {
               </>
             )}
           </div>
+          {editOrSave ? (
+            <a
+              className="container-xl mt-5 btn btn-primary"
+              href={`/ad/${adInfos?.id}/rejectedworkers`}
+            >
+              Rejected Workers
+            </a>
+          ) : null}
         </div>
       </div>
     </div>

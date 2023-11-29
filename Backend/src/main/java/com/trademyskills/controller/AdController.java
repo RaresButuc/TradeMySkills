@@ -1,6 +1,7 @@
 package com.trademyskills.controller;
 
 import com.trademyskills.model.Ad;
+import com.trademyskills.model.User;
 import com.trademyskills.service.AdService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -64,6 +65,11 @@ public class AdController {
     @GetMapping("/rejected/{id}/{nameOfWorker}")
     public boolean isWorkerRejected(@PathVariable("id") Long id, @PathVariable("nameOfWorker") String nameOfWorker) {
         return adService.isThereAWorkerInsideRejectAd(nameOfWorker, id);
+    }
+
+    @GetMapping("/rejected/workers/{id}")
+    public List<User> isWorkerRejected(@PathVariable("id") Long id) {
+        return adService.getRejectedWorkers(id);
     }
 
     @DeleteMapping("/{id}")
