@@ -17,7 +17,7 @@ const NavBar = () => {
     const getUserByEmail = async () => {
       try {
         const response = await axios.get(
-          `${DefaultURL}/users/email/${auth().email}`
+          `${DefaultURL}/users/email/${auth()?.email}`
         );
         const data = response.data;
         setCurrentUser(data);
@@ -110,7 +110,7 @@ const NavBar = () => {
                     </button>
                     <ul className="dropdown-menu dropdown-menu-end">
                       <li>
-                        <a className="dropdown-item" href="/myprofile">
+                        <a className="dropdown-item" href={`/profile/${currentUser?.id}`}>
                           Profile
                         </a>
                       </li>

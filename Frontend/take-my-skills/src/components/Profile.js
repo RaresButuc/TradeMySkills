@@ -18,15 +18,16 @@ export default function Profile({ id }) {
 
   const onSave = async () => {
     const editData = {
-      name: userNameRef.current.value,
-      phoneNumber: userPhoneNumberRef.current.value,
-      email: userEmailRef.current.value,
+      name: userNameRef.current?.value,
+      phoneNumber: userPhoneNumberRef.current?.value,
+      email: userEmailRef.current?.value,
     };
     try {
       await axios.put(
         `${DefaultURL}/users/${currentUser?.id}`,
         editData
       );
+      fetchCurrentUser();
     } catch (err) {
       console.log(err);
     }
@@ -40,23 +41,23 @@ export default function Profile({ id }) {
       onSave();
       setEditOrSave(0);
       setButtonValue("Edit Profile");
-      window.location.reload(false);
+     // window.location.reload(false);
+    }
+  };
+
+  const fetchCurrentUser = async () => {
+    try {
+      const response = await axios.get(`${DefaultURL}/users/${id}`);
+      const data = response.data;
+      setCurrentUser(data);
+      setShowEditButtonOrNot(data?.email === auth()?.email);
+    } catch (err) {
+      console.log(err);
     }
   };
 
   useEffect(() => {
     if (id) {
-      const fetchCurrentUser = async () => {
-        try {
-          const response = await axios.get(`${DefaultURL}/users/${id}`);
-          const data = response.data;
-          setCurrentUser(data);
-          setShowEditButtonOrNot(data.email === auth()?.email);
-        } catch (err) {
-          console.log(err);
-        }
-      };
-
       fetchCurrentUser();
     }
   }, [auth()?.email, id]);
