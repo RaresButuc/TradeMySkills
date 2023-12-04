@@ -1,5 +1,6 @@
 package com.trademyskills.service;
 
+import com.trademyskills.model.Rating;
 import com.trademyskills.model.User;
 import com.trademyskills.service.repository.UserRepository;
 import jakarta.mail.MessagingException;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.text.DecimalFormat;
 import java.util.*;
 
 @Service
@@ -78,5 +80,10 @@ public class UserService {
             return true;
         }
         return false;
+    }
+
+    public double ratingPerTotal(Long id) {
+        User currentUser = userRepository.findById(id).orElseThrow(null);
+        return Float.parseFloat( new DecimalFormat("##.#").format(currentUser.getRatings().stream().mapToDouble(Rating::getStar).sum() / currentUser.getRatings().size()));
     }
 }
