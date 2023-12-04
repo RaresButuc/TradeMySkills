@@ -23,4 +23,8 @@ public class Rating {
 
     @ManyToOne
     private User user;
+//    @ManyToOne
+//    private User from;
+//    @ManyToOne
+//    private User to;
 }

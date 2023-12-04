@@ -59,7 +59,7 @@ public class UserController {
     public double getTotalRatingPerUser(@PathVariable("id") Long id) {
         return userService.ratingPerTotal(id);
     }
-    
+
     @PutMapping(value = "/{id}")
     public void updateUserById(@PathVariable("id") Long id, @RequestBody User updatedUser) {
         userService.updateUserById(id, updatedUser);
