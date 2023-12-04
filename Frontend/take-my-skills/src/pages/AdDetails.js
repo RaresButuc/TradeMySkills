@@ -2,7 +2,7 @@ import axios from "axios";
 import ProfilePhoto from "../shared/ProfilePhoto";
 import Map from "../components/Map";
 import DefaultURL from "../GlobalVariables";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useAuthUser } from "react-auth-kit";
 import { useEffect, useState, useRef } from "react";
 
@@ -14,7 +14,7 @@ import LocationSelects from "../components/postAdFormComponents/LocationSelects"
 
 export default function AdDetail() {
   const auth = useAuthUser();
-
+  const navigate = useNavigate();
   const { id } = useParams();
 
   const [adInfos, setAdInfos] = useState(null);
@@ -36,6 +36,25 @@ export default function AdDetail() {
   const adCountyRef = useRef("");
   const adCityRef = useRef("");
   const adStatusRef = useRef("");
+
+  const handleFinalised = async () =>{
+    try{
+      await axios.post(`${DefaultURL}/mail/send/${adInfos?.worker.email}`, {
+        subject: "Please rate your experience!",
+        message: `
+   
+        Hello ${adInfos?.worker.name}! The ad  ${adInfos?.title} was successfully finalised. Please rate the owner 
+        http://localhost:3000/review/${adInfos?.owner.id} 
+  
+        `
+      });
+      await axios.put(`http://localhost:8080/ads/finalised/${adInfos?.id}`);
+      navigate(`/review/${adInfos?.worker.id}`)
+
+    }catch (err){
+      console.log(err);
+    }
+  }
 
   const handleApply = async () => {
     if (!apply) {
@@ -243,8 +262,8 @@ export default function AdDetail() {
                   </div>
                 </div>
               )}
-              {adInfos?.statusOfAd === "FINALISED"? (null): 
-              (showEditButtonOrNot ? (
+              {adInfos?.statusOfAd ===
+              "FINALISED" ? null : showEditButtonOrNot ? (
                 <button
                   className="container-xl col-2 mt-3"
                   onClick={changeEdit}
@@ -272,8 +291,7 @@ export default function AdDetail() {
                     </button>
                   )}
                 </>
-              ) : null)
-            }
+              ) : null}
               {/* Status */}
               {editOrSave ? (
                 <div className="mb-4" style={{ height: 50, width: 300 }}>
@@ -283,22 +301,60 @@ export default function AdDetail() {
                   >
                     Status
                   </label>
-                  <select
-                    className="form-select"
-                    name="status"
-                    ref={adStatusRef}
+                  <br></br>
+                  <button
+                    type="button "
+                    className="btn btn-success"
+                    data-bs-toggle="modal"
+                    data-bs-target="#finishModal"
                   >
-                    <option selected>{adInfos?.statusOfAd}</option>
-                    {possibleStatuses &&
-                      possibleStatuses
-                        .filter((e) => e !== adInfos?.statusOfAd)
-                        .map((status, index) => (
-                          <option value={status} key={index}>
-                            {status}
-                          </option>
-                        ))}
-                  </select>
+                    Set FINALISED
+                  </button>
+                  <div
+                      className="modal fade"
+                      id="finishModal"
+                      tabindex="-1"
+                      aria-labelledby="finishModalLabel"
+                      aria-hidden="true"
+                    >
+                      <div className="modal-dialog">
+                        <div className="modal-content">
+                          <div className="modal-header">
+                            <h5 className="modal-title" id="finishModalLabel">
+                              Important!
+                            </h5>
+                            <button
+                              type="button"
+                              className="btn-close"
+                              data-bs-dismiss="modal"
+                              aria-label="Close"
+                            ></button>
+                          </div>
+                          <div className="modal-body">
+                            Are you sure you want to set this ad as  FINALISED? You will not be able to edit it ever.
+                          </div>
+                          <div className="modal-footer">
+                            <button
+                              type="button"
+                              className="btn btn-secondary"
+                              data-bs-dismiss="modal"
+                            >
+                              Close
+                            </button>
+                            <button
+                              type="button"
+                              className="btn btn-primary"
+                              onClick={handleFinalised}
+                              data-bs-dismiss="modal"
+                            >
+                              Change it!
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                 </div>
+                
               ) : (
                 <div
                   className={`card text-white bg-${colorDependingOnStatus(
@@ -417,19 +473,20 @@ export default function AdDetail() {
 
                 {showEditButtonOrNot ? (
                   <>
-                  {adInfos?.statusOfAd === "FINALISED"? (null):
-                    (<button
-                      type="button"
-                      style={{
-                        backgroundColor: "#fa6900",
-                        color: "white",
-                      }}
-                      className="mt-2 "
-                      data-bs-toggle="modal"
-                      data-bs-target="#exampleModal"
-                    >
-                      Delete Worker
-                    </button>)}
+                    {adInfos?.statusOfAd === "FINALISED" ? null : (
+                      <button
+                        type="button"
+                        style={{
+                          backgroundColor: "#fa6900",
+                          color: "white",
+                        }}
+                        className="mt-2 "
+                        data-bs-toggle="modal"
+                        data-bs-target="#exampleModal"
+                      >
+                        Delete Worker
+                      </button>
+                    )}
 
                     <div
                       className="modal fade"
