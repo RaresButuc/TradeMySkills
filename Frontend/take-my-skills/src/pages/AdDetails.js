@@ -61,6 +61,10 @@ export default function AdDetail() {
 
   const deleteWorkerButton = async () => {
     try {
+      await axios.post(`${DefaultURL}/mail/send/${adInfos?.worker.email}`, {
+        subject: "Rejected from Ad",
+        message: `Hello ${adInfos?.worker.name}! Unfortunately you have been kicked from ${adInfos?.title}. For more informations contact owner.`,
+      });
       await axios.put(`${DefaultURL}/ads/delete/${id}/${adInfos?.worker.name}`);
     } catch (err) {
       console.log(err);
@@ -239,8 +243,8 @@ export default function AdDetail() {
                   </div>
                 </div>
               )}
-
-              {showEditButtonOrNot ? (
+              {adInfos?.statusOfAd === "FINALISED"? (null): 
+              (showEditButtonOrNot ? (
                 <button
                   className="container-xl col-2 mt-3"
                   onClick={changeEdit}
@@ -268,8 +272,8 @@ export default function AdDetail() {
                     </button>
                   )}
                 </>
-              ) : null}
-
+              ) : null)
+            }
               {/* Status */}
               {editOrSave ? (
                 <div className="mb-4" style={{ height: 50, width: 300 }}>
@@ -413,7 +417,8 @@ export default function AdDetail() {
 
                 {showEditButtonOrNot ? (
                   <>
-                    <button
+                  {adInfos?.statusOfAd === "FINALISED"? (null):
+                    (<button
                       type="button"
                       style={{
                         backgroundColor: "#fa6900",
@@ -424,7 +429,7 @@ export default function AdDetail() {
                       data-bs-target="#exampleModal"
                     >
                       Delete Worker
-                    </button>
+                    </button>)}
 
                     <div
                       className="modal fade"

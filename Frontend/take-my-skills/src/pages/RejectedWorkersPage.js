@@ -37,13 +37,17 @@ export default function RejectedWorkersPage() {
     getRejectedWorkers();
   }, [deletedWorkerName]);
 
-  const deleteRejectedWorkerButton = async (idOfAd, nameOfTheWorker) => {
+  const deleteRejectedWorkerButton = async (idOfAd, worker) => {
     try {
+      await axios.post(`${DefaultURL}/mail/send/${worker.email}`, {
+        subject: "Good news",
+        message: `Hello ${worker.name}! The owner of the ad ${currentAdTitle} gave you permission to apply again any time.`,
+      });
       await axios.put(
-        `${DefaultURL}/ads/rejected/remove/${idOfAd}/${nameOfTheWorker}`,
+        `${DefaultURL}/ads/rejected/remove/${idOfAd}/${worker.name}`,
         {}
       );
-      setDeletedWorkerName(nameOfTheWorker);
+      setDeletedWorkerName(worker.name);
     } catch (err) {
       console.log(err);
     }
@@ -134,7 +138,7 @@ export default function RejectedWorkersPage() {
                         type="button"
                         className="btn btn-primary"
                         onClick={() =>
-                          deleteRejectedWorkerButton(id, worker.name)
+                          deleteRejectedWorkerButton(id, worker)
                         }
                         data-bs-dismiss="modal"
                       >

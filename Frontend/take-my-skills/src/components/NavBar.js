@@ -30,9 +30,8 @@ const NavBar = () => {
 
   const handleLogOut = () => {
     window.location.href = "/";
-    setTimeout(() => {
       signOut();
-    }, 10);
+
   };
 
   return (
