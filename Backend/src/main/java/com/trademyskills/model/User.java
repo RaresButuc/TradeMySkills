@@ -49,8 +49,14 @@ public class User implements UserDetails {
     private List<Ad> adsRejected;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "user")
-    private List<Rating> ratings;
+    @OneToMany(mappedBy = "from")
+    private List<Rating> writtenRatings;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "to")
+    private List<Rating> receivedRatings;
+
+    private double averageRating;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

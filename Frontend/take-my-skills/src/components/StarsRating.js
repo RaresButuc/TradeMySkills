@@ -1,38 +1,20 @@
-import { useState, useEffect } from "react";
-import DefaultURL from "../GlobalVariables";
 import Rating from "react-rating-stars-component";
-import axios from "axios";
 
-export default function StarsRating({ userId }) {
-  const [currentRating, setCurrentRating] = useState(0);
-
-  useEffect(() => {
-    if (userId) {
-      const getTotalRating = async () => {
-        try {
-          const response = await axios.get(`${DefaultURL}/users/totalrating/${userId}`);
-          const data = response.data;
-          if (data !== null) {
-            setCurrentRating(response.data);
-          }
-        } catch (err) {
-          console.log(err);
-        }
-      };
-      getTotalRating();
-    }
-  }, [userId]);
-  
-
+export default function StarsRating({ userRating }) {
+  console.log(userRating);
   return (
-    <div>
-      <Rating
-        count={5}
-        size={24}
-        value={currentRating}
-        edit={false}
-        isHalf={false}
-      />
+    <div style={{ margin: 0, padding: 0 }}> {/* Added styles to remove margins and padding */}
+      {userRating >= 0 ? (
+        <div className="container-xl d-flex justify-content-center">
+          <Rating
+            count={5}
+            size={23}
+            value={userRating}
+            edit={false}
+            isHalf={true}
+          />
+        </div>
+      ) : null}
     </div>
   );
 }
