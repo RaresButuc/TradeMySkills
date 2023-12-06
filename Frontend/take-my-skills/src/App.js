@@ -23,6 +23,7 @@ import ActiveAds from "./pages/Ads By Status/ActiveAds";
 import PendingAds from "./pages/Ads By Status/PendingAds";
 import FinalisedAds from "./pages/Ads By Status/FinalisedAds";
 import RejectedWorkersPage from "./pages/RejectedWorkersPage";
+import RatingPage from "./pages/RatingPage";
 
 function App() {
   return (
@@ -43,7 +44,7 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/register" element={<Register />} />
             <Route path="/profile/:id" element={<OtherUserProfile />} />
-        
+
             <Route path="/ad/:id" element={<AdDetail />} />
             <Route
               path="/terms-and-conditions"
@@ -61,6 +62,14 @@ function App() {
               path="/changepassoword"
               element={<ChangePasswordPageAuth />}
             />
+            <Route
+              path="/rating/:from/:to"
+              element={
+                <RequireAuth loginPath="/login">
+                  <RatingPage />
+                </RequireAuth>
+              }
+            ></Route>
             <Route
               path="post-ads"
               element={
