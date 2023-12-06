@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Rating from "react-rating-stars-component";
 import DefaultURL from "../GlobalVariables";
 import axios from "axios";
@@ -7,19 +7,32 @@ import axios from "axios";
 export default function RatingPage() {
   const { from } = useParams();
   const { to } = useParams();
-  const [newValue, setNewValue] = useState(0);
-  const [buttonStatus, setButtonStatus] = useState(true);
+  const [stars, setStars] = useState(0);
+  const [submitButtonStatus, setSubmitButtonStatus] = useState(true);
   const [comment, setComment] = useState("");
+  const [userToBeRated, setUserToBeRated] = useState("");
+
+  useEffect(() => {
+    const fetchUserToBeRated = async () => {
+      try {
+        const response = await axios.get(`${DefaultURL}/users/${to}`);
+        setUserToBeRated(response.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchUserToBeRated();
+  }, []);
 
   const onChangeRating = (e) => {
-    setNewValue(e);
-    setButtonStatus(false);
+    setStars(e);
+    setSubmitButtonStatus(false);
   };
 
   const sendRating = async () => {
     try {
       await axios.post(`${DefaultURL}/ratings`, {
-        star: newValue,
+        star: stars,
         comment: comment,
         from: { id: from },
         to: { id: to },
@@ -31,39 +44,62 @@ export default function RatingPage() {
 
   return (
     <form>
-      <div style={{ margin: 100, padding: 0 }}>
-        <h1>Rate your experience on this project!</h1>
-        <label htmlFor="Rating">Rate</label>
-        <div className="container-xl d-flex justify-content-center">
-          <Rating
-            count={5}
-            size={23}
-            value={0}
-            onChange={onChangeRating}
-            edit={true}
-            isHalf={true}
-            id="Rating"
-          />
+      <div className="container-xl" style={{ marginTop: 125 }}>
+        <div className="row d-flex justify-content-center align-items-center">
+          <div className="col-12 col-md-8 col-lg-6 col-xl-5">
+            <div className="card shadow-2-strong">
+              <div className="card-body p-4 text-center">
+                <h1>Rate Your Experience on this Project!</h1>
+                <hr />
+                <label
+                  htmlFor="Rating"
+                  className="form-label fw-bold text-decoration-underline mt-4"
+                >
+                  Rate{" "}
+                  <a href={`/profile/${userToBeRated?.id}`}>
+                    {userToBeRated?.name}
+                  </a>{" "}
+                  as a {userToBeRated?.role}
+                </label>
+                <div className="container-xl d-flex justify-content-center mb-4">
+                  <Rating
+                    count={5}
+                    size={43}
+                    value={0}
+                    onChange={onChangeRating}
+                    edit={true}
+                    isHalf={true}
+                    id="Rating"
+                  />
+                </div>
+                <label
+                  htmlFor="Comment"
+                  className="form-label fw-bold text-decoration-underline"
+                >
+                  Write a short opinion (optional)
+                </label>
+                <textarea
+                  className="form-control mb-4"
+                  id="Comment"
+                  maxLength={250}
+                  style={{ height: 150 }}
+                  onChange={(e) => setComment(e.target.value)}
+                />
+                <button
+                  type="submit"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    sendRating();
+                  }}
+                  disabled={submitButtonStatus}
+                  className="btn btn-primary"
+                >
+                  Submit
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-        <label htmlFor="Comment">Add a Comment</label>
-        <textarea
-          className="form-control"
-          id="Comment"
-          maxLength={250}
-          style={{ height: 150 }}
-          onChange={(e) => setComment(e.target.value)}
-        />
-        <button
-          type="submit"
-          onClick={(e) => {
-            e.preventDefault();
-            sendRating();
-          }}
-          disabled={buttonStatus}
-          className="btn btn-primary"
-        >
-          Submit
-        </button>
       </div>
     </form>
   );

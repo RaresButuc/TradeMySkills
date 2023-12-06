@@ -74,6 +74,10 @@ body {
   color: red;
 }
 
+textarea {
+  resize: none;
+}
+
 /* Error Page */
 
 ::-moz-selection {
