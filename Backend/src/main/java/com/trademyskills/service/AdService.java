@@ -14,11 +14,13 @@ import java.util.List;
 
 @Service
 public class AdService {
+    private final MailService mailService;
     private final AdRepository adRepository;
     private final UserRepository userRepository;
 
     @Autowired
-    public AdService(AdRepository adRepository, UserRepository userRepository) {
+    public AdService(MailService mailService, AdRepository adRepository, UserRepository userRepository) {
+        this.mailService = mailService;
         this.adRepository = adRepository;
         this.userRepository = userRepository;
     }

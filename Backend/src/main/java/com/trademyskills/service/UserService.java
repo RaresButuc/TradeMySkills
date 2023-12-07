@@ -82,8 +82,17 @@ public class UserService {
         return false;
     }
 
-    public double ratingPerTotal(Long id) {
-        User currentUser = userRepository.findById(id).orElseThrow(null);
-        return Float.parseFloat( new DecimalFormat("##.#").format(currentUser.getRatings().stream().mapToDouble(Rating::getStar).sum() / currentUser.getRatings().size()));
+    public void updateAverageRating(Long id, double newRating) {
+        User user = userRepository.findById(id).orElseThrow(null);
+
+        double newAverageRating = user.getAverageRating() + newRating;
+
+        if (user.getAverageRating() != 0) {
+            newAverageRating /= 2;
+        }
+        user.setAverageRating(Float.parseFloat(new DecimalFormat("##.#").format(newAverageRating)));
+
+        userRepository.save(user);
     }
+
 }

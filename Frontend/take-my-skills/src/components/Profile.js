@@ -3,6 +3,7 @@ import { useAuthUser } from "react-auth-kit";
 import ProfilePhoto from "../shared/ProfilePhoto";
 import DefaultURL from "../GlobalVariables";
 import axios from "axios";
+import StarsRating from "./StarsRating";
 
 export default function Profile({ id }) {
   const auth = useAuthUser();
@@ -23,10 +24,7 @@ export default function Profile({ id }) {
       email: userEmailRef.current?.value,
     };
     try {
-      await axios.put(
-        `${DefaultURL}/users/${currentUser?.id}`,
-        editData
-      );
+      await axios.put(`${DefaultURL}/users/${currentUser?.id}`, editData);
       fetchCurrentUser();
     } catch (err) {
       console.log(err);
@@ -41,7 +39,6 @@ export default function Profile({ id }) {
       onSave();
       setEditOrSave(0);
       setButtonValue("Edit Profile");
-     // window.location.reload(false);
     }
   };
 
@@ -72,16 +69,8 @@ export default function Profile({ id }) {
 
                 <h5 className="my-3">{currentUser?.name}</h5>
                 <p className="text-muted mb-1">{currentUser?.role}</p>
-                <link
-                  rel="stylesheet"
-                  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-                />
 
-                <span className="fa fa-star checked"></span>
-                <span className="fa fa-star checked"></span>
-                <span className="fa fa-star checked"></span>
-                <span className="fa fa-star"></span>
-                <span className="fa fa-star"></span>
+                <StarsRating userRating={currentUser?.averageRating} />
                 <div className="d-flex justify-content-center mb-4"></div>
                 {showEditButtonOrNot ? (
                   <button

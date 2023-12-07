@@ -1,7 +1,9 @@
 package com.trademyskills.service;
 
 import com.trademyskills.model.Rating;
+import com.trademyskills.model.User;
 import com.trademyskills.service.repository.RatingRepository;
+import com.trademyskills.service.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,11 +11,15 @@ import java.util.List;
 
 @Service
 public class RatingService {
-    private RatingRepository ratingRepository;
+    private final RatingRepository ratingRepository;
+
+    //    private final UserRepository userRepository;
+    private final UserService userService;
 
     @Autowired
-    public RatingService(RatingRepository ratingRepository) {
+    public RatingService(RatingRepository ratingRepository, UserService userService) {
         this.ratingRepository = ratingRepository;
+        this.userService = userService;
     }
 
     public List<Rating> getAllRatings() {
@@ -21,7 +27,10 @@ public class RatingService {
     }
 
     public void addRating(Rating rating) {
+        User userToRating = rating.getTo();
         ratingRepository.save(rating);
+
+        userService.updateAverageRating(userToRating.getId(), rating.getStar());
     }
 
     public Rating getRatingById(Long id) {

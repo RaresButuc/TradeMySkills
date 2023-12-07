@@ -38,6 +38,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(auth ->
                         auth
                                 .requestMatchers("/**","/users/**").permitAll()
+                               // .requestMatchers("/postofer").hasRole("CUSTOMER")
                                 .anyRequest()
                                 .authenticated()
                 ).sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

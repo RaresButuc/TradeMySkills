@@ -11,12 +11,16 @@ import DescriptionInput from "../components/postAdFormComponents/DescriptionInpu
 import PriceInput from "../components/postAdFormComponents/PriceInput";
 import CategorySelect from "../components/postAdFormComponents/CategorySelect";
 import LocationSelects from "../components/postAdFormComponents/LocationSelects";
+import Alert from "../components/Alert";
+
+import StarsRating from "../components/StarsRating";
 
 export default function AdDetail() {
   const auth = useAuthUser();
   const navigate = useNavigate();
   const { id } = useParams();
 
+  const [showAlert, setShowAlert] = useState(false);
   const [adInfos, setAdInfos] = useState(null);
   const [editOrSave, setEditOrSave] = useState(false);
   const [showEditButtonOrNot, setShowEditButtonOrNot] = useState(false);
@@ -37,24 +41,34 @@ export default function AdDetail() {
   const adCityRef = useRef("");
   const adStatusRef = useRef("");
 
-  const handleFinalised = async () =>{
-    try{
+  const handleFinalised = async () => {
+    setShowAlert(true);
+    try {
       await axios.post(`${DefaultURL}/mail/send/${adInfos?.worker.email}`, {
         subject: "Please rate your experience!",
         message: `
    
         Hello ${adInfos?.worker.name}! The ad  ${adInfos?.title} was successfully finalised. Please rate the owner 
-        http://localhost:3000/review/${adInfos?.owner.id} 
+        http://localhost:3000/rating/${adInfos?.worker.id}/${adInfos?.owner.id} 
   
-        `
+        `,
+      });
+      await axios.post(`${DefaultURL}/mail/send/${adInfos?.owner.email}`, {
+        subject: "Please rate your experience!",
+        message: `
+   
+        Hello ${adInfos?.owner.name}! The ad  ${adInfos?.title} was successfully finalised. Please rate the owner 
+        http://localhost:3000/rating/${adInfos?.owner.id}/${adInfos?.worker.id} 
+  
+        `,
       });
       await axios.put(`http://localhost:8080/ads/finalised/${adInfos?.id}`);
-      navigate(`/review/${adInfos?.worker.id}`)
-
-    }catch (err){
+      
+        navigate("/");
+    } catch (err) {
       console.log(err);
     }
-  }
+  };
 
   const handleApply = async () => {
     if (!apply) {
@@ -205,6 +219,9 @@ export default function AdDetail() {
   };
 
   return (
+    <div>
+{showAlert && <Alert type="success" message="Your ad have succesfully finalised!" />}
+    
     <div className="container-xl">
       <div className="row container-xl" style={{ marginTop: 110 }}>
         {/* Titlu */}
@@ -311,50 +328,50 @@ export default function AdDetail() {
                     Set FINALISED
                   </button>
                   <div
-                      className="modal fade"
-                      id="finishModal"
-                      tabindex="-1"
-                      aria-labelledby="finishModalLabel"
-                      aria-hidden="true"
-                    >
-                      <div className="modal-dialog">
-                        <div className="modal-content">
-                          <div className="modal-header">
-                            <h5 className="modal-title" id="finishModalLabel">
-                              Important!
-                            </h5>
-                            <button
-                              type="button"
-                              className="btn-close"
-                              data-bs-dismiss="modal"
-                              aria-label="Close"
-                            ></button>
-                          </div>
-                          <div className="modal-body">
-                            Are you sure you want to set this ad as  FINALISED? You will not be able to edit it ever.
-                          </div>
-                          <div className="modal-footer">
-                            <button
-                              type="button"
-                              className="btn btn-secondary"
-                              data-bs-dismiss="modal"
-                            >
-                              Close
-                            </button>
-                            <button
-                              type="button"
-                              className="btn btn-primary"
-                              onClick={handleFinalised}
-                              data-bs-dismiss="modal"
-                            >
-                              Change it!
-                            </button>
-                          </div>
+                    className="modal fade"
+                    id="finishModal"
+                    tabindex="-1"
+                    aria-labelledby="finishModalLabel"
+                    aria-hidden="true"
+                  >
+                    <div className="modal-dialog">
+                      <div className="modal-content">
+                        <div className="modal-header">
+                          <h5 className="modal-title" id="finishModalLabel">
+                            Important!
+                          </h5>
+                          <button
+                            type="button"
+                            className="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                          ></button>
+                        </div>
+                        <div className="modal-body">
+                          Are you sure you want to set this ad as FINALISED? You
+                          will not be able to edit it ever.
+                        </div>
+                        <div className="modal-footer">
+                          <button
+                            type="button"
+                            className="btn btn-secondary"
+                            data-bs-dismiss="modal"
+                          >
+                            Close
+                          </button>
+                          <button
+                            type="button"
+                            className="btn btn-primary"
+                            onClick={handleFinalised}
+                            data-bs-dismiss="modal"
+                          >
+                            Change it!
+                          </button>
                         </div>
                       </div>
                     </div>
+                  </div>
                 </div>
-                
               ) : (
                 <div
                   className={`card text-white bg-${colorDependingOnStatus(
@@ -384,17 +401,7 @@ export default function AdDetail() {
                 <h5 className="my-3">{adInfos?.owner.name}</h5>
               </a>
               <p className="text-muted mb-1">{adInfos?.owner.role}</p>
-              <link
-                rel="stylesheet"
-                href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-              />
-
-              <span className="fa fa-star checked"></span>
-              <span className="fa fa-star checked"></span>
-              <span className="fa fa-star checked"></span>
-              <span className="fa fa-star"></span>
-              <span className="fa fa-star"></span>
-              <div className="d-flex justify-content-center"></div>
+              <StarsRating userRating={adInfos?.owner.averageRating} />
             </div>
           </div>
 
@@ -446,27 +453,29 @@ export default function AdDetail() {
                 >
                   <div className="container-xl row text-center">
                     <div
-                      className="container-xl col-4"
+                      className="container-xl col-3"
                       style={{ marginTop: 11 }}
                     >
                       <ProfilePhoto width={"75"} height={"75"} />
                     </div>
+
                     <div
-                      className="container-xl col-4"
+                      className="container-xl col-3"
                       style={{ marginTop: 20 }}
                     >
                       <h4>{adInfos?.worker.name}</h4>
                       <p className="mb-1">{adInfos?.worker.role}</p>
                     </div>
+
                     <div
-                      className="container-xl col-4"
+                      className="container-xl col-6"
                       style={{ marginTop: 40 }}
                     >
-                      <span className="fa fa-star checked"></span>
-                      <span className="fa fa-star checked"></span>
-                      <span className="fa fa-star checked"></span>
-                      <span className="fa fa-star"></span>
-                      <span className="fa fa-star"></span>
+                      <div className="container-xl">
+                        <StarsRating
+                          userRating={adInfos?.worker.averageRating}
+                        />
+                      </div>
                     </div>
                   </div>
                 </a>
@@ -562,6 +571,7 @@ export default function AdDetail() {
           ) : null}
         </div>
       </div>
+    </div>
     </div>
   );
 }

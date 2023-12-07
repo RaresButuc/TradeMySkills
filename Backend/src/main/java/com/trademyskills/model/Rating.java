@@ -22,5 +22,7 @@ public class Rating {
     private String comment;
 
     @ManyToOne
-    private User user;
+    private User from;
+    @ManyToOne
+    private User to;
 }

@@ -41,4 +41,19 @@ public class MailService {
         mailSender.send(mimeMessage);
     }
 
+//    public void sendGiveRating(String email, String adName , int from, int to) throws MessagingException {
+//        MimeMessage mimeMessage = mailSender.createMimeMessage();
+//        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage);
+//        mimeMessageHelper.setTo(email);
+//        mimeMessageHelper.setSubject("Rating");
+//        mimeMessageHelper.setText("""
+//                <div>
+//                <h5>Trade-My-Skills Support Here!</h5>
+//                <a href="http://localhost:3000/rating/%s/%s" target="_blank"> Please rate your experience on %s! </a>
+//                <div>
+//                """.formatted(from, to, adName), true);
+//        mailSender.send(mimeMessage);
+
+//    }
+
 }
