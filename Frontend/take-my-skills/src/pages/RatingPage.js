@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Rating from "react-rating-stars-component";
 import DefaultURL from "../GlobalVariables";
 import axios from "axios";
+import Alert from "../components/Alert";
 
 export default function RatingPage() {
   const { from } = useParams();
@@ -12,7 +13,10 @@ export default function RatingPage() {
   const [submitButtonStatus, setSubmitButtonStatus] = useState(true);
   const [comment, setComment] = useState("");
   const [userToBeRated, setUserToBeRated] = useState("");
+  const [showAlert, setShowAlert] = useState(false);
+
   const navigate = useNavigate();
+
   useEffect(() => {
     const fetchUserToBeRated = async () => {
       try {
@@ -25,6 +29,14 @@ export default function RatingPage() {
     fetchUserToBeRated();
   }, []);
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    sendRating();
+    setShowAlert(true);
+    setTimeout(() => {
+      navigate("/");
+    }, 3000);
+  }
   const onChangeRating = (e) => {
     setStars(e);
     setSubmitButtonStatus(false);
@@ -44,6 +56,8 @@ export default function RatingPage() {
   };
 
   return (
+    <div>
+{showAlert && <Alert type="success" message="You have succesfully send rating!" />}
     <form>
       <div className="container-xl" style={{ marginTop: 125 }}>
         <div className="row d-flex justify-content-center align-items-center">
@@ -88,11 +102,7 @@ export default function RatingPage() {
                 />
                 <button
                   type="submit"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    sendRating();
-                    navigate("/");
-                  }}
+                  onClick={handleSubmit}
                   disabled={submitButtonStatus}
                   className="btn btn-primary"
                 >
@@ -104,5 +114,6 @@ export default function RatingPage() {
         </div>
       </div>
     </form>
+    </div>
   );
 }
