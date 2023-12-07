@@ -11,6 +11,7 @@ import DescriptionInput from "../components/postAdFormComponents/DescriptionInpu
 import PriceInput from "../components/postAdFormComponents/PriceInput";
 import CategorySelect from "../components/postAdFormComponents/CategorySelect";
 import LocationSelects from "../components/postAdFormComponents/LocationSelects";
+import Alert from "../components/Alert";
 
 import StarsRating from "../components/StarsRating";
 
@@ -19,6 +20,7 @@ export default function AdDetail() {
   const navigate = useNavigate();
   const { id } = useParams();
 
+  const [showAlert, setShowAlert] = useState(false);
   const [adInfos, setAdInfos] = useState(null);
   const [editOrSave, setEditOrSave] = useState(false);
   const [showEditButtonOrNot, setShowEditButtonOrNot] = useState(false);
@@ -40,6 +42,7 @@ export default function AdDetail() {
   const adStatusRef = useRef("");
 
   const handleFinalised = async () => {
+    setShowAlert(true);
     try {
       await axios.post(`${DefaultURL}/mail/send/${adInfos?.worker.email}`, {
         subject: "Please rate your experience!",
@@ -60,7 +63,8 @@ export default function AdDetail() {
         `,
       });
       await axios.put(`http://localhost:8080/ads/finalised/${adInfos?.id}`);
-      navigate(`/`);
+      
+        navigate("/");
     } catch (err) {
       console.log(err);
     }
@@ -215,6 +219,9 @@ export default function AdDetail() {
   };
 
   return (
+    <div>
+{showAlert && <Alert type="success" message="Your ad have succesfully finalised!" />}
+    
     <div className="container-xl">
       <div className="row container-xl" style={{ marginTop: 110 }}>
         {/* Titlu */}
@@ -564,6 +571,7 @@ export default function AdDetail() {
           ) : null}
         </div>
       </div>
+    </div>
     </div>
   );
 }
