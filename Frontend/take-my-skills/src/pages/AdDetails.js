@@ -11,9 +11,10 @@ import DescriptionInput from "../components/postAdFormComponents/DescriptionInpu
 import PriceInput from "../components/postAdFormComponents/PriceInput";
 import CategorySelect from "../components/postAdFormComponents/CategorySelect";
 import LocationSelects from "../components/postAdFormComponents/LocationSelects";
-import Alert from "../components/Alert";
-
 import StarsRating from "../components/StarsRating";
+import ApplyButton from "../components/ApplyButton";
+import Alert from "../components/Alert";
+import Modal from "../components/Modal";
 
 export default function AdDetail() {
   const auth = useAuthUser();
@@ -25,11 +26,10 @@ export default function AdDetail() {
   const [editOrSave, setEditOrSave] = useState(false);
   const [showEditButtonOrNot, setShowEditButtonOrNot] = useState(false);
   const [buttonValue, setButtonValue] = useState("Edit Ad");
-  const [possibleStatuses, setPossibleStatuses] = useState([]);
   const [charactersTextArea, setCharactersTextArea] = useState(0);
   const [countyChosenFullName, setCountyChosenFullName] = useState("");
   const [apply, setApply] = useState(false);
-  const [applyButtonContent, setAppluButtonContent] = useState("Apply");
+  const [applyButtonContent, setApplyButtonContent] = useState("Apply");
   const [loggedUser, setLoggedUser] = useState(null);
   const [isWorkerRefused, setIsWorkerRefused] = useState(false);
 
@@ -56,15 +56,14 @@ export default function AdDetail() {
       await axios.post(`${DefaultURL}/mail/send/${adInfos?.owner.email}`, {
         subject: "Please rate your experience!",
         message: `
-   
         Hello ${adInfos?.owner.name}! The ad  ${adInfos?.title} was successfully finalised. Please rate the owner 
         http://localhost:3000/rating/${adInfos?.owner.id}/${adInfos?.worker.id} 
   
         `,
       });
       await axios.put(`http://localhost:8080/ads/finalised/${adInfos?.id}`);
-      
-        navigate("/");
+
+      navigate("/");
     } catch (err) {
       console.log(err);
     }
@@ -73,7 +72,7 @@ export default function AdDetail() {
   const handleApply = async () => {
     if (!apply) {
       setApply(true);
-      setAppluButtonContent("Cancel Apply");
+      setApplyButtonContent("Cancel Apply");
       setAdInfos(null);
       try {
         await axios.put(`${DefaultURL}/ads/add/${id}/${loggedUser?.name}`);
@@ -83,7 +82,7 @@ export default function AdDetail() {
     } else {
       setApply(false);
       setAdInfos(null);
-      setAppluButtonContent("Apply");
+      setApplyButtonContent("Apply");
       try {
         await axios.put(`${DefaultURL}/ads/delete/${id}/${loggedUser?.name}`);
       } catch (err) {
@@ -135,13 +134,11 @@ export default function AdDetail() {
   const changeEdit = () => {
     if (editOrSave === false) {
       setEditOrSave(true);
-
       setButtonValue("Save");
       setCharactersTextArea(adInfos.description.length);
     } else {
       onSave();
       setEditOrSave(false);
-
       setButtonValue("Edit Profile");
     }
   };
@@ -155,7 +152,7 @@ export default function AdDetail() {
 
   useEffect(() => {
     setApply(adInfos?.worker === null ? false : true);
-    setAppluButtonContent(adInfos?.worker === null ? "Apply" : "Cancel Apply");
+    setApplyButtonContent(adInfos?.worker === null ? "Apply" : "Cancel Apply");
 
     const getAdById = async () => {
       try {
@@ -165,11 +162,6 @@ export default function AdDetail() {
           setAdInfos(data);
         }
         setShowEditButtonOrNot(auth().email === data.owner.email);
-        if (data.worker === null) {
-          setPossibleStatuses(["ACTIVE", "PENDING", "FINALISED"]);
-        } else {
-          setPossibleStatuses(["PENDING", "FINALISED"]);
-        }
       } catch (err) {
         console.log(err);
       }
@@ -220,294 +212,120 @@ export default function AdDetail() {
 
   return (
     <div>
-{showAlert && <Alert type="success" message="Your ad have succesfully finalised!" />}
-    
-    <div className="container-xl">
-      <div className="row container-xl" style={{ marginTop: 110 }}>
-        {/* Titlu */}
-        <div className="card container-xl col-8">
-          <div className="card-body">
-            {editOrSave ? (
-              <>
-                <TitleInput
-                  message={"Choose a short and suggestive title"}
-                  ad={adInfos}
-                  ref={adTitleRef}
-                />
-              </>
-            ) : (
-              <h1>{adInfos?.title}</h1>
-            )}
-            <hr />
-            <div
-              className="mt-4 container-xl text-start"
-              style={{ minHeight: "52vh" }}
-            >
+      {showAlert && (
+        <Alert type="success" message="Your ad have succesfully finalised!" />
+      )}
+
+      <div className="container-xl">
+        <div className="row container-xl" style={{ marginTop: 110 }}>
+          {/* Titlu */}
+          <div className="card container-xl col-8">
+            <div className="card-body">
               {editOrSave ? (
                 <>
-                  <DescriptionInput
+                  <TitleInput
+                    message={"Choose a short and suggestive title"}
                     ad={adInfos}
-                    countingCharactersDescription={
-                      countingCharactersDescription
-                    }
-                    message={charactersTextArea + "/ 1000"}
-                    ref={adDescriptionRef}
+                    ref={adTitleRef}
                   />
                 </>
               ) : (
-                <h5>{adInfos?.description}</h5>
+                <h1>{adInfos?.title}</h1>
               )}
-            </div>
-            {/* Div for Price and Status */}
-            <div className="row">
-              {/* Price */}
-              {editOrSave ? (
-                <div className="mb-4" style={{ height: 50, width: 300 }}>
-                  <label className="form-label fw-bold text-decoration-underline">
-                    Price
-                  </label>
-                  <PriceInput ad={adInfos} ref={adPriceRef} />
-                </div>
-              ) : (
-                <div
-                  className="card text-white bg-success container-xl col-3"
-                  style={{ height: 90 }}
-                >
-                  <div className="card-header">Price</div>
-                  <div className="card-body">
-                    <h5 className="card-title">{adInfos?.price}</h5>
-                  </div>
-                </div>
-              )}
-              {adInfos?.statusOfAd ===
-              "FINALISED" ? null : showEditButtonOrNot ? (
-                <button
-                  className="container-xl col-2 mt-3"
-                  onClick={changeEdit}
-                  style={{
-                    backgroundColor: "#fa6900",
-                    color: "white",
-                    height: 60,
-                  }}
-                >
-                  {buttonValue}
-                </button>
-              ) : loggedUser?.role === "WORKER" ? (
-                <>
-                  {isWorkerRefused ? null : (
-                    <button
-                      className="container-xl col-2 mt-3"
-                      onClick={handleApply}
-                      style={{
-                        backgroundColor: "#fa6900",
-                        color: "white",
-                        height: 60,
-                      }}
-                    >
-                      {applyButtonContent}
-                    </button>
-                  )}
-                </>
-              ) : null}
-              {/* Status */}
-              {editOrSave ? (
-                <div className="mb-4" style={{ height: 50, width: 300 }}>
-                  <label
-                    htmlFor="status"
-                    className="form-label fw-bold text-decoration-underline"
-                  >
-                    Status
-                  </label>
-                  <br></br>
-                  <button
-                    type="button "
-                    className="btn btn-success"
-                    data-bs-toggle="modal"
-                    data-bs-target="#finishModal"
-                  >
-                    Set FINALISED
-                  </button>
-                  <div
-                    className="modal fade"
-                    id="finishModal"
-                    tabindex="-1"
-                    aria-labelledby="finishModalLabel"
-                    aria-hidden="true"
-                  >
-                    <div className="modal-dialog">
-                      <div className="modal-content">
-                        <div className="modal-header">
-                          <h5 className="modal-title" id="finishModalLabel">
-                            Important!
-                          </h5>
-                          <button
-                            type="button"
-                            className="btn-close"
-                            data-bs-dismiss="modal"
-                            aria-label="Close"
-                          ></button>
-                        </div>
-                        <div className="modal-body">
-                          Are you sure you want to set this ad as FINALISED? You
-                          will not be able to edit it ever.
-                        </div>
-                        <div className="modal-footer">
-                          <button
-                            type="button"
-                            className="btn btn-secondary"
-                            data-bs-dismiss="modal"
-                          >
-                            Close
-                          </button>
-                          <button
-                            type="button"
-                            className="btn btn-primary"
-                            onClick={handleFinalised}
-                            data-bs-dismiss="modal"
-                          >
-                            Change it!
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                <div
-                  className={`card text-white bg-${colorDependingOnStatus(
-                    adInfos?.statusOfAd
-                  )} container-xl col-3`}
-                  style={{ height: 90 }}
-                >
-                  <div className="card-header">Status</div>
-                  <div className="card-body">
-                    <h5 className="card-title">{adInfos?.statusOfAd}</h5>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-
-        {/* Profil */}
-        <div className="container-xl col-4">
-          <div className="card">
-            <div className="card-body text-center">
-              <a
-                href={`/profile/${adInfos?.owner.id}`}
-                style={{ textDecoration: "none", color: "inherit" }}
+              <hr />
+              <div
+                className="mt-4 container-xl text-start"
+                style={{ minHeight: "52vh" }}
               >
-                <ProfilePhoto width={"75"} height={"75"} />
-                <h5 className="my-3">{adInfos?.owner.name}</h5>
-              </a>
-              <p className="text-muted mb-1">{adInfos?.owner.role}</p>
-              <StarsRating userRating={adInfos?.owner.averageRating} />
-            </div>
-          </div>
-
-          {editOrSave ? (
-            <>
-              <label className="form-label fw-bold text-decoration-underline mt-4">
-                Category
-              </label>
-              <CategorySelect ref={adTypeOfAdRef} ad={adInfos} />
-            </>
-          ) : null}
-
-          {editOrSave ? (
-            <>
-              <label className="form-label fw-bold text-decoration-underline mt-4">
-                Location
-              </label>
-              <LocationSelects
-                ad={adInfos}
-                refCity={adCityRef}
-                refCounty={adCountyRef}
-                ref={null}
-                countyFullName={(countyName) => {
-                  setCountyChosenFullName(countyName);
-                }}
-              />
-            </>
-          ) : (
-            <>
-              <h4 className="mt-3">
-                {adInfos?.location.nameOfTheCounty},
-                {adInfos?.location.nameOfTheCity}
-              </h4>
-
-              <Map
-                city={adInfos?.location.nameOfTheCity}
-                county={adInfos?.location.nameOfTheCounty}
-              />
-            </>
-          )}
-
-          {/* Card Worker */}
-          <div className="card" style={{ height: 100 }}>
-            {adInfos?.worker ? (
-              <>
-                <a
-                  href={`/profile/${id}`}
-                  style={{ textDecoration: "none", color: "inherit" }}
-                >
-                  <div className="container-xl row text-center">
-                    <div
-                      className="container-xl col-3"
-                      style={{ marginTop: 11 }}
-                    >
-                      <ProfilePhoto width={"75"} height={"75"} />
-                    </div>
-
-                    <div
-                      className="container-xl col-3"
-                      style={{ marginTop: 20 }}
-                    >
-                      <h4>{adInfos?.worker.name}</h4>
-                      <p className="mb-1">{adInfos?.worker.role}</p>
-                    </div>
-
-                    <div
-                      className="container-xl col-6"
-                      style={{ marginTop: 40 }}
-                    >
-                      <div className="container-xl">
-                        <StarsRating
-                          userRating={adInfos?.worker.averageRating}
-                        />
-                      </div>
+                {editOrSave ? (
+                  <>
+                    <DescriptionInput
+                      ad={adInfos}
+                      countingCharactersDescription={
+                        countingCharactersDescription
+                      }
+                      message={charactersTextArea + "/ 1000"}
+                      ref={adDescriptionRef}
+                    />
+                  </>
+                ) : (
+                  <h5>{adInfos?.description}</h5>
+                )}
+              </div>
+              {/* Div for Price and Status */}
+              <div className="row">
+                {/* Price */}
+                {editOrSave ? (
+                  <div className="mb-4" style={{ height: 50, width: 300 }}>
+                    <label className="form-label fw-bold text-decoration-underline">
+                      Price
+                    </label>
+                    <PriceInput ad={adInfos} ref={adPriceRef} />
+                  </div>
+                ) : (
+                  <div
+                    className="card text-white bg-success container-xl col-3"
+                    style={{ height: 90 }}
+                  >
+                    <div className="card-header">Price</div>
+                    <div className="card-body">
+                      <h5 className="card-title">{adInfos?.price}</h5>
                     </div>
                   </div>
-                </a>
-
-                {showEditButtonOrNot ? (
+                )}
+                {adInfos?.statusOfAd ===
+                "FINALISED" ? null : showEditButtonOrNot ? (
+                  <button
+                    className="container-xl col-2 mt-3"
+                    onClick={changeEdit}
+                    style={{
+                      backgroundColor: "#fa6900",
+                      color: "white",
+                      height: 60,
+                    }}
+                  >
+                    {buttonValue}
+                  </button>
+                ) : loggedUser?.role === "WORKER" ? (
                   <>
-                    {adInfos?.statusOfAd === "FINALISED" ? null : (
-                      <button
-                        type="button"
-                        style={{
-                          backgroundColor: "#fa6900",
-                          color: "white",
-                        }}
-                        className="mt-2 "
-                        data-bs-toggle="modal"
-                        data-bs-target="#exampleModal"
-                      >
-                        Delete Worker
-                      </button>
+                    {isWorkerRefused ? null : (
+                      <ApplyButton
+                        applyOrCancel={apply}
+                        onClickFunction={handleApply}
+                        buttonContent={applyButtonContent}
+                      />
                     )}
-
+                  </>
+                ) : null}
+                {/* Status */}
+                {editOrSave ? (
+                  <div className="mb-4" style={{ height: 50, width: 300 }}>
+                    <label
+                      htmlFor="status"
+                      className="form-label fw-bold text-decoration-underline"
+                    >
+                      Status
+                    </label>
+                    <br></br>
+                    <button
+                      type="button "
+                      className="btn btn-success"
+                      data-bs-toggle="modal"
+                      data-bs-target="#finishModal"
+                    >
+                      Set FINALISED
+                    </button>
                     <div
                       className="modal fade"
-                      id="exampleModal"
+                      id="finishModal"
                       tabindex="-1"
-                      aria-labelledby="exampleModalLabel"
+                      aria-labelledby="finishModalLabel"
                       aria-hidden="true"
                     >
                       <div className="modal-dialog">
                         <div className="modal-content">
                           <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">
+                            <h5 className="modal-title" id="finishModalLabel">
                               Important!
                             </h5>
                             <button
@@ -518,7 +336,8 @@ export default function AdDetail() {
                             ></button>
                           </div>
                           <div className="modal-body">
-                            Are you sure you want to delete this worker?
+                            Are you sure you want to set this ad as FINALISED?
+                            You will not be able to edit it ever.
                           </div>
                           <div className="modal-footer">
                             <button
@@ -531,47 +350,219 @@ export default function AdDetail() {
                             <button
                               type="button"
                               className="btn btn-primary"
-                              onClick={deleteWorkerButton}
+                              onClick={handleFinalised}
                               data-bs-dismiss="modal"
                             >
-                              Delete
+                              Change it!
                             </button>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </>
-                ) : null}
+                  </div>
+                ) : (
+                  <div
+                    className={`card text-white bg-${colorDependingOnStatus(
+                      adInfos?.statusOfAd
+                    )} container-xl col-3`}
+                    style={{ height: 90 }}
+                  >
+                    <div className="card-header">Status</div>
+                    <div className="card-body">
+                      <h5 className="card-title">{adInfos?.statusOfAd}</h5>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Profil */}
+          <div className="container-xl col-4">
+            <div className="card">
+              <div className="card-body text-center">
+                <a
+                  href={`/profile/${adInfos?.owner.id}`}
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  <ProfilePhoto width={"75"} height={"75"} />
+                  <h5 className="my-3">{adInfos?.owner.name}</h5>
+                </a>
+                <p className="text-muted mb-1">{adInfos?.owner.role}</p>
+                <StarsRating userRating={adInfos?.owner.averageRating} />
+              </div>
+            </div>
+
+            {editOrSave ? (
+              <>
+                <label className="form-label fw-bold text-decoration-underline mt-4">
+                  Category
+                </label>
+                <CategorySelect ref={adTypeOfAdRef} ad={adInfos} />
+              </>
+            ) : null}
+
+            {editOrSave ? (
+              <>
+                <label className="form-label fw-bold text-decoration-underline mt-4">
+                  Location
+                </label>
+                <LocationSelects
+                  ad={adInfos}
+                  refCity={adCityRef}
+                  refCounty={adCountyRef}
+                  ref={null}
+                  countyFullName={(countyName) => {
+                    setCountyChosenFullName(countyName);
+                  }}
+                />
               </>
             ) : (
               <>
-                {isWorkerRefused ? (
-                  <h5
-                    className="container-xl position-relative top-50 start-50 translate-middle"
-                    style={{ color: "red" }}
-                  >
-                    You have been kicked from this project! <br />
-                    For more informations contact the owner of the ad!
-                  </h5>
-                ) : (
-                  <h4 className="container-xl position-relative top-50 start-50 translate-middle">
-                    No worker has been selected for this project yet!
-                  </h4>
-                )}
+                <h4 className="mt-3">
+                  {adInfos?.location.nameOfTheCounty},
+                  {adInfos?.location.nameOfTheCity}
+                </h4>
+
+                <Map
+                  city={adInfos?.location.nameOfTheCity}
+                  county={adInfos?.location.nameOfTheCounty}
+                />
               </>
             )}
+
+            {/* Card Worker */}
+            <div className="card" style={{ height: 100 }}>
+              {adInfos?.worker ? (
+                <>
+                  <a
+                    href={`/profile/${id}`}
+                    style={{ textDecoration: "none", color: "inherit" }}
+                  >
+                    <div className="container-xl row text-center">
+                      <div
+                        className="container-xl col-3"
+                        style={{ marginTop: 11 }}
+                      >
+                        <ProfilePhoto width={"75"} height={"75"} />
+                      </div>
+
+                      <div
+                        className="container-xl col-3"
+                        style={{ marginTop: 20 }}
+                      >
+                        <h4>{adInfos?.worker.name}</h4>
+                        <p className="mb-1">{adInfos?.worker.role}</p>
+                      </div>
+
+                      <div
+                        className="container-xl col-6"
+                        style={{ marginTop: 40 }}
+                      >
+                        <div className="container-xl">
+                          <StarsRating
+                            userRating={adInfos?.worker.averageRating}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+
+                  {showEditButtonOrNot ? (
+                    <>
+                      {adInfos?.statusOfAd === "FINALISED" ? null : (
+                        <button
+                          type="button"
+                          style={{
+                            backgroundColor: "#fa6900",
+                            color: "white",
+                          }}
+                          className="mt-2 "
+                          data-bs-toggle="modal"
+                          data-bs-target="#exampleModal"
+                        >
+                          Delete Worker
+                        </button>
+                      )}
+
+                      <div
+                        className="modal fade"
+                        id="exampleModal"
+                        tabindex="-1"
+                        aria-labelledby="exampleModalLabel"
+                        aria-hidden="true"
+                      >
+                        <div className="modal-dialog">
+                          <div className="modal-content">
+                            <div className="modal-header">
+                              <h5
+                                className="modal-title"
+                                id="exampleModalLabel"
+                              >
+                                Important!
+                              </h5>
+                              <button
+                                type="button"
+                                className="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                              ></button>
+                            </div>
+                            <div className="modal-body">
+                              Are you sure you want to delete this worker?
+                            </div>
+                            <div className="modal-footer">
+                              <button
+                                type="button"
+                                className="btn btn-secondary"
+                                data-bs-dismiss="modal"
+                              >
+                                Close
+                              </button>
+                              <button
+                                type="button"
+                                className="btn btn-primary"
+                                onClick={deleteWorkerButton}
+                                data-bs-dismiss="modal"
+                              >
+                                Delete
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </>
+                  ) : null}
+                </>
+              ) : (
+                <>
+                  {isWorkerRefused ? (
+                    <h5
+                      className="container-xl position-relative top-50 start-50 translate-middle"
+                      style={{ color: "red" }}
+                    >
+                      You have been kicked from this project! <br />
+                      For more informations contact the owner of the ad!
+                    </h5>
+                  ) : (
+                    <h4 className="container-xl position-relative top-50 start-50 translate-middle">
+                      No worker has been selected for this project yet!
+                    </h4>
+                  )}
+                </>
+              )}
+            </div>
+            {editOrSave ? (
+              <a
+                className="container-xl mt-5 btn btn-primary"
+                href={`/ad/${adInfos?.id}/rejectedworkers`}
+              >
+                Rejected Workers
+              </a>
+            ) : null}
           </div>
-          {editOrSave ? (
-            <a
-              className="container-xl mt-5 btn btn-primary"
-              href={`/ad/${adInfos?.id}/rejectedworkers`}
-            >
-              Rejected Workers
-            </a>
-          ) : null}
         </div>
       </div>
-    </div>
     </div>
   );
 }

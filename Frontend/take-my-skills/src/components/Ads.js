@@ -31,7 +31,7 @@ export default function Ads({ ads }) {
       case "cleaning": {
         return "#61c29e";
       }
-      case "pretcare": {
+      case "petcare": {
         return "#ffa22e";
       }
       case "babysitting": {

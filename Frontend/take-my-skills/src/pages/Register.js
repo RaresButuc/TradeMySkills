@@ -24,7 +24,7 @@ function Register() {
           navigate("/login");
         }, 3000);
         setShowAlert(true);
-        setAlertInfos(["success", "You have succesfully Registered!"]);
+        setAlertInfos(["success", "You have been Succesfully Registered!"]);
         console.log(values.email);
         await axios.post(`${DefaultURL}/mail/send/${values.email}`, {
           subject: "Registration",
@@ -32,7 +32,7 @@ function Register() {
         });
       } else {
         setShowAlert(true);
-        setAlertInfos(["danger", "Email or UserName  already Registered!"]);
+        setAlertInfos(["danger", "Email or UserName  Already Registered!"]);
       }
     } catch (err) {
       if (err instanceof AxiosError) setError(err.response?.data.message);
@@ -57,8 +57,8 @@ function Register() {
   return (
     <div>
       {showAlert && <Alert type={alertInfos[0]} message={alertInfos[1]} />}
-      <form onSubmit={onSave} style={{ marginTop: 85 }}>
-        <div className="container py-5 h-100mb-4 ">
+      <form onSubmit={onSave} style={{ marginTop: 78 }}>
+        <div className="container py-5 h-100">
           <div className="row d-flex justify-content-center align-items-center h-100">
             <div className="col-12 col-md-8 col-lg-6 col-xl-5">
               <div className="card shadow-2-strong">
