@@ -46,12 +46,21 @@ export default function AdDetail() {
         message: `
    
         Hello ${adInfos?.worker.name}! The ad  ${adInfos?.title} was successfully finalised. Please rate the owner 
-        http://localhost:3000/review/${adInfos?.owner.id} 
+        http://localhost:3000/rating/${adInfos?.worker.id}/${adInfos?.owner.id} 
+  
+        `,
+      });
+      await axios.post(`${DefaultURL}/mail/send/${adInfos?.owner.email}`, {
+        subject: "Please rate your experience!",
+        message: `
+   
+        Hello ${adInfos?.owner.name}! The ad  ${adInfos?.title} was successfully finalised. Please rate the owner 
+        http://localhost:3000/rating/${adInfos?.owner.id}/${adInfos?.worker.id} 
   
         `,
       });
       await axios.put(`http://localhost:8080/ads/finalised/${adInfos?.id}`);
-      navigate(`/review/${adInfos?.worker.id}`);
+      navigate(`/`);
     } catch (err) {
       console.log(err);
     }

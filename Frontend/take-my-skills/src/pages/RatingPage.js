@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Rating from "react-rating-stars-component";
 import DefaultURL from "../GlobalVariables";
 import axios from "axios";
@@ -11,7 +12,7 @@ export default function RatingPage() {
   const [submitButtonStatus, setSubmitButtonStatus] = useState(true);
   const [comment, setComment] = useState("");
   const [userToBeRated, setUserToBeRated] = useState("");
-
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchUserToBeRated = async () => {
       try {
@@ -90,6 +91,7 @@ export default function RatingPage() {
                   onClick={(e) => {
                     e.preventDefault();
                     sendRating();
+                    navigate("/");
                   }}
                   disabled={submitButtonStatus}
                   className="btn btn-primary"
