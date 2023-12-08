@@ -69,21 +69,22 @@ export default function AdDetail() {
   };
 
   const handleApply = async () => {
+    console.log("handleApply");
     if (!apply) {
-      setApply(true);
-      setApplyButtonContent("Cancel Apply");
-      setAdInfos(null);
       try {
         await axios.put(`${DefaultURL}/ads/add/${id}/${loggedUser?.name}`);
+        setApply(true);
+        setApplyButtonContent("Cancel Apply");
+        setAdInfos(null);
       } catch (err) {
         console.log(err);
       }
     } else {
-      setApply(false);
-      setAdInfos(null);
-      setApplyButtonContent("Apply");
       try {
         await axios.put(`${DefaultURL}/ads/delete/${id}/${loggedUser?.name}`);
+        setApply(false);
+        setAdInfos(null);
+        setApplyButtonContent("Apply");
       } catch (err) {
         console.log(err);
       }
@@ -151,6 +152,7 @@ export default function AdDetail() {
 
   useEffect(() => {
     setApply(adInfos?.worker === null ? false : true);
+    console.log("set apply useEfect " + apply )
     setApplyButtonContent(adInfos?.worker === null ? "Apply" : "Cancel Apply");
 
     const getAdById = async () => {
