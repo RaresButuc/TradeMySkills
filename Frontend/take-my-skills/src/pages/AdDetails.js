@@ -47,7 +47,6 @@ export default function AdDetail() {
       await axios.post(`${DefaultURL}/mail/send/${adInfos?.worker.email}`, {
         subject: "Please rate your experience!",
         message: `
-   
         Hello ${adInfos?.worker.name}! The ad  ${adInfos?.title} was successfully finalised. Please rate the owner 
         http://localhost:3000/rating/${adInfos?.worker.id}/${adInfos?.owner.id} 
   
@@ -310,6 +309,7 @@ export default function AdDetail() {
                     <button
                       type="button "
                       className="btn btn-success"
+                      disabled={adInfos?.worker === null ? true : false}
                       data-bs-toggle="modal"
                       data-bs-target="#finishModal"
                     >
