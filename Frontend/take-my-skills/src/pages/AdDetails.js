@@ -270,7 +270,7 @@ export default function AdDetail() {
                   >
                     <div className="card-header">Price</div>
                     <div className="card-body">
-                      <h5 className="card-title">{adInfos?.price}</h5>
+                      <h6 className="card-title">{adInfos?.price}</h6>
                     </div>
                   </div>
                 )}
@@ -371,7 +371,7 @@ export default function AdDetail() {
                   >
                     <div className="card-header">Status</div>
                     <div className="card-body">
-                      <h5 className="card-title">{adInfos?.statusOfAd}</h5>
+                      <h6 className="card-title">{adInfos?.statusOfAd}</h6>
                     </div>
                   </div>
                 )}
@@ -539,10 +539,7 @@ export default function AdDetail() {
               ) : (
                 <>
                   {isWorkerRefused ? (
-                    <h5
-                      className="container-xl "
-                      style={{ color: "red" }}
-                    >
+                    <h5 className="container-xl " style={{ color: "red" }}>
                       You have been kicked from this project! <br />
                       For more informations contact the owner of the ad!
                     </h5>
