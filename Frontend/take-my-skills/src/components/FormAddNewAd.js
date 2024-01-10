@@ -105,67 +105,73 @@ export default function FormAddNewAd() {
 
   return (
     <div>
-      {showAlert && <Alert type={alertInfos[0]} message={alertInfos[1]} />}
-      <form style={{ marginTop: 95 }}>
-        <div className="container-xl">
-          <div className="row d-flex justify-content-center align-items-center">
-            <div className="col-12 col-md-8 col-lg-6 col-xl-5">
-              <div className="card shadow-2-strong">
-                <div className="card-body p-5 text-center">
-                  <h1 className="mb-3">Post A New Ad</h1>
-                  <hr />
+      {currentUser?.role === "ROLE_WORKER" ? (
+        navigate("/error")
+      ) : (
+        <>
+          {showAlert && <Alert type={alertInfos[0]} message={alertInfos[1]} />}
+          <form style={{ marginTop: 95 }}>
+            <div className="container-xl">
+              <div className="row d-flex justify-content-center align-items-center">
+                <div className="col-12 col-md-8 col-lg-6 col-xl-5">
+                  <div className="card shadow-2-strong">
+                    <div className="card-body p-5 text-center">
+                      <h1 className="mb-3">Post A New Ad</h1>
+                      <hr />
 
-                  <TitleInput
-                    message={"Choose a short and suggestive title"}
-                    ad={null}
-                    ref={titleOfAd}
-                  />
+                      <TitleInput
+                        message={"Choose a short and suggestive title"}
+                        ad={null}
+                        ref={titleOfAd}
+                      />
 
-                  <DescriptionInput
-                    ad={null}
-                    countingCharactersDescription={
-                      countingCharactersDescription
-                    }
-                    message={charactersTextArea + "/ 1000"}
-                    ref={descriptonOfAd}
-                  />
+                      <DescriptionInput
+                        ad={null}
+                        countingCharactersDescription={
+                          countingCharactersDescription
+                        }
+                        message={charactersTextArea + "/ 1000"}
+                        ref={descriptonOfAd}
+                      />
 
-                  <CategorySelect ref={categoryOfAd} ad={null} />
+                      <CategorySelect ref={categoryOfAd} ad={null} />
 
-                  <PriceInput ad={null} ref={priceOfAd} />
+                      <PriceInput ad={null} ref={priceOfAd} />
 
-                  <LocationSelects
-                    refCity={cityChosen}
-                    refCounty={countyChosenAbrev}
-                    ref={null}
-                    countyFullName={(countyName) => {
-                      setCountyChosenFullName(countyName);
-                    }}
-                  />
+                      <LocationSelects
+                        refCity={cityChosen}
+                        refCounty={countyChosenAbrev}
+                        ref={null}
+                        countyFullName={(countyName) => {
+                          setCountyChosenFullName(countyName);
+                        }}
+                      />
 
-                  <button
-                    type="submit"
-                    className="btn btn-primary btn-lg btn-block"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      postNewAd(
-                        titleOfAd.current.value,
-                        descriptonOfAd.current.value,
-                        categoryOfAd.current.value,
-                        priceOfAd.current.value,
-                        countyChosenFullName,
-                        cityChosen.current.value
-                      );
-                    }}
-                  >
-                    Submit
-                  </button>
+                      <button
+                        type="submit"
+                        className="btn btn-primary btn-lg btn-block"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          postNewAd(
+                            titleOfAd.current.value,
+                            descriptonOfAd.current.value,
+                            categoryOfAd.current.value,
+                            priceOfAd.current.value,
+                            countyChosenFullName,
+                            cityChosen.current.value
+                          );
+                        }}
+                      >
+                        Submit
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </form>
+          </form>
+        </>
+      )}
     </div>
   );
 }
