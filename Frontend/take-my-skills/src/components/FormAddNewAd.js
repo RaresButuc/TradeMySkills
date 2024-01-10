@@ -1,8 +1,9 @@
-import { useEffect } from "react";
-import { useState, useRef } from "react";
-import { useAuthUser } from "react-auth-kit";
+import { useAuthUser, useAuthHeader } from "react-auth-kit";
 import { useNavigate } from "react-router-dom";
+import { useState, useRef } from "react";
+import { useEffect } from "react";
 import axios from "axios";
+
 import TitleInput from "./postAdFormComponents/TitleInput";
 import DescriptionInput from "./postAdFormComponents/DescriptionInput";
 import PriceInput from "./postAdFormComponents/PriceInput";
@@ -27,6 +28,8 @@ export default function FormAddNewAd() {
   const priceOfAd = useRef(0);
   const cityChosen = useRef("");
   const countyChosenAbrev = useRef("");
+
+  const token = useAuthHeader();
 
   useEffect(() => {
     const fetchCurrentUser = async () => {
@@ -61,15 +64,20 @@ export default function FormAddNewAd() {
         countyAd !== "" &&
         cityAd !== ""
       ) {
-        
-        const response = await axios.post(`${DefaultURL}/ads/post`, {
-          title: titleAd,
-          description: descriptionAd,
-          typeOfAd: { id: categoryAd },
-          price: priceAd,
-          owner: { id: currentUser?.id },
-          location: { nameOfTheCounty: countyAd, nameOfTheCity: cityAd },
-        });
+        const headers = { Authorization: token() };
+
+        const response = await axios.post(
+          `${DefaultURL}/ads/post`,
+          {
+            title: titleAd,
+            description: descriptionAd,
+            typeOfAd: { id: categoryAd },
+            price: priceAd,
+            owner: { id: currentUser?.id },
+            location: { nameOfTheCounty: countyAd, nameOfTheCity: cityAd },
+          },
+          { headers }
+        );
 
         if (response.status === 200) {
           setShowAlert(true);
