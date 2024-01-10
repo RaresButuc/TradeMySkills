@@ -69,21 +69,22 @@ export default function AdDetail() {
   };
 
   const handleApply = async () => {
+    console.log("handleApply");
     if (!apply) {
-      setApply(true);
-      setApplyButtonContent("Cancel Apply");
-      setAdInfos(null);
       try {
         await axios.put(`${DefaultURL}/ads/add/${id}/${loggedUser?.name}`);
+        setApply(true);
+        setApplyButtonContent("Cancel Apply");
+        setAdInfos(null);
       } catch (err) {
         console.log(err);
       }
     } else {
-      setApply(false);
-      setAdInfos(null);
-      setApplyButtonContent("Apply");
       try {
         await axios.put(`${DefaultURL}/ads/delete/${id}/${loggedUser?.name}`);
+        setApply(false);
+        setAdInfos(null);
+        setApplyButtonContent("Apply");
       } catch (err) {
         console.log(err);
       }
@@ -151,6 +152,7 @@ export default function AdDetail() {
 
   useEffect(() => {
     setApply(adInfos?.worker === null ? false : true);
+    console.log("set apply useEfect " + apply);
     setApplyButtonContent(adInfos?.worker === null ? "Apply" : "Cancel Apply");
 
     const getAdById = async () => {
@@ -218,7 +220,7 @@ export default function AdDetail() {
       <div className="container-xl">
         <div className="row container-xl" style={{ marginTop: 110 }}>
           {/* Titlu */}
-          <div className="card container-xl col-8">
+          <div className="card container-xl col-xl-8 col-md-8 col-sm-12">
             <div className="card-body">
               {editOrSave ? (
                 <>
@@ -268,7 +270,7 @@ export default function AdDetail() {
                   >
                     <div className="card-header">Price</div>
                     <div className="card-body">
-                      <h5 className="card-title">{adInfos?.price}</h5>
+                      <h6 className="card-title">{adInfos?.price}</h6>
                     </div>
                   </div>
                 )}
@@ -369,7 +371,7 @@ export default function AdDetail() {
                   >
                     <div className="card-header">Status</div>
                     <div className="card-body">
-                      <h5 className="card-title">{adInfos?.statusOfAd}</h5>
+                      <h6 className="card-title">{adInfos?.statusOfAd}</h6>
                     </div>
                   </div>
                 )}
@@ -378,7 +380,7 @@ export default function AdDetail() {
           </div>
 
           {/* Profil */}
-          <div className="container-xl col-4">
+          <div className="container-xl col-xl-4 col-md-4 col-sm-12 my-sm-3  my-xl-0 my-md-0">
             <div className="card">
               <div className="card-body text-center">
                 <a
@@ -432,7 +434,7 @@ export default function AdDetail() {
             )}
 
             {/* Card Worker */}
-            <div className="card" style={{ height: 100 }}>
+            <div className="mt-3 border border-dark">
               {adInfos?.worker ? (
                 <>
                   <a
@@ -537,17 +539,14 @@ export default function AdDetail() {
               ) : (
                 <>
                   {isWorkerRefused ? (
-                    <h5
-                      className="container-xl position-relative top-50 start-50 translate-middle"
-                      style={{ color: "red" }}
-                    >
+                    <h5 className="container-xl " style={{ color: "red" }}>
                       You have been kicked from this project! <br />
                       For more informations contact the owner of the ad!
                     </h5>
                   ) : (
-                    <h4 className="container-xl position-relative top-50 start-50 translate-middle">
+                    <h5 className="container-xl my-4">
                       No worker has been selected for this project yet!
-                    </h4>
+                    </h5>
                   )}
                 </>
               )}

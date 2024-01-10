@@ -28,7 +28,7 @@ export default function Map({ city, county }) {
 
   return (
     <iframe
-      className="mb-3"
+      className="mb-3 "
       width="400"
       height="200"
       src={generateMapURL()}
