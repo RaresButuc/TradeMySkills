@@ -23,7 +23,7 @@ public class AdController {
         return adService.getAllAdsByCategFilterOrInput(typeofcategory, typeOfSort, input);
     }
 
-    @PostMapping
+    @PostMapping("/post")
     public void addAd(@RequestBody Ad ad) {
         adService.addAd(ad);
     }

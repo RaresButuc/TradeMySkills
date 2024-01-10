@@ -68,7 +68,7 @@ export default function Profile({ id }) {
                 <ProfilePhoto width={"110"} height={"110"} />
 
                 <h5 className="my-3">{currentUser?.name}</h5>
-                <p className="text-muted mb-1">{currentUser?.role}</p>
+                <p className="text-muted mb-1">{currentUser?.role.slice(5)}</p>
 
                 <StarsRating userRating={currentUser?.averageRating} />
                 <div className="d-flex justify-content-center mb-4"></div>
@@ -153,7 +153,7 @@ export default function Profile({ id }) {
             <div className="row">
               <div className="d-grid gap-1 ">
                 {/* buton cu verde pentru oferte active */}
-                {currentUser?.role === "WORKER" ? (
+                {currentUser?.role === "ROLE_WORKER" ? (
                   <a
                     className="btn btn-warning font-weight-bold  mx-1  "
                     aria-current="page"

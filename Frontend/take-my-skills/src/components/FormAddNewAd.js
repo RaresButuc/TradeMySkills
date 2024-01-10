@@ -61,12 +61,13 @@ export default function FormAddNewAd() {
         countyAd !== "" &&
         cityAd !== ""
       ) {
-        const response = await axios.post(`${DefaultURL}/ads`, {
+        
+        const response = await axios.post(`${DefaultURL}/ads/post`, {
           title: titleAd,
           description: descriptionAd,
           typeOfAd: { id: categoryAd },
           price: priceAd,
-          owner: { id: currentUser.id },
+          owner: { id: currentUser?.id },
           location: { nameOfTheCounty: countyAd, nameOfTheCity: cityAd },
         });
 

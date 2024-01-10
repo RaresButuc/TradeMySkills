@@ -285,7 +285,7 @@ export default function AdDetail() {
                   >
                     {buttonValue}
                   </button>
-                ) : loggedUser?.role === "WORKER" ? (
+                ) : loggedUser?.role === "ROLE_WORKER" ? (
                   <>
                     {isWorkerRefused ? null : (
                       <ApplyButton

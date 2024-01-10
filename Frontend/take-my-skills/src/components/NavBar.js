@@ -114,7 +114,7 @@ const NavBar = () => {
                           Profile
                         </a>
                       </li>
-                      {currentUser?.role === "CUSTOMER" ? (
+                      {currentUser?.role === "ROLE_CUSTOMER" ? (
                         <li>
                           <a className="dropdown-item" href="/post-ads">
                             Post New Add

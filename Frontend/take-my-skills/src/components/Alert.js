@@ -1,6 +1,6 @@
 export default function Alert({ type, message }) {
   return (
-    <div className={`alert alert-${type} fixed-bottom`} role="alert">
+    <div className={`container-xl alert alert-${type} fixed-bottom`} role="alert">
       {message}
     </div>
   );

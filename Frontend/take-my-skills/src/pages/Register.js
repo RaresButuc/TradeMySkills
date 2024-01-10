@@ -119,8 +119,8 @@ function Register() {
                         <option selected disabled>
                           Choose A Role
                         </option>
-                        <option value="CUSTOMER">Customer</option>
-                        <option value="WORKER">Worker</option>
+                        <option value="ROLE_CUSTOMER">Customer</option>
+                        <option value="ROLE_WORKER">Worker</option>
                       </select>
                     </div>
 

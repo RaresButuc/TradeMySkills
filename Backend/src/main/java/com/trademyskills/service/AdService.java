@@ -9,7 +9,6 @@ import com.trademyskills.service.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -42,7 +41,7 @@ public class AdService {
         assert workerUser != null;
         assert currentAd != null;
 
-        if (workerUser.getRole() == Role.WORKER) {
+        if (workerUser.getRole() == Role.ROLE_WORKER) {
 
 
             switch (typeOfAction) {
@@ -240,9 +239,9 @@ public class AdService {
         StatusOfAd statusOfAd = StatusOfAd.getByName(stringStatusOfAd);
         assert user != null;
 
-        if (user.getRole() == Role.CUSTOMER) {
+        if (user.getRole() == Role.ROLE_CUSTOMER) {
             return user.getAdsOwned().stream().filter(e -> e.getStatusOfAd() == statusOfAd).distinct().toList();
-        } else if (user.getRole() == Role.WORKER) {
+        } else if (user.getRole() == Role.ROLE_WORKER) {
             return user.getAdsAttends().stream().filter(e -> e.getStatusOfAd() == statusOfAd).distinct().toList();
         }
         return null;
