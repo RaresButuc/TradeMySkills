@@ -4,6 +4,7 @@ import com.trademyskills.model.Ad;
 import com.trademyskills.model.User;
 import com.trademyskills.service.AdService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,8 +20,8 @@ public class AdController {
     }
 
     @GetMapping
-    public List<Ad> getAllAds(@RequestParam(name = "category", required = false) String typeofcategory, @RequestParam(name = "sort", required = false) String typeOfSort, @RequestParam(name = "input", required = false) String input) {
-        return adService.getAllAdsByCategFilterOrInput(typeofcategory, typeOfSort, input);
+    public Page<Ad> getAllAds(@RequestParam(name = "category", required = false) String typeofcategory, @RequestParam(name = "sort", required = false) String typeOfSort, @RequestParam(name = "input", required = false) String input, @RequestParam(name = "currentPage") int currentPage, @RequestParam(name = "itemsPerPage") int itemsPerPage) {
+        return adService.getAllAdsByCategFilterOrInput(typeofcategory, typeOfSort, input,currentPage,itemsPerPage);
     }
 
     @PostMapping("/post")

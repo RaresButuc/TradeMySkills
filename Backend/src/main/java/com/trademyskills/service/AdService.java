@@ -7,6 +7,9 @@ import com.trademyskills.model.User;
 import com.trademyskills.service.repository.AdRepository;
 import com.trademyskills.service.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,8 +27,9 @@ public class AdService {
         this.userRepository = userRepository;
     }
 
-    public List<Ad> getAllAds() {
-        return adRepository.findAll();
+    public Page<Ad> getAllAds(int currentPage, int itemsPerPage) {
+        PageRequest pageRequest = PageRequest.of(currentPage, itemsPerPage);
+        return adRepository.findAll(pageRequest);
     }
 
     public void addAd(Ad ad) {
@@ -85,23 +89,26 @@ public class AdService {
         return adRepository.findById(id).orElse(null);
     }
 
-    public List<Ad> findAdsByTypeOfAd(String title) {
-        return adRepository.findByTypeOfAdNameOfCategory(title);
+    public Page<Ad> findAdsByTypeOfAd(String title, int currentPage, int itemsPerPage) {
+        PageRequest pageRequest = PageRequest.of(currentPage, itemsPerPage);
+        return adRepository.findByTypeOfAdNameOfCategory(title, pageRequest);
     }
 
-    public List<Ad> orderAllBy(String typeOfSort) {
+    public Page<Ad> orderAllBy(String typeOfSort, int currentPage, int itemsPerPage) {
+        PageRequest pageRequest = PageRequest.of(currentPage, itemsPerPage);
+
         switch (typeOfSort) {
             case "title-asc" -> {
-                return adRepository.findAllByOrderByTitleAsc();
+                return adRepository.findAllByOrderByTitleAsc(pageRequest);
             }
             case "title-desc" -> {
-                return adRepository.findAllByOrderByTitleDesc();
+                return adRepository.findAllByOrderByTitleDesc(pageRequest);
             }
             case "price-asc" -> {
-                return adRepository.findAllByOrderByPriceAsc();
+                return adRepository.findAllByOrderByPriceAsc(pageRequest);
             }
             case "price-desc" -> {
-                return adRepository.findAllByOrderByPriceDesc();
+                return adRepository.findAllByOrderByPriceDesc(pageRequest);
             }
             default -> {
                 return null;
@@ -109,19 +116,21 @@ public class AdService {
         }
     }
 
-    public List<Ad> getAllByCategoryOrdered(String title, String typeOfSort) {
+    public Page<Ad> getAllByCategoryOrdered(String title, String typeOfSort, int currentPage, int itemsPerPage) {
+        PageRequest pageRequest = PageRequest.of(currentPage, itemsPerPage);
+
         switch (typeOfSort) {
             case "title-asc" -> {
-                return adRepository.findByTypeOfAdNameOfCategoryOrderByTitleAsc(title);
+                return adRepository.findByTypeOfAdNameOfCategoryOrderByTitleAsc(title, pageRequest);
             }
             case "title-desc" -> {
-                return adRepository.findByTypeOfAdNameOfCategoryOrderByTitleDesc(title);
+                return adRepository.findByTypeOfAdNameOfCategoryOrderByTitleDesc(title, pageRequest);
             }
             case "price-asc" -> {
-                return adRepository.findByTypeOfAdNameOfCategoryOrderByPriceAsc(title);
+                return adRepository.findByTypeOfAdNameOfCategoryOrderByPriceAsc(title, pageRequest);
             }
             case "price-desc" -> {
-                return adRepository.findByTypeOfAdNameOfCategoryOrderByPriceDesc(title);
+                return adRepository.findByTypeOfAdNameOfCategoryOrderByPriceDesc(title, pageRequest);
             }
             default -> {
                 return null;
@@ -129,19 +138,21 @@ public class AdService {
         }
     }
 
-    public List<Ad> getAllByInputOrdered(String input, String typeOfSort) {
+    public Page<Ad> getAllByInputOrdered(String input, String typeOfSort, int currentPage, int itemsPerPage) {
+        PageRequest pageRequest = PageRequest.of(currentPage, itemsPerPage);
+
         switch (typeOfSort) {
             case "title-asc" -> {
-                return adRepository.findAllByTitleContainingIgnoreCaseOrderByTitleAsc(input);
+                return adRepository.findAllByTitleContainingIgnoreCaseOrderByTitleAsc(input, pageRequest);
             }
             case "title-desc" -> {
-                return adRepository.findAllByTitleContainingIgnoreCaseOrderByTitleDesc(input);
+                return adRepository.findAllByTitleContainingIgnoreCaseOrderByTitleDesc(input, pageRequest);
             }
             case "price-asc" -> {
-                return adRepository.findAllByTitleContainingIgnoreCaseOrderByPriceAsc(input);
+                return adRepository.findAllByTitleContainingIgnoreCaseOrderByPriceAsc(input, pageRequest);
             }
             case "price-desc" -> {
-                return adRepository.findAllByTitleContainingIgnoreCaseOrderByPriceDesc(input);
+                return adRepository.findAllByTitleContainingIgnoreCaseOrderByPriceDesc(input, pageRequest);
             }
             default -> {
                 return null;
@@ -149,19 +160,21 @@ public class AdService {
         }
     }
 
-    public List<Ad> getAllByInputAndCategoryOrdered(String input, String category, String typeOfSort) {
+    public Page<Ad> getAllByInputAndCategoryOrdered(String input, String category, String typeOfSort, int currentPage, int itemsPerPage) {
+        PageRequest pageRequest = PageRequest.of(currentPage, itemsPerPage);
+
         switch (typeOfSort) {
             case "title-asc" -> {
-                return adRepository.findAllByTypeOfAdNameOfCategoryAndTitleContainingIgnoreCaseOrderByTitleAsc(category, input);
+                return adRepository.findAllByTypeOfAdNameOfCategoryAndTitleContainingIgnoreCaseOrderByTitleAsc(category, input, pageRequest);
             }
             case "title-desc" -> {
-                return adRepository.findAllByTypeOfAdNameOfCategoryAndTitleContainingIgnoreCaseOrderByTitleDesc(category, input);
+                return adRepository.findAllByTypeOfAdNameOfCategoryAndTitleContainingIgnoreCaseOrderByTitleDesc(category, input, pageRequest);
             }
             case "price-asc" -> {
-                return adRepository.findAllByTypeOfAdNameOfCategoryAndTitleContainingIgnoreCaseOrderByPriceAsc(category, input);
+                return adRepository.findAllByTypeOfAdNameOfCategoryAndTitleContainingIgnoreCaseOrderByPriceAsc(category, input, pageRequest);
             }
             case "price-desc" -> {
-                return adRepository.findAllByTypeOfAdNameOfCategoryAndTitleContainingIgnoreCaseOrderByPriceDesc(category, input);
+                return adRepository.findAllByTypeOfAdNameOfCategoryAndTitleContainingIgnoreCaseOrderByPriceDesc(category, input, pageRequest);
             }
             default -> {
                 return null;
@@ -169,41 +182,45 @@ public class AdService {
         }
     }
 
-    public List<Ad> search(String input) {
-        return adRepository.findAllByTitleContainingIgnoreCase(input);
+    public Page<Ad> search(String input, int currentPage, int itemsPerPage) {
+        PageRequest pageRequest = PageRequest.of(currentPage, itemsPerPage);
+
+        return adRepository.findAllByTitleContainingIgnoreCase(input, pageRequest);
     }
 
-    public List<Ad> searchByTitleAndCategory(String category, String input) {
-        return adRepository.findAllByTypeOfAdNameOfCategoryAndTitleContainingIgnoreCase(category, input);
+    public Page<Ad> searchByTitleAndCategory(String category, String input, int currentPage, int itemsPerPage) {
+        PageRequest pageRequest = PageRequest.of(currentPage, itemsPerPage);
+
+        return adRepository.findAllByTypeOfAdNameOfCategoryAndTitleContainingIgnoreCase(category, input, pageRequest);
     }
 
-    public List<Ad> getAllAdsByCategFilterOrInput(String typeofcategory, String typeOfSort, String input) {
+    public Page<Ad> getAllAdsByCategFilterOrInput(String typeofcategory, String typeOfSort, String input, int currentPage, int itemsPerPage) {
         if (typeofcategory.equals("null")) {
             if (typeOfSort.equals("null")) {
                 if (input.equals("null")) {
-                    return getActiveAds(getAllAds());
+                    return getActiveAds(getAllAds(currentPage, itemsPerPage));
                 } else {
-                    return getActiveAds(search(input));
+                    return getActiveAds(search(input, currentPage, itemsPerPage));
                 }
             } else {
                 if (input.equals("null")) {
-                    return getActiveAds(orderAllBy(typeOfSort));
+                    return getActiveAds(orderAllBy(typeOfSort, currentPage, itemsPerPage));
                 } else {
-                    return getActiveAds(getAllByInputOrdered(input, typeOfSort));
+                    return getActiveAds(getAllByInputOrdered(input, typeOfSort, currentPage, itemsPerPage));
                 }
             }
         } else {
             if (typeOfSort.equals("null")) {
                 if (input.equals("null")) {
-                    return getActiveAds(findAdsByTypeOfAd(typeofcategory));
+                    return getActiveAds(findAdsByTypeOfAd(typeofcategory, currentPage, itemsPerPage));
                 } else {
-                    return getActiveAds(searchByTitleAndCategory(typeofcategory, input));
+                    return getActiveAds(searchByTitleAndCategory(typeofcategory, input, currentPage, itemsPerPage));
                 }
             } else {
                 if (input.equals("null")) {
-                    return getActiveAds(getAllByCategoryOrdered(typeofcategory, typeOfSort));
+                    return getActiveAds(getAllByCategoryOrdered(typeofcategory, typeOfSort, currentPage, itemsPerPage));
                 } else {
-                    return getActiveAds(getAllByInputAndCategoryOrdered(input, typeofcategory, typeOfSort));
+                    return getActiveAds(getAllByInputAndCategoryOrdered(input, typeofcategory, typeOfSort, currentPage, itemsPerPage));
                 }
             }
         }
@@ -247,8 +264,12 @@ public class AdService {
         return null;
     }
 
-    public List<Ad> getActiveAds(List<Ad> adsList) {
-        return adsList.stream().filter(e -> e.getStatusOfAd() == StatusOfAd.ACTIVE).toList();
+    public Page<Ad> getActiveAds(Page<Ad> adsList) {
+        List<Ad> filteredAds = adsList.getContent().stream()
+                .filter(e -> e.getStatusOfAd() == StatusOfAd.ACTIVE)
+                .toList();
+
+        return new PageImpl<>(filteredAds, adsList.getPageable(), filteredAds.size());
     }
 
     public List<User> getRejectedWorkers(Long id) {
