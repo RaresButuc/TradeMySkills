@@ -20,8 +20,8 @@ public class AdController {
     }
 
     @GetMapping
-    public Page<Ad> getAllAds(@RequestParam(name = "category", required = false) String typeofcategory, @RequestParam(name = "sort", required = false) String typeOfSort, @RequestParam(name = "input", required = false) String input, @RequestParam(name = "currentPage") int currentPage, @RequestParam(name = "itemsPerPage") int itemsPerPage) {
-        return adService.getAllAdsByCategFilterOrInput(typeofcategory, typeOfSort, input,currentPage,itemsPerPage);
+    public Page<Ad> getAllAds(@RequestParam(name = "category", required = false) String typeofcategory, @RequestParam(name = "sort", required = false) String typeOfSort, @RequestParam(name = "input", required = false) String input, @RequestParam(name = "currentpage") int currentPage, @RequestParam(name = "itemsperpage") int itemsPerPage) {
+        return adService.getAllAdsByCategFilterOrInput(typeofcategory, typeOfSort, input, currentPage, itemsPerPage);
     }
 
     @PostMapping("/post")

@@ -66,7 +66,7 @@ const NavBar = () => {
                 <a
                   className="nav-link font-weight-bold  mx-2"
                   aria-current="page"
-                  href="/all-ads"
+                  href="/all-ads?pagenumber=1"
                 >
                   View All Ads
                 </a>
