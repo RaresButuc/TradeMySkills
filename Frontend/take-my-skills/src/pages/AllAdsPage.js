@@ -48,8 +48,16 @@ export default function AllOffer() {
 
   return (
     <div>
-      {currentPageNumber > paginationDetails?.totalPages ||
-      currentPageNumber < 1 ? (
+      {paginationDetails?.totalPages == 0 ? (
+        <>
+          <Category />
+          <Filter />
+          <h1 style={{ marginTop: 210 }}>
+            <strong>No Ads found</strong>
+          </h1>
+        </>
+      ) : currentPageNumber > paginationDetails?.totalPages ||
+        currentPageNumber < 1 ? (
         <ErrorPage />
       ) : (
         <>
