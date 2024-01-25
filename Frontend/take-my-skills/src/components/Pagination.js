@@ -1,40 +1,31 @@
-import { useState } from "react";
+import ReactPaginate from "react-paginate";
 import changeLink from "../shared/utils";
 
 export default function Pagination({ elements }) {
   const currentPageNumber = elements?.pageable.pageNumber + 1;
 
   return (
-    <div className="d-flex justify-content-center">
-      <nav>
-        <ul class="pagination">
-          <li class={`page-item ${elements?.first ? "disabled" : ""}`}>
-            <a
-              class="page-link"
-              onClick={() => changeLink("pagenumber", currentPageNumber - 1)}
-            >
-              Previous
-            </a>
-          </li>
-          {/* {elements &&
-            elements.map((element, index) => (
-              <li class="page-item">
-                <a class="page-link" href="#">
-                  1
-                </a>
-              </li>
-            ))} */}
-
-          <li class={`page-item ${elements?.last ? "disabled" : ""}`}>
-            <a
-              class="page-link"
-              onClick={() => changeLink("pagenumber", currentPageNumber + 1)}
-            >
-              Next
-            </a>
-          </li>
-        </ul>
-      </nav>
+    <div className="d-flex justify-content-center mt-5">
+      <ReactPaginate
+        previousLabel="Previous Page"
+        nextLabel="Next"
+        breakLabel="..."
+        breakClassName="page-item"
+        breakLinkClassName="page-link"
+        pageCount={elements?.totalPages}
+        pageRangeDisplayed={2}
+        marginPagesDisplayed={2}
+        onPageChange={(e) => changeLink("pagenumber", e.selected + 1)}
+        containerClassName="pagination justify-content-center"
+        pageClassName="page-item"
+        pageLinkClassName="page-link"
+        previousClassName="page-item"
+        previousLinkClassName="page-link"
+        nextClassName="page-item"
+        nextLinkClassName="page-link"
+        activeClassName="active"
+        forcePage={elements?.number}
+      />
     </div>
   );
 }
