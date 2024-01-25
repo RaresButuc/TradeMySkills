@@ -6,7 +6,7 @@ body {
   text-align: center;
 }
 
-.navbar{
+.navbar {
   text-align: start;
 }
 
@@ -887,4 +887,8 @@ textarea {
 
 .vader:hover .eyes .right {
   background: #455caa;
+}
+
+.page-link {
+  color: #127e80;
 }

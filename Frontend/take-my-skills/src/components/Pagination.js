@@ -2,12 +2,11 @@ import ReactPaginate from "react-paginate";
 import changeLink from "../shared/utils";
 
 export default function Pagination({ elements }) {
-  const currentPageNumber = elements?.pageable.pageNumber + 1;
 
   return (
     <div className="d-flex justify-content-center mt-5">
       <ReactPaginate
-        previousLabel="Previous Page"
+        previousLabel="Previous"
         nextLabel="Next"
         breakLabel="..."
         breakClassName="page-item"
