@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import changeLink from "../shared/utils";
 import DefaultURL from "../GlobalVariables";
-
+import writeAWordWithoutFullUppercase from "../shared/WordUppercase";
 import construction from "../photo/icons/Construction.png";
 import confections from "../photo/icons/Confections.png";
 import cooking from "../photo/icons/Cooking.png";
@@ -45,11 +45,7 @@ const ListGroup = () => {
     fetchCategories();
   }, []);
 
-  const writeAWordWithoutFullUppercase = (adCategory) => {
-    return (
-      adCategory.charAt(0).toUpperCase() + adCategory.slice(1).toLowerCase()
-    );
-  };
+
 
   return (
     <div className="container-xl">

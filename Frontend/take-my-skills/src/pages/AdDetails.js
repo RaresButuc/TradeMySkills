@@ -14,7 +14,7 @@ import LocationSelects from "../components/postAdFormComponents/LocationSelects"
 import StarsRating from "../components/StarsRating";
 import ApplyButton from "../components/ApplyButton";
 import Alert from "../components/Alert";
-import Modal from "../components/Modal";
+
 
 export default function AdDetail() {
   const auth = useAuthUser();

@@ -1,13 +1,9 @@
 import logoMap from "../photo/icons/MapPointer.png";
 import logoMoney from "../photo/icons/PayMoney.png";
+import writeAWordWithoutFullUppercase from "../shared/WordUppercase"
 
 export default function Ads({ ads }) {
-  const writeAWordWithoutFullUppercase = (adCategory) => {
-    return (
-      adCategory.charAt(0).toUpperCase() + adCategory.slice(1).toLowerCase()
-    );
-  };
-
+  
   const colorAdDependingOnCategory = (ad) => {
     switch (ad.typeOfAd.nameOfCategory) {
       case "constructions": {

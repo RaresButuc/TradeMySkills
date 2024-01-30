@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import DefaultURL from "../GlobalVariables";
 import Ads from "./Ads";
 import axios from "axios";
+import writeAWordWithoutFullUppercase from "../shared/WordUppercase";
 
 export default function AdsByStatusPage({ status }) {
   const [adsByStatus, setAdsByStatus] = useState(null);
@@ -25,9 +26,6 @@ export default function AdsByStatusPage({ status }) {
     fetchAdsByStatus();
   }, []);
 
-  const writeAWordWithoutFullUppercase = (status) => {
-    return status.charAt(0).toUpperCase() + status.slice(1).toLowerCase();
-  };
 
   return (
     <div className="container-xl" style={{ marginTop: 100 }}>
