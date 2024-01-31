@@ -16,13 +16,13 @@ public class ChangePasswordLinkController {
         this.changePasswordLinkService = changePasswordLinkService;
     }
 
-    @PostMapping("/post")
-    public void addPassLink(@RequestBody ChangePasswordLink changePasswordLink) {
-        changePasswordLinkService.addNewLink(changePasswordLink);
+    @GetMapping("/valid/{uuid}")
+    public boolean validateLink(@PathVariable("uuid") String uuid) {
+        return changePasswordLinkService.verifyIsClosed(uuid);
     }
 
-    @GetMapping("/valid")
-    public boolean validateLink(@RequestBody ChangePasswordLink changePasswordLink) {
-        return changePasswordLinkService.verifyIsClosed(changePasswordLink);
+    @GetMapping("/getemail/{uuid}")
+    public String getEmailByUuid(@PathVariable("uuid") String uuid) {
+        return changePasswordLinkService.getEmailByUUID(uuid);
     }
 }

@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ChangePasswordLinkRepository extends JpaRepository<ChangePasswordLink, Long> {
+    ChangePasswordLink findByUuid(String uuid);
 }

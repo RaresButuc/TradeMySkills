@@ -1,21 +1,26 @@
 package com.trademyskills.service;
 
+import com.trademyskills.model.ChangePasswordLink;
 import com.trademyskills.model.MailStructure;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
-@Service
-public class MailService {
-    @Autowired
-    private JavaMailSender mailSender;
+import java.time.LocalDateTime;
+import java.util.UUID;
 
-    public void sendMail (String mail, MailStructure mailStructure){
+@Service
+@RequiredArgsConstructor
+public class MailService {
+    private final JavaMailSender mailSender;
+    private final ChangePasswordLinkService changePasswordLinkService;
+
+    public void sendMail(String mail, MailStructure mailStructure) {
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         simpleMailMessage.setSubject(mailStructure.getSubject());
         simpleMailMessage.setText(mailStructure.getMessage());
@@ -23,11 +28,13 @@ public class MailService {
 
 
         mailSender.send(simpleMailMessage);
-
     }
 
 
-    public void sendSetPasswordEmail(String email) throws MessagingException{
+    public void sendSetPasswordEmail(String email) throws MessagingException {
+        String uuid = UUID.randomUUID().toString();
+        changePasswordLinkService.addNewLink(uuid, email);
+
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage);
         mimeMessageHelper.setTo(email);
@@ -37,7 +44,7 @@ public class MailService {
                 <h5>Trade-My-Skills Support Here!</h5>
                 <a href="http://localhost:3000/change-forget-password/%s" target="_blank">  Click here to set a new Password </a>
                 </div>
-                """.formatted(email),true);
+                """.formatted(uuid), true);
         mailSender.send(mimeMessage);
     }
 

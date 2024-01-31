@@ -37,7 +37,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/forget-password" element={<ForgetPassword />} />
             <Route
-              path="/change-forget-password/:email"
+              path="/change-forget-password/:uuid"
               element={<ChangePasswordPageNoAuth />}
             />
             <Route path="/all-ads" element={<AdsPage />} />
