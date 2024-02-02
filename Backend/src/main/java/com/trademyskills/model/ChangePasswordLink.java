@@ -25,6 +25,4 @@ public class ChangePasswordLink {
 
     private LocalDateTime createdDate;
 
-    private boolean isClosed;
-
 }

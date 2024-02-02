@@ -73,8 +73,8 @@ public class UserController {
     }
 
     @PutMapping("/set-password")
-    public ResponseEntity<String> setPassword(@RequestParam String email, @RequestHeader String newPassword) {
-        return new ResponseEntity<>(userService.setPassword(email, newPassword), HttpStatus.OK);
+    public ResponseEntity<String> setPassword(@RequestParam String email, @RequestParam String uuid,@RequestHeader String newPassword) {
+        return new ResponseEntity<>(userService.setPassword(email, newPassword,uuid), HttpStatus.OK);
     }
 
     @PutMapping("/{id}/change-password")

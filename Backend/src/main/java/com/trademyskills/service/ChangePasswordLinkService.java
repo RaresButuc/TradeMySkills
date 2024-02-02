@@ -15,16 +15,13 @@ public class ChangePasswordLinkService {
 
     //    Verifica daca exista emailul in baza de date
     public void addNewLink(String uuid, String email) {
-        changePasswordLinkRepository.save(new ChangePasswordLink(0L, uuid, email, LocalDateTime.now(), false));
+        changePasswordLinkRepository.save(new ChangePasswordLink(0L, uuid, email, LocalDateTime.now()));
     }
 
     public boolean verifyIsClosed(String uuid) {
         ChangePasswordLink changePasswordLink = changePasswordLinkRepository.findByUuid(uuid);
 
-        changePasswordLink.setClosed(changePasswordLink.getCreatedDate().until(LocalDateTime.now(), ChronoUnit.MINUTES) > 1);
-        changePasswordLinkRepository.save(changePasswordLink);
-
-        return changePasswordLink.getCreatedDate().until(LocalDateTime.now(), ChronoUnit.MINUTES) > 1;
+        return changePasswordLink.getCreatedDate().until(LocalDateTime.now(), ChronoUnit.MINUTES) > 0;
     }
 
     public String getEmailByUUID(String uuid) {

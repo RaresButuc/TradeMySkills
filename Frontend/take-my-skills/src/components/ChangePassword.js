@@ -48,7 +48,9 @@ export default function ChangePassword({ email, uuid }) {
         setUUIDAvailable(dataAvailable);
 
         if (!dataAvailable) {
-          const reqByUUID = await axios.get(`${DefaultURL}/changepassword/getemail/${uuid}`);
+          const reqByUUID = await axios.get(
+            `${DefaultURL}/changepassword/getemail/${uuid}`
+          );
           setUuidEmail(reqByUUID.data);
         }
       } catch (err) {
@@ -76,8 +78,8 @@ export default function ChangePassword({ email, uuid }) {
 
     try {
       if (!isAuthenticated()) {
-        await axios.put(
-          `http://localhost:8080/users/set-password?email=${uuidEmail}`,
+        const response = await axios.put(
+          `http://localhost:8080/users/set-password?email=${uuidEmail}&uuid=${uuid}`,
           {},
           {
             headers: {
@@ -85,9 +87,24 @@ export default function ChangePassword({ email, uuid }) {
             },
           }
         );
-        setTimeout(() => {
-          navigate("/login");
-        }, 3000);
+        console.log(response.data);
+        if (response.data.includes("Congratulations")) {
+          console.log("Succes");
+          setShowAlert(true);
+          setAlertInfos(["success", response.data]);
+
+          setTimeout(() => {
+            navigate("/login");
+          }, 3000);
+        } else {
+          console.log("fail");
+          setShowAlert(true);
+          setAlertInfos(["danger", response.data]);
+
+          setTimeout(() => {
+            navigate("/forget-password");
+          }, 3000);
+        }
       } else {
         await axios.put(
           `http://localhost:8080/users/${userInfos?.id}/change-password`,
@@ -99,12 +116,13 @@ export default function ChangePassword({ email, uuid }) {
         setTimeout(() => {
           navigate("/myprofile");
         }, 3000);
+        setShowAlert(true);
+        setAlertInfos(["success", "Password successfully changed!"]);
       }
-      setShowAlert(true);
-      setAlertInfos(["success", "Password successfully changed!"]);
     } catch (err) {
       if (err instanceof AxiosError) setError(err.response?.data.message);
       else if (err instanceof Error) setError(err.message);
+      console.log(err);
       setShowAlert(true);
       setAlertInfos([
         "danger",
@@ -192,7 +210,7 @@ export default function ChangePassword({ email, uuid }) {
           </div>
         </form>
       ) : (
-        <h1>
+        <h1 className="container-xl position-absolute top-50 start-50 translate-middle">
           This Page Was Available Only for 10 Minutes.
           <br />
           Please Demand a New Email Request from{" "}

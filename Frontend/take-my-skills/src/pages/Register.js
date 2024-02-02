@@ -28,7 +28,7 @@ function Register() {
         console.log(values.email);
         await axios.post(`${DefaultURL}/mail/send/${values.email}`, {
           subject: "Registration",
-          message: `Congratulation ${values.name} ! You are now ${values.role} on TradeMySkills.com.`,
+          message: `Congratulation ${values.name} ! You are now a ${values.role.substring(5)} on TradeMySkills.com.`,
         });
       } else {
         setShowAlert(true);

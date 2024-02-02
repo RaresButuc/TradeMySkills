@@ -1,7 +1,9 @@
 package com.trademyskills.service;
 
+import com.trademyskills.model.ChangePasswordLink;
 import com.trademyskills.model.Rating;
 import com.trademyskills.model.User;
+import com.trademyskills.service.repository.ChangePasswordLinkRepository;
 import com.trademyskills.service.repository.UserRepository;
 import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +18,17 @@ public class UserService {
     private final UserRepository userRepository;
     private final MailService mailService;
     private final PasswordEncoder passwordEncoder;
+    private final ChangePasswordLinkRepository changePasswordLinkRepository;
+
+    private final ChangePasswordLinkService changePasswordLinkService;
 
     @Autowired
-    public UserService(UserRepository userRepository, MailService mailService, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, MailService mailService, PasswordEncoder passwordEncoder, ChangePasswordLinkRepository changePasswordLinkRepository, ChangePasswordLinkService changePasswordLinkService) {
         this.userRepository = userRepository;
         this.mailService = mailService;
         this.passwordEncoder = passwordEncoder;
+        this.changePasswordLinkRepository = changePasswordLinkRepository;
+        this.changePasswordLinkService = changePasswordLinkService;
     }
 
     public List<User> getAllUsers() {
@@ -52,23 +59,28 @@ public class UserService {
 
 
     public String forgotPassword(String email) {
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found with this email: " + email));
         try {
-            mailService.sendSetPasswordEmail(email);
+            if (userRepository.findByEmail(email).isPresent()) {
+                mailService.sendSetPasswordEmail(email);
+            }
         } catch (MessagingException e) {
-            throw new RuntimeException("Unable to send set password email. Please try again");
+            return "'Change Password Link' couldn't be send. Make you you wrote the right Email Address";
         }
-        return "Please check your email to set your password";
+        return "Please check your Email to Set Your Password";
     }
 
-    public String setPassword(String email, String newPassword) {
+    public String setPassword(String email, String newPassword, String uuid) {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found with this email: " + email));
+        ChangePasswordLink changePasswordLink = changePasswordLinkRepository.findByUuid(uuid);
 
-        user.setPassword(passwordEncoder.encode(newPassword));
-        userRepository.save(user);
-        return "New password set successfully";
+        if (changePasswordLink.getEmail().equals(email) && !changePasswordLinkService.verifyIsClosed(uuid)) {
+            System.out.println(changePasswordLinkService.verifyIsClosed(uuid));
+            user.setPassword(passwordEncoder.encode(newPassword));
+            userRepository.save(user);
+            return "Congratulations! The New Password Was Set Successfully!";
+        }
+        return "Error! Request a 'New Password Change Request' by Email and Try again!";
     }
 
     public boolean changePasswordAndVerifyOldPassword(Long id, String newPassword, String actualPassword) {
