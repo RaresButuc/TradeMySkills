@@ -390,7 +390,7 @@ export default function AdDetail() {
                   <ProfilePhoto width={"75"} height={"75"} />
                   <h5 className="my-3">{adInfos?.owner.name}</h5>
                 </a>
-                <p className="text-muted mb-1">{adInfos?.owner.role}</p>
+                <p className="text-muted mb-1">{adInfos?.owner.role.substring(5)}</p>
                 <StarsRating userRating={adInfos?.owner.averageRating} />
               </div>
             </div>
@@ -438,28 +438,28 @@ export default function AdDetail() {
               {adInfos?.worker ? (
                 <>
                   <a
-                    href={`/profile/${id}`}
+                    href={`/profile/${adInfos?.worker.id}`}
                     style={{ textDecoration: "none", color: "inherit" }}
                   >
                     <div className="container-xl row text-center">
                       <div
                         className="container-xl col-3"
-                        style={{ marginTop: 11 }}
+                        style={{ marginTop: 10,marginBottom:10 }}
                       >
                         <ProfilePhoto width={"75"} height={"75"} />
                       </div>
 
                       <div
                         className="container-xl col-3"
-                        style={{ marginTop: 20 }}
+                        style={{ marginTop: 19 }}
                       >
                         <h4>{adInfos?.worker.name}</h4>
-                        <p className="mb-1">{adInfos?.worker.role}</p>
+                        <p className="mb-1">{adInfos?.worker.role.substring(5)}</p>
                       </div>
 
                       <div
                         className="container-xl col-6"
-                        style={{ marginTop: 40 }}
+                        style={{ marginTop: 29 }}
                       >
                         <div className="container-xl">
                           <StarsRating

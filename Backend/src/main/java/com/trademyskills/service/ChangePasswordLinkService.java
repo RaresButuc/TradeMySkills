@@ -13,7 +13,6 @@ import java.time.temporal.ChronoUnit;
 public class ChangePasswordLinkService {
     private final ChangePasswordLinkRepository changePasswordLinkRepository;
 
-    //    Verifica daca exista emailul in baza de date
     public void addNewLink(String uuid, String email) {
         changePasswordLinkRepository.save(new ChangePasswordLink(0L, uuid, email, LocalDateTime.now()));
     }
@@ -21,7 +20,7 @@ public class ChangePasswordLinkService {
     public boolean verifyIsClosed(String uuid) {
         ChangePasswordLink changePasswordLink = changePasswordLinkRepository.findByUuid(uuid);
 
-        return changePasswordLink.getCreatedDate().until(LocalDateTime.now(), ChronoUnit.MINUTES) > 0;
+        return changePasswordLink.getCreatedDate().until(LocalDateTime.now(), ChronoUnit.MINUTES) > 60;
     }
 
     public String getEmailByUUID(String uuid) {

@@ -87,9 +87,8 @@ export default function ChangePassword({ email, uuid }) {
             },
           }
         );
-        console.log(response.data);
+
         if (response.data.includes("Congratulations")) {
-          console.log("Succes");
           setShowAlert(true);
           setAlertInfos(["success", response.data]);
 
@@ -97,7 +96,6 @@ export default function ChangePassword({ email, uuid }) {
             navigate("/login");
           }, 3000);
         } else {
-          console.log("fail");
           setShowAlert(true);
           setAlertInfos(["danger", response.data]);
 
@@ -211,7 +209,7 @@ export default function ChangePassword({ email, uuid }) {
         </form>
       ) : (
         <h1 className="container-xl position-absolute top-50 start-50 translate-middle">
-          This Page Was Available Only for 10 Minutes.
+          This Page Was Available Only for 60 Minutes.
           <br />
           Please Demand a New Email Request from{" "}
           <a href="http://localhost:3000/forget-password">This Page</a>!

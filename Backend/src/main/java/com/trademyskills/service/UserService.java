@@ -60,13 +60,11 @@ public class UserService {
 
     public String forgotPassword(String email) {
         try {
-            if (userRepository.findByEmail(email).isPresent()) {
-                mailService.sendSetPasswordEmail(email);
-            }
+            mailService.sendSetPasswordEmail(email);
+            return "Please check your Email to Set Your Password";
         } catch (MessagingException e) {
-            return "'Change Password Link' couldn't be send. Make you you wrote the right Email Address";
+            return "An Unexpected Error has Occurred!";
         }
-        return "Please check your Email to Set Your Password";
     }
 
     public String setPassword(String email, String newPassword, String uuid) {

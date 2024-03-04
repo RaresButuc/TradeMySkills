@@ -83,7 +83,7 @@ export default function FormAddNewAd() {
           setShowAlert(true);
           setAlertInfos(["success", "Your Ad was Succesfully Posted!"]);
           setTimeout(() => {
-            navigate("/all-ads");
+            navigate("/all-ads?pagenumber=1");
           }, 3000);
         } else {
           console.error(`HTTP Error: ${response.status}`);
