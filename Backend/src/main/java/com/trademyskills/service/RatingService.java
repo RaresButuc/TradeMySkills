@@ -27,10 +27,13 @@ public class RatingService {
     }
 
     public void addRating(Rating rating) {
-        User userToRating = rating.getTo();
-        ratingRepository.save(rating);
+        boolean alreadyRated  = rating.getTo().getReceivedRatings().stream().anyMatch(e-> e.getFrom().getId().equals(rating.getFrom().getId()));
+        if(!rating.getTo().getId().equals(rating.getFrom().getId()) && !alreadyRated) {
+                    User userToRating = rating.getTo();
+            ratingRepository.save(rating);
 
-        userService.updateAverageRating(userToRating.getId(), rating.getStar());
+            userService.updateAverageRating(userToRating.getId(), rating.getStar());
+        }
     }
 
     public Rating getRatingById(Long id) {
