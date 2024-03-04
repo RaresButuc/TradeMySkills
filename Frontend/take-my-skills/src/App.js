@@ -63,7 +63,7 @@ function App() {
               element={<ChangePasswordPageAuth />}
             />
             <Route
-              path="/rating/:from/:to"
+              path="/rating/:to"
               element={
                 <RequireAuth loginPath="/login">
                   <RatingPage />
