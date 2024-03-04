@@ -3,6 +3,7 @@ package com.trademyskills.controller;
 import com.trademyskills.model.Ad;
 import com.trademyskills.model.User;
 import com.trademyskills.service.AdService;
+import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
@@ -45,7 +46,7 @@ public class AdController {
     }
 
     @PutMapping("/{setStatus}/{id}")
-    public void updateAdAs(@PathVariable("id") Long id, @PathVariable("setStatus") String status) {
+    public void updateAdAs(@PathVariable("id") Long id, @PathVariable("setStatus") String status) throws MessagingException {
         adService.setStatusOfAd(id, status);
     }
 //    @PutMapping("/add/{id}/{nameOfWorker}")

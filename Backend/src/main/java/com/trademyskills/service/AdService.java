@@ -6,6 +6,7 @@ import com.trademyskills.model.Ad;
 import com.trademyskills.model.User;
 import com.trademyskills.service.repository.AdRepository;
 import com.trademyskills.service.repository.UserRepository;
+import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -226,9 +227,13 @@ public class AdService {
         return new PageImpl<>(sublist, pageRequest, filteredAds.size());
     }
 
-    public void setStatusOfAd(Long id, String stringStatusOfAd) {
+    public void setStatusOfAd(Long id, String stringStatusOfAd) throws MessagingException {
         Ad adFormDb = adRepository.findById(id).orElse(null);
         assert adFormDb != null;
+        if(stringStatusOfAd.equals("FINALISED")){
+            mailService.sendGiveRating(adFormDb.getOwner().getEmail(),adFormDb.getTitle(),adFormDb.getWorker().getId());
+            mailService.sendGiveRating(adFormDb.getWorker().getEmail(),adFormDb.getTitle(),adFormDb.getOwner().getId());
+        }
         adFormDb.setStatusOfAd(StatusOfAd.getByName(stringStatusOfAd));
 
         adRepository.save(adFormDb);

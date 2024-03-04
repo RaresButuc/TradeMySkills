@@ -27,12 +27,10 @@ public class RatingService {
     }
 
     public void addRating(Rating rating) {
-//        boolean alreadyRated = false;
-//        List<Rating> allRating = getAllRatings();
-//        if (allRating != null) {
+
         boolean alreadyRated = getAllRatings().stream()
                 .anyMatch(e -> e.getFrom().getId().equals(rating.getFrom().getId()) && e.getTo().getId().equals(rating.getTo().getId()));
-//        }
+
         if (!rating.getTo().getId().equals(rating.getFrom().getId()) && !alreadyRated) {
             User userToRating = rating.getTo();
             ratingRepository.save(rating);
