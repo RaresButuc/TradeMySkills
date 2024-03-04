@@ -230,7 +230,7 @@ public class AdService {
     public void setStatusOfAd(Long id, String stringStatusOfAd) throws MessagingException {
         Ad adFormDb = adRepository.findById(id).orElse(null);
         assert adFormDb != null;
-        if(stringStatusOfAd.equals("FINALISED")){
+        if(stringStatusOfAd.equals("finalised")){
             mailService.sendGiveRating(adFormDb.getOwner().getEmail(),adFormDb.getTitle(),adFormDb.getWorker().getId());
             mailService.sendGiveRating(adFormDb.getWorker().getEmail(),adFormDb.getTitle(),adFormDb.getOwner().getId());
         }
