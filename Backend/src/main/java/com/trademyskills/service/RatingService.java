@@ -12,8 +12,6 @@ import java.util.List;
 @Service
 public class RatingService {
     private final RatingRepository ratingRepository;
-
-    //    private final UserRepository userRepository;
     private final UserService userService;
 
     @Autowired
@@ -28,8 +26,7 @@ public class RatingService {
 
     public void addRating(Rating rating) {
 
-        boolean alreadyRated = getAllRatings().stream()
-                .anyMatch(e -> e.getFrom().getId().equals(rating.getFrom().getId()) && e.getTo().getId().equals(rating.getTo().getId()));
+        boolean alreadyRated = verifyAlreadyRated(rating.getFrom().getId(), rating.getTo().getId());
 
         if (!rating.getTo().getId().equals(rating.getFrom().getId()) && !alreadyRated) {
             User userToRating = rating.getTo();
@@ -39,14 +36,20 @@ public class RatingService {
         }
     }
 
+    public boolean verifyAlreadyRated(Long from, Long to) {
+        return getAllRatings().stream()
+                .anyMatch(e -> e.getFrom().getId().equals(from) && e.getTo().getId().equals(to));
+    }
+
     public Rating getRatingById(Long id) {
         return ratingRepository.findById(id).orElse(null);
     }
 
     public void updateRatingById(Long id, Rating ratingUpdater) {
         Rating ratingFromDb = ratingRepository.findById(id).orElse(null);
-        ;
+
         assert ratingFromDb != null;
+
         ratingFromDb.setComment(ratingUpdater.getComment());
         ratingFromDb.setStar(ratingUpdater.getStar());
         ratingRepository.save(ratingFromDb);

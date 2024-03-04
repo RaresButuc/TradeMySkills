@@ -32,6 +32,11 @@ public class RatingController {
         return ratingService.getRatingById(id);
     }
 
+    @GetMapping("/{from}/{to}")
+    public boolean isAlreadyRated(@PathVariable("from") Long from, @PathVariable("to") Long to) {
+        return ratingService.verifyAlreadyRated(from, to);
+    }
+
     @PutMapping("/{id}")
     public void updateRatingById(@PathVariable("id") Long id, @RequestBody Rating updatedRating) {
         ratingService.updateRatingById(id, updatedRating);
