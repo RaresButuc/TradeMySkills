@@ -1,12 +1,11 @@
 package com.trademyskills.service;
 
 import com.trademyskills.model.ChangePasswordLink;
-import com.trademyskills.model.Rating;
 import com.trademyskills.model.User;
 import com.trademyskills.service.repository.ChangePasswordLinkRepository;
 import com.trademyskills.service.repository.UserRepository;
 import jakarta.mail.MessagingException;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +13,7 @@ import java.text.DecimalFormat;
 import java.util.*;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
     private final MailService mailService;
@@ -22,14 +22,7 @@ public class UserService {
 
     private final ChangePasswordLinkService changePasswordLinkService;
 
-    @Autowired
-    public UserService(UserRepository userRepository, MailService mailService, PasswordEncoder passwordEncoder, ChangePasswordLinkRepository changePasswordLinkRepository, ChangePasswordLinkService changePasswordLinkService) {
-        this.userRepository = userRepository;
-        this.mailService = mailService;
-        this.passwordEncoder = passwordEncoder;
-        this.changePasswordLinkRepository = changePasswordLinkRepository;
-        this.changePasswordLinkService = changePasswordLinkService;
-    }
+
 
     public List<User> getAllUsers() {
         return userRepository.findAll();

@@ -7,7 +7,7 @@ import com.trademyskills.auth.RegisterRequest;
 import com.trademyskills.model.ChangePasswordRequest;
 import com.trademyskills.model.User;
 import com.trademyskills.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,16 +15,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping(value = "/users")
 public class UserController {
     private final UserService userService;
     private final AuthenticationService service;
 
-    @Autowired
-    public UserController(UserService userService, AuthenticationService service) {
-        this.userService = userService;
-        this.service = service;
-    }
+
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/register")

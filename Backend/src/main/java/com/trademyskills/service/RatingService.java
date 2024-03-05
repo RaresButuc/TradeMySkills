@@ -3,22 +3,16 @@ package com.trademyskills.service;
 import com.trademyskills.model.Rating;
 import com.trademyskills.model.User;
 import com.trademyskills.service.repository.RatingRepository;
-import com.trademyskills.service.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@RequiredArgsConstructor
 @Service
 public class RatingService {
     private final RatingRepository ratingRepository;
     private final UserService userService;
 
-    @Autowired
-    public RatingService(RatingRepository ratingRepository, UserService userService) {
-        this.ratingRepository = ratingRepository;
-        this.userService = userService;
-    }
 
     public List<Rating> getAllRatings() {
         return ratingRepository.findAll();

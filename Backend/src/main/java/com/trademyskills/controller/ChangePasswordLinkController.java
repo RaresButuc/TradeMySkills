@@ -1,20 +1,16 @@
 package com.trademyskills.controller;
 
-import com.trademyskills.model.Ad;
-import com.trademyskills.model.ChangePasswordLink;
 import com.trademyskills.service.ChangePasswordLinkService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/changepassword")
 public class ChangePasswordLinkController {
     private final ChangePasswordLinkService changePasswordLinkService;
 
-    @Autowired
-    public ChangePasswordLinkController(ChangePasswordLinkService changePasswordLinkService) {
-        this.changePasswordLinkService = changePasswordLinkService;
-    }
+
 
     @GetMapping("/valid/{uuid}")
     public boolean validateLink(@PathVariable("uuid") String uuid) {

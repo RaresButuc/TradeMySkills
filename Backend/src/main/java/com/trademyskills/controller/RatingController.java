@@ -2,20 +2,18 @@ package com.trademyskills.controller;
 
 import com.trademyskills.model.Rating;
 import com.trademyskills.service.RatingService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/ratings")
 public class RatingController {
-    private RatingService ratingService;
+    private final RatingService ratingService;
 
-    @Autowired
-    public RatingController(RatingService ratingService) {
-        this.ratingService = ratingService;
-    }
+
 
     @GetMapping
     public List<Rating> getAllRatings() {
