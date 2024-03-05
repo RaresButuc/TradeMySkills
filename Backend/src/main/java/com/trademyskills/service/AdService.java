@@ -1,38 +1,54 @@
 package com.trademyskills.service;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.trademyskills.enums.Role;
 import com.trademyskills.enums.StatusOfAd;
 import com.trademyskills.model.Ad;
+import com.trademyskills.model.LocationOfAd;
 import com.trademyskills.model.User;
 import com.trademyskills.service.repository.AdRepository;
 import com.trademyskills.service.repository.UserRepository;
 import jakarta.mail.MessagingException;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class AdService {
     private final MailService mailService;
     private final AdRepository adRepository;
     private final UserRepository userRepository;
+    private final RestTemplate restTemplate;
+    private final ObjectMapper objectMapper;
 
-    @Autowired
-    public AdService(MailService mailService, AdRepository adRepository, UserRepository userRepository) {
-        this.mailService = mailService;
-        this.adRepository = adRepository;
-        this.userRepository = userRepository;
-    }
+
 
     public List<Ad> getAllAds() {
         return adRepository.findAll();
     }
 
+
+
     public void addAd(Ad ad) {
+        String apiUrl = "https://geocode.maps.co/search?city="+ad.getLocation().getNameOfTheCity()+"&county="+ad.getLocation().getNameOfTheCounty()+"&country=Romania";
+        JsonNode response = restTemplate.getForObject(apiUrl, JsonNode.class);
+
+        assert response != null;
+        Double latitude = response.get(0).get("lat").asDouble();
+        Double longitude = response.get(0).get("lon").asDouble();
+
+        ad.setLocation(new LocationOfAd(ad.getLocation().getNameOfTheCity(), ad.getLocation().getNameOfTheCounty(), latitude, longitude));
+
+
         ad.setStatusOfAd(StatusOfAd.ACTIVE);
         adRepository.save(ad);
     }

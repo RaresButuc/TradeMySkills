@@ -13,4 +13,6 @@ import lombok.*;
 public class LocationOfAd {
     String nameOfTheCounty;
     String nameOfTheCity;
+    Double latitude;
+    Double longitude;
 }
