@@ -17,7 +17,6 @@ import Alert from "../components/Alert";
 
 export default function AdDetail() {
   const auth = useAuthUser();
-  const navigate = useNavigate();
   const { id } = useParams();
 
   const [showAlert, setShowAlert] = useState(false);
@@ -413,8 +412,8 @@ export default function AdDetail() {
                 </h4>
 
                 <Map
-                  city={adInfos?.location.nameOfTheCity}
-                  county={adInfos?.location.nameOfTheCounty}
+                  lat={adInfos?.location.latitude}
+                  lon={adInfos?.location.longitude}
                 />
               </>
             )}
