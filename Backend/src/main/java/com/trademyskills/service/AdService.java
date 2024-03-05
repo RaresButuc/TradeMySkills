@@ -28,7 +28,7 @@ public class AdService {
     private final AdRepository adRepository;
     private final UserRepository userRepository;
     private final RestTemplate restTemplate;
-    private final ObjectMapper objectMapper;
+
 
 
 
@@ -39,14 +39,9 @@ public class AdService {
 
 
     public void addAd(Ad ad) {
-        String apiUrl = "https://geocode.maps.co/search?city="+ad.getLocation().getNameOfTheCity()+"&county="+ad.getLocation().getNameOfTheCounty()+"&country=Romania";
-        JsonNode response = restTemplate.getForObject(apiUrl, JsonNode.class);
+       LocationOfAd location = createLocationWothCoordonates(ad.getLocation().getNameOfTheCity(),ad.getLocation().getNameOfTheCounty());
 
-        assert response != null;
-        Double latitude = response.get(0).get("lat").asDouble();
-        Double longitude = response.get(0).get("lon").asDouble();
-
-        ad.setLocation(new LocationOfAd(ad.getLocation().getNameOfTheCity(), ad.getLocation().getNameOfTheCounty(), latitude, longitude));
+        ad.setLocation(location);
 
 
         ad.setStatusOfAd(StatusOfAd.ACTIVE);
@@ -259,11 +254,10 @@ public class AdService {
     public void updateAdById(Long id, Ad adUpdater) {
         Ad adFromDb = adRepository.findById(id).orElse(null);
         assert adFromDb != null;
-        adFromDb.setStatusOfAd(adUpdater.getStatusOfAd());
         adFromDb.setTitle(adUpdater.getTitle());
         adFromDb.setDescription(adUpdater.getDescription());
         adFromDb.setPrice(adUpdater.getPrice());
-        adFromDb.setLocation(adUpdater.getLocation());
+        adFromDb.setLocation(createLocationWothCoordonates(adUpdater.getLocation().getNameOfTheCity(),adUpdater.getLocation().getNameOfTheCounty()));
         adFromDb.setTypeOfAd(adUpdater.getTypeOfAd());
         adRepository.save(adFromDb);
     }
@@ -293,6 +287,18 @@ public class AdService {
 
     public List<User> getRejectedWorkers(Long id) {
         return getAdById(id).getRejectedWorkers();
+    }
+
+
+    private LocationOfAd createLocationWothCoordonates(String city, String county){
+        String apiUrl = "https://geocode.maps.co/search?city="+city+"&county="+county+"&country=Romania";
+        JsonNode response = restTemplate.getForObject(apiUrl, JsonNode.class);
+
+        assert response != null;
+        Double latitude = response.get(0).get("lat").asDouble();
+        Double longitude = response.get(0).get("lon").asDouble();
+
+        return new LocationOfAd(county,city,latitude,longitude);
     }
 
 }
