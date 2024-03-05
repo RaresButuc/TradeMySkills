@@ -15,7 +15,6 @@ import StarsRating from "../components/StarsRating";
 import ApplyButton from "../components/ApplyButton";
 import Alert from "../components/Alert";
 
-
 export default function AdDetail() {
   const auth = useAuthUser();
   const navigate = useNavigate();
@@ -23,6 +22,7 @@ export default function AdDetail() {
 
   const [showAlert, setShowAlert] = useState(false);
   const [adInfos, setAdInfos] = useState(null);
+  const [adChange, setAdChange] = useState(true);
   const [editOrSave, setEditOrSave] = useState(false);
   const [showEditButtonOrNot, setShowEditButtonOrNot] = useState(false);
   const [buttonValue, setButtonValue] = useState("Edit Ad");
@@ -62,7 +62,7 @@ export default function AdDetail() {
       });
       await axios.put(`http://localhost:8080/ads/finalised/${adInfos?.id}`);
 
-      navigate("/");
+      navigate(`/ad/${adInfos?.id}`);
     } catch (err) {
       console.log(err);
     }
@@ -98,6 +98,7 @@ export default function AdDetail() {
         message: `Hello ${adInfos?.worker.name}! Unfortunately you have been kicked from ${adInfos?.title}. For more informations contact owner.`,
       });
       await axios.put(`${DefaultURL}/ads/delete/${id}/${adInfos?.worker.name}`);
+      setAdChange(!adChange);
     } catch (err) {
       console.log(err);
     }
@@ -194,7 +195,7 @@ export default function AdDetail() {
     getAdById();
     getUserByEmail();
     isWorkerRefused();
-  }, [adInfos]);
+  }, [adInfos,adChange]);
 
   const colorDependingOnStatus = (status) => {
     switch (status) {
@@ -390,7 +391,9 @@ export default function AdDetail() {
                   <ProfilePhoto width={"75"} height={"75"} />
                   <h5 className="my-3">{adInfos?.owner.name}</h5>
                 </a>
-                <p className="text-muted mb-1">{adInfos?.owner.role.substring(5)}</p>
+                <p className="text-muted mb-1">
+                  {adInfos?.owner.role.substring(5)}
+                </p>
                 <StarsRating userRating={adInfos?.owner.averageRating} />
               </div>
             </div>
@@ -444,7 +447,7 @@ export default function AdDetail() {
                     <div className="container-xl row text-center">
                       <div
                         className="container-xl col-3"
-                        style={{ marginTop: 10,marginBottom:10 }}
+                        style={{ marginTop: 10, marginBottom: 10 }}
                       >
                         <ProfilePhoto width={"75"} height={"75"} />
                       </div>
@@ -454,18 +457,18 @@ export default function AdDetail() {
                         style={{ marginTop: 19 }}
                       >
                         <h4>{adInfos?.worker.name}</h4>
-                        <p className="mb-1">{adInfos?.worker.role.substring(5)}</p>
+                        <p className="mb-1">
+                          {adInfos?.worker.role.substring(5)}
+                        </p>
                       </div>
 
                       <div
-                        className="container-xl col-6"
+                        className="container-xl col-6 ps-4"
                         style={{ marginTop: 29 }}
                       >
-                        <div className="container-xl">
-                          <StarsRating
-                            userRating={adInfos?.worker.averageRating}
-                          />
-                        </div>
+                        <StarsRating
+                          userRating={adInfos?.worker.averageRating}
+                        />
                       </div>
                     </div>
                   </a>
@@ -479,7 +482,7 @@ export default function AdDetail() {
                             backgroundColor: "#fa6900",
                             color: "white",
                           }}
-                          className="mt-2 "
+                          className="mt-2 mb-2"
                           data-bs-toggle="modal"
                           data-bs-target="#exampleModal"
                         >
