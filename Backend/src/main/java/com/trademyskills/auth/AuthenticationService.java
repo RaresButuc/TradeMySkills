@@ -31,8 +31,9 @@ public class AuthenticationService {
             repository.save(user);
             var jwtToken = jwtService.generateToken(user);
             return AuthenticationResponse.builder().token(jwtToken).build();
+        } else {
+            throw new IllegalStateException("Error! Email or UserName is already registered!Please try again!");
         }
-        return null;
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
