@@ -6,6 +6,7 @@ import com.trademyskills.service.AdService;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,8 +24,9 @@ public class AdController {
     }
 
     @PostMapping("/post")
-    public void addAd(@RequestBody Ad ad) {
+    public ResponseEntity<String> addAd(@RequestBody Ad ad) {
         adService.addAd(ad);
+        return ResponseEntity.ok("Ad `"+ad.getTitle()+"` was successfully posted!");
     }
 
     @GetMapping("/{id}")
@@ -38,27 +40,28 @@ public class AdController {
     }
 
     @PutMapping("/{id}")
-    public void updateAdById(@PathVariable("id") Long id, @RequestBody Ad updatedAd) {
+    public ResponseEntity<String> updateAdById(@PathVariable("id") Long id, @RequestBody Ad updatedAd) {
         adService.updateAdById(id, updatedAd);
+        return ResponseEntity.ok("Ad `"+ updatedAd.getTitle()+"` was successfully updated!");
     }
 
     @PutMapping("/{setStatus}/{id}")
-    public void updateAdAs(@PathVariable("id") Long id, @PathVariable("setStatus") String status) throws MessagingException {
+    public ResponseEntity<String> updateAdAs(@PathVariable("id") Long id, @PathVariable("setStatus") String status) throws MessagingException {
         adService.setStatusOfAd(id, status);
+        return ResponseEntity.ok("Tha status of ad was successfully updated!");
     }
-//    @PutMapping("/add/{id}/{nameOfWorker}")
-//    public void addWorkerToAd(@PathVariable("id") Long id, @PathVariable("nameOfWorker") String nameOfWorker) {
-//        adService.addWorkerToAd(nameOfWorker, id);
-//    }
 
     @PutMapping("/{typeOfAction}/{id}/{nameOfWorker}")
-    public void deleteOrAddWorker(@PathVariable("typeOfAction") String typeOfAction, @PathVariable("id") Long id, @PathVariable("nameOfWorker") String nameOfWorker) {
+    public ResponseEntity<String> deleteOrAddWorker(@PathVariable("typeOfAction") String typeOfAction, @PathVariable("id") Long id, @PathVariable("nameOfWorker") String nameOfWorker) {
         adService.addOrDeleteWorker(nameOfWorker, id, typeOfAction);
+
+        return ResponseEntity.ok("Success!");
     }
 
     @PutMapping("/rejected/remove/{id}/{nameOfWorker}")
-    public void deleteOrAddWorker(@PathVariable("id") Long id, @PathVariable("nameOfWorker") String nameOfWorker) {
+    public ResponseEntity<String> deleteOrAddWorker(@PathVariable("id") Long id, @PathVariable("nameOfWorker") String nameOfWorker) {
         adService.deleteWorkerFromRejected(nameOfWorker, id);
+        return ResponseEntity.ok("Success!");
     }
 
     @GetMapping("/rejected/{id}/{nameOfWorker}")
@@ -72,8 +75,9 @@ public class AdController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteAdById(@PathVariable("id") Long id) {
+    public ResponseEntity<String> deleteAdById(@PathVariable("id") Long id) {
         adService.deleteAdById(id);
+        return ResponseEntity.ok("Successfully delete ad!");
     }
 
 }
