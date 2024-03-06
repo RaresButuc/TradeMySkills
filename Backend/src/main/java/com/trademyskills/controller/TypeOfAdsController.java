@@ -3,6 +3,7 @@ package com.trademyskills.controller;
 import com.trademyskills.model.TypeOfAd;
 import com.trademyskills.service.TypeOfAdService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,12 +22,14 @@ public class TypeOfAdsController {
     }
 
     @PostMapping
-    public void addCategory(@RequestBody TypeOfAd typeOfAd) {
+    public ResponseEntity<String> addCategory(@RequestBody TypeOfAd typeOfAd) {
         typeOfAdService.addCategory(typeOfAd);
+        return ResponseEntity.ok("Category was successfully add!");
     }
 
     @DeleteMapping("/{id}")
-    public void deleteTypeOfAdById(@PathVariable("id") Long id) {
+    public ResponseEntity<String> deleteTypeOfAdById(@PathVariable("id") Long id) {
         typeOfAdService.deleteTypeOfAdById(id);
+        return ResponseEntity.ok("Category was successfully deleted!");
     }
 }
