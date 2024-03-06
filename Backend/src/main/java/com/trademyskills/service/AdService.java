@@ -21,6 +21,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
@@ -31,35 +32,40 @@ public class AdService {
     private final RestTemplate restTemplate;
 
 
-
-
     public List<Ad> getAllAds() {
         return adRepository.findAll();
     }
 
 
-
     public void addAd(Ad ad) {
-       LocationOfAd location = createLocationWothCoordonates(ad.getLocation().getNameOfTheCity(),ad.getLocation().getNameOfTheCounty());
 
-        ad.setLocation(location);
+        if (ad.getLocation().getNameOfTheCounty() != null &&
+                ad.getLocation().getNameOfTheCity() != null &&
+                ad.getOwner().getRole() != Role.ROLE_WORKER &&
+                ad.getTitle() != null && ad.getDescription() != null &&
+                !ad.getTitle().isEmpty() &&
+                !ad.getDescription().isEmpty() &&
+                ad.getPrice() != null &&
+                !ad.getPrice().isNaN() &&
+                ad.getTypeOfAd() != null) {
+            LocationOfAd location = createLocationWothCoordonates(ad.getLocation().getNameOfTheCity(), ad.getLocation().getNameOfTheCounty());
+
+            ad.setLocation(location);
 
 
-        ad.setStatusOfAd(StatusOfAd.ACTIVE);
-        adRepository.save(ad);
+            ad.setStatusOfAd(StatusOfAd.ACTIVE);
+            adRepository.save(ad);
+        } else {
+            throw new IllegalStateException("All fields should be completed and valid!");
+        }
     }
 
 
     public void addOrDeleteWorker(String name, Long idOfAd, String typeOfAction) {
-        User workerUser = userRepository.findByName(name).orElse(null);
-        Ad currentAd = adRepository.findById(idOfAd).orElse(null);
-
-        assert workerUser != null;
-        assert currentAd != null;
+        User workerUser = userRepository.findByName(name).orElseThrow(() -> new NoSuchElementException("No user found!"));
+        Ad currentAd = adRepository.findById(idOfAd).orElseThrow(() -> new NoSuchElementException("No ad found!"));
 
         if (workerUser.getRole() == Role.ROLE_WORKER) {
-
-
             switch (typeOfAction) {
                 case "add" -> {
                     currentAd.setWorker(workerUser);
@@ -72,33 +78,30 @@ public class AdService {
                         currentAd.getRejectedWorkers().add(workerUser);
                     }
                 }
+                default -> throw new IllegalStateException("Invalid action: " + typeOfAction);
             }
             adRepository.save(currentAd);
         }
     }
 
     public boolean isThereAWorkerInsideRejectAd(String name, Long idOfAd) {
-        User workerUser = userRepository.findByName(name).orElse(null);
-        Ad currentAd = adRepository.findById(idOfAd).orElse(null);
-
-        assert workerUser != null;
-        assert currentAd != null;
+        User workerUser = userRepository.findByName(name).orElseThrow(() -> new NoSuchElementException("No user found!"));
+        Ad currentAd = adRepository.findById(idOfAd).orElseThrow(() -> new NoSuchElementException("No ad found!"));
 
         return currentAd.getRejectedWorkers().contains(workerUser);
     }
 
 
     public void deleteWorkerFromRejected(String name, Long idOfAd) {
-        User workerUser = userRepository.findByName(name).orElse(null);
-        Ad currentAd = adRepository.findById(idOfAd).orElse(null);
+        User workerUser = userRepository.findByName(name).orElseThrow(() -> new NoSuchElementException("No user found!"));
+        Ad currentAd = adRepository.findById(idOfAd).orElseThrow(() -> new NoSuchElementException("No ad found!"));
 
-        assert currentAd != null;
         currentAd.getRejectedWorkers().remove(workerUser);
         adRepository.save(currentAd);
     }
 
     public Ad getAdById(Long id) {
-        return adRepository.findById(id).orElse(null);
+        return adRepository.findById(id).orElseThrow(() -> new NoSuchElementException("No ad found!"));
     }
 
     public List<Ad> findAdsByTypeOfAd(String title) {
@@ -120,9 +123,7 @@ public class AdService {
             case "price-desc" -> {
                 return adRepository.findAllByOrderByPriceDesc();
             }
-            default -> {
-                return null;
-            }
+            default -> throw new IllegalStateException("Invalid sort: " + typeOfSort);
         }
     }
 
@@ -141,9 +142,7 @@ public class AdService {
             case "price-desc" -> {
                 return adRepository.findByTypeOfAdNameOfCategoryOrderByPriceDesc(title);
             }
-            default -> {
-                return null;
-            }
+            default -> throw new IllegalStateException("Invalid sort: " + typeOfSort);
         }
     }
 
@@ -162,9 +161,7 @@ public class AdService {
             case "price-desc" -> {
                 return adRepository.findAllByTitleContainingIgnoreCaseOrderByPriceDesc(input);
             }
-            default -> {
-                return null;
-            }
+            default -> throw new IllegalStateException("Invalid sort: " + typeOfSort);
         }
     }
 
@@ -183,9 +180,7 @@ public class AdService {
             case "price-desc" -> {
                 return adRepository.findAllByTypeOfAdNameOfCategoryAndTitleContainingIgnoreCaseOrderByPriceDesc(category, input);
             }
-            default -> {
-                return null;
-            }
+            default -> throw new IllegalStateException("Invalid sort: " + typeOfSort);
         }
     }
 
@@ -230,7 +225,6 @@ public class AdService {
                 }
             }
         }
-        System.out.println(pageRequest.getOffset());
         List<Ad> sublist = filteredAds.subList(
                 (int) pageRequest.getOffset(),
                 Math.min((int) pageRequest.getOffset() + pageRequest.getPageSize(), filteredAds.size())
@@ -240,27 +234,42 @@ public class AdService {
     }
 
     public void setStatusOfAd(Long id, String stringStatusOfAd) throws MessagingException {
-        Ad adFormDb = adRepository.findById(id).orElse(null);
-        assert adFormDb != null;
-        if(stringStatusOfAd.equals("finalised")){
-            mailService.sendGiveRating(adFormDb.getOwner().getEmail(),adFormDb.getTitle(),adFormDb.getWorker().getId());
-            mailService.sendGiveRating(adFormDb.getWorker().getEmail(),adFormDb.getTitle(),adFormDb.getOwner().getId());
-        }
-        adFormDb.setStatusOfAd(StatusOfAd.getByName(stringStatusOfAd));
+        Ad adFormDb = adRepository.findById(id).orElseThrow(() -> new NoSuchElementException("No ad found!"));
 
+        if (stringStatusOfAd.equals("finalised")) {
+            mailService.sendGiveRating(adFormDb.getOwner().getEmail(), adFormDb.getTitle(), adFormDb.getWorker().getId());
+            mailService.sendGiveRating(adFormDb.getWorker().getEmail(), adFormDb.getTitle(), adFormDb.getOwner().getId());
+        }
+
+        adFormDb.setStatusOfAd(StatusOfAd.getByName(stringStatusOfAd));
         adRepository.save(adFormDb);
     }
 
 
     public void updateAdById(Long id, Ad adUpdater) {
-        Ad adFromDb = adRepository.findById(id).orElse(null);
-        assert adFromDb != null;
-        adFromDb.setTitle(adUpdater.getTitle());
-        adFromDb.setDescription(adUpdater.getDescription());
-        adFromDb.setPrice(adUpdater.getPrice());
-        adFromDb.setLocation(createLocationWothCoordonates(adUpdater.getLocation().getNameOfTheCity(),adUpdater.getLocation().getNameOfTheCounty()));
-        adFromDb.setTypeOfAd(adUpdater.getTypeOfAd());
-        adRepository.save(adFromDb);
+        Ad adFromDb = adRepository.findById(id).orElseThrow(() -> new NoSuchElementException("No ad found!"));
+
+        if (adUpdater.getLocation().getNameOfTheCounty() != null &&
+                adUpdater.getLocation().getNameOfTheCity() != null &&
+                adUpdater.getOwner().getRole() != Role.ROLE_WORKER &&
+                adUpdater.getTitle() != null &&
+                adUpdater.getDescription() != null &&
+                !adUpdater.getTitle().isEmpty() &&
+                !adUpdater.getDescription().isEmpty() &&
+                adUpdater.getPrice() != null &&
+                !adUpdater.getPrice().isNaN() &&
+                adUpdater.getTypeOfAd() != null) {
+
+            adFromDb.setTitle(adUpdater.getTitle());
+            adFromDb.setDescription(adUpdater.getDescription());
+            adFromDb.setPrice(adUpdater.getPrice());
+            adFromDb.setLocation(createLocationWothCoordonates(adUpdater.getLocation().getNameOfTheCity(), adUpdater.getLocation().getNameOfTheCounty()));
+            adFromDb.setTypeOfAd(adUpdater.getTypeOfAd());
+
+            adRepository.save(adFromDb);
+        }else {
+            throw new IllegalStateException("All fields should be completed and valid!");
+        }
     }
 
     public void deleteAdById(Long id) {
@@ -268,16 +277,15 @@ public class AdService {
     }
 
     public List<Ad> searchAllAdsByUserAndStatus(Long id, String stringStatusOfAd) {
-        User user = userRepository.findById(id).orElse(null);
+        User user = userRepository.findById(id).orElseThrow(() -> new NoSuchElementException("No user found!"));
         StatusOfAd statusOfAd = StatusOfAd.getByName(stringStatusOfAd);
-        assert user != null;
 
         if (user.getRole() == Role.ROLE_CUSTOMER) {
             return user.getAdsOwned().stream().filter(e -> e.getStatusOfAd() == statusOfAd).distinct().toList();
         } else if (user.getRole() == Role.ROLE_WORKER) {
             return user.getAdsAttends().stream().filter(e -> e.getStatusOfAd() == statusOfAd).distinct().toList();
         }
-        return null;
+        throw new IllegalStateException("An error has occurred!");
     }
 
     public List<Ad> getActiveAds(List<Ad> adsList) {
@@ -291,15 +299,18 @@ public class AdService {
     }
 
 
-    private LocationOfAd createLocationWothCoordonates(String city, String county){
-        String apiUrl = "https://geocode.maps.co/search?city="+city+"&county="+county+"&country=Romania";
+    private LocationOfAd createLocationWothCoordonates(String city, String county) {
+        String apiUrl = "https://geocode.maps.co/search?city=" + city + "&county=" + county + "&country=Romania";
         JsonNode response = restTemplate.getForObject(apiUrl, JsonNode.class);
 
-        assert response != null;
+        if (response == null) {
+            throw new RuntimeException("An error has occurred!");
+        }
+
         Double latitude = response.get(0).get("lat").asDouble();
         Double longitude = response.get(0).get("lon").asDouble();
 
-        return new LocationOfAd(county,city,latitude,longitude);
+        return new LocationOfAd(county, city, latitude, longitude);
     }
 
 }
