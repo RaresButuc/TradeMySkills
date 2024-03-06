@@ -3,6 +3,7 @@ package com.trademyskills.controller;
 import com.trademyskills.model.Rating;
 import com.trademyskills.service.RatingService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,8 +22,9 @@ public class RatingController {
     }
 
     @PostMapping
-    public void addRating(@RequestBody Rating rating) {
+    public ResponseEntity<String> addRating(@RequestBody Rating rating) {
         ratingService.addRating(rating);
+        return ResponseEntity.ok("Successfully add rating!");
     }
 
     @GetMapping("/{id}")
@@ -35,14 +37,10 @@ public class RatingController {
         return ratingService.verifyAlreadyRated(from, to);
     }
 
-    @PutMapping("/{id}")
-    public void updateRatingById(@PathVariable("id") Long id, @RequestBody Rating updatedRating) {
-        ratingService.updateRatingById(id, updatedRating);
-    }
-
     @DeleteMapping("/{id}")
-    public void deleteRatingById(@PathVariable("id") Long id) {
+    public ResponseEntity<String> deleteRatingById(@PathVariable("id") Long id) {
         ratingService.deleteRatingById(id);
+        return ResponseEntity.ok("Successfully delete rating!");
     }
 
 }

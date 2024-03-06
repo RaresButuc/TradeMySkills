@@ -43,20 +43,6 @@ public class RatingService {
         return ratingRepository.findById(id).orElseThrow(() -> new NoSuchElementException("No rating found!"));
     }
 
-    public void updateRatingById(Long id, Rating ratingUpdater) {
-        Rating ratingFromDb = ratingRepository.findById(id).orElseThrow(() -> new NoSuchElementException("No rating found!"));
-
-
-        if (ratingFromDb.getStar() != null && !ratingFromDb.getStar().isNaN()) {
-            ratingFromDb.setComment(ratingUpdater.getComment());
-            ratingFromDb.setStar(ratingUpdater.getStar());
-
-            ratingRepository.save(ratingFromDb);
-        } else {
-            throw new IllegalStateException("An error has occurred");
-        }
-
-    }
 
     public void deleteRatingById(Long id) {
         ratingRepository.deleteById(id);
