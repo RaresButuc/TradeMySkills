@@ -30,7 +30,7 @@ public class RatingService {
 
             userService.updateAverageRating(userToRating.getId(), rating.getStar());
         } else {
-            throw new IllegalStateException("An error has occurred");
+            throw new IllegalStateException("An Unexpected Error Has Occurred!");
         }
     }
 
@@ -40,7 +40,7 @@ public class RatingService {
     }
 
     public Rating getRatingById(Long id) {
-        return ratingRepository.findById(id).orElseThrow(() -> new NoSuchElementException("No rating found!"));
+        return ratingRepository.findById(id).orElseThrow(() -> new NoSuchElementException("No Rating Found!"));
     }
 
 

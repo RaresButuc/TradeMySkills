@@ -12,9 +12,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/ratings")
 public class RatingController {
+
     private final RatingService ratingService;
-
-
 
     @GetMapping
     public List<Rating> getAllRatings() {
@@ -24,7 +23,8 @@ public class RatingController {
     @PostMapping
     public ResponseEntity<String> addRating(@RequestBody Rating rating) {
         ratingService.addRating(rating);
-        return ResponseEntity.ok("Successfully add rating!");
+
+        return ResponseEntity.ok("Your Rating Was Successfully Added!");
     }
 
     @GetMapping("/{id}")
@@ -40,7 +40,8 @@ public class RatingController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteRatingById(@PathVariable("id") Long id) {
         ratingService.deleteRatingById(id);
-        return ResponseEntity.ok("Successfully delete rating!");
+
+        return ResponseEntity.ok("Your Rating Was Successfully Deleted!");
     }
 
 }

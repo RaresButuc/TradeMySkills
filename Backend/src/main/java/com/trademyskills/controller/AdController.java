@@ -15,8 +15,8 @@ import java.util.List;
 @RequestMapping("/ads")
 @RequiredArgsConstructor
 public class AdController {
-    private final AdService adService;
 
+    private final AdService adService;
 
     @GetMapping
     public Page<Ad> getAllAds(@RequestParam(name = "category", required = false) String typeofcategory, @RequestParam(name = "sort", required = false) String typeOfSort, @RequestParam(name = "input", required = false) String input, @RequestParam(name = "currentpage") int currentPage, @RequestParam(name = "itemsperpage") int itemsPerPage) {
@@ -26,7 +26,8 @@ public class AdController {
     @PostMapping("/post")
     public ResponseEntity<String> addAd(@RequestBody Ad ad) {
         adService.addAd(ad);
-        return ResponseEntity.ok("Ad `"+ad.getTitle()+"` was successfully posted!");
+
+        return ResponseEntity.ok("Ad `" + ad.getTitle() + "` Was Successfully Posted!");
     }
 
     @GetMapping("/{id}")
@@ -42,26 +43,33 @@ public class AdController {
     @PutMapping("/{id}")
     public ResponseEntity<String> updateAdById(@PathVariable("id") Long id, @RequestBody Ad updatedAd) {
         adService.updateAdById(id, updatedAd);
-        return ResponseEntity.ok("Ad `"+ updatedAd.getTitle()+"` was successfully updated!");
+
+        return ResponseEntity.ok("Ad `" + updatedAd.getTitle() + "` Was Successfully Updated!");
     }
 
     @PutMapping("/{setStatus}/{id}")
     public ResponseEntity<String> updateAdAs(@PathVariable("id") Long id, @PathVariable("setStatus") String status) throws MessagingException {
         adService.setStatusOfAd(id, status);
-        return ResponseEntity.ok("Tha status of ad was successfully updated!");
+
+        return ResponseEntity.ok("Tha Status Of The Ad Was Successfully Updated!");
     }
 
     @PutMapping("/{typeOfAction}/{id}/{nameOfWorker}")
     public ResponseEntity<String> deleteOrAddWorker(@PathVariable("typeOfAction") String typeOfAction, @PathVariable("id") Long id, @PathVariable("nameOfWorker") String nameOfWorker) {
         adService.addOrDeleteWorker(nameOfWorker, id, typeOfAction);
 
-        return ResponseEntity.ok("Success!");
+        String message = typeOfAction.equals("add") ?
+                "Congratulations! " + nameOfWorker + " Was Successfully Set As A Worker For Your Ad!" :
+                nameOfWorker + " Is Not A Worker For This Ad Anymore!";
+
+        return ResponseEntity.ok(message);
     }
 
     @PutMapping("/rejected/remove/{id}/{nameOfWorker}")
-    public ResponseEntity<String> deleteOrAddWorker(@PathVariable("id") Long id, @PathVariable("nameOfWorker") String nameOfWorker) {
+    public ResponseEntity<String> deleteWorkerRejectedStatus(@PathVariable("id") Long id, @PathVariable("nameOfWorker") String nameOfWorker) {
         adService.deleteWorkerFromRejected(nameOfWorker, id);
-        return ResponseEntity.ok("Success!");
+
+        return ResponseEntity.ok(nameOfWorker + "'s `Rejected` Status Was Removed!");
     }
 
     @GetMapping("/rejected/{id}/{nameOfWorker}")
@@ -77,7 +85,8 @@ public class AdController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteAdById(@PathVariable("id") Long id) {
         adService.deleteAdById(id);
-        return ResponseEntity.ok("Successfully delete ad!");
+
+        return ResponseEntity.ok("Ad #" + id + " Was Successfully Deleted!");
     }
 
 }

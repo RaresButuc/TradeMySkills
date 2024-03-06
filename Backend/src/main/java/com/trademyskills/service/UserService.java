@@ -10,7 +10,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.text.DecimalFormat;
-import java.util.*;
+import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
@@ -29,11 +30,11 @@ public class UserService {
 
 
     public User getUserById(Long id) {
-        return userRepository.findById(id).orElseThrow(() -> new NoSuchElementException("No user found!"));
+        return userRepository.findById(id).orElseThrow(() -> new NoSuchElementException("No User Found!"));
     }
 
     public void updateUserById(Long id, User updatedUser) {
-        User userFromDb = userRepository.findById(id).orElseThrow(() -> new NoSuchElementException("No user found!"));
+        User userFromDb = userRepository.findById(id).orElseThrow(() -> new NoSuchElementException("No User Found!"));
 
         if (updatedUser.getEmail() != null &&
                 updatedUser.getName() != null &&
@@ -48,13 +49,13 @@ public class UserService {
 
             userRepository.save(userFromDb);
         }else {
-            throw new IllegalStateException("An error has occurred");
+            throw new IllegalStateException("An Unexpected Error Has Occurred!");
         }
 
     }
 
     public User getUserByEmail(String email) {
-        return userRepository.findByEmail(email).orElseThrow(() -> new NoSuchElementException("No user found!"));
+        return userRepository.findByEmail(email).orElseThrow(() -> new NoSuchElementException("No User Found!"));
     }
 
     public void deleteUserById(Long id) {
@@ -66,39 +67,38 @@ public class UserService {
         try {
             mailService.sendSetPasswordEmail(email);
         } catch (MessagingException e) {
-            throw new IllegalStateException("An Unexpected Error has Occurred!");
+            throw new IllegalStateException("An Unexpected Error Has Occurred!");
         }
     }
 
     public void setPassword(String email, String newPassword, String uuid) {
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found with this email: " + email));
+                .orElseThrow(() -> new RuntimeException("No User Was Found With This Email: " + email));
         ChangePasswordLink changePasswordLink = changePasswordLinkRepository.findByUuid(uuid);
 
         if (changePasswordLink.getEmail().equals(email) && !changePasswordLinkService.verifyIsClosed(uuid)) {
             System.out.println(changePasswordLinkService.verifyIsClosed(uuid));
             user.setPassword(passwordEncoder.encode(newPassword));
             userRepository.save(user);
-//            return "Congratulations! The New Password Was Set Successfully!";
         }else {
             throw new IllegalStateException("Error! Request a 'New Password Change Request' by Email and Try again!");
         }
     }
 
     public void changePasswordAndVerifyOldPassword(Long id, String newPassword, String actualPassword) {
-        User user = userRepository.findById(id).orElseThrow(()->new NoSuchElementException("No user found!"));
+        User user = userRepository.findById(id).orElseThrow(()->new NoSuchElementException("No User Found!"));
 
         if (passwordEncoder.matches(actualPassword, user.getPassword()) && !passwordEncoder.matches(newPassword, user.getPassword())) {
             user.setPassword(passwordEncoder.encode(newPassword));
             userRepository.save(user);
         }else {
-            throw new IllegalStateException("An Unexpected Error has Occurred!");
+            throw new IllegalStateException("An Unexpected Error Has Occurred!");
         }
 
     }
 
     public void updateAverageRating(Long id, double newRating) {
-        User user = userRepository.findById(id).orElseThrow(()->new NoSuchElementException("No user found!"));
+        User user = userRepository.findById(id).orElseThrow(()->new NoSuchElementException("No User Found!"));
 
         double newAverageRating = user.getAverageRating() + newRating;
 

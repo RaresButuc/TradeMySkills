@@ -32,7 +32,7 @@ public class AuthenticationService {
             var jwtToken = jwtService.generateToken(user);
             return AuthenticationResponse.builder().token(jwtToken).build();
         } else {
-            throw new IllegalStateException("Error! Email or UserName is already registered!Please try again!");
+            throw new IllegalStateException("Error! Email or UserName Is Already Registered! Please try again!");
         }
     }
 

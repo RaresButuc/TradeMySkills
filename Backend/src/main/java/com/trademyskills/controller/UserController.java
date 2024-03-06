@@ -17,9 +17,9 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping(value = "/users")
 public class UserController {
+
     private final UserService userService;
     private final AuthenticationService service;
-
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/register")
@@ -65,19 +65,21 @@ public class UserController {
     @PutMapping("/forget-password")
     public ResponseEntity<String> forgotPassword(@RequestParam String email) {
         userService.forgotPassword(email);
-        return ResponseEntity.ok("Check your Email for the password update form!");
+
+        return ResponseEntity.ok("Check Your Email For The `Password Update` Form!");
     }
 
     @PutMapping("/set-password")
     public ResponseEntity<String> setPassword(@RequestParam String email, @RequestParam String uuid, @RequestHeader String newPassword) {
         userService.setPassword(email, newPassword, uuid);
-        return ResponseEntity.ok("Password was successfully updated!");
+
+        return ResponseEntity.ok("Your Password Was Successfully Updated!");
     }
 
     @PutMapping("/{id}/change-password")
     public ResponseEntity<String> setPassword(@PathVariable("id") Long id, @RequestBody ChangePasswordRequest changePasswordRequest) {
         userService.changePasswordAndVerifyOldPassword(id, changePasswordRequest.getNewPassword(), changePasswordRequest.getActualPassword());
 
-        return ResponseEntity.ok("Password was successfully updated!");
+        return ResponseEntity.ok("Your Password Was Successfully Updated!");
     }
 }

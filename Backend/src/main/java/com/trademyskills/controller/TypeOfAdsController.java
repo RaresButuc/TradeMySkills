@@ -12,9 +12,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/category")
 public class TypeOfAdsController {
+
     private final TypeOfAdService typeOfAdService;
-
-
 
     @GetMapping
     public List<TypeOfAd> getAllTypesOfAds() {
@@ -24,12 +23,14 @@ public class TypeOfAdsController {
     @PostMapping
     public ResponseEntity<String> addCategory(@RequestBody TypeOfAd typeOfAd) {
         typeOfAdService.addCategory(typeOfAd);
-        return ResponseEntity.ok("Category was successfully add!");
+
+        return ResponseEntity.ok(typeOfAd.getNameOfCategory() + " Was Successfully Added As A New Category!");
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteTypeOfAdById(@PathVariable("id") Long id) {
         typeOfAdService.deleteTypeOfAdById(id);
-        return ResponseEntity.ok("Category was successfully deleted!");
+
+        return ResponseEntity.ok("Category Was Successfully Deleted!");
     }
 }

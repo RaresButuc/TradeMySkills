@@ -8,9 +8,8 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/changepassword")
 public class ChangePasswordLinkController {
+
     private final ChangePasswordLinkService changePasswordLinkService;
-
-
 
     @GetMapping("/valid/{uuid}")
     public boolean validateLink(@PathVariable("uuid") String uuid) {
