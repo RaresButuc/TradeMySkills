@@ -85,15 +85,16 @@ public class UserService {
         }
     }
 
-    public boolean changePasswordAndVerifyOldPassword(Long id, String newPassword, String actualPassword) {
+    public void changePasswordAndVerifyOldPassword(Long id, String newPassword, String actualPassword) {
         User user = userRepository.findById(id).orElseThrow(()->new NoSuchElementException("No user found!"));
 
         if (passwordEncoder.matches(actualPassword, user.getPassword()) && !passwordEncoder.matches(newPassword, user.getPassword())) {
             user.setPassword(passwordEncoder.encode(newPassword));
             userRepository.save(user);
-            return true;
+        }else {
+            throw new IllegalStateException("An Unexpected Error has Occurred!");
         }
-        return false;
+
     }
 
     public void updateAverageRating(Long id, double newRating) {
