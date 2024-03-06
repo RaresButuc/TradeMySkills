@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+
 @RequiredArgsConstructor
 @Service
 public class RatingService {
@@ -27,6 +29,8 @@ public class RatingService {
             ratingRepository.save(rating);
 
             userService.updateAverageRating(userToRating.getId(), rating.getStar());
+        } else {
+            throw new IllegalStateException("An error has occurred");
         }
     }
 
@@ -36,17 +40,22 @@ public class RatingService {
     }
 
     public Rating getRatingById(Long id) {
-        return ratingRepository.findById(id).orElse(null);
+        return ratingRepository.findById(id).orElseThrow(() -> new NoSuchElementException("No rating found!"));
     }
 
     public void updateRatingById(Long id, Rating ratingUpdater) {
-        Rating ratingFromDb = ratingRepository.findById(id).orElse(null);
+        Rating ratingFromDb = ratingRepository.findById(id).orElseThrow(() -> new NoSuchElementException("No rating found!"));
 
-        assert ratingFromDb != null;
 
-        ratingFromDb.setComment(ratingUpdater.getComment());
-        ratingFromDb.setStar(ratingUpdater.getStar());
-        ratingRepository.save(ratingFromDb);
+        if (ratingFromDb.getStar() != null && !ratingFromDb.getStar().isNaN()) {
+            ratingFromDb.setComment(ratingUpdater.getComment());
+            ratingFromDb.setStar(ratingUpdater.getStar());
+
+            ratingRepository.save(ratingFromDb);
+        } else {
+            throw new IllegalStateException("An error has occurred");
+        }
+
     }
 
     public void deleteRatingById(Long id) {
