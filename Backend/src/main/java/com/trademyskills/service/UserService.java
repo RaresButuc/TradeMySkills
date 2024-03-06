@@ -23,27 +23,38 @@ public class UserService {
     private final ChangePasswordLinkService changePasswordLinkService;
 
 
-
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
 
     public User getUserById(Long id) {
-        return userRepository.findById(id).orElse(null);
+        return userRepository.findById(id).orElseThrow(() -> new NoSuchElementException("No user found!"));
     }
 
     public void updateUserById(Long id, User updatedUser) {
-        User userFromDb = userRepository.findById(id).orElse(null);
-        assert userFromDb != null;
-        userFromDb.setName(updatedUser.getName());
-        userFromDb.setEmail(updatedUser.getEmail());
-        userFromDb.setPhoneNumber(updatedUser.getPhoneNumber());
-        userRepository.save(userFromDb);
+        User userFromDb = userRepository.findById(id).orElseThrow(() -> new NoSuchElementException("No user found!"));
+
+        if (updatedUser.getEmail() != null &&
+                updatedUser.getName() != null &&
+                updatedUser.getPhoneNumber() != null &&
+                !updatedUser.getEmail().isEmpty() &&
+                !updatedUser.getName().isEmpty() &&
+                !updatedUser.getPhoneNumber().isEmpty()) {
+
+            userFromDb.setName(updatedUser.getName());
+            userFromDb.setEmail(updatedUser.getEmail());
+            userFromDb.setPhoneNumber(updatedUser.getPhoneNumber());
+
+            userRepository.save(userFromDb);
+        }else {
+            throw new IllegalStateException("An error has occurred");
+        }
+
     }
 
     public User getUserByEmail(String email) {
-        return userRepository.findByEmail(email).orElse(null);
+        return userRepository.findByEmail(email).orElseThrow(() -> new NoSuchElementException("No user found!"));
     }
 
     public void deleteUserById(Long id) {
@@ -51,16 +62,15 @@ public class UserService {
     }
 
 
-    public String forgotPassword(String email) {
+    public void forgotPassword(String email) {
         try {
             mailService.sendSetPasswordEmail(email);
-            return "Please check your Email to Set Your Password";
         } catch (MessagingException e) {
-            return "An Unexpected Error has Occurred!";
+            throw new IllegalStateException("An Unexpected Error has Occurred!");
         }
     }
 
-    public String setPassword(String email, String newPassword, String uuid) {
+    public void setPassword(String email, String newPassword, String uuid) {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found with this email: " + email));
         ChangePasswordLink changePasswordLink = changePasswordLinkRepository.findByUuid(uuid);
@@ -69,13 +79,14 @@ public class UserService {
             System.out.println(changePasswordLinkService.verifyIsClosed(uuid));
             user.setPassword(passwordEncoder.encode(newPassword));
             userRepository.save(user);
-            return "Congratulations! The New Password Was Set Successfully!";
+//            return "Congratulations! The New Password Was Set Successfully!";
+        }else {
+            throw new IllegalStateException("Error! Request a 'New Password Change Request' by Email and Try again!");
         }
-        return "Error! Request a 'New Password Change Request' by Email and Try again!";
     }
 
     public boolean changePasswordAndVerifyOldPassword(Long id, String newPassword, String actualPassword) {
-        User user = userRepository.findById(id).orElseThrow(null);
+        User user = userRepository.findById(id).orElseThrow(()->new NoSuchElementException("No user found!"));
 
         if (passwordEncoder.matches(actualPassword, user.getPassword()) && !passwordEncoder.matches(newPassword, user.getPassword())) {
             user.setPassword(passwordEncoder.encode(newPassword));
@@ -86,7 +97,7 @@ public class UserService {
     }
 
     public void updateAverageRating(Long id, double newRating) {
-        User user = userRepository.findById(id).orElseThrow(null);
+        User user = userRepository.findById(id).orElseThrow(()->new NoSuchElementException("No user found!"));
 
         double newAverageRating = user.getAverageRating() + newRating;
 
