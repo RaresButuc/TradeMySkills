@@ -1,19 +1,21 @@
 import axios from "axios";
 import { useAuthUser } from "react-auth-kit";
+import { useParams } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
 
-import StarsRating from "./StarsRating";
+import StarsRating from "../components/StarsRating";
 import DefaultURL from "../GlobalVariables";
 import ProfilePhoto from "../shared/ProfilePhoto";
 import { useNavigate } from "react-router-dom";
-import Alert from "./Alert";
+import Alert from "../components/Alert";
 
-export default function Profile({ id }) {
+export default function UserProfilePage() {
   const auth = useAuthUser();
+  const { id } = useParams();
   const navigate = useNavigate();
 
-    const [showAlert, setShowAlert] = useState(false);
-    const [alertInfos, setAlertInfos] = useState(["", ""]);
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertInfos, setAlertInfos] = useState(["", ""]);
   const [currentUser, setCurrentUser] = useState(null);
   const [showEditButtonOrNot, setShowEditButtonOrNot] = useState(false);
   const [editOrSave, setEditOrSave] = useState(0);
@@ -22,7 +24,6 @@ export default function Profile({ id }) {
   const userNameRef = useRef("");
   const userPhoneNumberRef = useRef("");
   const userEmailRef = useRef("");
-  
 
   const onSave = async () => {
     const editData = {
@@ -39,13 +40,12 @@ export default function Profile({ id }) {
       setTimeout(() => {
         setShowAlert(false);
       }, 3000);
-
     } catch (err) {
-          setShowAlert(true);
-          setAlertInfos(["danger", err.response.data.message]);
-          setTimeout(() => {
-            setShowAlert(false);
-          }, 3000);
+      setShowAlert(true);
+      setAlertInfos(["danger", err.response.data.message]);
+      setTimeout(() => {
+        setShowAlert(false);
+      }, 3000);
     }
   };
 
@@ -67,7 +67,7 @@ export default function Profile({ id }) {
       setCurrentUser(data);
       setShowEditButtonOrNot(data?.email === auth()?.email);
     } catch (err) {
-      navigate("/error")
+      navigate("/error");
     }
   };
 

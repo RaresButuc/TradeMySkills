@@ -15,7 +15,7 @@ import RatingPage from "./pages/RatingPage";
 import ForgetPassword from "./pages/ForgetPassword";
 import PrivacyPolicy from "./pages/PrivacyAndPolicy";
 import AddNewAdPage from "./pages/AddNewAdPage";
-import OtherUserProfile from "./pages/OtherUserProfile";
+import UserProfilePage from "./pages/UserProfilePage";
 import ActiveAds from "./pages/Ads By Status/ActiveAds";
 import PendingAds from "./pages/Ads By Status/PendingAds";
 import TermsAndConditions from "./pages/TermsAndConditions";
@@ -45,7 +45,7 @@ function App() {
             <Route path="/all-ads" element={<AdsPage />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/profile/:id" element={<OtherUserProfile />} />
+            <Route path="/profile/:id" element={<UserProfilePage />} />
 
             <Route path="/ad/:id" element={<AdDetail />} />
             <Route
