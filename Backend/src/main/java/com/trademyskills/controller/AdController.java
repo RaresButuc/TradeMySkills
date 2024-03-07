@@ -24,10 +24,8 @@ public class AdController {
     }
 
     @PostMapping("/post")
-    public ResponseEntity<String> addAd(@RequestBody Ad ad) {
-        adService.addAd(ad);
-
-        return ResponseEntity.ok("Ad `" + ad.getTitle() + "` Was Successfully Posted!");
+    public Long addAd(@RequestBody Ad ad) {
+        return adService.addAd(ad);
     }
 
     @GetMapping("/{id}")

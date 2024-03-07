@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import changeLink from "../shared/utils";
 import DefaultURL from "../GlobalVariables";
-import writeAWordWithoutFullUppercase from "../shared/WordUppercase";
+import writeAWordWithoutFullUppercase from "../shared/FirstLetterUppercase";
 import construction from "../photo/icons/Construction.png";
 import confections from "../photo/icons/Confections.png";
 import cooking from "../photo/icons/Cooking.png";

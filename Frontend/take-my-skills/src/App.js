@@ -33,7 +33,10 @@ function App() {
         <Router>
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="*" element={<ErrorPage />} />
+            <Route
+              path="*"
+              element={<ErrorPage mainMessage={"PAGE NOT FOUND!"} />}
+            />
             <Route path="/login" element={<Login />} />
             <Route path="/forget-password" element={<ForgetPassword />} />
             <Route

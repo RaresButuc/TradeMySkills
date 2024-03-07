@@ -1,6 +1,6 @@
 import logoMap from "../photo/icons/MapPointer.png";
 import logoMoney from "../photo/icons/PayMoney.png";
-import writeAWordWithoutFullUppercase from "../shared/WordUppercase"
+import firstLetterUppercase from "../shared/FirstLetterUppercase";
 
 export default function Ads({ ads }) {
   
@@ -57,7 +57,7 @@ export default function Ads({ ads }) {
                     color: "white",
                   }}
                 >
-                  {writeAWordWithoutFullUppercase(ad.typeOfAd.nameOfCategory)}
+                  {firstLetterUppercase(ad.typeOfAd.nameOfCategory)}
                 </div>
                 <div className="card-body ">
                   <a

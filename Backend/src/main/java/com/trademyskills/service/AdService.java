@@ -36,8 +36,10 @@ public class AdService {
         return ad.getLocation().getNameOfTheCounty() != null &&
                 ad.getLocation().getNameOfTheCity() != null &&
                 ad.getTitle() != null &&
+                !ad.getLocation().getNameOfTheCounty().isEmpty() &&
+                !ad.getLocation().getNameOfTheCity().isEmpty() &&
                 !ad.getTitle().isEmpty() &&
-                ad.getOwner().getRole() != Role.ROLE_WORKER &&
+//                ad.getOwner().getRole() != Role.ROLE_WORKER &&
                 ad.getDescription() != null &&
                 !ad.getDescription().isEmpty() &&
                 ad.getPrice() != null &&
@@ -45,7 +47,7 @@ public class AdService {
                 ad.getTypeOfAd() != null;
     }
 
-    public void addAd(Ad ad) {
+    public Long addAd(Ad ad) {
         if (areAllFieldsNonNullOrEmpty(ad)) {
             LocationOfAd location = createLocationWothCoordonates(ad.getLocation().getNameOfTheCity(), ad.getLocation().getNameOfTheCounty());
 
@@ -53,7 +55,10 @@ public class AdService {
             ad.setStatusOfAd(StatusOfAd.ACTIVE);
 
             adRepository.save(ad);
+
+            return ad.getId();
         } else {
+            System.out.println("Nu e ok");
             throw new IllegalStateException("All Fields Should Be Completed!");
         }
     }

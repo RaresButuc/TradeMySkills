@@ -40,7 +40,7 @@ export default function FormAddNewAd() {
         const data = response.data;
         setCurrentUser(data);
       } catch (err) {
-        console.log(err);
+        navigate("/error");
       }
     };
 
@@ -56,46 +56,39 @@ export default function FormAddNewAd() {
     cityAd
   ) => {
     try {
-      if (
-        titleAd !== "" &&
-        descriptionAd !== "" &&
-        categoryAd !== "" &&
-        priceAd !== "" &&
-        countyAd !== "" &&
-        cityAd !== ""
-      ) {
-        const headers = { Authorization: token() };
+      const headers = { Authorization: token() };
+      console.log({
+        title: titleAd,
+        description: descriptionAd,
+        typeOfAd: { id: categoryAd },
+        price: priceAd,
+        owner: { id: currentUser?.id },
+        location: { nameOfTheCounty: countyAd, nameOfTheCity: cityAd },
+      });
+      const response = await axios.post(
+        `${DefaultURL}/ads/post`,
+        {
+          title: titleAd,
+          description: descriptionAd,
+          typeOfAd: { id: categoryAd },
+          price: priceAd,
+          owner: { id: currentUser?.id },
+          location: { nameOfTheCounty: countyAd, nameOfTheCity: cityAd },
+        },
+        { headers }
+      );
 
-        const response = await axios.post(
-          `${DefaultURL}/ads/post`,
-          {
-            title: titleAd,
-            description: descriptionAd,
-            typeOfAd: { id: categoryAd },
-            price: priceAd,
-            owner: { id: currentUser?.id },
-            location: { nameOfTheCounty: countyAd, nameOfTheCity: cityAd },
-          },
-          { headers }
-        );
-
-        if (response.status === 200) {
-          setShowAlert(true);
-          setAlertInfos(["success", "Your Ad was Succesfully Posted!"]);
-          setTimeout(() => {
-            navigate("/all-ads?pagenumber=1");
-          }, 3000);
-        } else {
-          console.error(`HTTP Error: ${response.status}`);
-          const data = await response.json();
-          console.error(data);
-        }
-      } else {
-        setShowAlert(true);
-        setAlertInfos(["danger", "All Fields Must be Completed!"]);
-      }
-    } catch (error) {
-      console.error("Request error:", error);
+      setShowAlert(true);
+      setAlertInfos(["success", "Your Ad was Succesfully Posted!"]);
+      setTimeout(() => {
+        navigate(`/ad/${response.data}`);
+      }, 3000);
+    } catch (err) {
+      setShowAlert(true);
+      setAlertInfos(["danger", err.response.data.message]);
+      setTimeout(() => {
+        setShowAlert(false);
+      }, 3000);
     }
   };
 

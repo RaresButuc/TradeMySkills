@@ -1,8 +1,8 @@
-const ErrorPage = () => {
+const ErrorPage = ({ mainMessage }) => {
   return (
     <div>
       <div className="container-xl">
-<h1 className="text-1">PAGE NOT FOUND</h1>
+        <h1 className="text-1">{mainMessage}</h1>
       </div>
       <div className="vader">
         <div className="shadow"></div>
@@ -67,10 +67,12 @@ const ErrorPage = () => {
       </div>
       <div className="container-xl">
         <h2 className="text-2">
-        May the Force guide you to the <a href="/" style={{color:"rgb(255, 64, 64)"}}>MAIN PAGE</a>
-      </h2>
+          May the Force guide you to the{" "}
+          <a href="/" style={{ color: "rgb(255, 64, 64)" }}>
+            MAIN PAGE
+          </a>
+        </h2>
       </div>
-      
     </div>
   );
 };

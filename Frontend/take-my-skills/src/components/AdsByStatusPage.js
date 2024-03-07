@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import DefaultURL from "../GlobalVariables";
 import Ads from "./Ads";
 import axios from "axios";
-import writeAWordWithoutFullUppercase from "../shared/WordUppercase";
+import writeAWordWithoutFullUppercase from "../shared/FirstLetterUppercase";
 
 export default function AdsByStatusPage({ status }) {
   const [adsByStatus, setAdsByStatus] = useState(null);
