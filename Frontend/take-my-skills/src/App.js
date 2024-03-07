@@ -62,8 +62,12 @@ function App() {
               element={<RejectedWorkersPage />}
             />
             <Route
-              path="/changepassoword"
-              element={<ChangePasswordPageAuth />}
+              path="/changepassword"
+              element={
+                <RequireAuth loginPath="/login">
+                  <ChangePasswordPageAuth />
+                </RequireAuth>
+              }
             />
             <Route
               path="/rating/:to"

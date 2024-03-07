@@ -29,9 +29,9 @@ const NavBar = () => {
   }, [auth()?.email]);
 
   const handleLogOut = () => {
-    window.location.href = "/";
+    setTimeout(() => {
       signOut();
-
+    }, 500);
   };
 
   return (
@@ -110,7 +110,10 @@ const NavBar = () => {
                     </button>
                     <ul className="dropdown-menu dropdown-menu-end">
                       <li>
-                        <a className="dropdown-item" href={`/profile/${currentUser?.id}`}>
+                        <a
+                          className="dropdown-item"
+                          href={`/profile/${currentUser?.id}`}
+                        >
                           Profile
                         </a>
                       </li>
@@ -125,7 +128,7 @@ const NavBar = () => {
                         <hr className="dropdown-divider" />
                       </li>
                       <li>
-                        <a className="dropdown-item" href="/changepassoword">
+                        <a className="dropdown-item" href="/changepassword">
                           Change Password
                         </a>
                       </li>
