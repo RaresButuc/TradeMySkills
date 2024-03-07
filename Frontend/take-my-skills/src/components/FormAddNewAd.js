@@ -1,26 +1,26 @@
-import { useAuthUser, useAuthHeader } from "react-auth-kit";
-import { useNavigate } from "react-router-dom";
-import { useState, useRef } from "react";
-import { useEffect } from "react";
 import axios from "axios";
+import { useEffect } from "react";
+import { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuthUser, useAuthHeader } from "react-auth-kit";
 
-import TitleInput from "./postAdFormComponents/TitleInput";
-import DescriptionInput from "./postAdFormComponents/DescriptionInput";
+import Alert from "../components/Alert";
+import DefaultURL from "../GlobalVariables";
 import PriceInput from "./postAdFormComponents/PriceInput";
+import TitleInput from "./postAdFormComponents/TitleInput";
 import CategorySelect from "./postAdFormComponents/CategorySelect";
 import LocationSelects from "./postAdFormComponents/LocationSelects";
-import DefaultURL from "../GlobalVariables";
-import Alert from "../components/Alert";
+import DescriptionInput from "./postAdFormComponents/DescriptionInput";
 
 export default function FormAddNewAd() {
   const navigate = useNavigate();
   const auth = useAuthUser();
 
-  const [countyChosenFullName, setCountyChosenFullName] = useState("");
-  const [charactersTextArea, setCharactersTextArea] = useState(0);
-  const [alertInfos, setAlertInfos] = useState(["", ""]);
-  const [currentUser, setCurrentUser] = useState(null);
   const [showAlert, setShowAlert] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
+  const [alertInfos, setAlertInfos] = useState(["", ""]);
+  const [charactersTextArea, setCharactersTextArea] = useState(0);
+  const [countyChosenFullName, setCountyChosenFullName] = useState("");
 
   const titleOfAd = useRef("");
   const descriptonOfAd = useRef("");
