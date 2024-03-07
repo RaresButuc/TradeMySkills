@@ -49,7 +49,7 @@ public class UserService {
 
             userRepository.save(userFromDb);
         }else {
-            throw new IllegalStateException("An Unexpected Error Has Occurred!");
+            throw new IllegalStateException("All Fields Most Be Completed!");
         }
 
     }
