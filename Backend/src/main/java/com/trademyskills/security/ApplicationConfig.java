@@ -1,6 +1,6 @@
 package com.trademyskills.security;
 
-import com.trademyskills.service.repository.UserRepository;
+import com.trademyskills.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

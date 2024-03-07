@@ -2,7 +2,7 @@ package com.trademyskills.service;
 
 
 import com.trademyskills.model.TypeOfAd;
-import com.trademyskills.service.repository.TypeOfAdRepository;
+import com.trademyskills.repository.TypeOfAdRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

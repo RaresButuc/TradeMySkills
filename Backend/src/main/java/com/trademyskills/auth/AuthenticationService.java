@@ -2,7 +2,7 @@ package com.trademyskills.auth;
 
 import com.trademyskills.model.User;
 import com.trademyskills.security.JwtService;
-import com.trademyskills.service.repository.UserRepository;
+import com.trademyskills.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

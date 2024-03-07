@@ -1,7 +1,7 @@
-package com.trademyskills.service.InitDB;
+package com.trademyskills.InitDB;
 
 import com.trademyskills.model.TypeOfAd;
-import com.trademyskills.service.repository.TypeOfAdRepository;
+import com.trademyskills.repository.TypeOfAdRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

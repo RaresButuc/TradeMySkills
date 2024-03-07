@@ -2,7 +2,7 @@ package com.trademyskills.service;
 
 import com.trademyskills.model.Rating;
 import com.trademyskills.model.User;
-import com.trademyskills.service.repository.RatingRepository;
+import com.trademyskills.repository.RatingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -1,9 +1,8 @@
 package com.trademyskills;
 
-import com.trademyskills.service.InitDB.InitDBTypeOfAd;
+import com.trademyskills.InitDB.InitDBTypeOfAd;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

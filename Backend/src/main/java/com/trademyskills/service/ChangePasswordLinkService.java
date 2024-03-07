@@ -1,7 +1,7 @@
 package com.trademyskills.service;
 
 import com.trademyskills.model.ChangePasswordLink;
-import com.trademyskills.service.repository.ChangePasswordLinkRepository;
+import com.trademyskills.repository.ChangePasswordLinkRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

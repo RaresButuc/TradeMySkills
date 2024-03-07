@@ -1,4 +1,4 @@
-package com.trademyskills.service.repository;
+package com.trademyskills.repository;
 
 import com.trademyskills.model.TypeOfAd;
 import org.springframework.data.jpa.repository.JpaRepository;

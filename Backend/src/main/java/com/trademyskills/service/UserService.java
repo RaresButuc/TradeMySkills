@@ -2,8 +2,8 @@ package com.trademyskills.service;
 
 import com.trademyskills.model.ChangePasswordLink;
 import com.trademyskills.model.User;
-import com.trademyskills.service.repository.ChangePasswordLinkRepository;
-import com.trademyskills.service.repository.UserRepository;
+import com.trademyskills.repository.ChangePasswordLinkRepository;
+import com.trademyskills.repository.UserRepository;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
