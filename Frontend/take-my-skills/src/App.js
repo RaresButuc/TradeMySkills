@@ -10,11 +10,11 @@ import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import AdDetail from "./pages/AdDetails";
 import AdsPage from "./pages/AllAdsPage";
-import PostOffer from "./pages/PostOffer";
 import ErrorPage from "./pages/ErrorPage";
 import RatingPage from "./pages/RatingPage";
 import ForgetPassword from "./pages/ForgetPassword";
 import PrivacyPolicy from "./pages/PrivacyAndPolicy";
+import AddNewAdPage from "./pages/AddNewAdPage";
 import OtherUserProfile from "./pages/OtherUserProfile";
 import ActiveAds from "./pages/Ads By Status/ActiveAds";
 import PendingAds from "./pages/Ads By Status/PendingAds";
@@ -80,7 +80,7 @@ function App() {
               path="post-ads"
               element={
                 <RequireAuth loginPath="/login">
-                  <PostOffer />
+                  <AddNewAdPage />
                 </RequireAuth>
               }
             ></Route>

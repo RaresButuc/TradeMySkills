@@ -6,13 +6,13 @@ import { useAuthUser, useAuthHeader } from "react-auth-kit";
 
 import Alert from "../components/Alert";
 import DefaultURL from "../GlobalVariables";
-import PriceInput from "./postAdFormComponents/PriceInput";
-import TitleInput from "./postAdFormComponents/TitleInput";
-import CategorySelect from "./postAdFormComponents/CategorySelect";
-import LocationSelects from "./postAdFormComponents/LocationSelects";
-import DescriptionInput from "./postAdFormComponents/DescriptionInput";
+import PriceInput from "../components/postAdFormComponents/PriceInput";
+import TitleInput from "../components/postAdFormComponents/TitleInput";
+import CategorySelect from "../components/postAdFormComponents/CategorySelect";
+import LocationSelects from "../components/postAdFormComponents/LocationSelects";
+import DescriptionInput from "../components/postAdFormComponents/DescriptionInput";
 
-export default function FormAddNewAd() {
+export default function AddNewAdPage() {
   const navigate = useNavigate();
   const auth = useAuthUser();
 

@@ -6,8 +6,11 @@ import Filter from "../components/Filter";
 import ErrorPage from "../pages/ErrorPage";
 import Category from "../components/Category";
 import Pagination from "../components/Pagination";
+import { useNavigate } from "react-router-dom";
 
 export default function AllOffer() {
+  const navigate = useNavigate();
+
   const [allAds, setAds] = useState([]);
   const [currentPageNumber, setCurrentPageNumber] = useState(null);
   const [paginationDetails, setPaginationDetails] = useState(null);
@@ -33,14 +36,13 @@ export default function AllOffer() {
             pageNumberParam - 1
           }&itemsperpage=10`
         );
-
         const data = response.data;
 
-        setAds(data.content);
+        setPaginationDetails(data.totalPages);
         setCurrentPageNumber(pageNumberParam);
-        setPaginationDetails(data);
+        setAds(data.content.length > 0 ? data.content : null);
       } catch (err) {
-        console.log(err);
+        navigate("/error")
       }
     };
     fetchAds();
@@ -48,24 +50,17 @@ export default function AllOffer() {
 
   return (
     <div>
-      {paginationDetails?.totalPages == 0 ? (
+      <Category />
+      <Filter />
+      {allAds ? (
         <>
-          <Category />
-          <Filter />
-          <h1 style={{ marginTop: 210 }}>
-            <strong>No Ads found</strong>
-          </h1>
-        </>
-      ) : currentPageNumber > paginationDetails?.totalPages ||
-        currentPageNumber < 1 ? (
-        <ErrorPage />
-      ) : (
-        <>
-          <Category />
-          <Filter />
           <Ads ads={allAds} />
           <Pagination elements={paginationDetails} />
         </>
+      ) : (
+        <h1 style={{ marginTop: 180 }}>
+          <strong>No Ads found</strong>
+        </h1>
       )}
     </div>
   );
