@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import Ads from "./Ads";
 import DefaultURL from "../GlobalVariables";
@@ -9,12 +9,14 @@ import writeAWordWithoutFullUppercase from "../shared/FirstLetterUppercase";
 export default function AdsByStatusPage({ status }) {
   const [adsByStatus, setAdsByStatus] = useState(null);
   const [nameOfUser, setNameOfUser] = useState(null);
+  const navigate = useNavigate();
 
   const { id } = useParams();
 
   useEffect(() => {
     const fetchAdsByStatus = async () => {
-      const responseAds = await axios.get(
+      try{
+             const responseAds = await axios.get(
         `${DefaultURL}/ads/profile/${id}/${status}`
       );
       const responseUser = await axios.get(`${DefaultURL}/users/${id}`);
@@ -22,6 +24,10 @@ export default function AdsByStatusPage({ status }) {
       setAdsByStatus(dataAds);
       const dataUser = responseUser.data;
       setNameOfUser(dataUser.name);
+      }catch(err) {
+        navigate("/error")
+      }
+ 
     };
 
     fetchAdsByStatus();

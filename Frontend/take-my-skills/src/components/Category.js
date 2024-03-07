@@ -40,6 +40,7 @@ const ListGroup = () => {
         const data = response.data;
         setCategories(data);
       } catch (err) {
+        setCategories(null);
         console.log(err);
       }
     };
@@ -53,7 +54,7 @@ const ListGroup = () => {
         style={{ marginTop: 110 }}
       >
         <h1 className="fw-bold mb-5">Categories</h1>
-        {categories &&
+        {categories ? (
           categories.map((category, index) => (
             <div className="col-xl-1 col-md-2 col-sm-3 col-6" key={index}>
               <a
@@ -67,7 +68,12 @@ const ListGroup = () => {
               </a>
               <p>{writeAWordWithoutFullUppercase(category.nameOfCategory)}</p>
             </div>
-          ))}
+          ))
+        ) : (
+          <h3>
+            <strong>No Categories Available Right Now</strong>
+          </h3>
+        )}
       </div>
     </div>
   );

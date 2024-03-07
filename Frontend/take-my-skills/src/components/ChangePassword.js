@@ -9,7 +9,6 @@ import DefaultURL from "../GlobalVariables";
 export default function ChangePassword({ email, uuid }) {
   const isAuthenticated = useIsAuthenticated();
 
-  const [error, setError] = useState("");
   const [showAlert, setShowAlert] = useState(false);
   const [alertInfos, setAlertInfos] = useState(["", ""]);
   const [userInfos, setUserInfos] = useState("");
@@ -119,9 +118,6 @@ export default function ChangePassword({ email, uuid }) {
         setAlertInfos(["success", "Password successfully changed!"]);
       }
     } catch (err) {
-      if (err instanceof AxiosError) setError(err.response?.data.message);
-      else if (err instanceof Error) setError(err.message);
-      console.log(err);
       setShowAlert(true);
       setAlertInfos([
         "danger",

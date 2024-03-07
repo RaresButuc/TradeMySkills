@@ -5,9 +5,11 @@ import { useState, useRef, useEffect } from "react";
 import StarsRating from "./StarsRating";
 import DefaultURL from "../GlobalVariables";
 import ProfilePhoto from "../shared/ProfilePhoto";
+import { useNavigate } from "react-router-dom";
 
 export default function Profile({ id }) {
   const auth = useAuthUser();
+  const navigate = useNavigate();
 
   const [currentUser, setCurrentUser] = useState(null);
   const [showEditButtonOrNot, setShowEditButtonOrNot] = useState(false);
@@ -17,6 +19,7 @@ export default function Profile({ id }) {
   const userNameRef = useRef("");
   const userPhoneNumberRef = useRef("");
   const userEmailRef = useRef("");
+  
 
   const onSave = async () => {
     const editData = {
@@ -50,7 +53,7 @@ export default function Profile({ id }) {
       setCurrentUser(data);
       setShowEditButtonOrNot(data?.email === auth()?.email);
     } catch (err) {
-      console.log(err);
+      navigate("/error")
     }
   };
 
