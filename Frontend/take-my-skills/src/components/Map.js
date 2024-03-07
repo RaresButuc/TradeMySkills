@@ -1,5 +1,3 @@
-
-
 export default function Map({ lat, lon }) {
 
   const generateMapURL = () => {

@@ -1,9 +1,10 @@
 import axios from "axios";
 import { useState } from "react";
-import Alert from "../components/Alert";
 import { useSignIn } from "react-auth-kit";
-import DefaultURL from "../GlobalVariables";
 import { useNavigate } from "react-router-dom";
+
+import Alert from "../components/Alert";
+import DefaultURL from "../GlobalVariables";
 
 function Login() {
   const signIn = useSignIn();

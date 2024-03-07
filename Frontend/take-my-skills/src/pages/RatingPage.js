@@ -1,12 +1,13 @@
-import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { useAuthUser } from "react-auth-kit";
-import ErrorPage from "../pages/ErrorPage";
-import Rating from "react-rating-stars-component";
-import DefaultURL from "../GlobalVariables";
 import axios from "axios";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useAuthUser } from "react-auth-kit";
+import { useNavigate } from "react-router-dom";
+import Rating from "react-rating-stars-component";
+
 import Alert from "../components/Alert";
+import ErrorPage from "../pages/ErrorPage";
+import DefaultURL from "../GlobalVariables";
 
 export default function RatingPage() {
   const { to } = useParams();

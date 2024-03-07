@@ -1,19 +1,19 @@
 import axios from "axios";
-import ProfilePhoto from "../shared/ProfilePhoto";
-import Map from "../components/Map";
-import DefaultURL from "../GlobalVariables";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useAuthUser } from "react-auth-kit";
 import { useEffect, useState, useRef } from "react";
 
-import TitleInput from "../components/postAdFormComponents/TitleInput";
-import DescriptionInput from "../components/postAdFormComponents/DescriptionInput";
-import PriceInput from "../components/postAdFormComponents/PriceInput";
-import CategorySelect from "../components/postAdFormComponents/CategorySelect";
-import LocationSelects from "../components/postAdFormComponents/LocationSelects";
+import Map from "../components/Map";
+import Alert from "../components/Alert";
+import DefaultURL from "../GlobalVariables";
+import ProfilePhoto from "../shared/ProfilePhoto";
 import StarsRating from "../components/StarsRating";
 import ApplyButton from "../components/ApplyButton";
-import Alert from "../components/Alert";
+import PriceInput from "../components/postAdFormComponents/PriceInput";
+import TitleInput from "../components/postAdFormComponents/TitleInput";
+import CategorySelect from "../components/postAdFormComponents/CategorySelect";
+import LocationSelects from "../components/postAdFormComponents/LocationSelects";
+import DescriptionInput from "../components/postAdFormComponents/DescriptionInput";
 
 export default function AdDetail() {
   const auth = useAuthUser();
@@ -362,7 +362,7 @@ export default function AdDetail() {
             </div>
           </div>
 
-          {/* Profil */}
+          {/* Profile */}
           <div className="container-xl col-xl-4 col-md-4 col-sm-12 my-sm-3  my-xl-0 my-md-0">
             <div className="card">
               <div className="card-body text-center">

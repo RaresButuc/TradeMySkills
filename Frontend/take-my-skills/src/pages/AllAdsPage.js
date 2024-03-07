@@ -1,11 +1,11 @@
-import Category from "../components/Category";
+import axios from "axios";
+import { useState, useEffect } from "react";
+
 import Ads from "../components/Ads";
 import Filter from "../components/Filter";
-import Pagination from "../components/Pagination";
 import ErrorPage from "../pages/ErrorPage";
-
-import { useState, useEffect } from "react";
-import axios from "axios";
+import Category from "../components/Category";
+import Pagination from "../components/Pagination";
 
 export default function AllOffer() {
   const [allAds, setAds] = useState([]);

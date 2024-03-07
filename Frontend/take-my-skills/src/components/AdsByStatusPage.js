@@ -1,8 +1,9 @@
+import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import DefaultURL from "../GlobalVariables";
+
 import Ads from "./Ads";
-import axios from "axios";
+import DefaultURL from "../GlobalVariables";
 import writeAWordWithoutFullUppercase from "../shared/FirstLetterUppercase";
 
 export default function AdsByStatusPage({ status }) {
@@ -25,7 +26,6 @@ export default function AdsByStatusPage({ status }) {
 
     fetchAdsByStatus();
   }, []);
-
 
   return (
     <div className="container-xl" style={{ marginTop: 100 }}>

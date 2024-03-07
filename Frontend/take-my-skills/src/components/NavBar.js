@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
-import logo_22 from "../photo/logosWebsite/Logo_22.png";
-import { Outlet } from "react-router-dom";
-import { useIsAuthenticated } from "react-auth-kit";
-import { useSignOut } from "react-auth-kit";
-import { useAuthUser } from "react-auth-kit";
-import DefaultURL from "../GlobalVariables";
 import axios from "axios";
+import { Outlet } from "react-router-dom";
+import { useSignOut } from "react-auth-kit";
+import { useEffect, useState } from "react";
+import { useAuthUser } from "react-auth-kit";
+import { useIsAuthenticated } from "react-auth-kit";
+
+import DefaultURL from "../GlobalVariables";
+import logo_22 from "../photo/logosWebsite/Logo_22.png";
 
 const NavBar = () => {
   const isAuthenticated = useIsAuthenticated();
@@ -84,7 +85,6 @@ const NavBar = () => {
               ) : null}
 
               {isAuthenticated() ? (
-                // If user is authenticated, show logout button
                 <li className="nav-item">
                   <div className="dropdown">
                     <button
@@ -141,7 +141,6 @@ const NavBar = () => {
                   </div>
                 </li>
               ) : (
-                // If user is not authenticated, show login link
                 <li className="nav-item">
                   <a className="nav-link font-weight-bold mx-2" href="/login">
                     Log In

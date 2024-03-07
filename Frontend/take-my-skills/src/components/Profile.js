@@ -1,9 +1,10 @@
-import React, { useState, useRef, useEffect } from "react";
-import { useAuthUser } from "react-auth-kit";
-import ProfilePhoto from "../shared/ProfilePhoto";
-import DefaultURL from "../GlobalVariables";
 import axios from "axios";
+import { useAuthUser } from "react-auth-kit";
+import { useState, useRef, useEffect } from "react";
+
 import StarsRating from "./StarsRating";
+import DefaultURL from "../GlobalVariables";
+import ProfilePhoto from "../shared/ProfilePhoto";
 
 export default function Profile({ id }) {
   const auth = useAuthUser();
@@ -152,7 +153,6 @@ export default function Profile({ id }) {
 
             <div className="row">
               <div className="d-grid gap-1 ">
-                {/* buton cu verde pentru oferte active */}
                 {currentUser?.role === "ROLE_WORKER" ? (
                   <a
                     className="btn btn-warning font-weight-bold  mx-1  "

@@ -1,8 +1,9 @@
 import axios, { AxiosError } from "axios";
-import { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Alert from "../components/Alert";
 import { useIsAuthenticated } from "react-auth-kit";
+import { useRef, useState, useEffect } from "react";
+
+import Alert from "../components/Alert";
 import DefaultURL from "../GlobalVariables";
 
 export default function ChangePassword({ email, uuid }) {

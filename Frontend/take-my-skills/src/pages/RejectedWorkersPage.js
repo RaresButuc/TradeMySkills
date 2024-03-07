@@ -1,6 +1,7 @@
+import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
+
 import DefaultURL from "../GlobalVariables";
 import ProfilePhoto from "../shared/ProfilePhoto";
 
@@ -137,9 +138,7 @@ export default function RejectedWorkersPage() {
                       <button
                         type="button"
                         className="btn btn-primary"
-                        onClick={() =>
-                          deleteRejectedWorkerButton(id, worker)
-                        }
+                        onClick={() => deleteRejectedWorkerButton(id, worker)}
                         data-bs-dismiss="modal"
                       >
                         Accept

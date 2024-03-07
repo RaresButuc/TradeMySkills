@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
+
 import changeLink from "../shared/utils";
+
 export default function Filter() {
   const [inputValue, setInputValue] = useState("");
 

@@ -1,4 +1,5 @@
 import ReactPaginate from "react-paginate";
+
 import changeLink from "../shared/utils";
 
 export default function Pagination({ elements }) {

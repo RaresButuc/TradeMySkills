@@ -1,19 +1,20 @@
+import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
-import axios from "axios";
+
 import changeLink from "../shared/utils";
 import DefaultURL from "../GlobalVariables";
-import writeAWordWithoutFullUppercase from "../shared/FirstLetterUppercase";
-import construction from "../photo/icons/Construction.png";
-import confections from "../photo/icons/Confections.png";
-import cooking from "../photo/icons/Cooking.png";
-import delivery from "../photo/icons/Transport.png";
 import events from "../photo/icons/Event.png";
-import education from "../photo/icons/Education.png";
-import cleaning from "../photo/icons/Cleaning.png";
-import petcare from "../photo/icons/PetCare.png";
-import babysitter from "../photo/icons/BabySitting.png";
 import other from "../photo/icons/Others.png";
+import cooking from "../photo/icons/Cooking.png";
+import petcare from "../photo/icons/PetCare.png";
+import cleaning from "../photo/icons/Cleaning.png";
+import delivery from "../photo/icons/Transport.png";
+import education from "../photo/icons/Education.png";
+import babysitter from "../photo/icons/BabySitting.png";
+import confections from "../photo/icons/Confections.png";
+import construction from "../photo/icons/Construction.png";
+import writeAWordWithoutFullUppercase from "../shared/FirstLetterUppercase";
 
 const ListGroup = () => {
   //TO-DO: API pentru poze
@@ -44,8 +45,6 @@ const ListGroup = () => {
     };
     fetchCategories();
   }, []);
-
-
 
   return (
     <div className="container-xl">

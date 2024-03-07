@@ -1,23 +1,23 @@
 import videoBg from "../video/-60.1.mp4";
-import countriesIcon from "../photo/icons/countries.png";
-import professionalsIcon from "../photo/icons/businessman.png";
-import customersIcon from "../photo/icons/customer-service.png";
-import logoAdevarul from "../photo/logosPartners/adevarul.png";
-import logoDigi from "../photo/logosPartners/digi-24.png";
-import logoForbes from "../photo/logosPartners/forbes.png";
-import logoHolcim from "../photo/logosPartners/holcim.png";
 import logoLT from "../photo/logosPartners/L&T.png";
-import logoObservator from "../photo/logosPartners/observator.png";
-import logoProTV from "../photo/logosPartners/pro-tv.png";
-import logoSG from "../photo/logosPartners/saint-gobain.png";
 import logoTVR from "../photo/logosPartners/tvr.png";
 import logoVisa from "../photo/logosPartners/visa.png";
+import countriesIcon from "../photo/icons/countries.png";
+import logoDigi from "../photo/logosPartners/digi-24.png";
+import logoProTV from "../photo/logosPartners/pro-tv.png";
+import logoForbes from "../photo/logosPartners/forbes.png";
+import logoHolcim from "../photo/logosPartners/holcim.png";
+import logoSG from "../photo/logosPartners/saint-gobain.png";
+import logoAdevarul from "../photo/logosPartners/adevarul.png";
+import professionalsIcon from "../photo/icons/businessman.png";
+import customersIcon from "../photo/icons/customer-service.png";
+import logoObservator from "../photo/logosPartners/observator.png";
 
 export default function HomePage() {
   return (
     <>
       <div className=" text-bg-dark position-relative">
-      <video className="card-img" src={videoBg} autoPlay loop muted />
+        <video className="card-img" src={videoBg} autoPlay loop muted />
         <div className="card-img-overlay m-auto position-absolute top-50 start-0">
           <h1 className="card-slogan fw-bold mb-3">
             Every Service Is NOW More Accesible Than Ever

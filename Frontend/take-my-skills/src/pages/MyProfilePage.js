@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { useAuthUser } from "react-auth-kit";
 import axios from "axios";
+import { useState, useEffect } from "react";
+import { useAuthUser } from "react-auth-kit";
+
 import Profile from "../components/Profile.js";
 import DefaultURL from "../GlobalVariables.js";
 
