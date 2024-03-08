@@ -39,7 +39,6 @@ public class AdService {
                 !ad.getLocation().getNameOfTheCounty().isEmpty() &&
                 !ad.getLocation().getNameOfTheCity().isEmpty() &&
                 !ad.getTitle().isEmpty() &&
-//                ad.getOwner().getRole() != Role.ROLE_WORKER &&
                 ad.getDescription() != null &&
                 !ad.getDescription().isEmpty() &&
                 ad.getPrice() != null &&
