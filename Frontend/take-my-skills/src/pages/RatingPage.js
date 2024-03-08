@@ -29,7 +29,7 @@ export default function RatingPage() {
         const response = await axios.get(`${DefaultURL}/users/${to}`);
         setUserToBeRated(response.data);
       } catch (err) {
-        console.log(err);
+        navigate("/error");
       }
     };
 
@@ -48,7 +48,7 @@ export default function RatingPage() {
         setCurrentUser(dataCurrentUser);
         setIsRatedExistent(dataIsRatedExistent);
       } catch (err) {
-        console.log(err);
+         navigate("/error");
       }
     };
 
