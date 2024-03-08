@@ -58,7 +58,6 @@ public class AdService {
 
             return ad.getId();
         } else {
-            System.out.println("Nu e ok");
             throw new IllegalStateException("All Fields Should Be Completed!");
         }
     }
@@ -94,7 +93,7 @@ public class AdService {
         return currentAd.getRejectedWorkers().contains(workerUser);
     }
 
-
+//to-do change find by name with find by email.
     public void deleteWorkerFromRejected(String name, Long idOfAd) {
         User workerUser = userRepository.findByName(name).orElseThrow(() -> new NoSuchElementException("No User Found!"));
         Ad currentAd = adRepository.findById(idOfAd).orElseThrow(() -> new NoSuchElementException("No Ad Found!"));
