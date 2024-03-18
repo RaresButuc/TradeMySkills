@@ -4,6 +4,6 @@ import ChangePassword from "../components/ChangePassword";
 
 export default function ChangePasswordPageNoAuth() {
   const { uuid } = useParams();
-
+  
   return <ChangePassword uuid={uuid} />;
 }
