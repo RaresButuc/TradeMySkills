@@ -7,21 +7,20 @@ import Alert from "../components/Alert";
 import DefaultURL from "../GlobalVariables";
 
 export default function ChangePassword({ email, uuid }) {
+  const navigate = useNavigate();
   const isAuthenticated = useIsAuthenticated();
 
+  const [active, setActive] = useState(false);
+  const [userInfos, setUserInfos] = useState("");
   const [showAlert, setShowAlert] = useState(false);
   const [alertInfos, setAlertInfos] = useState(["", ""]);
-  const [userInfos, setUserInfos] = useState("");
-  const [active, setActive] = useState(false);
 
-  const [uuidAvailable, setUUIDAvailable] = useState(false);
   const [uuidEmail, setUuidEmail] = useState("");
+  const [uuidAvailable, setUUIDAvailable] = useState(false);
 
-  const actualPassword = useRef();
   const newPassword = useRef();
+  const actualPassword = useRef();
   const confirmNewPassword = useRef();
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCurrentUser = async () => {
@@ -34,27 +33,36 @@ export default function ChangePassword({ email, uuid }) {
           setUserInfos(data);
         }
       } catch (err) {
-        console.log(err);
+        if (!isAuthenticated) {
+          navigate("/error");
+        }
       }
     };
 
     const fetchUUIDRequest = async () => {
       try {
-        const isUUIDAvailable = await axios.get(
-          `${DefaultURL}/changepassword/valid/${uuid}`
+        const isUUIDAvailableByTime = await axios.get(
+          `${DefaultURL}/changepassword/isTimeExpired/${uuid}`
         );
+        const isUUIDAvailable = await axios.get(
+          `${DefaultURL}/changepassword/isRequestExpired/${uuid}`
+        );
+
+        const dataAvailableByTime = isUUIDAvailableByTime.data;
         const dataAvailable = isUUIDAvailable.data;
 
         setUUIDAvailable(dataAvailable);
 
-        if (!dataAvailable) {
+        if (!dataAvailableByTime && !dataAvailable) {
           const reqByUUID = await axios.get(
-            `${DefaultURL}/changepassword/getemail/${uuid}`
+            `${DefaultURL}/changepassword/getEmail/${uuid}`
           );
           setUuidEmail(reqByUUID.data);
         }
       } catch (err) {
-        console.log(err);
+        if (!isAuthenticated) {
+          navigate("/error");
+        }
       }
     };
 
@@ -88,23 +96,14 @@ export default function ChangePassword({ email, uuid }) {
           }
         );
 
-        if (response.data.includes("Congratulations")) {
-          setShowAlert(true);
-          setAlertInfos(["success", response.data]);
+        setShowAlert(true);
+        setAlertInfos(["success", response.data]);
 
-          setTimeout(() => {
-            navigate("/login");
-          }, 3000);
-        } else {
-          setShowAlert(true);
-          setAlertInfos(["danger", response.data]);
-
-          setTimeout(() => {
-            navigate("/forget-password");
-          }, 3000);
-        }
+        setTimeout(() => {
+          navigate("/login");
+        }, 3000);
       } else {
-        await axios.put(
+        const response = await axios.put(
           `http://localhost:8080/users/${userInfos?.id}/change-password`,
           {
             actualPassword: actualPassword.current.value,
@@ -112,17 +111,17 @@ export default function ChangePassword({ email, uuid }) {
           }
         );
         setTimeout(() => {
-          navigate("/myprofile");
+          navigate(`/profile/${userInfos?.id}`);
         }, 3000);
         setShowAlert(true);
-        setAlertInfos(["success", "Password successfully changed!"]);
+        setAlertInfos(["success", response.data]);
       }
     } catch (err) {
       setShowAlert(true);
-      setAlertInfos([
-        "danger",
-        "Fields incorrectly completed! Try again carefully!",
-      ]);
+      setAlertInfos(["danger", err.response.data.message]);
+      setTimeout(() => {
+        setShowAlert(false);
+      }, 3000);
     }
   };
 
@@ -206,9 +205,9 @@ export default function ChangePassword({ email, uuid }) {
         </form>
       ) : (
         <h1 className="container-xl position-absolute top-50 start-50 translate-middle">
-          This Page Was Available Only for 60 Minutes.
+          This Page Is Not Available Anymore!
           <br />
-          Please Demand a New Email Request from{" "}
+          Please Demand a New Email Request From{" "}
           <a href="http://localhost:3000/forget-password">This Page</a>!
         </h1>
       )}

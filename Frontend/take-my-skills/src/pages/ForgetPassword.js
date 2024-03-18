@@ -6,10 +6,11 @@ import Alert from "../components/Alert";
 import DefaultURL from "../GlobalVariables";
 
 export default function ForgetPassword() {
+  const navigate = useNavigate();
+
   const [error, setError] = useState("");
   const [showAlert, setShowAlert] = useState(false);
   const [alertInfos, setAlertInfos] = useState(["", ""]);
-  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();

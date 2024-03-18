@@ -1,5 +1,6 @@
 package com.trademyskills.controller;
 
+import com.trademyskills.model.ChangePasswordLink;
 import com.trademyskills.service.ChangePasswordLinkService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -11,13 +12,18 @@ public class ChangePasswordLinkController {
 
     private final ChangePasswordLinkService changePasswordLinkService;
 
-    @GetMapping("/valid/{uuid}")
-    public boolean validateLink(@PathVariable("uuid") String uuid) {
-        return changePasswordLinkService.verifyIsClosed(uuid);
+    @GetMapping("/isTimeExpired/{uuid}")
+    public boolean isReqExpiredByTime(@PathVariable("uuid") String uuid) {
+        return changePasswordLinkService.isExpiredByTime(uuid);
     }
 
-    @GetMapping("/getemail/{uuid}")
+    @GetMapping("/getEmail/{uuid}")
     public String getEmailByUuid(@PathVariable("uuid") String uuid) {
         return changePasswordLinkService.getEmailByUUID(uuid);
+    }
+
+    @GetMapping("/isRequestExpired/{uuid}")
+    public boolean getRequestByUuid(@PathVariable("uuid") String uuid) {
+        return changePasswordLinkService.isRequestExpired(uuid);
     }
 }
