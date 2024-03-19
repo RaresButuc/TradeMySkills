@@ -82,9 +82,9 @@ export default function UserProfilePage() {
 
       <section>
         <div className="container py-5 mt-5">
-          <div className="row">
+          <div className="row ">
             <div className="col-lg-4">
-              <div className="card mb-4">
+              <div className="card mb-3 ">
                 <div className="card-body text-center">
                   <ProfilePhoto width={"110"} height={"110"} />
 
@@ -111,9 +111,9 @@ export default function UserProfilePage() {
             </div>
 
             <div className="col-lg-8">
-              <div className="card mb-4">
+              <div className="card mb-5">
                 <div className="card-body">
-                  <div className="row">
+                  <div className="row my-2">
                     <div className="col-sm-3">
                       <p className="mb-0">UserName</p>
                     </div>
@@ -130,7 +130,7 @@ export default function UserProfilePage() {
                     </div>
                   </div>
                   <hr />
-                  <div className="row">
+                  <div className="row my-2">
                     <div className="col-sm-3">
                       <p className="mb-0">Email</p>
                     </div>
@@ -148,7 +148,7 @@ export default function UserProfilePage() {
                     </div>
                   </div>
                   <hr />
-                  <div className="row">
+                  <div className="row my-2">
                     <div className="col-sm-3">
                       <p className="mb-0">Phone</p>
                     </div>
@@ -184,9 +184,9 @@ export default function UserProfilePage() {
                       Pending Ads
                     </a>
                   ) : (
-                    <div className="row">
+                    <div className="row ">
                       <a
-                        className="btn btn-primary font-weight-bold  mx-3  col"
+                        className="btn btn-primary font-weight-bold  mx-3   col"
                         aria-current="page"
                         href={`/${currentUser?.id}/active`}
                       >
