@@ -4,7 +4,7 @@
 ## Project Description 
 The "Trade My Skills" project is an newly resourceful web platform designed to bridge the gap between individuals seeking specific services and skilled professionals ready to offer their expertise. This dynamic website serves as a centralized hub where people can post their service requests and skilled workers can propose their services, creating a harmonious marketplace for service seekers and providers.
 
-<img src="https://cdn.discordapp.com/attachments/1080812341693784124/1176126324969066576/1.png?ex=656dbbff&is=655b46ff&hm=776813af8e3e1ecd2eed6fe14f2a628cb9c948d63aacbc488980900c0f9e1f94&" />
+![1](https://github.com/RaresButuc/TradeMySkills.com/assets/116391767/01b967aa-70fb-41e8-a95c-c1aadf69425a)
 
 
 ### Technologies Used
@@ -51,8 +51,8 @@ Our future plans for Trade-My-Skills platform include:
     - Ensure you have the latest LTS (Long Term Support) version of Java Development Kit (JDK) installed on your system.
     - If needed, reload Maven dependencies by right-clicking the `pom.xml` file and selecting "Maven -> Reload Project."
     - Create an SQL Database called "trademyskills" and inside "resources -> application.properties" enter your spring datasource password
-
-<img src="https://cdn.discordapp.com/attachments/1080812341693784124/1176136576250679296/image.png?ex=656dc58b&is=655b508b&hm=dc554401302057544664f4c6c82fd3ea828aee47a0fc29a187229a2412dfccff&" />
+    - 
+![2](https://github.com/RaresButuc/TradeMySkills.com/assets/116391767/c32b645f-8f7f-48b6-b0f5-044473174e1f)
 
 
 2. **Run the Server:**
@@ -88,63 +88,59 @@ Our future plans for Trade-My-Skills platform include:
 
 Click the `View all Ads` navbar-button to acces page listing all the ads.
 
-<img src="https://cdn.discordapp.com/attachments/1080812341693784124/1176155844463841430/image.png?ex=656dd77d&is=655b627d&hm=72ed60b6506bd9f1197805c62cbb7c84b1878d489c11a968af6a29ef3c9fbcc6&" />
+![3](https://github.com/RaresButuc/TradeMySkills.com/assets/116391767/ecb60d61-086b-4559-bd00-ed9bc21a536a)
 
 a. Every ad can be sorted by a category mentioned above:
-  
-<img src="https://cdn.discordapp.com/attachments/1080812341693784124/1176195498022019213/All_Ads_to_be_edted.png?ex=656dfc6b&is=655b876b&hm=d3ea197736cb281e8306407bfae6c28ff3de81a49de45ec42c29301787138e40&" />
+
+![4](https://github.com/RaresButuc/TradeMySkills.com/assets/116391767/1b289e32-73fb-4521-bd48-bee5f5956a1c)
 
 b. Ads can be sorted by name/price in ascending/descending order:
-    
-<img src="https://cdn.discordapp.com/attachments/1080812341693784124/1176195499699744778/sort.png?ex=656dfc6b&is=655b876b&hm=3a64461211f53ee1138e31ba1f2bb3f365615baad970545b94b598b5b1e9bbea&" />
+
+![5](https://github.com/RaresButuc/TradeMySkills.com/assets/116391767/2ed63b5e-93c5-4287-9463-9a28be558ccd)
 
 c. Ads can be find by the keyword mentions in the input:
 
-<img src="https://cdn.discordapp.com/attachments/1080812341693784124/1176195499066400839/image.png?ex=656dfc6b&is=655b876b&hm=c58f7b905f90f7b818d1ac858078af55ed17932a1d3c1d4718625cc6fecff50a&" />
+![6](https://github.com/RaresButuc/TradeMySkills.com/assets/116391767/aa502879-a8df-413b-9177-7218f375cd57)
 
 d. All Ads available dependng on the sorting,filtering or keywords criterias:
 
-<img src="https://cdn.discordapp.com/attachments/1080812341693784124/1176195498483396648/allads.png?ex=656dfc6b&is=655b876b&hm=dd655f40c9e61bf1eb97283403c97d66914d2434802a7694f59851a4ab0a06fb&" />
+![7](https://github.com/RaresButuc/TradeMySkills.com/assets/116391767/6dd82534-08df-4bfe-9838-b5042b0ad30a)
 
 
 - Click the `Join us` navbar-button to register into the webisite(all fields must be completed).
 
-<img src="https://cdn.discordapp.com/attachments/1080812341693784124/1176159487162339411/image.png?ex=656ddae1&is=655b65e1&hm=5385ab628fd09457e00e0a91581b302d8cf9e8153f64010007a0e3fa54910661&" />
+![8](https://github.com/RaresButuc/TradeMySkills.com/assets/116391767/e07b37f0-009a-48f4-9b07-279e281b74a3)
 
-a. When the registration process finishes well,you will receive a welcoming email from us;
+a. When the registration process finishes well,you will receive a welcoming email from us.
 
-<img src="https://cdn.discordapp.com/attachments/1080812341693784124/1176170545209950249/image.png?ex=656de52e&is=655b702e&hm=679e4c36bd30ac71a56f5167e8ed1489f4a61008aee43a59a5266040246056e5&" />
+![9](https://github.com/RaresButuc/TradeMySkills.com/assets/116391767/a1b70e46-5531-43e5-bf72-ed662f4e1b65)
 
 - Click the `Log In` navbar-button to log into the webisite.
-
-<img src="https://cdn.discordapp.com/attachments/1080812341693784124/1176159962741878804/image.png?ex=656ddb53&is=655b6653&hm=4aed79e6945013212af9e134a40d915fc65869789d382ae4d2e60159f42b4a56&" />
+  
+![10](https://github.com/RaresButuc/TradeMySkills.com/assets/116391767/3087646e-05b7-4bb6-8e1a-006c2cbdcea3)
 
 a. In case you forgot your account's password,you should press the "Change it Now". Here you will have to write your account's email and open the confirmation email we sent to you.
 
-<img src="https://cdn.discordapp.com/attachments/1080812341693784124/1176171551549308949/image.png?ex=656de61e&is=655b711e&hm=4fa954a2b57ee6116316acad8060ac743f158558483f8ca6e823d42ef4acfc30&" />
-<img src="https://cdn.discordapp.com/attachments/1080812341693784124/1176171935068065802/image.png?ex=656de679&is=655b7179&hm=b0a98187d5b04ca9c00416ee146efb44c600f29446e73fadc4baaa1fa5d17696&" />
-
+![11](https://github.com/RaresButuc/TradeMySkills.com/assets/116391767/5df34e3f-281d-48d2-9be8-7eac8472845e)
+![12](https://github.com/RaresButuc/TradeMySkills.com/assets/116391767/75bbf0d1-156d-4a51-a7be-98952afdc282)
 
 Once logged into the website,as a user,you have acces to the following buttons:
 
-<img src="https://cdn.discordapp.com/attachments/1080812341693784124/1176175923310100610/image.png?ex=656dea30&is=655b7530&hm=9b3dd51f0d346c46e44db6f177a507d08db17d44aef22841725320bdb4b20492&" />
+![13](https://github.com/RaresButuc/TradeMySkills.com/assets/116391767/7781b379-4f72-4f55-97c8-43d457cb8896)
 
 - `My Profile` Page,where everyone can see your contact informations,and you can edit these stats anytime.
 
 a.  As a CUSTOMER you can see all your ads on any Status,but as a WORKER,only as PENDING and FINALISED,becuase "Active" ads are the ones that didnt find a WORKER yet and WORKERS don't have acces to post these,only to apply to them;
 
-
-
 b. `Edit` button lets you easily edit your contact informations;
 
 - `Post New Ad` Page, where you can post any ad ONLY AS A CUSTOMER, NOT A WORKER,mentioning every detail of it,from title,to location;
 
-  <img src="https://cdn.discordapp.com/attachments/1080812341693784124/1176151883337961543/image.png?ex=656dd3cc&is=655b5ecc&hm=13ea14bcc73088d4f330e218bdc2902d179a821c429ab20aa7906b8595b0b1af&" />
-
+![14](https://github.com/RaresButuc/TradeMySkills.com/assets/116391767/77b4a999-08d1-4f7c-8779-83e243866037)
 
 - `Change Password` Page will let you change your password,by writing your actual one,and then typing twice your new one
 
- <img src="https://cdn.discordapp.com/attachments/1080812341693784124/1176192723968077844/image.png?ex=656df9d5&is=655b84d5&hm=8aa8fa7888c7820a1fe131857f96d58a4db9c7e0d8441c40765c15bc05fd60b4&" />
+![15](https://github.com/RaresButuc/TradeMySkills.com/assets/116391767/35fe4160-ecdf-4fe3-932e-6ebec2e7cb51)
 
     
 5. Click the `Contact` button to access page to contact us.
