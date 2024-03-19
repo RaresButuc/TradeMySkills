@@ -8,6 +8,7 @@ import DefaultURL from "../GlobalVariables";
 import ProfilePhoto from "../shared/ProfilePhoto";
 import { useNavigate } from "react-router-dom";
 import Alert from "../components/Alert";
+import RatingCard from "../components/RatingCard";
 
 export default function UserProfilePage() {
   const auth = useAuthUser();
@@ -216,6 +217,25 @@ export default function UserProfilePage() {
           </div>
         </div>
       </section>
+      <div className="container xl">
+        <div className="row ">
+          <RatingCard />
+          <RatingCard />
+          <RatingCard />
+          <RatingCard />
+        </div>
+        <div className="row">
+          <button
+            style={{
+              backgroundColor: "transparent",
+              borderColor: "transparent",
+            }}
+            className="mt-4"
+          >
+            <hr class="hr-text" data-content=" See More Ratings"></hr>
+          </button>
+        </div>
+      </div>
     </>
   );
 }
