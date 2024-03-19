@@ -76,15 +76,12 @@ public class UserService {
                 .orElseThrow(() -> new RuntimeException("No User Was Found With This Email: " + email));
         ChangePasswordLink changePasswordLink = changePasswordLinkRepository.findByUuid(uuid);
 
-        ChangePasswordLink request = changePasswordLinkRepository.findByUuid(uuid);
-
-
-        if (changePasswordLink.getEmail().equals(email) && !changePasswordLinkService.isExpiredByTime(uuid) && !request.isExpired()) {
-            request.setExpired(true);
+        if (changePasswordLink.getEmail().equals(email) && !changePasswordLinkService.isExpiredByTime(uuid) && !changePasswordLink.isExpired()) {
+            changePasswordLink.setExpired(true);
             user.setPassword(passwordEncoder.encode(newPassword));
 
             userRepository.save(user);
-            changePasswordLinkRepository.save(request);
+            changePasswordLinkRepository.save(changePasswordLink);
 
         } else {
             throw new IllegalStateException("Error! Request a 'New Password Change Request' by Email and Try again!");

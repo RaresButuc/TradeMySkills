@@ -1,5 +1,5 @@
+import axios from "axios";
 import { useState } from "react";
-import axios, { AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
 
 import Alert from "../components/Alert";
@@ -8,7 +8,6 @@ import DefaultURL from "../GlobalVariables";
 export default function ForgetPassword() {
   const navigate = useNavigate();
 
-  const [error, setError] = useState("");
   const [showAlert, setShowAlert] = useState(false);
   const [alertInfos, setAlertInfos] = useState(["", ""]);
 
@@ -20,23 +19,17 @@ export default function ForgetPassword() {
       const response = await axios.put(
         `${DefaultURL}/users/forget-password?email=${email}`
       );
-      console.log(response.status);
+
       setTimeout(() => {
         navigate("/");
       }, 3000);
       setShowAlert(true);
-      setAlertInfos(["success", "Forget password form email was send!"]);
+      setAlertInfos(["success", response.data]);
     } catch (err) {
-      console.log(err.response.status);
       if (err.response.status === 500) {
-        setTimeout(() => {
-          navigate("/");
-        }, 3000);
         setShowAlert(true);
-        setAlertInfos(["danger", "No email was found!"]);
+        setAlertInfos(["danger", err.response.data.message]);
       }
-      if (err instanceof AxiosError) setError(err.response?.data.message);
-      else if (err instanceof Error) setError(err.message);
     }
   };
 
