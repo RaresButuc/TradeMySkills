@@ -17,6 +17,7 @@ export default function RatingPage() {
   const [comment, setComment] = useState("");
   const [showAlert, setShowAlert] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
+  const [alertInfos, setAlertInfos] = useState(["", ""]);
   const [userToBeRated, setUserToBeRated] = useState("");
   const [isRatedExistent, setIsRatedExistent] = useState(false);
   const [submitButtonStatus, setSubmitButtonStatus] = useState(true);
@@ -48,7 +49,7 @@ export default function RatingPage() {
         setCurrentUser(dataCurrentUser);
         setIsRatedExistent(dataIsRatedExistent);
       } catch (err) {
-         navigate("/error");
+        navigate("/error");
       }
     };
 
@@ -58,12 +59,13 @@ export default function RatingPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     sendRating();
-    setShowAlert(true);
     setTimeout(() => {
       navigate("/");
     }, 3000);
   };
+
   const onChangeRating = (e) => {
     setStars(e);
     setSubmitButtonStatus(false);
@@ -71,22 +73,28 @@ export default function RatingPage() {
 
   const sendRating = async () => {
     try {
-      await axios.post(`${DefaultURL}/ratings`, {
+      const response = await axios.post(`${DefaultURL}/ratings`, {
         star: stars,
         comment: comment,
         from: { id: currentUser?.id },
         to: { id: to },
       });
+
+      setShowAlert(true);
+      setAlertInfos(["success", response.data]);
     } catch (err) {
-      console.log(err);
+      setShowAlert(true);
+      setAlertInfos(["danger", err.response.data.message]);
+
+      setTimeout(() => {
+        setShowAlert(false);
+      }, 3000);
     }
   };
 
   return (
     <div>
-      {showAlert && (
-        <Alert type="success" message="You've Succesfully Send The Rating!" />
-      )}
+      {showAlert && <Alert type={alertInfos[0]} message={alertInfos[1]} />}
       {!isRatedExistent ? (
         <>
           <form>

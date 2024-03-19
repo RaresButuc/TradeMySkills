@@ -19,26 +19,27 @@ export default function AdDetail() {
   const auth = useAuthUser();
   const { id } = useParams();
 
-  const [showAlert, setShowAlert] = useState(false);
   const [adInfos, setAdInfos] = useState(null);
   const [adChange, setAdChange] = useState(true);
+  const [showAlert, setShowAlert] = useState(false);
   const [editOrSave, setEditOrSave] = useState(false);
-  const [showEditButtonOrNot, setShowEditButtonOrNot] = useState(false);
   const [buttonValue, setButtonValue] = useState("Edit Ad");
   const [charactersTextArea, setCharactersTextArea] = useState(0);
   const [countyChosenFullName, setCountyChosenFullName] = useState("");
+  const [showEditButtonOrNot, setShowEditButtonOrNot] = useState(false);
+
   const [apply, setApply] = useState(false);
-  const [applyButtonContent, setApplyButtonContent] = useState("Apply");
   const [loggedUser, setLoggedUser] = useState(null);
   const [isWorkerRefused, setIsWorkerRefused] = useState(false);
+  const [applyButtonContent, setApplyButtonContent] = useState("Apply");
 
-  const adTitleRef = useRef("");
-  const adDescriptionRef = useRef("");
-  const adTypeOfAdRef = useRef("");
-  const adPriceRef = useRef("");
-  const adCountyRef = useRef("");
   const adCityRef = useRef("");
+  const adTitleRef = useRef("");
+  const adPriceRef = useRef("");
   const adStatusRef = useRef("");
+  const adCountyRef = useRef("");
+  const adTypeOfAdRef = useRef("");
+  const adDescriptionRef = useRef("");
 
   const handleFinalised = async () => {
     setShowAlert(true);
@@ -135,7 +136,7 @@ export default function AdDetail() {
 
   useEffect(() => {
     setApply(adInfos?.worker === null ? false : true);
-    console.log("set apply useEfect " + apply);
+
     setApplyButtonContent(adInfos?.worker === null ? "Apply" : "Cancel Apply");
 
     const getAdById = async () => {
@@ -145,7 +146,7 @@ export default function AdDetail() {
         if (!isAdInfosEqualToData(adInfos, data)) {
           setAdInfos(data);
         }
-        setShowEditButtonOrNot(auth().email === data.owner.email);
+        setShowEditButtonOrNot(auth()?.email === data.owner.email);
       } catch (err) {
         console.log(err);
       }
@@ -177,7 +178,7 @@ export default function AdDetail() {
     getAdById();
     getUserByEmail();
     isWorkerRefused();
-  }, [adInfos, adChange]);
+  }, [adInfos, adChange, auth()?.email]);
 
   const colorDependingOnStatus = (status) => {
     switch (status) {

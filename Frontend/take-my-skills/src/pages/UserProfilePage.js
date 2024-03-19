@@ -3,28 +3,28 @@ import { useAuthUser } from "react-auth-kit";
 import { useParams } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
 
-import StarsRating from "../components/StarsRating";
-import DefaultURL from "../GlobalVariables";
-import ProfilePhoto from "../shared/ProfilePhoto";
-import { useNavigate } from "react-router-dom";
 import Alert from "../components/Alert";
+import DefaultURL from "../GlobalVariables";
+import { useNavigate } from "react-router-dom";
+import ProfilePhoto from "../shared/ProfilePhoto";
 import RatingCard from "../components/RatingCard";
+import StarsRating from "../components/StarsRating";
 
 export default function UserProfilePage() {
   const auth = useAuthUser();
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const [showAlert, setShowAlert] = useState(false);
-  const [alertInfos, setAlertInfos] = useState(["", ""]);
-  const [currentUser, setCurrentUser] = useState(null);
-  const [showEditButtonOrNot, setShowEditButtonOrNot] = useState(false);
   const [editOrSave, setEditOrSave] = useState(0);
+  const [showAlert, setShowAlert] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
+  const [alertInfos, setAlertInfos] = useState(["", ""]);
   const [buttonValue, setButtonValue] = useState("Edit Profile");
+  const [showEditButtonOrNot, setShowEditButtonOrNot] = useState(false);
 
   const userNameRef = useRef("");
-  const userPhoneNumberRef = useRef("");
   const userEmailRef = useRef("");
+  const userPhoneNumberRef = useRef("");
 
   const onSave = async () => {
     const editData = {
@@ -33,11 +33,14 @@ export default function UserProfilePage() {
       email: userEmailRef.current?.value,
     };
     try {
-      await axios.put(`${DefaultURL}/users/${currentUser?.id}`, editData);
+      const response = await axios.put(
+        `${DefaultURL}/users/${currentUser?.id}`,
+        editData
+      );
       fetchCurrentUser();
 
       setShowAlert(true);
-      setAlertInfos(["success", "Your profile was Succesfully Updated!"]);
+      setAlertInfos(["success", response.data]);
       setTimeout(() => {
         setShowAlert(false);
       }, 3000);
@@ -77,6 +80,7 @@ export default function UserProfilePage() {
       fetchCurrentUser();
     }
   }, [auth()?.email, id]);
+  
   return (
     <>
       {showAlert && <Alert type={alertInfos[0]} message={alertInfos[1]} />}

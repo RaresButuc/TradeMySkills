@@ -37,11 +37,13 @@ function Login() {
 
   const onSave = (e) => {
     e.preventDefault();
+
     const formData = new FormData(e.target);
     const authenticateData = {
       email: formData.get("email"),
       password: formData.get("password"),
     };
+    
     onSubmit(authenticateData);
   };
 

@@ -52,8 +52,10 @@ public class UserController {
 
 
     @PutMapping(value = "/{id}")
-    public void updateUserById(@PathVariable("id") Long id, @RequestBody User updatedUser) {
+    public ResponseEntity<String> updateUserById(@PathVariable("id") Long id, @RequestBody User updatedUser) {
         userService.updateUserById(id, updatedUser);
+
+        return ResponseEntity.ok("Your Profile Was Successfully Edited!");
     }
 
     @DeleteMapping(value = "/{id}")

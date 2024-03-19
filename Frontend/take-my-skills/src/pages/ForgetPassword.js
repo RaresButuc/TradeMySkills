@@ -23,13 +23,16 @@ export default function ForgetPassword() {
       setTimeout(() => {
         navigate("/");
       }, 3000);
+
       setShowAlert(true);
       setAlertInfos(["success", response.data]);
     } catch (err) {
-      if (err.response.status === 500) {
-        setShowAlert(true);
-        setAlertInfos(["danger", err.response.data.message]);
-      }
+      setShowAlert(true);
+      setAlertInfos(["danger", err.response.data.message]);
+
+      setTimeout(() => {
+        setShowAlert(false);
+      }, 3000);
     }
   };
 

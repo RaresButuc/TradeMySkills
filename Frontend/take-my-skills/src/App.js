@@ -58,7 +58,11 @@ function App() {
             <Route path="/:id/finalised" element={<FinalisedAds />} />
             <Route
               path="/ad/:id/rejectedworkers"
-              element={<RejectedWorkersPage />}
+              element={
+                <RequireAuth loginPath="/login">
+                  <RejectedWorkersPage />
+                </RequireAuth>
+              }
             />
             <Route
               path="/changepassword"

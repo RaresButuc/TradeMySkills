@@ -7,36 +7,34 @@ import DefaultURL from "../GlobalVariables";
 
 function Register() {
   const navigate = useNavigate();
-  const [error, setError] = useState("");
+  
   const [showAlert, setShowAlert] = useState(false);
   const [alertInfos, setAlertInfos] = useState(["", ""]);
 
   const onSubmit = async (values) => {
-    setError("");
-
     try {
-      const response = await axios.post(`${DefaultURL}/users/register`, values);
+      await axios.post(`${DefaultURL}/users/register`, values);
 
-      if (response.data !== "") {
-        setTimeout(() => {
-          navigate("/login");
-        }, 3000);
-        setShowAlert(true);
-        setAlertInfos(["success", "You have been Succesfully Registered!"]);
-        console.log(values.email);
-        await axios.post(`${DefaultURL}/mail/send/${values.email}`, {
-          subject: "Registration",
-          message: `Congratulation ${
-            values.name
-          } ! You are now a ${values.role.substring(5)} on TradeMySkills.com.`,
-        });
-      } else {
-        setShowAlert(true);
-        setAlertInfos(["danger", "Email or UserName  Already Registered!"]);
-      }
+      setShowAlert(true);
+      setAlertInfos(["success", "You've been Successfully Registered!"]);
+
+      await axios.post(`${DefaultURL}/mail/send/${values.email}`, {
+        subject: "Registration",
+        message: `Congratulation ${
+          values.name
+        } ! You are now a ${values.role.substring(5)} on TradeMySkills.com.`,
+      });
+
+      setTimeout(() => {
+        navigate("/login");
+      }, 3000);
     } catch (err) {
-      if (err instanceof AxiosError) setError(err.response?.data.message);
-      else if (err instanceof Error) setError(err.message);
+      setShowAlert(true);
+      setAlertInfos(["danger", err.response.data.message]);
+
+      setTimeout(() => {
+        setShowAlert(false);
+      }, 3000);
     }
   };
 
