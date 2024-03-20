@@ -11,6 +11,7 @@ import RatingCard from "../components/RatingCard";
 import StarsRating from "../components/StarsRating";
 
 export default function UserProfilePage() {
+  const ratingsPerPage = 4;
   const auth = useAuthUser();
   const { id } = useParams();
   const navigate = useNavigate();
@@ -20,11 +21,27 @@ export default function UserProfilePage() {
   const [currentUser, setCurrentUser] = useState(null);
   const [alertInfos, setAlertInfos] = useState(["", ""]);
   const [buttonValue, setButtonValue] = useState("Edit Profile");
+  const [isLast, setIsLast] = useState(false);
   const [showEditButtonOrNot, setShowEditButtonOrNot] = useState(false);
+  const [curentPage, setCurrentPage] = useState(0);
+  const [ratings, setRatings] = useState(null);
+  const [buttonContent, setButtonContent] = useState("See More Ratings");
 
   const userNameRef = useRef("");
   const userEmailRef = useRef("");
   const userPhoneNumberRef = useRef("");
+
+  const handleSeeMore = () => {
+    if (!isLast) {
+      setCurrentPage(curentPage + 1);
+    } else {
+      setCurrentPage(0);
+      setRatings(null);
+      setButtonContent("See More Ratings");
+      setIsLast(false);
+      console.log("intra");
+    }
+  };
 
   const onSave = async () => {
     const editData = {
@@ -75,12 +92,36 @@ export default function UserProfilePage() {
     }
   };
 
+  const fetchRatings = async () => {
+    try {
+      const response = await axios.get(
+        `${DefaultURL}/ratings/getRatingsByUser/${curentPage}/${ratingsPerPage}/${id}`
+      );
+
+      const data = response.data;
+      console.log(data);
+      if (data.last) {
+        setIsLast(true);
+        setButtonContent("See Less Ratings");
+      }
+
+      if (ratings === null) {
+        setRatings(data.content);
+      } else {
+        setRatings([...ratings, ...data.content]);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   useEffect(() => {
     if (id) {
       fetchCurrentUser();
+      fetchRatings();
     }
-  }, [auth()?.email, id]);
-  
+  }, [auth()?.email, id, curentPage]);
+
   return (
     <>
       {showAlert && <Alert type={alertInfos[0]} message={alertInfos[1]} />}
@@ -223,20 +264,25 @@ export default function UserProfilePage() {
       </section>
       <div className="container xl">
         <div className="row ">
-          <RatingCard />
-          <RatingCard />
-          <RatingCard />
-          <RatingCard />
+          {ratings &&
+            ratings?.map((e) => (
+              <RatingCard
+                userId={e.from.id}
+                userName={e.from.name}
+                rating={e}
+              />
+            ))}
         </div>
         <div className="row">
           <button
+            onClick={() => handleSeeMore()}
             style={{
               backgroundColor: "transparent",
               borderColor: "transparent",
             }}
             className="mt-4"
           >
-            <hr class="hr-text" data-content=" See More Ratings"></hr>
+            <hr class="hr-text" data-content={buttonContent}></hr>
           </button>
         </div>
       </div>
