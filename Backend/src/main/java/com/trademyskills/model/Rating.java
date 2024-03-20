@@ -1,6 +1,7 @@
 package com.trademyskills.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
 
@@ -19,6 +20,8 @@ public class Rating {
 
     private Double star;
 
+    @NotNull
+    @NotBlank
     private String comment;
 
     @ManyToOne

@@ -130,7 +130,7 @@ export default function RatingPage() {
                         htmlFor="Comment"
                         className="form-label fw-bold text-decoration-underline"
                       >
-                        Write a short opinion (optional)
+                        Write a short opinion!
                       </label>
                       <textarea
                         className="form-control mb-4"
@@ -138,6 +138,7 @@ export default function RatingPage() {
                         maxLength={250}
                         style={{ height: 150 }}
                         onChange={(e) => setComment(e.target.value)}
+                        required
                       />
                       <button
                         type="submit"
