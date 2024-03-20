@@ -20,6 +20,11 @@ public class RatingController {
         return ratingService.getAllRatings();
     }
 
+    @GetMapping("allRatingByUserId/{id}")
+    public List<Rating> findRatingsByUserId(@PathVariable("id") Long id){
+        return ratingService.getAllRatingForUser(id);
+    }
+
     @PostMapping
     public ResponseEntity<String> addRating(@RequestBody Rating rating) {
         ratingService.addRating(rating);
