@@ -5,6 +5,7 @@ import com.trademyskills.model.User;
 import com.trademyskills.repository.RatingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -25,13 +26,15 @@ public class RatingService {
     public List<Rating> getAllRatingForUser(Long id){
         return ratingRepository.findAllByTo_Id(id);
     }
-    public Page<Rating> GetUserRatings(int currentPage, int itemsPerPage){
+    public Page<Rating> GetUserRatings(int currentPage, int itemsPerPage, Long userId){
         PageRequest pageRequest = PageRequest.of(currentPage, itemsPerPage);
+        List<Rating> allRatingForUser = getAllRatingForUser(userId);
 
-//        List<Ad> sublist = getAllRatings().subList(
-//                (int) pageRequest.getOffset(),
-//                Math.min((int) pageRequest.getOffset() + pageRequest.getPageSize(), getAllRatings().size());
-                return null;
+        List<Rating> sublist = allRatingForUser.subList(
+                (int) pageRequest.getOffset(),
+                Math.min((int) pageRequest.getOffset() + pageRequest.getPageSize(), allRatingForUser.size()));
+
+        return new PageImpl<>(sublist, pageRequest, allRatingForUser.size());
     }
 
 

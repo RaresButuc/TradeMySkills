@@ -3,6 +3,7 @@ package com.trademyskills.controller;
 import com.trademyskills.model.Rating;
 import com.trademyskills.service.RatingService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,10 +21,12 @@ public class RatingController {
         return ratingService.getAllRatings();
     }
 
-    @GetMapping("allRatingByUserId/{id}")
-    public List<Rating> findRatingsByUserId(@PathVariable("id") Long id){
-        return ratingService.getAllRatingForUser(id);
+    @GetMapping("/getRatingsByUser/{currentPage}/{itemsPerPage}/{userId}")
+    public Page<Rating> getRatingForUser( @PathVariable(name = "currentPage") int currentPage, @PathVariable(name = "itemsPerPage") int itemsPerPage, @PathVariable(name = "userId") Long userId) {
+       return ratingService.GetUserRatings(currentPage,itemsPerPage,userId);
     }
+
+
 
     @PostMapping
     public ResponseEntity<String> addRating(@RequestBody Rating rating) {
