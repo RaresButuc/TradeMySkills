@@ -923,3 +923,8 @@ textarea {
     background-color: #fcfcfa;
   }
 }
+
+.leaflet-container {
+  width: 400px;
+  height: 200px;
+}

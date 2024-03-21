@@ -12,6 +12,7 @@
     "react": "^18.2.0",
     "react-auth-kit": "^2.12.7",
     "react-dom": "^18.2.0",
+    "react-leaflet": "^4.2.1",
     "react-paginate": "^8.2.0",
     "react-rating-stars-component": "^2.2.0",
     "react-router-dom": "6.4",

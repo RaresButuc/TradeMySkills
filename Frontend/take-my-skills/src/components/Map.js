@@ -1,16 +1,25 @@
-export default function Map({ lat, lon }) {
-  
-  const generateMapURL = () => {
-    return `https://www.bing.com/maps/embed/viewer.aspx?v=3&cp=${lat}~${lon}&lvl=12&w=400&h=200&credentials=AtF5j2AdfXHCqsoqmusG2zXRg7bFR63MIkoMe2EsRAgYfeslufM4-NNWkrfPmywu&form=BMEMJS`;
-  };
+import { MapContainer, TileLayer } from "react-leaflet";
+import { useState, useEffect } from "react";
+import "leaflet/dist/leaflet.css";
 
+export default function Map({ lat, lon }) {
+  const [mapReady, setMapReady] = useState(false);
+
+  useEffect(() => {
+    if (lat !== undefined && lon !== undefined) {
+      setMapReady(true);
+    }
+  }, [lat, lon]);
   return (
-    <iframe
-      className="mb-3 "
-      width="400"
-      height="200"
-      src={generateMapURL()}
-      frameborder="0"
-    />
+    <>
+      {mapReady && (
+        <MapContainer center={[lat, lon]} zoom={13} scrollWheelZoom={false}>
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+        </MapContainer>
+      )}
+    </>
   );
 }
