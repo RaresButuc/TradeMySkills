@@ -9,7 +9,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -53,9 +52,9 @@ public class AdController {
         return ResponseEntity.ok("Tha Status Of The Ad Was Successfully Updated!");
     }
 
-    @PutMapping("/{typeOfAction}/{id}/{nameOfWorker}")
-    public ResponseEntity<String> deleteOrAddWorker(@PathVariable("typeOfAction") String typeOfAction, @PathVariable("id") Long id, @PathVariable("nameOfWorker") String nameOfWorker) {
-        adService.addOrDeleteWorker(nameOfWorker, id, typeOfAction);
+    @PutMapping("/{typeOfAction}/{id}/{idOfWorker}")
+    public ResponseEntity<String> deleteOrAddWorker(@PathVariable("typeOfAction") String typeOfAction, @PathVariable("id") Long id, @PathVariable("idOfWorker") Long idOfWorker) {
+      String nameOfWorker =  adService.addOrDeleteWorker(idOfWorker, id, typeOfAction);
 
         String message = typeOfAction.equals("add") ?
                 "Congratulations! " + nameOfWorker + " Was Successfully Set As A Worker For Your Ad!" :
@@ -71,9 +70,9 @@ public class AdController {
         return ResponseEntity.ok(nameOfWorker + "'s `Rejected` Status Was Removed!");
     }
 
-    @GetMapping("/rejected/{id}/{nameOfWorker}")
-    public boolean isWorkerRejected(@PathVariable("id") Long id, @PathVariable("nameOfWorker") String nameOfWorker) {
-        return adService.isThereAWorkerInsideRejectAd(nameOfWorker, id);
+    @GetMapping("/rejected/{id}/{idOfUser}")
+    public boolean isWorkerRejected(@PathVariable("id") Long id, @PathVariable("idOfUser") Long idOfUser) {
+        return adService.isThereAWorkerInsideRejectAd(idOfUser, id);
     }
 
     @GetMapping("/rejected/workers/{id}")

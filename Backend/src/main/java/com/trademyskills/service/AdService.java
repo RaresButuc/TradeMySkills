@@ -13,13 +13,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.security.Principal;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
@@ -67,8 +65,8 @@ public class AdService {
     }
 
 
-    public void addOrDeleteWorker(String name, Long idOfAd, String typeOfAction) {
-        User workerUser = userRepository.findByName(name).orElseThrow(() -> new NoSuchElementException("No User Found!"));
+    public String addOrDeleteWorker(Long idOfUser, Long idOfAd, String typeOfAction) {
+        User workerUser = userRepository.findById(idOfUser).orElseThrow(() -> new NoSuchElementException("No User Found!"));
         Ad currentAd = adRepository.findById(idOfAd).orElseThrow(() -> new NoSuchElementException("No Ad Found!"));
 
         if (workerUser.getRole() == Role.ROLE_WORKER) {
@@ -80,7 +78,7 @@ public class AdService {
                 case "delete" -> {
                     currentAd.setWorker(null);
                     currentAd.setStatusOfAd(StatusOfAd.ACTIVE);
-                    if (!isThereAWorkerInsideRejectAd(name, idOfAd)) {
+                    if (!isThereAWorkerInsideRejectAd(idOfUser, idOfAd)) {
                         currentAd.getRejectedWorkers().add(workerUser);
                     }
                 }
@@ -88,10 +86,11 @@ public class AdService {
             }
             adRepository.save(currentAd);
         }
+        return workerUser.getName();
     }
 
-    public boolean isThereAWorkerInsideRejectAd(String name, Long idOfAd) {
-        User workerUser = userRepository.findByName(name).orElseThrow(() -> new NoSuchElementException("No User Found!"));
+    public boolean isThereAWorkerInsideRejectAd(Long idOfUser , Long idOfAd) {
+        User workerUser = userRepository.findById(idOfUser).orElseThrow(() -> new NoSuchElementException("No User Found!"));
         Ad currentAd = adRepository.findById(idOfAd).orElseThrow(() -> new NoSuchElementException("No Ad Found!"));
 
         return currentAd.getRejectedWorkers().contains(workerUser);
