@@ -269,7 +269,7 @@ public class AdService {
             adFromDb.setTitle(adUpdater.getTitle());
             adFromDb.setDescription(adUpdater.getDescription());
             adFromDb.setPrice(adUpdater.getPrice());
-            adFromDb.setLocation(createLocationWothCoordonates(adUpdater.getLocation().getNameOfTheCity(), adUpdater.getLocation().getNameOfTheCounty()));
+            adFromDb.setLocation(createLocationWithCoordonates(adUpdater.getLocation().getNameOfTheCity(), adUpdater.getLocation().getNameOfTheCounty()));
             adFromDb.setTypeOfAd(adUpdater.getTypeOfAd());
 
             adRepository.save(adFromDb);
