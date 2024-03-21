@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useAuthUser } from "react-auth-kit";
+import { useAuthHeader } from "react-auth-kit";
 import { useParams } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
 
@@ -27,10 +28,13 @@ export default function UserProfilePage() {
   const [buttonValue, setButtonValue] = useState("Edit Profile");
   const [showEditButtonOrNot, setShowEditButtonOrNot] = useState(false);
   const [buttonContent, setButtonContent] = useState("See More Ratings");
+  const token = useAuthHeader();
 
   const userNameRef = useRef("");
   const userEmailRef = useRef("");
   const userPhoneNumberRef = useRef("");
+
+  console.log(ratings?.length);
 
   const handleSeeMore = () => {
     if (!isLast) {
@@ -45,16 +49,16 @@ export default function UserProfilePage() {
   };
 
   const onSave = async () => {
+    const headers = { Authorization: token() };
     const editData = {
       name: userNameRef.current?.value,
       phoneNumber: userPhoneNumberRef.current?.value,
       email: userEmailRef.current?.value,
     };
     try {
-      const response = await axios.put(
-        `${DefaultURL}/users/${currentUser?.id}`,
-        editData
-      );
+      const response = await axios.put(`${DefaultURL}/users/update`, editData, {
+        headers,
+      });
       fetchCurrentUser();
 
       setShowAlert(true);
@@ -274,18 +278,23 @@ export default function UserProfilePage() {
               />
             ))}
         </div>
-        <div className="row">
-          <button
-            onClick={() => handleSeeMore()}
-            style={{
-              backgroundColor: "transparent",
-              borderColor: "transparent",
-            }}
-            className="mt-4"
-          >
-            <hr class="hr-text" data-content={buttonContent}></hr>
-          </button>
-        </div>
+        {ratings && ratings?.length >= 4 ? (
+          <div className="row">
+            <button
+              onClick={() => handleSeeMore()}
+              style={{
+                backgroundColor: "transparent",
+                borderColor: "transparent",
+              }}
+              className="mt-4"
+            >
+              <hr className="hr-text" data-content={buttonContent}></hr>
+            </button>
+          </div>
+        ) : null}
+        {ratings?.length === 0 ? (
+          <h2>This User Does Not Have Any Ratings.</h2>
+        ) : null}
       </div>
     </>
   );

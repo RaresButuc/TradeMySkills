@@ -6,6 +6,8 @@ import com.trademyskills.repository.ChangePasswordLinkRepository;
 import com.trademyskills.repository.UserRepository;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -33,8 +35,10 @@ public class UserService {
         return userRepository.findById(id).orElseThrow(() -> new NoSuchElementException("No User Found!"));
     }
 
-    public void updateUserById(Long id, User updatedUser) {
-        User userFromDb = userRepository.findById(id).orElseThrow(() -> new NoSuchElementException("No User Found!"));
+    public void updateUserById( User updatedUser) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        User userFromDb = (User) auth.getPrincipal();
 
         if (updatedUser.getEmail() != null &&
                 updatedUser.getName() != null &&

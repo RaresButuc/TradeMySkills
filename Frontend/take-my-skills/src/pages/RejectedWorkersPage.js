@@ -26,7 +26,6 @@ export default function RejectedWorkersPage() {
       try {
         const response = await axios.get(
           `${DefaultURL}/ads/rejected/workers/${id}`,
-
           { headers }
         );
         const data = response.data;
