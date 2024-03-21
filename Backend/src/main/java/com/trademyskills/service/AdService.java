@@ -97,12 +97,13 @@ public class AdService {
     }
 
     //to-do change find by name with find by email.
-    public void deleteWorkerFromRejected(String name, Long idOfAd) {
-        User workerUser = userRepository.findByName(name).orElseThrow(() -> new NoSuchElementException("No User Found!"));
+    public String deleteWorkerFromRejected(Long idOfUser , Long idOfAd) {
+        User workerUser = userRepository.findById(idOfUser).orElseThrow(() -> new NoSuchElementException("No User Found!"));
         Ad currentAd = adRepository.findById(idOfAd).orElseThrow(() -> new NoSuchElementException("No Ad Found!"));
 
         currentAd.getRejectedWorkers().remove(workerUser);
         adRepository.save(currentAd);
+        return  workerUser.getName();
     }
 
     public Ad getAdById(Long id) {
@@ -313,7 +314,7 @@ public class AdService {
     }
 
 
-    private LocationOfAd createLocationWothCoordonates(String city, String county) {
+    private LocationOfAd createLocationWithCoordonates(String city, String county) {
         String apiUrl = "https://geocode.maps.co/search?city=" + city + "&county=" + county + "&country=Romania";
         JsonNode response = restTemplate.getForObject(apiUrl, JsonNode.class);
 

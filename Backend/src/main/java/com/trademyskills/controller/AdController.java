@@ -63,9 +63,9 @@ public class AdController {
         return ResponseEntity.ok(message);
     }
 
-    @PutMapping("/rejected/remove/{id}/{nameOfWorker}")
-    public ResponseEntity<String> deleteWorkerRejectedStatus(@PathVariable("id") Long id, @PathVariable("nameOfWorker") String nameOfWorker) {
-        adService.deleteWorkerFromRejected(nameOfWorker, id);
+    @PutMapping("/rejected/remove/{id}/{idOfUser}")
+    public ResponseEntity<String> deleteWorkerRejectedStatus(@PathVariable("id") Long id, @PathVariable("idOfUser") Long idOfUser) {
+       String nameOfWorker =  adService.deleteWorkerFromRejected(idOfUser, id);
 
         return ResponseEntity.ok(nameOfWorker + "'s `Rejected` Status Was Removed!");
     }
