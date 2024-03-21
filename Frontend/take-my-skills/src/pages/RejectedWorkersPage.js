@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useAuthHeader } from "react-auth-kit";
 import { useParams, useNavigate } from "react-router-dom";
 
 import Alert from "../components/Alert";
@@ -8,6 +9,8 @@ import ProfilePhoto from "../shared/ProfilePhoto";
 
 export default function RejectedWorkersPage() {
   const { id } = useParams();
+  const token = useAuthHeader();
+  console.log(token());
   const navigate = useNavigate();
 
   const [showAlert, setShowAlert] = useState(false);
@@ -18,14 +21,18 @@ export default function RejectedWorkersPage() {
 
   useEffect(() => {
     const getRejectedWorkers = async () => {
+      const headers = { Authorization: token() };
+
       try {
         const response = await axios.get(
-          `${DefaultURL}/ads/rejected/workers/${id}`
+          `${DefaultURL}/ads/rejected/workers/${id}`,
+
+          { headers }
         );
         const data = response.data;
         setRejectedWorkers(data);
       } catch (err) {
-        navigate("err");
+        navigate("/err");
       }
     };
 
@@ -40,7 +47,7 @@ export default function RejectedWorkersPage() {
 
     getAdById();
     getRejectedWorkers();
-  }, [deletedWorkerName]);
+  }, [deletedWorkerName, token()]);
 
   const deleteRejectedWorkerButton = async (idOfAd, worker) => {
     try {

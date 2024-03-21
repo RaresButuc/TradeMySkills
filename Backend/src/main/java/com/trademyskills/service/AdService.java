@@ -13,11 +13,16 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -92,7 +97,7 @@ public class AdService {
         return currentAd.getRejectedWorkers().contains(workerUser);
     }
 
-//to-do change find by name with find by email.
+    //to-do change find by name with find by email.
     public void deleteWorkerFromRejected(String name, Long idOfAd) {
         User workerUser = userRepository.findByName(name).orElseThrow(() -> new NoSuchElementException("No User Found!"));
         Ad currentAd = adRepository.findById(idOfAd).orElseThrow(() -> new NoSuchElementException("No Ad Found!"));
@@ -296,7 +301,16 @@ public class AdService {
     }
 
     public List<User> getRejectedWorkers(Long id) {
-        return getAdById(id).getRejectedWorkers();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        User user = (User) auth.getPrincipal();
+        Ad currentAd = getAdById(id);
+
+        if (!Objects.equals(currentAd.getOwner().getId(), user.getId())) {
+            throw new IllegalStateException("Only The Owner Of The Ad Can View The Rejected Workers Of This Ad!");
+        }
+
+        return currentAd.getRejectedWorkers();
     }
 
 

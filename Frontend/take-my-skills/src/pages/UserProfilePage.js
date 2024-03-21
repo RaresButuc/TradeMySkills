@@ -12,19 +12,20 @@ import StarsRating from "../components/StarsRating";
 
 export default function UserProfilePage() {
   const ratingsPerPage = 4;
+
   const auth = useAuthUser();
   const { id } = useParams();
   const navigate = useNavigate();
 
+  const [isLast, setIsLast] = useState(false);
+  const [ratings, setRatings] = useState(null);
   const [editOrSave, setEditOrSave] = useState(0);
+  const [curentPage, setCurrentPage] = useState(0);
   const [showAlert, setShowAlert] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const [alertInfos, setAlertInfos] = useState(["", ""]);
   const [buttonValue, setButtonValue] = useState("Edit Profile");
-  const [isLast, setIsLast] = useState(false);
   const [showEditButtonOrNot, setShowEditButtonOrNot] = useState(false);
-  const [curentPage, setCurrentPage] = useState(0);
-  const [ratings, setRatings] = useState(null);
   const [buttonContent, setButtonContent] = useState("See More Ratings");
 
   const userNameRef = useRef("");
