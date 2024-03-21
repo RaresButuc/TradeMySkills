@@ -51,7 +51,7 @@ public class AdService {
 
     public Long addAd(Ad ad) {
         if (areAllFieldsNonNullOrEmpty(ad)) {
-            LocationOfAd location = createLocationWothCoordonates(ad.getLocation().getNameOfTheCity(), ad.getLocation().getNameOfTheCounty());
+            LocationOfAd location = createLocationWithCoordonates(ad.getLocation().getNameOfTheCity(), ad.getLocation().getNameOfTheCounty());
 
             ad.setLocation(location);
             ad.setStatusOfAd(StatusOfAd.ACTIVE);

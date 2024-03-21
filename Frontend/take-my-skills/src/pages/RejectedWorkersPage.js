@@ -56,7 +56,7 @@ export default function RejectedWorkersPage() {
         message: `Hello ${worker.name}! The owner of the ad ${currentAdTitle} gave you permission to apply again any time.`,
       });
       const response = await axios.put(
-        `${DefaultURL}/ads/rejected/remove/${idOfAd}/${worker.name}`,
+        `${DefaultURL}/ads/rejected/remove/${idOfAd}/${worker.id}`,
         {}
       );
       setDeletedWorkerName(worker.name);

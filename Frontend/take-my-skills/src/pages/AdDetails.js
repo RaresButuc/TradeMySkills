@@ -55,7 +55,7 @@ export default function AdDetail() {
     console.log("handleApply");
     if (!apply) {
       try {
-        await axios.put(`${DefaultURL}/ads/add/${id}/${loggedUser?.name}`);
+        await axios.put(`${DefaultURL}/ads/add/${id}/${loggedUser?.id}`);
         setApply(true);
         setApplyButtonContent("Cancel Apply");
         setAdInfos(null);
@@ -64,7 +64,7 @@ export default function AdDetail() {
       }
     } else {
       try {
-        await axios.put(`${DefaultURL}/ads/delete/${id}/${loggedUser?.name}`);
+        await axios.put(`${DefaultURL}/ads/delete/${id}/${loggedUser?.id}`);
         setApply(false);
         setAdInfos(null);
         setApplyButtonContent("Apply");
@@ -80,7 +80,7 @@ export default function AdDetail() {
         subject: "Rejected from Ad",
         message: `Hello ${adInfos?.worker.name}! Unfortunately you have been kicked from ${adInfos?.title}. For more informations contact owner.`,
       });
-      await axios.put(`${DefaultURL}/ads/delete/${id}/${adInfos?.worker.name}`);
+      await axios.put(`${DefaultURL}/ads/delete/${id}/${adInfos?.worker.id}`);
       setAdChange(!adChange);
     } catch (err) {
       console.log(err);
