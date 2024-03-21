@@ -121,7 +121,7 @@ export default function UserProfilePage() {
 
   useEffect(() => {
     if (auth() === null) {
-      setEditOrSave(!auth() === null);
+      setEditOrSave(0);
     }
 
     if (id) {
