@@ -1,8 +1,7 @@
 import axios from "axios";
-import { useAuthUser } from "react-auth-kit";
-import { useAuthHeader } from "react-auth-kit";
 import { useParams } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
+import { useAuthUser, useAuthHeader } from "react-auth-kit";
 
 import Alert from "../components/Alert";
 import DefaultURL from "../GlobalVariables";
@@ -16,6 +15,7 @@ export default function UserProfilePage() {
 
   const auth = useAuthUser();
   const { id } = useParams();
+  const token = useAuthHeader();
   const navigate = useNavigate();
 
   const [isLast, setIsLast] = useState(false);
@@ -28,7 +28,6 @@ export default function UserProfilePage() {
   const [buttonValue, setButtonValue] = useState("Edit Profile");
   const [showEditButtonOrNot, setShowEditButtonOrNot] = useState(false);
   const [buttonContent, setButtonContent] = useState("See More Ratings");
-  const token = useAuthHeader();
 
   const userNameRef = useRef("");
   const userEmailRef = useRef("");
@@ -121,11 +120,13 @@ export default function UserProfilePage() {
   };
 
   useEffect(() => {
+    setEditOrSave(!auth() === null);
+
     if (id) {
       fetchCurrentUser();
       fetchRatings();
     }
-  }, [auth()?.email, id, curentPage]);
+  }, [auth(), id, curentPage]);
 
   return (
     <>

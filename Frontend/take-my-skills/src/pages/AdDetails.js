@@ -139,6 +139,8 @@ export default function AdDetail() {
 
     setApplyButtonContent(adInfos?.worker === null ? "Apply" : "Cancel Apply");
 
+    setEditOrSave(!auth() === null);
+
     const getAdById = async () => {
       try {
         const response = await axios.get(`${DefaultURL}/ads/${id}`);
@@ -178,7 +180,7 @@ export default function AdDetail() {
     getAdById();
     getUserByEmail();
     isWorkerRefused();
-  }, [adInfos, adChange, auth()?.email]);
+  }, [adInfos, adChange, auth()]);
 
   const colorDependingOnStatus = (status) => {
     switch (status) {
