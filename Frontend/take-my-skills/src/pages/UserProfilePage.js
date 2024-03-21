@@ -120,7 +120,9 @@ export default function UserProfilePage() {
   };
 
   useEffect(() => {
-    setEditOrSave(!auth() === null);
+    if (auth() === null) {
+      setEditOrSave(!auth() === null);
+    }
 
     if (id) {
       fetchCurrentUser();
