@@ -201,7 +201,7 @@ public class AdService {
     public Page<Ad> getAllAdsByCategFilterOrInput(String typeofcategory, String typeOfSort, String input, int currentPage, int itemsPerPage) {
         PageRequest pageRequest = PageRequest.of(currentPage, itemsPerPage);
         List<Ad> filteredAds;
-
+//todo replace "null" with NULL (Change front end link + remove key)
         if (typeofcategory.equals("null")) {
             if (typeOfSort.equals("null")) {
                 if (input.equals("null")) {

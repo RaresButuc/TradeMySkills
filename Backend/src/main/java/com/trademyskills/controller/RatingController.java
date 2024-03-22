@@ -23,7 +23,7 @@ public class RatingController {
 
     @GetMapping("/getRatingsByUser/{currentPage}/{itemsPerPage}/{userId}")
     public Page<Rating> getRatingForUser( @PathVariable(name = "currentPage") int currentPage, @PathVariable(name = "itemsPerPage") int itemsPerPage, @PathVariable(name = "userId") Long userId) {
-       return ratingService.GetUserRatings(currentPage,itemsPerPage,userId);
+       return ratingService.getUserRatings(currentPage,itemsPerPage,userId);
     }
 
 
