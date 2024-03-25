@@ -26,6 +26,7 @@ public class RatingService {
     public List<Rating> getAllRatingForUser(Long id){
         return ratingRepository.findAllByTo_Id(id);
     }
+
     public Page<Rating> getUserRatings(int currentPage, int itemsPerPage, Long userId){
         PageRequest pageRequest = PageRequest.of(currentPage, itemsPerPage);
         List<Rating> allRatingForUser = getAllRatingForUser(userId);

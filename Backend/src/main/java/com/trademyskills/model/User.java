@@ -2,6 +2,8 @@ package com.trademyskills.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.trademyskills.enums.Role;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import jakarta.persistence.*;
@@ -25,15 +27,25 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
+    @NotBlank
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @NotNull
+    @NotBlank
     private String name;
 
+    @NotNull
+    @NotBlank
     private String email;
 
+    @NotNull
+    @NotBlank
     private String password;
 
+    @NotNull
+    @NotBlank
     private String phoneNumber;
 
     @JsonIgnore

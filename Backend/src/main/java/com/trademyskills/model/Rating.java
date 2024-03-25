@@ -24,8 +24,13 @@ public class Rating {
     @NotBlank
     private String comment;
 
+    @NotNull
+    @NotBlank
     @ManyToOne
     private User from;
+
+    @NotNull
+    @NotBlank
     @ManyToOne
     private User to;
 }
